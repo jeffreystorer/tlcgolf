@@ -1,5 +1,4 @@
-//8/9 18:25 Next steps: retreive all user data instead of just players 
-//need games to set table headers
+//8/10 12:50 Next steps:
 //Then swith over to new style of tables with updates saved to firebase
 //Add game and course selectors
 //create main table
@@ -10,7 +9,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import fire from './fire';
 
 function FGTable () {
-  const [myFollowedGolfers, setFollowedGolfers] = useState([]);
+  const [myPlayers, setPlayers] = useState([]);
+  const [myGames, setGames] = useState([]);
   //const [myGHINNumber, setMyGHINNumber] = useState('0585871');
   //setMyGHINNumber('5891112');
   localStorage.setItem('lsGHINNumber', '0585871');
@@ -23,11 +23,13 @@ function FGTable () {
     //console.log('snapshot.val: ' + JSON.stringify(myStoredData));
     //let myFirstGHINNumber = myStoredData["0585871"].players[0].ghinnumber;
     ///console.log('myFirstGHINNumber: ' + myFirstGHINNumber);
-    setFollowedGolfers(myStoredData[localStorage.getItem('lsGHINNumber')].players);
+    setGames(myStoredData[localStorage.getItem('lsGHINNumber')].games);
+    setPlayers(myStoredData[localStorage.getItem('lsGHINNumber')].players);
     //setFollowedGolfers(JSON.stringify(snapshot.val()));
     //setFollowedGolfers(JSON.parse(myFollowedGolfers));
     //console.log(myFollowedGolfers);
-    //alert(myFollowedGolfers);
+    //alert('myGames: ' + myGames);
+    //alert('myPlayers: ' + myPlayers);
   });
     return () => {
      //cleanup
@@ -39,13 +41,12 @@ function FGTable () {
     var myRef = '/data/0585871';
    var myData = database.ref(myRef)
      myData.set({
-      groups : [ "Monday", 'Tuesday',"Wednesday", "Friday", "Saturday"],
+      games : [ "Monday", "Wednesday", "Friday", "Saturday"],
       players : [ {
         0 : "yes",
         1 : "yes",
         2 : "yes",
-        3 :  'yes',
-        4 : 'no',
+        3 : 'no',
         firstname : "",
         gender : "",
         ghinnumber : "5891112",
@@ -53,10 +54,9 @@ function FGTable () {
         lastname : "Lieberman"
       }, {
         0 : "yes",
-        1 : "no",
+        1 : 'yes',
         2 : "yes",
-        3 : 'yes',
-        4 : 'yes',
+        3 : 'no',
         firstname : "",
         gender : "",
         ghinnumber : "0585871",
@@ -70,38 +70,23 @@ function FGTable () {
   //let playerCount = Object.keys(myFollowedGolfers).length;
   //alert("players: " + playerCount);
 
-   const columns = [{
+   let columns = [{
     dataField: 'ghinnumber',
     text: 'GHIN Number'
   }, {
     dataField: 'lastname',
     text: 'Last Name'
-  }, {
-      dataField: '0',
-      text: 'Monday'
-  },{
-      dataField: '1',
-      text: 'Wednesday'
-  },{
-      dataField: '2',
-      text: 'Friday'
-  },{
-      dataField: '3',
-      text: 'Saturday'
-  },{
-      dataField: '4',
-      text: '--'
-  },{
-      dataField: '5',
-      text: '--'
-  },{
-      dataField: '6',
-      text: '--'
-  }
-  ];
+  }]
+  let i;
+  for (i=0; i < myGames.length; i++ ) {
+    let newColumn;
+    newColumn = {dataField: i, text: myGames[i]}
+    columns = [...columns, newColumn];
+    //alert('columns: ' + JSON.stringify(columns));
+  };
 
   return (
-    <BootstrapTable keyField='ghinnumber' data={ myFollowedGolfers } columns={ columns } />   
+    <BootstrapTable keyField='ghinnumber' data={ myPlayers } columns={ columns } />   
   )
 
 }
