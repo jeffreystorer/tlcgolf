@@ -13,62 +13,52 @@ function FGTable () {
   const [myGames, setGames] = useState([]);
   //const [myGHINNumber, setMyGHINNumber] = useState('0585871');
   //setMyGHINNumber('5891112');
-  localStorage.setItem('lsGHINNumber', '0585871');
+  //localStorage.setItem('lsGHINNumber', '0585871');
 
   useEffect(() => {
   const database = fire.database();
-  const myData = database.ref('/data/');  // ('/data/0585871/players/');
+  const myRef = '/data/' + localStorage.getItem('lsGHINNumber');
+  const myData = database.ref(myRef);
   myData.on('value', function(snapshot) { 
-    let myStoredData = snapshot.val();
-    //console.log('snapshot.val: ' + JSON.stringify(myStoredData));
-    //let myFirstGHINNumber = myStoredData["0585871"].players[0].ghinnumber;
-    ///console.log('myFirstGHINNumber: ' + myFirstGHINNumber);
-    setGames(myStoredData[localStorage.getItem('lsGHINNumber')].games);
-    setPlayers(myStoredData[localStorage.getItem('lsGHINNumber')].players);
-    //setFollowedGolfers(JSON.stringify(snapshot.val()));
-    //setFollowedGolfers(JSON.parse(myFollowedGolfers));
-    //console.log(myFollowedGolfers);
-    //alert('myGames: ' + myGames);
-    //alert('myPlayers: ' + myPlayers);
+    let myPlayerTable = snapshot.val();
+    if (myPlayerTable !== null){
+      localStorage.setItem('lsPlayerTable', JSON.stringify(myPlayerTable));
+      setGames(localStorage.getItem('lsPlayerTable')[0].slice(2));
+      setPlayers(localStorage.getItem('lsPlayerTable').slice(1));
+    }
   });
     return () => {
      //cleanup
     }
   }, [])
 
- function setPlayerData(userGHINNumber){
+
+  if (localStorage.getItem('lsPlayerTable') !== null){
+    setPlayerData();
+   }
+    function setPlayerData(){
+      const myPlayerRecords = JSON.parse(localStorage.getItem('lsPlayerTable'));
+      let rowCount = myPlayerRecords.length;
+      let colCount = myPlayerRecords[0].data.length;
+      let playerTable = [];
+      let j;
+      let k;
+      for (j = 0; j < rowCount; j++){
+       let newRow = [];
+        for (k = 0; k < colCount; k++){
+          newRow.push(myPlayerRecords[j].data[k])
+        }
+        playerTable.push(newRow)
+      }
+     };
+   
    const database = fire.database();
-    var myRef = '/data/0585871';
+   var myRef = '/' + localStorage.getItem('lsGHINNumber');
    var myData = database.ref(myRef)
-     myData.set({
-      games : [ "Monday", "Wednesday", "Friday", "Saturday"],
-      players : [ {
-        0 : "yes",
-        1 : "yes",
-        2 : "yes",
-        3 : 'no',
-        firstname : "",
-        gender : "",
-        ghinnumber : "5891112",
-        index : "",
-        lastname : "Lieberman"
-      }, {
-        0 : "yes",
-        1 : 'yes',
-        2 : "yes",
-        3 : 'no',
-        firstname : "",
-        gender : "",
-        ghinnumber : "0585871",
-        index : "",
-        lastname : "Storer"
-      } ]
-    }
-  ); 
-  }
- setPlayerData('5891112');
-  //let playerCount = Object.keys(myFollowedGolfers).length;
-  //alert("players: " + playerCount);
+     myData.set(
+       localStorage.getItem('lsPlayerTable')
+     ); 
+  
 
    let columns = [{
     dataField: 'ghinnumber',
@@ -82,13 +72,13 @@ function FGTable () {
     let newColumn;
     newColumn = {dataField: i, text: myGames[i]}
     columns = [...columns, newColumn];
-    //alert('columns: ' + JSON.stringify(columns));
   };
 
   return (
-    <BootstrapTable keyField='ghinnumber' data={ myPlayers } columns={ columns } />   
+    <BootstrapTable keyField='ghinnumber' data={ myPlayers } columns={ columns } />
   )
 
-}
+  }
+
 export default FGTable;
 
