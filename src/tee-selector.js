@@ -1,13 +1,16 @@
 import React from 'react';
 import Select from 'react-select'
 import './App.css';
+import { Button } from '@material-ui/core';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 let selectedOption;
 const TeeSelector = () => {
-  const  handleOnchange  =  selectedOption  => {
-    localStorage.setItem('lsTeesSelected', JSON.stringify(selectedOption));
-  }
-
   const  options  = [
     { label:  'Championship (Men only)', value:  'CH'  },
     { label:  'Tournament (Men only)', value:  'T'  },
@@ -24,20 +27,52 @@ const TeeSelector = () => {
     { label:  'Skidaway', value: 'SK'}
   ]
 
-  return(
-      <div>
+  const  handleOnChange =  selectedOption  => {
+  /*   if (selectedOption === null || selectedOption === '[]') {
+      alert('You have not selected any tees.');
+    } */
+    localStorage.setItem('lsTeesSelected', JSON.stringify(selectedOption));
+  }
 
-        <Select
+  function handleSelectTees () {
+    if ((JSON.parse(localStorage.getItem('lsTeesSelected')) === null) || (JSON.parse(localStorage.getItem('lsTeesSelected')) === '[]')){
+      localStorage.setItem('lsTeesSelected', JSON.stringify(options))
+    }
+  }
+
+    return (
+    <div align="center">
+      <h5>
+        Please select at least one set of tees,<br/>
+        then click the "Next" button<br/>
+        (default is all tees):
+      </h5>
+      <br/><br/>
+      <Select
         value = {selectedOption}
         isMulti='true'
         className='dropdown-center'
         placeholder='Select Tees to Display . . .'
         /* jsonValue='true' */
-        onChange={handleOnchange}
+        onChange={handleOnChange}
         options={options}
-        /
-        >
+      />
+      <br/><br/>
+        <div>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSelectTees}>
+              <Link 
+                to="/selectMode"
+                style={{color: "white"}}
+              >
+                Next
+              </Link>            
+          </Button>
+        </div>
+    </div>
+      );
+}
 
-      </div>
-)}
 export default TeeSelector;

@@ -9,7 +9,7 @@ return(
     <div
       className='header'
     >
-      Followed Golfers Course Handicaps
+      TLC Golf Apps
     </div>
   </Fragment>
 )}

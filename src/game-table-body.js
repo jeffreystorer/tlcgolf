@@ -1,12 +1,12 @@
 import React, {Fragment} from 'react';
-import createIndividualTableBody from './create-individual-table-body.js'
+import createGameTableBody from './create-game-table-body.js'
 
-function CHTableBody() {
-  const rows = createIndividualTableBody("CH");
+function GameTableBody() {
+  createGameTableBody();
 
     return (
         <Fragment>
-                    {rows.map(
+                    {/* {rows.map(
                         function(row, i) {
                             return (
                             <tr key={i}>
@@ -21,9 +21,20 @@ function CHTableBody() {
                             );
                         }
                         )
-                    }
+                    } */}
+                    
+          <tr>
+            <th
+              className='left-row-cell-game'
+              scope='row'
+            >
+              Storer, J. (8.3)</th>
+            <td>8</td>
+            <td>7</td>
+            <td>5</td>
+          </tr>
         </Fragment>
     );
   }
 
-export default CHTableBody;
+export default GameTableBody;

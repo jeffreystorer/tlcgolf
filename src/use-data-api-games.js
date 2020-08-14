@@ -10,31 +10,6 @@ const dataFetchReducer = (state, action) => {
         isError: false
       };
     case 'FETCH_SUCCESS':
-    let ghindata = action.payload;
-    let aGolfer;
-    try {
-      aGolfer =  ghindata.golfers[0].FirstName + ' ' + ghindata.golfers[0].LastName;
-    } catch (error){
-      /* if (localStorage.getItem('lsIsLoggedIn') !== null) {
-        alert("Incorrect GHIN Number or Last Name; please try again");
-      }; */
-      localStorage.setItem('lsGHINNumber', 'GHIN Number');
-      localStorage.setItem('lsLastName', 'Last Name');
-      localStorage.setItem('lsIndex', '');
-      localStorage.setItem('lsGender' , 'M');
-      localStorage.setItem('lsGolfer', 'Incorrect GHIN Number or Last Name, please login again ');
-      localStorage.setItem('lsIsLoggedIn', 'false');
-      return {
-        ...state,
-        isLoading: false,
-        isError: false,
-        data: action.payload,
-      };
-    };
-    localStorage.setItem('lsIndex', ghindata.golfers[0].Value);
-    localStorage.setItem('lsGender', ghindata.golfers[0].Gender);
-    localStorage.setItem('lsGolfer', aGolfer);
-    localStorage.setItem('lsIsLoggedIn', 'true');
     return {
       ...state,
       isLoading: false,
@@ -42,6 +17,8 @@ const dataFetchReducer = (state, action) => {
       data: action.payload,
     };
     case 'FETCH_FAILURE':
+      console.log("FETCH_FAILURE");
+      debugger;
       return {
         ...state,
         isLoading: false,
@@ -52,7 +29,7 @@ const dataFetchReducer = (state, action) => {
   }
 };
   
-const useDataAPI = (initialUrl, initialData) => {
+const useDataAPIGames = (initialUrl, initialData) => {
   const [url, setUrl] = useState(initialUrl);   
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
@@ -78,4 +55,4 @@ const useDataAPI = (initialUrl, initialData) => {
  
   return [state, setUrl];
 }
-  export default useDataAPI;
+  export default useDataAPIGames;

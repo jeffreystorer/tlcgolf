@@ -3,7 +3,7 @@ import './App.css';
 import CHTableBody from './ch-table-body';
 import TSTableBody from './ts-table-body';
 
-function Tables() {
+function IndividualTables() {
   return (
     <Fragment>
       <div className='center golfer-center'>
@@ -60,4 +60,4 @@ function Tables() {
   );
 }
 
-export default Tables;
+export default IndividualTables;

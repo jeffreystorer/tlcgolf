@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
-import createTableBody from './table-body.js'
+import createIndividualTableBody from './create-individual-table-body.js'
 
 function TSTableBody() {
-  const rows = createTableBody("TS");
+  const rows = createIndividualTableBody("TS");
 
     return (
         <Fragment>

@@ -1,7 +1,11 @@
 import * as courseData from './ratings-slopes-pars.js';
+import RequestGHIN from './request-ghin'
 
-function createTableBody (table) {
-    const myTeeArray = JSON.parse(localStorage.getItem('lsTeesSelected'));
+function createGameTableBody () {
+  RequestGHIN();
+  return null;
+}
+/*     const myTeeArray = JSON.parse(localStorage.getItem('lsTeesSelected'));
     let teesSelected = [];
 
     myTeeArray.forEach(myFunction);
@@ -24,11 +28,7 @@ function createTableBody (table) {
       if (rating === 0) {
           return "-"
         } else {
-            switch(table) {
-              case 'CH':
                 return Math.round((index * (slope / 113)) + (rating - par));
-              default:
-                return Math.trunc((index + .04) / (113 / slope) + rating);
             }
         }
       }
@@ -80,6 +80,6 @@ function createTableBody (table) {
   
     teesSelected.forEach(addRow);
     return rows;
-}
+} */
 
-export default createTableBody;
+export default createGameTableBody;
