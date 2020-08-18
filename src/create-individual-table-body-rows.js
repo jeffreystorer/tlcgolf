@@ -1,11 +1,9 @@
 import * as courseData from './ratings-slopes-pars.js';
-import RequestGHIN from './request-ghin'
+import { get, jget } from './local-storage-functions';
 
-function createGameTableBody () {
-  RequestGHIN();
-  return null;
-}
-/*     const myTeeArray = JSON.parse(localStorage.getItem('lsTeesSelected'));
+
+function createIndividualTableBodyRows (table) {
+    const myTeeArray = jget('TeesSelected');
     let teesSelected = [];
 
     myTeeArray.forEach(myFunction);
@@ -21,14 +19,19 @@ function createGameTableBody () {
 
     function compute(aTee) {
       let rowReturn = [aTee];
-      let index = Number(localStorage.getItem("lsIndex"));
+      let strIndex = get("Index")
+      let index = parseFloat(strIndex);
       let tee = courseData.tees.indexOf(aTee);
   
       function doMath(course,tee){
       if (rating === 0) {
           return "-"
         } else {
+            switch(table) {
+              case 'CH':
                 return Math.round((index * (slope / 113)) + (rating - par));
+              default:
+                return Math.trunc((index + .04) / (113 / slope) + rating);
             }
         }
       }
@@ -43,7 +46,7 @@ function createGameTableBody () {
     }
   
     function setRatingSlopePar(course, tee){
-    switch(localStorage.getItem("lsGender")) {
+    switch(get("Gender")) {
         case 'F':
           rating = Number(courseData.wratings[course][tee]);
           slope = Number(courseData.wslopes[course][tee]);
@@ -58,7 +61,7 @@ function createGameTableBody () {
     }
   
     function addRow(item){
-      switch(localStorage.getItem('lsGender')) {
+      switch(get('Gender')) {
         case 'F':
           if (courseData.tees.indexOf(item) > 2) {
             doAdd(item);
@@ -73,13 +76,13 @@ function createGameTableBody () {
     function doAdd(item) {
       let aTee = item;
       var newRow = compute(aTee);
-    rows.push(newRow);
+      rows.push(newRow);
     }
   
     }
   
     teesSelected.forEach(addRow);
     return rows;
-} */
+}
 
-export default createGameTableBody;
+export default createIndividualTableBodyRows;

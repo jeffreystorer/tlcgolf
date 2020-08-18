@@ -1,5 +1,7 @@
 import React, {Fragment} from 'react';
-import createIndividualTableBody from './create-individual-table-body.js'
+import createIndividualTableBody from './create-individual-table-body-rows.js';
+import { set, get, jget, jset } from './local-storage-functions';
+
 
 function TSTableBody() {
   const rows = createIndividualTableBody("TS");

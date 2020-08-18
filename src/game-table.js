@@ -2,6 +2,8 @@ import React, {Fragment, useState} from 'react';
 import './App.css';
 import GameTableHeader from './game-table-header';
 import GameTableBody from './game-table-body';
+import { set, get, jget, jset } from './local-storage-functions';
+
 
 function GameTable() {
   const [courseValue, setCourseValue] = useState("Select Course");
@@ -9,12 +11,12 @@ function GameTable() {
 
   function handleCourseChange(e){
   setCourseValue(e.target.value);
-  localStorage.setItem('lsCourse', e.target.value);
+  set('Course', e.target.value);
   }
 
   function handleGameChange(e){
   setGameValue(e.target.value);
-  localStorage.setItem('lsGame', e.target.value);
+  set('Game', e.target.value);
   }
 
   return (

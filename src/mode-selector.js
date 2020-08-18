@@ -6,10 +6,12 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { set, get, jget, jset } from './local-storage-functions';
+
 
 function ModeSelector (){
 
-    //if (localStorage.getItem('lsTeesSelected') !== null || localStorage.getItem("lsTeesSelected") !== '[]') {
+    //if (get('TeesSelected') !== null || get("TeesSelected") !== '[]') {
       return (
         <div align='center'>
         <h5>

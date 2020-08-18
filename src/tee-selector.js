@@ -8,6 +8,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { set, get, jget, jset } from './local-storage-functions';
+
 
 let selectedOption;
 const TeeSelector = () => {
@@ -31,12 +33,12 @@ const TeeSelector = () => {
   /*   if (selectedOption === null || selectedOption === '[]') {
       alert('You have not selected any tees.');
     } */
-    localStorage.setItem('lsTeesSelected', JSON.stringify(selectedOption));
+    set('TeesSelected', JSON.stringify(selectedOption));
   }
 
   function handleSelectTees () {
-    if ((JSON.parse(localStorage.getItem('lsTeesSelected')) === null) || (JSON.parse(localStorage.getItem('lsTeesSelected')) === '[]')){
-      localStorage.setItem('lsTeesSelected', JSON.stringify(options))
+    if ((JSON.parse(get('TeesSelected')) === null) || (JSON.parse(get('TeesSelected')) === '[]')){
+      set('TeesSelected', JSON.stringify(options))
     }
   }
 

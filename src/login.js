@@ -8,35 +8,37 @@ import {
   Link
   } from "react-router-dom";
 import useDataAPI from './use-data-api';
+import { set, get, jget, jset } from './local-storage-functions';
+
 
 function Login() {
   const [{ data, isLoading, isError }, doFetch] = useDataAPI(
-    "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + localStorage.getItem('lsGHINNumber') + "&lastName=" + localStorage.getItem('lsLastName') + "&incllsudeLowHandicapIndex=true",
+    "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + get('GHINNumber') + "&lastName=" + get('LastName') + "&incllsudeLowHandicapIndex=true",
     {hits: []},
   );
   let ghinRequest;
 
 function handleLogin(e){
   //first we set the ghinRequest api
-      ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + localStorage.getItem('lsGHINNumber') + "&lastName=" + localStorage.getItem('lsLastName') + "&incllsudeLowHandicapIndex=true";
+      ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + get('GHINNumber') + "&lastName=" + get('LastName') + "&incllsudeLowHandicapIndex=true";
   
   //then, we test if the user has selected at least one tee
-      if ((localStorage.getItem('lsTeesSelected') === null) || (localStorage.getItem('lsTeesSelected') === '[]')){
+      if ((get('TeesSelected') === null) || (get('TeesSelected') === '[]')){
   
   //if no tee has been selected, stay on login page and alert to select a tee
-        /* localStorage.setItem('lsShowTables', 'false');
+        /* set('ShowTables', 'false');
         alert("Please select at least one set of tees");
         window.location.reload(false); */
   
       } else {
   
   //otherwiese, if at leaste one tee has been selected, then we see if the user has tried to set a GHINumber or LastName
-        if ((localStorage.getItem('lsGHINumber') !== null ) || (localStorage.getItem('lsLastName') !== null)) {
+        if ((get('GHINumber') !== null ) || (get('LastName') !== null)) {
   
   //if the user has tried, we do a fetch and see if he entered good data
           doFetch(ghinRequest);
-          if (localStorage.getItem('lsIsLoggedIn') === 'true') {
-            localStorage.setItem('lsShowTables', 'true')
+          if (get('IsLoggedIn') === 'true') {
+            set('ShowTables', 'true')
           }
           window.location.reload(false);
   
@@ -44,7 +46,7 @@ function handleLogin(e){
   
   //if the user hasn't tried, we ask him to enter the login credentials
               alert("Please enter your GHIN Number and Last Name");
-              localStorage.setItem('lsShowTables', 'false')
+              set('ShowTables', 'false')
               window.location.reload(false);
         }
       }
@@ -64,8 +66,8 @@ return (
             id="ghinnumber" 
             name="ghinnumber"
             defaultValue='GHIN Number'
-            onFocus={event => event.target.value = localStorage.getItem('lsGHINNumber')}
-            onBlur={event => localStorage.setItem('lsGHINNumber', event.target.value)}
+            onFocus={event => event.target.value = get('GHINNumber')}
+            onBlur={event => set('GHINNumber', event.target.value)}
           />
         </div>
 
@@ -78,8 +80,8 @@ return (
             id="lastname" 
             name="lastname"
             defaultValue='Last Name'
-            onFocus={event => event.target.value = localStorage.getItem('lsLastName')}
-            onBlur={event => localStorage.setItem('lsLastName', event.target.value)}
+            onFocus={event => event.target.value = get('LastName')}
+            onBlur={event => set('LastName', event.target.value)}
           />
         </div>
         <br/><br/>

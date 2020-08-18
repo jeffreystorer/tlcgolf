@@ -1,14 +1,18 @@
 import React, {Fragment} from 'react';
-import createGameTableHeader from './create-game-table-header.js'
+import createGameTableHeaderRow from './create-game-table-header-row.js'
+
 
 function GameTableHeader() {
-  let cols = createGameTableHeader();
+  let cols = createGameTableHeaderRow();
   function getHeader() {
     var keys = cols;
     return keys.map((key, index)=>{
     return (
-      <th key={index}>
-        {key.toUpperCase()}
+      <th
+        key={index}
+        scope='col'
+      >
+        {key}
       </th>
     )})
   }

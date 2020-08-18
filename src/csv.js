@@ -3,6 +3,8 @@ import { CSVReader } from 'react-papaparse'
 import { CSVLink } from 'react-csv';
 import Button from '@material-ui/core/Button';
 import fire from './fire';
+import { set, get, jget, jset } from './local-storage-functions';
+
 
 function CSV () {
 
@@ -13,14 +15,14 @@ const buttonRef = React.createRef()
 
   useEffect(() => {
   const database = fire.database();
-  const myRef = '/data/' + localStorage.getItem('lsGHINNumber');
+  const myRef = '/data/' + get('GHINNumber');
   const myData = database.ref(myRef);
   myData.on('value', function(snapshot) { 
     let myPlayerTable = snapshot.val();
     if (myPlayerTable !== null){
-      localStorage.setItem('lsPlayerTable', JSON.stringify(myPlayerTable));
-      setGames(localStorage.getItem('lsPlayerTable')[0].slice(2));
-      setPlayers(localStorage.getItem('lsPlayerTable').slice(1));
+      set('PlayerTable', JSON.stringify(myPlayerTable));
+      setGames(get('PlayerTable')[0].slice(2));
+      setPlayers(get('PlayerTable').slice(1));
     }
   });
     return () => {
@@ -29,15 +31,15 @@ const buttonRef = React.createRef()
   }, []) */
 
 
-/*   if (localStorage.getItem('lsPlayerTable') !== null){
+/*   if (get('PlayerTable') !== null){
     setPlayerData();
    } */
     function setGamesAndPlayers(playerTable){
       playerTable[0].splice(0,5);
       playerTable[0].unshift('all');
-      localStorage.setItem('lsGames', JSON.stringify(playerTable[0]));
+      set('Games', JSON.stringify(playerTable[0]));
       playerTable.splice(0,1);
-      localStorage.setItem('lsPlayers', JSON.stringify(playerTable));
+      set('Players', JSON.stringify(playerTable));
     }
 
     function createAndSavePlayerTable(csvToJSONData){
@@ -48,7 +50,7 @@ const buttonRef = React.createRef()
       for (i = 0; i < rowCount; i++){
         playerTable.push(myPlayerRecords[i].data);
       }
-      localStorage.setItem('lsPlayerTable', JSON.stringify(playerTable));
+      set('PlayerTable', JSON.stringify(playerTable));
       setGamesAndPlayers(playerTable);
       uploadPlayerTable(playerTable);
     }
@@ -56,7 +58,7 @@ const buttonRef = React.createRef()
     function uploadPlayerTable(playerTable) {
       
       const database = fire.database();
-      var myRef = '/' + localStorage.getItem('lsGHINNumber');
+      var myRef = '/' + get('GHINNumber');
       var myData = database.ref(myRef)
       myData.set(playerTable);
     }
@@ -77,7 +79,7 @@ const buttonRef = React.createRef()
     }
 
     let myConfig = {header: false};
-    if (!localStorage.getItem('lsPlayerTable')) {
+    if (!get('PlayerTable')) {
     return (
       <div align="center">
         <h5 align='center' color="3378ac">
@@ -149,15 +151,15 @@ const buttonRef = React.createRef()
         <br />
         <h5 align='center'>
           To edit your uploaded table of players and games,<br/>
-          download it ({localStorage.getItem('lsGHINNumber')}.csv),<br/>
+          download it ({get('GHINNumber')}.csv),<br/>
           then edit the file, save it, and upload it again<br/>
           (using the Upload button):
         </h5><br/>
         <CSVLink
-          filename={localStorage.getItem('lsGHINNumber') + ".csv"}
+          filename={get('GHINNumber') + ".csv"}
           style={{align: "center"}}
           className="btn btn-primary"
-          data={JSON.parse(localStorage.getItem('lsPlayerTable'))}>
+          data={JSON.parse(get('PlayerTable'))}>
           Download
         </CSVLink>
       </div>

@@ -1,5 +1,7 @@
 import React, {Fragment} from 'react';
 import './App.css';
+import { set, get, jget, jset } from './local-storage-functions';
+
 
 
 function Header() {

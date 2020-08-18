@@ -111,31 +111,27 @@ table, .select-dropdown-container, .golfer-center{
 
 
 
-#nav {
-  width: 50%;
+nav {
+  display:inline-block;
+  width: fit-content;
   margin-left: auto;
   margin-right: auto;
-  float: center;
+  float: none;
   text-align: center;
-	padding: 0;
 	list-style: none;
 	background-color: #f2f2f2;
 	border-bottom: 1px solid #ccc; 
   border-top: 1px solid #ccc;
 }
-  
-#nav li {
-  display: block;
-}
-#nav li a {
-	display: block;
+
+.navitem {
+	display: inline-block;
   padding: 8px 15px;
 	text-decoration: none;
-	font-weight: bold;
-	color: #069;
+	color:black;
   border-right: 1px solid #ccc;
 }
-#nav li a:hover {
+.navitem:hover {
 	color: #c00;
   background-color: #fff;
 }

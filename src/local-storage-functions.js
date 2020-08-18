@@ -1,5 +1,5 @@
 export function get(item) {
-    localStorage.getItem(item)
+    return localStorage.getItem(item)
 }
 
 export function set(item, value) {
@@ -7,7 +7,7 @@ export function set(item, value) {
 }
 
 export function jget(item) {
-    JSON.parse(localStorage.getItem(item))
+    return JSON.parse(localStorage.getItem(item))
 }
 
 export function jset(item, value) {

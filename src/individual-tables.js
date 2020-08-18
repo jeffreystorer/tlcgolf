@@ -2,12 +2,14 @@ import React, {Fragment} from 'react';
 import './App.css';
 import CHTableBody from './ch-table-body';
 import TSTableBody from './ts-table-body';
+import { set, get, jget, jset } from './local-storage-functions';
+
 
 function IndividualTables() {
   return (
     <Fragment>
       <div className='center golfer-center'>
-          {localStorage.getItem('lsGolfer') + ' (Index: ' + localStorage.getItem('lsIndex') + ')'}
+          {get('Golfer') + ' (Index: ' + get('Index') + ')'}
       </div>      
       <br/>
       <div id='table'>

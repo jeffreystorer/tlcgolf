@@ -1,5 +1,7 @@
 import {useState, useEffect, useReducer} from 'react';
 import axios from 'axios';
+import { set, get, jget, jset } from './local-storage-functions';
+
 
 const dataFetchReducer = (state, action) => {
   switch (action.type) {
@@ -15,15 +17,15 @@ const dataFetchReducer = (state, action) => {
     try {
       aGolfer =  ghindata.golfers[0].FirstName + ' ' + ghindata.golfers[0].LastName;
     } catch (error){
-      /* if (localStorage.getItem('lsIsLoggedIn') !== null) {
+      /* if (get('IsLoggedIn') !== null) {
         alert("Incorrect GHIN Number or Last Name; please try again");
       }; */
-      localStorage.setItem('lsGHINNumber', 'GHIN Number');
-      localStorage.setItem('lsLastName', 'Last Name');
-      localStorage.setItem('lsIndex', '');
-      localStorage.setItem('lsGender' , 'M');
-      localStorage.setItem('lsGolfer', 'Incorrect GHIN Number or Last Name, please login again ');
-      localStorage.setItem('lsIsLoggedIn', 'false');
+      set('GHINNumber', 'GHIN Number');
+      set('LastName', 'Last Name');
+      set('Index', '');
+      set('Gender' , 'M');
+      set('Golfer', 'Incorrect GHIN Number or Last Name, please login again ');
+      set('IsLoggedIn', 'false');
       return {
         ...state,
         isLoading: false,
@@ -31,10 +33,10 @@ const dataFetchReducer = (state, action) => {
         data: action.payload,
       };
     };
-    localStorage.setItem('lsIndex', ghindata.golfers[0].Value);
-    localStorage.setItem('lsGender', ghindata.golfers[0].Gender);
-    localStorage.setItem('lsGolfer', aGolfer);
-    localStorage.setItem('lsIsLoggedIn', 'true');
+    set('Index', ghindata.golfers[0].Value);
+    set('Gender', ghindata.golfers[0].Gender);
+    set('Golfer', aGolfer);
+    set('IsLoggedIn', 'true');
     return {
       ...state,
       isLoading: false,

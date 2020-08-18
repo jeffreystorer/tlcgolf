@@ -1,18 +1,20 @@
 import React, {Fragment } from 'react';
 import './App.css';
+import { set, get, jget, jset } from './local-storage-functions';
+
 
 
 function NavbarChange() {
 
   function handleClickChange() {
-      localStorage.setItem('lsShowTables', 'false');
-      localStorage.setItem('lsIsLoggedIn', 'false');
+      set('ShowTables', 'false');
+      set('IsLoggedIn', 'false');
       window.location.reload(false);
   };
   
 
   function handleClickUpdate() {
-    localStorage.setItem('lsShowTables', 'true');
+    set('ShowTables', 'true');
     window.location.reload(false);
 };
 

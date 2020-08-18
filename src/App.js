@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  NavLink
 } from "react-router-dom";
 import './App.css';
 import Header from './header.js';
@@ -13,44 +13,35 @@ import useDataAPI from './use-data-api.js';
 /* import { Container, Row, Col } from 'reactstrap'
 import ModalForm from './Components/Modals/Modal'
 import DataTable from './Components/Tables/DataTable'
-import { CSVLink } from "react-csv"; */
+import { CSVNavLink } from "react-csv"; */
 import CSV from './csv';
 import TeeSelector from './tee-selector';
 import ModeSelector from './mode-selector';
 import GameTable from './game-table';
 import DisplayUserGameTable from './display-user-game-table';
+import { get, set, jget, jset} from './local-storage-functions';
 
 
 function App() {
   const [{ data, isLoading, isError }, doFetch] = useDataAPI(
-  "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + localStorage.getItem('lsGHINNumber') + "&lastName=" + localStorage.getItem('lsLastName') + "&incllsudeLowHandicapIndex=true",
+  "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + get('GHINNumber') + "&lastName=" + get('LastName') + "&incllsudeLowHandicapIndex=true",
   {hits: []},
 );
 
   return (
     <Router>
       <div>
+        <Header />
+        <br/>
+      </div>
+      <div>
         <nav>
-          <ul>
-            <li>
-              <Link to="/">Login</Link>
-            </li>
-            <li>
-              <Link to="/selecttees">Select Tees</Link>
-            </li>
-            <li>
-              <Link to="/selectmode">Select Mode</Link>
-            </li>
-            <li>
-              <Link to="/setupgames">Set up Games</Link>
-            </li>
-            <li>
-              <Link to="/mygamesch">My Games CH</Link>
-            </li>
-            <li>
-              <Link to="/myindividualch">My Individal CH </Link>
-            </li>
-          </ul>
+          <NavLink exact to="/" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Login</NavLink>
+          <NavLink exact to="/selecttees" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Select Tees</NavLink>
+          <NavLink exact to="/selectmode" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Select Mode</NavLink>
+          <NavLink exact to="/setupgames" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Set up Games</NavLink>
+          <NavLink exact to="/mygamesch" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>My Games CH</NavLink>
+          <NavLink exact to="/myindividualch" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>My Individal CH </NavLink>
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
@@ -71,7 +62,7 @@ function App() {
           <Route path="/myindividualch">
             <MyIndividualCH />
           </Route>
-          <Route path="/">
+          <Route path="/" >
             <LoginPage />
           </Route>
         </Switch>
@@ -83,7 +74,6 @@ function App() {
   function LoginPage() {
   return (
     <div>
-    <Header />
     <br/>
     <br/>
     <Login />
@@ -94,7 +84,6 @@ function App() {
   function SelectTees() {
     return (
       <div>
-      <Header />
       <br/>
       <br/>
       <TeeSelector />
@@ -106,7 +95,6 @@ function App() {
   function SelectMode() {
     return (
       <div>
-      <Header />
       <br/>
       <br/>
       <ModeSelector />
@@ -117,7 +105,6 @@ function App() {
   function  SetUpGames() {
     return (
       <div>
-        <Header />
         <br/><br/>
         <CSV />
         {/* <br/><br/>
@@ -129,9 +116,8 @@ function App() {
   function  MyGamesCH() {
   return (
     <div>
-    <Header />
-    <br/>
-    <GameTable />
+      <br/>    <br/>
+      <GameTable />
     </div>
   );
   }
@@ -139,7 +125,6 @@ function App() {
   function  MyIndividualCH() {
     return (
       <div>
-      <Header />
       <br/>
       <br/>
       <IndividualTables />
