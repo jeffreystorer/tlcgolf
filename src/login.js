@@ -5,13 +5,13 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  NavLink
   } from "react-router-dom";
 import useDataAPI from './use-data-api';
-import { set, get, jget, jset } from './local-storage-functions';
+import { set, get} from './local-storage-functions';
 
 
-function Login() {
+function LoginPage() {
   const [{ data, isLoading, isError }, doFetch] = useDataAPI(
     "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + get('GHINNumber') + "&lastName=" + get('LastName') + "&incllsudeLowHandicapIndex=true",
     {hits: []},
@@ -90,12 +90,12 @@ return (
             variant="contained"
             color="primary"
             onClick={handleLogin}>
-              <Link 
-                to="/selecttees"
+              <NavLink exact
+                to="/settings/selecttees"
                 style={{color: "white"}}
               >
                 Login
-              </Link>            
+              </NavLink> 
           </Button>
         </div>
       </div>
@@ -104,4 +104,4 @@ return (
 }
 
 
-export default Login;
+export default LoginPage;

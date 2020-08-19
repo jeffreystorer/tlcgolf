@@ -6,7 +6,7 @@ import fire from './fire';
 import { set, get, jget, jset } from './local-storage-functions';
 
 
-function CSV () {
+function SetUpGames () {
 
 const buttonRef = React.createRef()
 
@@ -119,7 +119,7 @@ const buttonRef = React.createRef()
       <div align="center">
         <h5 align='center' color="3378ac">
           You must upload a table (*.csv file) of players and games <br/>
-          before you can view the Games CH page and also<br/>
+          before you can view the Games page and also<br/>
           after downloading and editing your uploaded table<br/>
           (using the Download button):
         </h5>
@@ -167,4 +167,4 @@ const buttonRef = React.createRef()
     }
 }
 
-export default CSV;
+export default SetUpGames;

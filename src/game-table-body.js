@@ -1,8 +1,19 @@
 import React, {Fragment} from 'react';
 import createGameTableBodyRows from './create-game-table-body-rows.js';
+import {get, jget} from './local-storage-functions';
+import * as courseData from './ratings-slopes-pars';
+
 
 
 function GameTableBody() {
+  let course = get('Course');
+  if (course !== null){ course = course.toLowerCase()};
+  let game = get('Game');
+  if (game !== null){ game = game.toLowerCase()};
+  let games = jget('Games');
+  let teesSelected = jget('TeesSelected');
+  if ((teesSelected !== null) & (game !== null) & (course !==null) & (games !==null)) {
+    if ((games.includes(game))& (courseData.courses.includes(course))) {
   let rows =createGameTableBodyRows();
 
     return (
@@ -33,6 +44,10 @@ function GameTableBody() {
           </tr> */}
         </Fragment>
     );
+    } 
+  } else {
+    return null
   }
+}
 
 export default GameTableBody;

@@ -1,6 +1,6 @@
 import * as courseData from './ratings-slopes-pars.js';
 import RequestGHIN from './request-ghin';
-import { set, get, jget, jset } from './local-storage-functions';
+import { get, jget} from './local-storage-functions';
 
 function createGameTableBodyRows () {
   //first, we get ghin data, store it in local storage, and add to Players

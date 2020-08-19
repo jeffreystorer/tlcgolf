@@ -6,13 +6,13 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  NavLink
 } from "react-router-dom";
-import { set, get, jget, jset } from './local-storage-functions';
+import { set, get} from './local-storage-functions';
 
 
 let selectedOption;
-const TeeSelector = () => {
+const SelectTees = () => {
   const  options  = [
     { label:  'Championship (Men only)', value:  'CH'  },
     { label:  'Tournament (Men only)', value:  'T'  },
@@ -65,16 +65,16 @@ const TeeSelector = () => {
             variant="contained"
             color="primary"
             onClick={handleSelectTees}>
-              <Link 
-                to="/selectMode"
+              <NavLink exact 
+                to="/settings/setupgames"
                 style={{color: "white"}}
               >
                 Next
-              </Link>            
+              </NavLink>            
           </Button>
         </div>
     </div>
       );
 }
 
-export default TeeSelector;
+export default SelectTees;

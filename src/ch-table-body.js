@@ -1,7 +1,18 @@
 import React, {Fragment} from 'react';
 import createIndividualTableBodyRows from './create-individual-table-body-rows.js'
+import * as courseData from './ratings-slopes-pars'
+import {get, jget} from './local-storage-functions'
 
 function CHTableBody() {
+  
+  let course = get('Course');
+  if (course !== null){ course = course.toLowerCase()};
+  let game = get('Game');
+  if (game !== null){ game = game.toLowerCase()};
+  let games = jget('Games');
+  let teesSelected = jget('TeesSelected');
+  if ((teesSelected !== null) & (game !== null) & (course !==null) & (games !==null)) {
+    if ((games.includes(game))& (courseData.courses.includes(course))) {
   const rows = createIndividualTableBodyRows("CH");
 
     return (
@@ -24,6 +35,10 @@ function CHTableBody() {
                     }
         </Fragment>
     );
-  }
+  } 
+} else {
+  return null
+}
+}
 
 export default CHTableBody;
