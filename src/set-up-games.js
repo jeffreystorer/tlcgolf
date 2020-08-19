@@ -3,7 +3,7 @@ import { CSVReader } from 'react-papaparse'
 import { CSVLink } from 'react-csv';
 import Button from '@material-ui/core/Button';
 import fire from './fire';
-import { set, get, jget, jset } from './local-storage-functions';
+import { set, get} from './local-storage-functions';
 
 
 function SetUpGames () {
@@ -53,6 +53,7 @@ const buttonRef = React.createRef()
       set('PlayerTable', JSON.stringify(playerTable));
       setGamesAndPlayers(playerTable);
       uploadPlayerTable(playerTable);
+      window.location.reload(false);
     }
 
     function uploadPlayerTable(playerTable) {
@@ -84,7 +85,7 @@ const buttonRef = React.createRef()
       <div align="center">
         <h5 align='center' color="3378ac">
           You must upload a table (*.csv file) of players and games <br/>
-          before you can view the Games CH page and also<br/>
+          before you can view the Games page and also<br/>
           after downloading and editing your uploaded table<br/>
           (using the Download button):
         </h5>

@@ -1,11 +1,19 @@
 import React, {Fragment} from 'react';
 import './App.css';
-import CHTableBody from './ch-table-body';
-import TSTableBody from './ts-table-body';
-import { set, get, jget, jset } from './local-storage-functions';
+import CHTableBody from './tables-individual-ch-body';
+import TSTableBody from './tables-individual-ts-body';
+import {get, jget} from './local-storage-functions'
 
 
 function IndividualTables() {
+/*
+We are only going to display this table if the golfer is logged in
+and has selected at least one set of tees
+*/
+  let isLoggedIn = get('IsLoggedIn')
+  let teesSelected = jget('TeesSelected');
+  if ((teesSelected !== null) & (teesSelected !== []) & isLoggedIn === 'true') {
+
   return (
     <Fragment>
       <div className='center golfer-center'>
@@ -60,6 +68,17 @@ function IndividualTables() {
       </div>
     </Fragment>
   );
+  } else {
+    return(
+      <div>
+        <br/>
+        <br/>
+        <p className="center">
+          Please go to Settings, then login and select at least one set of tees in order to display this table.
+        </p>
+      </div>
+    )
+  }
 }
 
 export default IndividualTables;

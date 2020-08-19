@@ -4,15 +4,14 @@ import {
   Switch,
   Route,
   NavLink,
-  Link,
   useParams,
   useRouteMatch
 } from "react-router-dom";
 import './App.css';
 import Header from './header.js';
-import IndividualTables from './individual-tables.js';
+import IndividualTables from './tables-individual.js';
 import useDataAPI from './use-data-api.js';
-import GameTable from './game-table';
+import GameTable from './table-games';
 import {get} from './local-storage-functions';
 import LoginPage from './login';
 import SelectTees from './select-tees';
@@ -22,7 +21,7 @@ function App() {
   const [{ data, isLoading, isError }, doFetch] = useDataAPI(
   "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + get('GHINNumber') + "&lastName=" + get('LastName') + "&incllsudeLowHandicapIndex=true",
   {hits: []},
-);
+  );
 
   return (
     <Router>

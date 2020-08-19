@@ -8,7 +8,7 @@ import {
   Route,
   NavLink
 } from "react-router-dom";
-import { set, get} from './local-storage-functions';
+import { set, get, jset, jget} from './local-storage-functions';
 
 
 let selectedOption;
@@ -33,12 +33,13 @@ const SelectTees = () => {
   /*   if (selectedOption === null || selectedOption === '[]') {
       alert('You have not selected any tees.');
     } */
-    set('TeesSelected', JSON.stringify(selectedOption));
+    jset('TeesSelected', selectedOption);
   }
 
   function handleSelectTees () {
-    if ((JSON.parse(get('TeesSelected')) === null) || (JSON.parse(get('TeesSelected')) === '[]')){
-      set('TeesSelected', JSON.stringify(options))
+    if ((jget('TeesSelected') === null) || (jget('TeesSelected') === '[]')){
+      //if the user moves on without selecting a tee, we select all tees
+      set('TeesSelected', JSON.stringify(options));
     }
   }
 
