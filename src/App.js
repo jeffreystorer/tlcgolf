@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,31 +25,24 @@ function App() {
 
   return (
     <Router>
-      <div>
-        <Header />
-        <br/>
-      </div>
-      <div>
-        <nav>
-          <NavLink exact to="/individual" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Individual</NavLink>
-          <NavLink exact to="/games" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Games</NavLink>
-          <NavLink exact to="/settings" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Settings</NavLink>
-        </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/individual">
-            <Individual />
-          </Route>
-          <Route path="/games">
-            <Games />
-          </Route>
-          <Route path="/settings" >
-            <Settings />
-          </Route>
-        </Switch>
-      </div>
+      <Header />
+      <br/>
+      <nav>
+        <NavLink exact to="/" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Individual</NavLink>
+        <NavLink exact to="/games" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Games</NavLink>
+        <NavLink exact to="/settings" className='navitem-last' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Settings</NavLink>
+      </nav>
+      <Switch>
+        <Route path="/games">
+          <Games />
+        </Route>
+        <Route path="/settings" >
+          <Settings />
+        </Route>
+        <Route path="/">
+          <Individual />
+        </Route>
+      </Switch>
     </Router>
   );
 
@@ -63,23 +56,23 @@ function Setting () {
   switch (aSetting) {
     case "selecttees":
       return (
-      <div>
+        <>
         <SelectTees />
-      </div>
+        </>
       )
       
     case "setupgames":
       return (
-      <div>
-        <SetupGames />
-      </div>
+       <>
+       <SetupGames />
+       </>
       )
   
     default:
       return (
-        <div>
+        <>
           <Login />
-        </div>
+        </>
         )
   }
 
@@ -88,45 +81,45 @@ function Setting () {
 function Settings () {
   let {path, url} = useRouteMatch();
   return (
-    <div>
-    <nav>
+    <Fragment>
+      <br/>
+    <nav >
       <NavLink exact to={`${url}/login`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Login</NavLink>
       <NavLink exact to={`${url}/selecttees`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Select Tees</NavLink>
-      <NavLink exact to={`${url}/setupgames`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Setup Games</NavLink>
+      <NavLink exact to={`${url}/setupgames`} className='navitem-last' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Setup Games</NavLink>
     </nav>
-    <Switch>
+      <Switch>
         <Route path={`${path}/:settingId`}>
           <Setting />
         </Route>
       </Switch>
-    </div>
+    </Fragment>
   );
 }
 
   function  Games() {
   return (
-    <div>
-      <br/>    <br/>
+    <Fragment>
+      <br/><br/>
       <GameTable />
-    </div>
-  );
+    </Fragment>
+  )
   }
     
   function  Individual() {
     return (
-      <div>
-      <br/>
-      <br/>
-      <IndividualTables />
-      </div>
+      <Fragment>
+        <br/><br/>
+        <IndividualTables />
+      </Fragment>
     )
   }
 
   function Login() {
     return(
-      <div>
+      <Fragment>
         <LoginPage />
-      </div>
+      </Fragment>
     )
   }
 

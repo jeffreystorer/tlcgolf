@@ -1,9 +1,10 @@
-import React, { useState, useEffect }from 'react'
+import React from 'react'
 import { CSVReader } from 'react-papaparse'
 import { CSVLink } from 'react-csv';
 import Button from '@material-ui/core/Button';
 import fire from './fire';
 import { set, get} from './local-storage-functions';
+import PlayerDataTable from './table-player-data';
 
 
 function SetUpGames () {
@@ -83,7 +84,7 @@ const buttonRef = React.createRef()
     if (!get('PlayerTable')) {
     return (
       <div align="center">
-        <h5 align='center' color="3378ac">
+        <h5 align='center'>
           You must upload a table (*.csv file) of players and games <br/>
           before you can view the Games page and also<br/>
           after downloading and editing your uploaded table<br/>
@@ -118,7 +119,7 @@ const buttonRef = React.createRef()
   } else {    
     return (
       <div align="center">
-        <h5 align='center' color="3378ac">
+        <h5 align='center'>
           You must upload a table (*.csv file) of players and games <br/>
           before you can view the Games page and also<br/>
           after downloading and editing your uploaded table<br/>
@@ -159,10 +160,12 @@ const buttonRef = React.createRef()
         <CSVLink
           filename={get('GHINNumber') + ".csv"}
           style={{align: "center"}}
-          className="btn btn-primary"
+          className="mybtn mybtn-primary"
           data={JSON.parse(get('PlayerTable'))}>
-          Download
+          DOWNLOAD
         </CSVLink>
+        <br/><br/><br/><br/>
+        <PlayerDataTable />
       </div>
     )
     }

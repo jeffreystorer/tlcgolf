@@ -64,16 +64,26 @@ th, td.left-row-cell{
 }
 
 th.left-header-cell{
-  text-align: center;
+  text-align: left;
   background-color: #ffffff;
   color: #000000;
   width: 20%;}
 
-tr, th.left-row-cell-game, td.left-row-cell-game{
+td.lastname-col {
+  text-align: left;
+}
+
+tr{
   text-align: center;
   background-color: #ffffff;
   color: #000000;
   }
+
+th.left-row-cell-game, td.left-row-cell-game{
+    text-align: left;
+    background-color: #ffffff;
+    color: #000000;
+    }
   
 td.left-row-cell{
   text-align: center;
@@ -82,12 +92,21 @@ td.left-row-cell{
   width: 20%;
 }
 
-table, .select-dropdown-container, .golfer-center{
+table, .golfer-center{
   margin-left: auto;
   margin-right: auto;
   font-family: sans-serif;
   font-weight: bold;
   width: 90%;
+
+}
+
+.select-dropdown-container{
+  margin-left: auto;
+  margin-right: auto;
+  font-family: sans-serif;
+  font-weight: bold;
+  width: fit-content;
 
 }
 
@@ -112,7 +131,6 @@ table, .select-dropdown-container, .golfer-center{
 
 
 nav {
-  display:inline-block;
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
@@ -120,20 +138,30 @@ nav {
   text-align: center;
 	list-style: none;
 	background-color: #f2f2f2;
-	border-bottom: 1px solid #ccc; 
-  border-top: 1px solid #ccc;
+	border-bottom: 0px solid #ccc; 
+  border-top: 0px solid #ccc;
+  height: 23px;
 }
 
 .navitem {
-	display: inline-block;
-  padding: 2px 15px;
+  padding: 1px 15px;
 	text-decoration: none;
 	color:black;
   border-right: 1px solid #ccc;
-  height: 4px;
+  height: 23px;
 
 }
-.navitem:hover {
+
+
+.navitem-last {
+  padding: 1px 15px;
+	text-decoration: none;
+	color:black;
+  border-right: 1px solid #fff;
+  height: 23px;
+
+}
+.navitem:hover, .navitem-last:hover{
 	color: #c00;
   background-color: #fff;
 }
@@ -141,17 +169,44 @@ nav {
 .header {
   margin-left: auto;
   margin-right: auto;
-  width: 90%;
+  width: fit-content;
   overflow: hidden;
   align-items: center;
   padding-left: 16px;
-  padding-top: 6px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 0px;
   top: 0;
-  height: 50px;
+  height: 46px;
   color: #ffffff;
   font-size: 24px;
   background-color: #00365F;
   text-align: center;
   z-index: 1;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.28);
+}
+
+.mybtn-primary {
+  color: #fff;
+  background-color: #3378ac;
+  border-color: #3378ac;
+}
+
+
+.mybtn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#gametable {
+  width: fit-content;
 }

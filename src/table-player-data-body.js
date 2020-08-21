@@ -1,18 +1,18 @@
 import React, {Fragment} from 'react';
-import createGameTableBodyRows from './table-games-create-body-rows.js';
+import {jget} from './local-storage-functions';
 
-function GameTableBody() {
-  let rows = createGameTableBodyRows();
-  console.log('rows: ' + JSON.stringify(rows));
+function PlayerDataTableBody() {
+  let playerTable = jget("PlayerTable");
+  let rows = playerTable;
   let rowsTD = [];
   let colCount = rows[0].length;
-  console.log('colCount: ' + colCount)
 
   function generateRows (){
-    for (var i = 0; i <rows.length; i++){
+    for (var i = 1; i <rows.length; i++){
       rowsTD[i] = (
         <tr>
-          <th scope='row' className="left-row-cell-game">{rows[i][0]}</th>
+          <th scope='row' className='left-header-cell'>{rows[i][0]}</th>
+          <td className='lastname-col'>{rows[i][1]}</td>
           {generateCols(i)}
         </tr>
       )
@@ -22,7 +22,7 @@ function GameTableBody() {
 
   function generateCols(i) {
       let tds = [];
-      for (var j = 1; j < colCount; j++){
+      for (var j = 2; j < colCount; j++){
         tds[j] = (
           <td>
             {rows[i][j]}
@@ -41,4 +41,4 @@ function GameTableBody() {
 
 }
 
-export default GameTableBody;
+export default PlayerDataTableBody;
