@@ -7,8 +7,8 @@ import * as courseData from './ratings-slopes-pars';
 
 
 function GameTable() {
-  const [courseValue, setCourseValue] = useState("Select Course");
-  const [gameValue, setGameValue] = useState("Select Game");
+  const [courseValue, setCourseValue] = useState("Deer Creek");
+  const [gameValue, setGameValue] = useState("All");
 
   function handleCourseChange(e){
   setCourseValue(e.target.value);

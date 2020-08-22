@@ -1,42 +1,63 @@
-import React, {Fragment} from 'react';
+import React, {useEffect, Fragment} from 'react';
 import './App.css';
 import { Button } from '@material-ui/core';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
+  //BrowserRouter as Router,
+  //Switch,
+  //Route,
   NavLink
   } from "react-router-dom";
 import useDataAPI from './use-data-api';
 import { set, get} from './local-storage-functions';
+import {useStateWithLocalStorage} from './use-state-with-local-storage';
 
 
 function LoginPage() {
+  const [ghinNumber, setGHINNumber] = useStateWithLocalStorage('GHINNumber');
+  const [lastName, setLastName] = useStateWithLocalStorage('LastName');
   const [{ data, isLoading, isError }, doFetch] = useDataAPI(
     "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + get('GHINNumber') + "&lastName=" + get('LastName') + "&incllsudeLowHandicapIndex=true",
     {hits: []},
   );
-  let ghinRequest;
+  
+  useEffect(() => {
+    set('GHINNumber', ghinNumber);
+  }, [ghinNumber]);
 
-  function handleLogin(e){
+  useEffect(() => {
+    set('LastName', lastName);
+  }, [lastName]);
+
+  useEffect(() => {    
+    let ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + ghinNumber + "&lastName=" + lastName + "&incllsudeLowHandicapIndex=true";
+    doFetch(ghinRequest)
+  }, [ghinNumber, lastName]);
+
+
+
+ /*  function handleLogin(e){
     //first we set the ghinRequest api
-      ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + get('GHINNumber') + "&lastName=" + get('LastName') + "&incllsudeLowHandicapIndex=true";
+    ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + ghinNumber + "&lastName=" + lastName + "&incllsudeLowHandicapIndex=true";
 
-  //now we see if the user has tried to set a GHINNumber or LastName
-        if ((get('GHINNumber') !== null ) & (get('LastName') !== null)) {
+//now we see if the user has tried to set a GHINNumber or LastName
+      //if ((get('GHINNumber') !== null ) & (get('LastName') !== null)) {
+      if ((ghinNumber !== '') & (lastName !== '')) {
+//the user has tried to set a GHINNumber and Last Name, we do a fetch and see if he entered good data
+        alert('Fetching GHINData');
+        doFetch(ghinRequest);
+        window.location.reload(false);
 
-  //the user has tried to set a GHINNumber and Last Name, we do a fetch and see if he entered good data
-          doFetch(ghinRequest);
-          window.location.reload(false);
+      } else { 
 
-        } else { 
-
-  //if the user hasn't tried, we ask him to enter the login credentials
-          alert("Please enter your GHIN Number and Last Name");
-          //window.location.reload(false);
-        }
+//if the user hasn't tried, we ask him to enter the login credentials
+        alert("Please enter your GHIN Number and Last Name");
+        //window.location.reload(false);
       }
 
+//TODO: fetch data from firebase
+
+    }
+ */
 
   return (
       <Fragment>
@@ -52,8 +73,8 @@ function LoginPage() {
               id="ghinnumber" 
               name="ghinnumber"
               defaultValue='GHIN Number'
-              onFocus={event => event.target.value = get('GHINNumber')}
-              onBlur={event => set('GHINNumber', event.target.value)}
+              onFocus={event => event.target.value = ghinNumber}
+              onBlur={event => setGHINNumber(event.target.value)}
             />
           </div>
 
@@ -66,8 +87,8 @@ function LoginPage() {
               id="lastname" 
               name="lastname"
               defaultValue='Last Name'
-              onFocus={event => event.target.value = get('LastName')}
-              onBlur={event => set('LastName', event.target.value)}
+              onFocus={event => event.target.value = lastName}
+              onBlur={event => setLastName(event.target.value)}
             />
           </div>
           <br/><br/>
@@ -75,7 +96,7 @@ function LoginPage() {
             <Button
               variant="contained"
               color="primary"
-              onClick={handleLogin}>
+              >
                 <NavLink exact
                   to="/settings/selecttees"
                   style={{color: "white"}}
