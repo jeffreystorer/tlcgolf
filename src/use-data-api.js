@@ -19,9 +19,9 @@ const dataFetchReducer = (state, action) => {
     } catch (error){
       /* if (get('IsLoggedIn') !== null) {
         alert("Incorrect GHIN Number or Last Name; please try again");
-      }; */
+      }; *//* 
       set('GHINNumber', 'GHIN Number');
-      set('LastName', 'Last Name');
+      set('LastName', 'Last Name'); */
       set('Index', '');
       set('Gender' , 'M');
       set('Golfer', 'Incorrect GHIN Number or Last Name, please login again ');

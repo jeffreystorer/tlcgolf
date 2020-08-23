@@ -1,15 +1,17 @@
-import React from 'react'
+import React, {createRef} from 'react'
 import { CSVReader } from 'react-papaparse'
 import { CSVLink } from 'react-csv';
 import Button from '@material-ui/core/Button';
 import fire from './fire';
-import { set, get} from './local-storage-functions';
+import { set, get, jset, jget} from './local-storage-functions';
 import PlayerDataTable from './table-player-data';
+import {useStateWithLocalStorage} from './use-state-with-local-storage';
 
 
 function SetUpGames () {
-
-const buttonRef = React.createRef()
+  
+  const[ghinNumber, setGHINNumber] = useStateWithLocalStorage('GHINNumber');
+  const buttonRef = createRef()
 
 /*   const [myPlayers, setPlayers] = useState([]);
   const [myGames, setGames] = useState([]);
@@ -58,11 +60,10 @@ const buttonRef = React.createRef()
     }
 
     function uploadPlayerTable(playerTable) {
-      
       const database = fire.database();
-      var myRef = '/' + get('GHINNumber');
-      var myData = database.ref(myRef)
-      myData.set(playerTable);
+      var myRef = '/' + ghinNumber;
+      var myData = database.ref(myRef);
+      myData.set(jget('PlayerTable'));
     }
 
     function handleOpenDialog(e) {

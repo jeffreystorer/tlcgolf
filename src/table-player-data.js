@@ -3,10 +3,13 @@ import './App.css';
 import PlayerDataTableHeader from './table-player-data-header';
 import PlayerDataTableBody from './table-player-data-body';
 import {get} from './local-storage-functions';
+import {useStateWithLocalStorage} from './use-state-with-local-storage';
 
 
 function PlayerDataTable() {
-  let playerName = get('Golfer') + " (" + get('GHINNumber') + ")"
+  const [golfer, setGolfer] = useStateWithLocalStorage('Golfer');
+  const [ghinNumber, setGHINNumber] = useStateWithLocalStorage('GHINNumber');
+  let playerName = golfer + " (" + ghinNumber + ")";
       return (
         <Fragment>
           <div id='table'>

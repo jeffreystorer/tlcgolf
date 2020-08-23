@@ -10,7 +10,7 @@ function PlayerDataTableBody() {
   function generateRows (){
     for (var i = 1; i <rows.length; i++){
       rowsTD[i] = (
-        <tr>
+        <tr key={i}>
           <th scope='row' className='left-header-cell'>{rows[i][0]}</th>
           <td className='lastname-col'>{rows[i][1]}</td>
           {generateCols(i)}
@@ -24,7 +24,7 @@ function PlayerDataTableBody() {
       let tds = [];
       for (var j = 2; j < colCount; j++){
         tds[j] = (
-          <td>
+          <td key={j}>
             {rows[i][j]}
           </td>
         )

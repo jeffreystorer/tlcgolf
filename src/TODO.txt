@@ -1,0 +1,18 @@
+Auth
+
+CRUD
+
+After upload, games shows NaN
+
+download sample csv
+
+upload and download from firebase
+
+deal with extra HR's in imported table
+
+test Werneke 1621216
+
+need to clear PlayerTable and Players on login
+
+at the moment, upload to firebase is not working and data there is the Players, not the PlayerTable,
+i.e., no header row

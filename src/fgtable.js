@@ -1,9 +1,3 @@
-//8/10 12:50 Next steps:
-//Then swith over to new style of tables with updates saved to firebase
-//Add game and course selectors
-//create main table
-//iterate through players to set table data
-
 import React, { useState, useEffect } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import fire from './fire';
@@ -61,26 +55,4 @@ function FGTable () {
        get('PlayerTable')
      ); 
   
-
-   let columns = [{
-    dataField: 'ghinnumber',
-    text: 'GHIN Number'
-  }, {
-    dataField: 'lastname',
-    text: 'Last Name'
-  }]
-  let i;
-  for (i=0; i < myGames.length; i++ ) {
-    let newColumn;
-    newColumn = {dataField: i, text: myGames[i]}
-    columns = [...columns, newColumn];
-  };
-
-  return (
-    <BootstrapTable keyField='ghinnumber' data={ myPlayers } columns={ columns } />
-  )
-
-  }
-
-export default FGTable;
 
