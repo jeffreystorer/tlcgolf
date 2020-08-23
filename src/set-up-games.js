@@ -3,6 +3,7 @@ import { CSVReader } from 'react-papaparse'
 import { CSVLink } from 'react-csv';
 import Button from '@material-ui/core/Button';
 import fire from './fire';
+import database from './fire/database'
 import { set, get, jset, jget} from './local-storage-functions';
 import PlayerDataTable from './table-player-data';
 import {useStateWithLocalStorage} from './use-state-with-local-storage';
@@ -63,7 +64,7 @@ function SetUpGames () {
       const database = fire.database();
       var myRef = '/' + ghinNumber;
       var myData = database.ref(myRef);
-      myData.set(jget('PlayerTable'));
+      myData.set(get('PlayerTable'));
     }
 
     function handleOpenDialog(e) {
