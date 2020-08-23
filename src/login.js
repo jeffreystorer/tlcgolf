@@ -39,25 +39,10 @@ function LoginPage() {
     //first we set the ghinRequest api
     ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + ghinNumber + "&lastName=" + lastName + "&incllsudeLowHandicapIndex=true";
 
-//now we see if the user has tried to set a GHINNumber or LastName
-      //if ((get('GHINNumber') !== null ) & (get('LastName') !== null)) {
-      if ((ghinNumber !== '') & (lastName !== '')) {
-//the user has tried to set a GHINNumber and Last Name, we do a fetch and see if he entered good data
-        alert('Fetching GHINData');
-        doFetch(ghinRequest);
-        window.location.reload(false);
-
-      } else { 
-
-//if the user hasn't tried, we ask him to enter the login credentials
-        alert("Please enter your GHIN Number and Last Name");
-        //window.location.reload(false);
-      }
-
 //TODO: fetch data from firebase
 
-    }
- */
+    } */
+
 
   return (
       <Fragment>

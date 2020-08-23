@@ -1,8 +1,12 @@
 import * as courseData from './ratings-slopes-pars.js';
 import RequestGHIN from './request-ghin';
-import { get, jget} from './local-storage-functions';
+import { jget} from './local-storage-functions';/* 
+import {useStateWithLocalStorage} from './use-state-with-local-storage'; */
 
-function createGameTableBodyRows () {
+function CreateGameTableBodyRows (course, game) {
+  
+/*   const[ course, SetCourse] = useStateWithLocalStorage('Course');
+  const[ game, SetGame] = useStateWithLocalStorage('Game'); */
   //first, we get ghin data, store it in local storage, and add to Players
   RequestGHIN();
 
@@ -19,12 +23,10 @@ function createGameTableBodyRows () {
   let teesSelected = buildTeeArray();
 
   //choose which rows to add, the add them
-  function addRow(item, index){
-    
-    let rawGame = get('Game');
-    let game = rawGame.toLowerCase();
+  function addRow(item, index){ 
+    let myGame = game.toLowerCase();
     let games = jget('Games');
-    let gameNumber = games.indexOf(game);
+    let gameNumber = games.indexOf(myGame);
     switch(gameNumber) {
       case 0:
         doAdd(item, index)
@@ -50,8 +52,8 @@ function createGameTableBodyRows () {
   function compute(aPlayer, index) {
     let strHcpIndex = aPlayer[3];
     hcpIndex = parseFloat(strHcpIndex);
-    let rawCourse = get('Course');
-    let course = rawCourse.toLowerCase();
+    
+    let myCourse = course.toLowerCase();
     let courses = courseData.courses;
     let tees = courseData.tees;
     let firstName = aPlayer[2];
@@ -62,7 +64,7 @@ function createGameTableBodyRows () {
     let i;
     for (i=0; i < teesSelected.length; i++){
       //here is where we compute the course handicap of the golfer for each of the selected tees
-      let courseNumber = courses.indexOf(course);
+      let courseNumber = courses.indexOf(myCourse);
       let teeNumber = tees.indexOf(teesSelected[i]);
       setRatingSlopePar(courseNumber, teeNumber);
       rowReturn.push(doMath())
@@ -107,4 +109,4 @@ function createGameTableBodyRows () {
     return rows;
 }
 
-export default createGameTableBodyRows;
+export default CreateGameTableBodyRows;

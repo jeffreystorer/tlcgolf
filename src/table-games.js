@@ -1,23 +1,30 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import './App.css';
 import GameTableHeader from './table-games-header';
 import GameTableBody from './table-games-body';
 import { set, get, jget} from './local-storage-functions';
 import * as courseData from './ratings-slopes-pars';
+import {useStateWithLocalStorage} from './use-state-with-local-storage';
 
 
 function GameTable() {
-  const [courseValue, setCourseValue] = useState("Deer Creek");
-  const [gameValue, setGameValue] = useState("All");
+  const [course, setCourse] = useStateWithLocalStorage("Course");
+  const [game, setGame] = useStateWithLocalStorage("Game");
+
+  useEffect(() => {
+    set('Course', course);
+  }, [course]);
+
+  useEffect(() => {
+    set('Game', game);
+  }, [game]);
 
   function handleCourseChange(e){
-  setCourseValue(e.target.value);
-  set('Course', e.target.value);
+  setCourse(e.target.value);
   }
 
   function handleGameChange(e){
-  setGameValue(e.target.value);
-  set('Game', e.target.value);
+  setGame(e.target.value);
   }
 
 //We are only going to display this table if the golfer is logged in
@@ -29,10 +36,11 @@ function GameTable() {
   let isLoggedIn = get('IsLoggedIn');
   let teesSelected = jget('TeesSelected');
   let games = jget('Games');
-  let course = get('Course');
-  if (course !== null){ course = course.toLowerCase()};
-  let game = get('Game');
-  if (game !== null){ game = game.toLowerCase()};
+  let myCourse;
+  if (course !== null){ myCourse = course.toLowerCase()};
+  let myGame;
+  if (game !== null){ myGame = game.toLowerCase()};
+  
   //now we decide what to display
   if (
     //we see if he has logged in and selected tees
@@ -47,17 +55,17 @@ function GameTable() {
     //Now decide whether to dispay just the game and course
     //selectors or the entire table
     if (
-      (course !== null) &
-      (game !== null) &
-      (games.includes(game)) &
-      (courseData.courses.includes(course))
+      (myCourse !== null) &
+      (myGame !== null) &
+      (games.includes(myGame)) &
+      (courseData.courses.includes(myCourse))
       ) {
         //we can display everything
       return (
         <Fragment>
           <div className='select-dropdown-container'>
             <label className='left-selector'>
-              <select value={gameValue} onChange={handleGameChange}>
+              <select value={game} onChange={handleGameChange}>
                 <option value="">Select Game</option>
                 <option value="All">All</option>
                 <option value="Monday">Monday</option>
@@ -67,7 +75,7 @@ function GameTable() {
               </select>
             </label>
             <label className='right-selector'>
-              <select value={courseValue} onChange={handleCourseChange}>
+              <select value={course} onChange={handleCourseChange}>
                 <option value="">Select Course</option>
                 <option value="DC">Deer Creek</option>
                 <option value="MG">Magnolia</option>
@@ -85,19 +93,19 @@ function GameTable() {
                 <GameTableHeader />
               </thead>
               <tbody>
-                <GameTableBody />
+                <GameTableBody course={course} game={game}/>
               </tbody>
             </table>
           </div>
         </Fragment>
       ); 
         } else {
-        //otherwise we display on the game and course selectors
+        //otherwise we display only the game and course selectors
       return (
         <Fragment>
           <div className='select-dropdown-container'>
             <label className='left-selector'>
-              <select value={gameValue} onChange={handleGameChange}>
+              <select value={game} onChange={handleGameChange}>
                 <option value="">Select Game</option>
                 <option value="All">All</option>
                 <option value="Monday">Monday</option>
@@ -107,7 +115,7 @@ function GameTable() {
               </select>
             </label>
             <label className='right-selector'>
-              <select value={courseValue} onChange={handleCourseChange}>
+              <select value={course} onChange={handleCourseChange}>
                 <option value="">Select Course</option>
                 <option value="DC">Deer Creek</option>
                 <option value="MG">Magnolia</option>
