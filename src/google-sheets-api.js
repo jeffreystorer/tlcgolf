@@ -1,9 +1,8 @@
-import useDataAPIGoogleSheets from './use-data-api-google-sheets';
-import {useStateWithLocalStorage} from './use-state-with-local-storage';
+import {get} from './local-storage-functions';
 
-export function getGoogleSheet() {
-  const [ghinNumber, setGHINNumber] = useStateWithLocalStorage('ghinNumber')
-  const [hasGoogleSheet, setHasGoogleSheet] = useStateWithLocalStorage('hasGoogleSheet');
+export function fetchGoogleSheet() {
+  const ghinNumber =get('ghinNumber');
+  //const [hasGoogleSheet, setHasGoogleSheet] = useStateWithLocalStorage('hasGoogleSheet');
   const sheetId = '1GEP9S0xt1JBPLs3m0DoEOaQdwxwD8CEPFOXyxlxIKkg';
   const apiKey = 'AIzaSyB-3BsNRWZE_rYWK70jhx422iQIQg5TTU4';
   const url =  'https://sheets.googleapis.com/v4/spreadsheets/' +
@@ -12,22 +11,12 @@ export function getGoogleSheet() {
                ghinNumber + 
                "?key=" + 
                apiKey;
-   const [ {error, data}, doFetch ] = useDataAPIGoogleSheets(url, {hits:[]}, );
-   console.log('url: ' + url);
-   console.log('fetching google sheet');
-   doFetch(url);
-   console.log('error: ' + error);
-   console.log('data: ' + JSON.stringify(data));
-   if (error) {
-     setHasGoogleSheet(false)
-     return null
-   } else {
-     setHasGoogleSheet(true)
-     return data
-   }
+  fetch(url)
+  .then(data=>{return data.json()})
+  .then(res=>{console.log(res)})
 }
 
-export function getGoogleSheetProperties(){
+export function fetchGoogleSheetProperties() {
   const sheetId = '1GEP9S0xt1JBPLs3m0DoEOaQdwxwD8CEPFOXyxlxIKkg';
   const apiKey = 'AIzaSyB-3BsNRWZE_rYWK70jhx422iQIQg5TTU4';
   const url =  'https://sheets.googleapis.com/v4/spreadsheets/' +
@@ -35,4 +24,7 @@ export function getGoogleSheetProperties(){
                '?&fields=sheets.properties' + 
                "&key=" + 
                apiKey;
+  fetch(url)
+  .then(data=>{return data.json()})
+  .then(res=>{console.log(res)})
 }

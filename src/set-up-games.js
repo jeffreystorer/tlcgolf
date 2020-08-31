@@ -3,15 +3,20 @@ import Button from '@material-ui/core/Button';
 import { set, get, jset, jget} from './local-storage-functions';
 import PlayerDataTable from './table-player-data';
 import {useStateWithLocalStorage} from './use-state-with-local-storage';
-import {GetGoogleSheet} from './google-sheets-api'
+
+
+import {fetchGoogleSheet, fetchGoogleSheetProperties} from './google-sheets-api';
 
 function SetUpGames () {
   
-  const[ghinNumber, setGHINNumber] = useStateWithLocalStorage('GHINNumber');
+  const[ghinNumber, setghinNumber] = useStateWithLocalStorage('ghinNumber');
   const buttonRef = createRef();
-  const data = GetGoogleSheet();
-  console.log('data.values: ' + data.values)
-  createAndSavePlayerTable(data)
+  const data = fetchGoogleSheet();
+  console.log('data.values: ' + data)
+  const properties = fetchGoogleSheetProperties();
+  console.log('properties: ' + properties);
+  
+  //createAndSavePlayerTable(data)
 
   function createAndSavePlayerTable(data){
       const myPlayerRecords = data.values;
@@ -25,8 +30,8 @@ function SetUpGames () {
       setGamesAndPlayers(playerTable);
       window.location.reload(false);
   }
-    console.log('JSONData: ' + JSON.stringify(data));
-    console.log('values: ' + JSON.stringify(data.values));
+    //console.log('JSONData: ' + JSON.stringify(data));
+    //console.log('values: ' + JSON.stringify(data.values));
     function setGamesAndPlayers(playerTable){
       playerTable[0].splice(0,5);
       playerTable[0].unshift('all');

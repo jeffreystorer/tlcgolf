@@ -7,13 +7,13 @@ import { set, get, jget, jset } from './local-storage-functions';
 function FGTable () {
   const [myPlayers, setPlayers] = useState([]);
   const [myGames, setGames] = useState([]);
-  //const [myGHINNumber, setMyGHINNumber] = useState('0585871');
-  //setMyGHINNumber('5891112');
-  //set('GHINNumber', '0585871');
+  //const [myghinNumber, setMyghinNumber] = useState('0585871');
+  //setMyghinNumber('5891112');
+  //set('ghinNumber', '0585871');
 
   useEffect(() => {
   const database = fire.database();
-  const myRef = '/data/' + get('GHINNumber');
+  const myRef = '/data/' + get('ghinNumber');
   const myData = database.ref(myRef);
   myData.on('value', function(snapshot) { 
     let myPlayerTable = snapshot.val();
@@ -49,7 +49,7 @@ function FGTable () {
      };
    
    const database = fire.database();
-   var myRef = '/' + get('GHINNumber');
+   var myRef = '/' + get('ghinNumber');
    var myData = database.ref(myRef)
      myData.set(
        get('PlayerTable')

@@ -19,7 +19,7 @@ import SetupGames from './set-up-games';
 
 function App() {
 /*   const [{ data, isLoading, isError }, doFetch] = useDataAPI(
-  "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + get('GHINNumber') + "&lastName=" + get('LastName') + "&incllsudeLowHandicapIndex=true",
+  "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + get('ghinNumber') + "&lastName=" + get('LastName') + "&incllsudeLowHandicapIndex=true",
   {hits: []},
   ); */
 

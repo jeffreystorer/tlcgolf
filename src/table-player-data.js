@@ -8,7 +8,7 @@ import {useStateWithLocalStorage} from './use-state-with-local-storage';
 
 function PlayerDataTable() {
   const [golfer, setGolfer] = useStateWithLocalStorage('Golfer');
-  const [ghinNumber, setGHINNumber] = useStateWithLocalStorage('GHINNumber');
+  const [ghinNumber, setghinNumber] = useStateWithLocalStorage('ghinNumber');
   let playerName = golfer + " (" + ghinNumber + ")";
       return (
         <Fragment>

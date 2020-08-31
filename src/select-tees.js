@@ -8,7 +8,7 @@ import {
   Route,
   NavLink
 } from "react-router-dom";
-import { set, get, jset, jget} from './local-storage-functions';
+import { set, jset, jget} from './local-storage-functions';
 
 
 let selectedOption;

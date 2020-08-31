@@ -10,7 +10,7 @@ import {useStateWithLocalStorage} from './use-state-with-local-storage';
 
 function SetUpGames () {
   
-  const[ghinNumber, setGHINNumber] = useStateWithLocalStorage('GHINNumber');
+  const[ghinNumber, setghinNumber] = useStateWithLocalStorage('ghinNumber');
   const buttonRef = createRef()
 
 /*   const [myPlayers, setPlayers] = useState([]);
@@ -18,7 +18,7 @@ function SetUpGames () {
 
   useEffect(() => {
   const database = fire.database();
-  const myRef = '/data/' + get('GHINNumber');
+  const myRef = '/data/' + get('ghinNumber');
   const myData = database.ref(myRef);
   myData.on('value', function(snapshot) { 
     let myPlayerTable = snapshot.val();
@@ -161,12 +161,12 @@ function SetUpGames () {
         <br />
         <h5 align='center'>
           To edit your uploaded table of players and games,<br/>
-          download it ({get('GHINNumber')}.csv),<br/>
+          download it ({get('ghinNumber')}.csv),<br/>
           then edit the file, save it, and upload it again<br/>
           (using the Upload button):
         </h5><br/>
         <CSVLink
-          filename={get('GHINNumber') + ".csv"}
+          filename={get('ghinNumber') + ".csv"}
           style={{align: "center"}}
           className="mybtn mybtn-primary"
           data={JSON.parse(get('PlayerTable'))}>
