@@ -3,7 +3,7 @@ import { get, jget } from './local-storage-functions';
 
 
 function createIndividualTableBodyRows (table) {
-    const myTeeArray = jget('TeesSelected');
+    const myTeeArray = jget('teesSelected');
     let teesSelected = [];
 
     myTeeArray.forEach(myFunction);
@@ -19,7 +19,7 @@ function createIndividualTableBodyRows (table) {
 
     function compute(aTee) {
       let rowReturn = [aTee];
-      let strIndex = get("Index")
+      let strIndex = get("index")
       let index = parseFloat(strIndex);
       let tee = courseData.tees.indexOf(aTee);
   
@@ -46,7 +46,7 @@ function createIndividualTableBodyRows (table) {
     }
   
     function setRatingSlopePar(course, tee){
-    switch(get("Gender")) {
+    switch(get("gender")) {
         case 'F':
           rating = Number(courseData.wratings[course][tee]);
           slope = Number(courseData.wslopes[course][tee]);
@@ -61,7 +61,7 @@ function createIndividualTableBodyRows (table) {
     }
   
     function addRow(item){
-      switch(get('Gender')) {
+      switch(get('gender')) {
         case 'F':
           if (courseData.tees.indexOf(item) > 2) {
             doAdd(item);

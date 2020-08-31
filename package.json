@@ -21,6 +21,7 @@
     "react-select": "^3.1.0",
     "reactstrap": "^8.5.1",
     "serialize-javascript": "^4.0.0",
+    "tabletop": "^1.6.3",
     "terser-webpack-plugin": "^4.1.0"
   },
   "devDependencies": {

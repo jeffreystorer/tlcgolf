@@ -33,13 +33,13 @@ const SelectTees = () => {
   /*   if (selectedOption === null || selectedOption === '[]') {
       alert('You have not selected any tees.');
     } */
-    jset('TeesSelected', selectedOption);
+    jset('teesSelected', selectedOption);
   }
 
   function handleSelectTees () {
-    if ((jget('TeesSelected') === null) || (jget('TeesSelected') === '[]')){
+    if ((jget('teesSelected') === null) || (jget('teesSelected') === '[]')){
       //if the user moves on without selecting a tee, we select all tees
-      set('TeesSelected', JSON.stringify(options));
+      set('teesSelected', JSON.stringify(options));
     }
   }
 
