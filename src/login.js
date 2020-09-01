@@ -2,21 +2,19 @@ import React, {useEffect, Fragment} from 'react';
 import './App.css';
 import { Button } from '@material-ui/core';
 import {
-  //BrowserRouter as Router,
-  //Switch,
-  //Route,
   NavLink
   } from "react-router-dom";
 import useDataAPI from './use-data-api';
-import { set, get} from './local-storage-functions';
+import { set } from './local-storage-functions';
 import {useStateWithLocalStorage} from './use-state-with-local-storage';
 
 
 function LoginPage() {
-  const [ghinNumber, setghinNumber] = useStateWithLocalStorage('ghinNumber');
+  const [ghinNumber, setGHINNumber] = useStateWithLocalStorage('ghinNumber');
   const [lastName, setLastName] = useStateWithLocalStorage('lastName');
-  const [{ data, isLoading, isError }, doFetch] = useDataAPI(
-    "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + ghinNumber + "&lastName=" + lastName + "&incllsudeLowHandicapIndex=true",
+  //eslint-disable-next-line
+  const [{}, doFetch] = useDataAPI(
+    "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=0585871&lastName=Storer&incllsudeLowHandicapIndex=true",
     {hits: []},
   );
   
@@ -28,10 +26,13 @@ function LoginPage() {
     set('lastName', lastName);
   }, [lastName]);
 
-  useEffect(() => {    
+  useEffect(() => {
+    if ((ghinNumber !== "") & (lastName !== "")){
+    console.log('requesting GHIN: ghinNumber = ' + ghinNumber + ' lastName = ' + lastName);
     let ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + ghinNumber + "&lastName=" + lastName + "&incllsudeLowHandicapIndex=true";
     doFetch(ghinRequest)
-  }, [ghinNumber, lastName]);
+    }
+  }, [ghinNumber, lastName, doFetch]);
 
 
 
@@ -59,18 +60,18 @@ function LoginPage() {
               name="ghinnumber"
               defaultValue='GHIN Number'
               onFocus={event => event.target.value = ghinNumber}
-              onBlur={event => setghinNumber(event.target.value)}
+              onBlur={event => setGHINNumber(event.target.value)}
             />
           </div>
 
             <br></br><br></br>
           
           <div>
-            <label htmlFor='lastname'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Last Name:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label htmlFor='lastName'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Last Name:&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input 
               type="text" 
-              id="lastname" 
-              name="lastname"
+              id="lastName" 
+              name="lastName"
               defaultValue='Last Name'
               onFocus={event => event.target.value = lastName}
               onBlur={event => setLastName(event.target.value)}

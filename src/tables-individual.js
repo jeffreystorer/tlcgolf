@@ -4,14 +4,14 @@ import CHTableBody from './tables-individual-ch-body';
 import TSTableBody from './tables-individual-ts-body';
 import {get, jget} from './local-storage-functions';
 import useDataAPI from './use-data-api';
-import {useStateWithLocalStorage} from './use-state-with-local-storage';
 
 
 function IndividualTables() {
-  const [ghinNumber, setghinNumber] = useStateWithLocalStorage('ghinNumber');
-  const [lastName, setLastName] = useStateWithLocalStorage('LastName');
-  const [{ data, isLoading, isError }, doFetch] = useDataAPI(
-    "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + get('ghinNumber') + "&lastName=" + get('LastName') + "&incllsudeLowHandicapIndex=true",
+  const ghinNumber = get('ghinNumber');
+  const lastName = get('lastName');
+  //eslint-disable-next-line
+  const [{}, doFetch] = useDataAPI(
+    "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=0585871&lastName=Storer&incllsudeLowHandicapIndex=true",
     {hits: []},
   );
   
@@ -20,19 +20,19 @@ function IndividualTables() {
     let ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + ghinNumber + "&lastName=" + lastName + "&incllsudeLowHandicapIndex=true";
     doFetch(ghinRequest);
     
-  }, [ghinNumber, lastName]);
+  }, [ghinNumber, lastName, doFetch]);
 /*
 We are only going to display this table if the golfer is logged in
 and has selected at least one set of tees
 */
-  let isLoggedIn = get('IsLoggedIn')
-  let teesSelected = jget('TeesSelected');
+  let isLoggedIn = get('isLoggedIn')
+  let teesSelected = jget('teesSelected');
   if ((teesSelected !== null) & (teesSelected !== []) & isLoggedIn === 'true') {
 
   return (
     <Fragment>
       <div className='center golfer-center'>
-          {get('Golfer') + ' (Index: ' + get('Index') + ')'}
+          {get('golfer') + ' (Index: ' + get('index') + ')'}
       </div>      
       <br/>
       <div id='table'>

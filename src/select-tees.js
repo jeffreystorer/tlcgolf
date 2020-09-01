@@ -3,9 +3,9 @@ import Select from 'react-select'
 import './App.css';
 import { Button } from '@material-ui/core';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
+  //BrowserRouter as Router,
+  //Switch,
+  //Route,
   NavLink
 } from "react-router-dom";
 import { set, jset, jget} from './local-storage-functions';

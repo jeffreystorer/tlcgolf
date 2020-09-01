@@ -8,15 +8,15 @@ import {useStateWithLocalStorage} from './use-state-with-local-storage';
 
 
 function GameTable() {
-  const [course, setCourse] = useStateWithLocalStorage("Course");
-  const [game, setGame] = useStateWithLocalStorage("Game");
+  const [course, setCourse] = useStateWithLocalStorage("course");
+  const [game, setGame] = useStateWithLocalStorage("game");
 
   useEffect(() => {
-    set('Course', course);
+    set('course', course);
   }, [course]);
 
   useEffect(() => {
-    set('Game', game);
+    set('game', game);
   }, [game]);
 
   function handleCourseChange(e){
@@ -33,9 +33,9 @@ function GameTable() {
 //If the golfer has done that but not selected a game and a course,
 //we are not going to display the table body or header
 
-  let isLoggedIn = get('IsLoggedIn');
-  let teesSelected = jget('TeesSelected');
-  let games = jget('Games');
+  let isLoggedIn = get('isLoggedIn');
+  let teesSelected = jget('teesSelected');
+  let games = jget('games');
   let myCourse;
   if (course !== null){ myCourse = course.toLowerCase()};
   let myGame;

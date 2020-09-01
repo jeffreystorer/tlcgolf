@@ -12,7 +12,7 @@ function PlayerDataTableBody() {
       rowsTD[i] = (
         <tr key={i}>
           <th scope='row' className='left-header-cell'>{rows[i][0]}</th>
-          <td className='lastname-col'>{rows[i][1]}</td>
+          <td className='lastName-col'>{rows[i][1]}</td>
           {generateCols(i)}
         </tr>
       )

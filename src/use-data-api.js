@@ -60,8 +60,7 @@ const useDataAPI = (initialUrl, initialData) => {
  
   useEffect(() => {
     const fetchData = async () => {
-      console.log('useEffect in use-data-api'
-      );
+      //console.log('useEffect in use-data-api');
       dispatch({ type: 'FETCH_INIT' });
  
       try {

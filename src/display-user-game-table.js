@@ -17,7 +17,7 @@ function DisplayUserGameTable () {
         dataField: 'ghinnumber',
         text: 'GHIN Number'
       }, {
-        dataField: 'lastname',
+        dataField: 'lastName',
         text: 'Last Name'
       }
     ]
