@@ -5,7 +5,7 @@ import { jget, jset } from './local-storage-functions';
 function RequestGHIN() {
   useEffect(() => {
   let requests = [];
-  let players = jget("Players");
+  let players = jget("players");
   players.forEach(buildRequests);
 
   Promise.all(requests).then(function (responses) {
@@ -14,7 +14,7 @@ function RequestGHIN() {
       return response.json();
     }));
   }).then(function (data) {
-    jset('GHINData', data);
+    jset('ghinData', data);
     addGHINDataToPlayers();
   }).catch(function (error) {
     // if there's an error, log it
@@ -23,7 +23,7 @@ function RequestGHIN() {
   function addGHINDataToPlayers() {
     players.forEach(addData)
     function addData(item, index) {
-      let data = jget('GHINData');
+      let data = jget('ghinData');
       try {
       item[2] =  data[index].golfers[0].FirstName;
     } catch (error){
@@ -34,7 +34,7 @@ function RequestGHIN() {
       item[3] = data[index].golfers[0].Value;
       item[4] = data[index].golfers[0].Gender;
     }
-    jset("Players", players);
+    jset("players", players);
 }
 
   function buildRequests(item, index) {

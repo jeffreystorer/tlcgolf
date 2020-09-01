@@ -14,23 +14,25 @@ function SetUpGames () {
                apiKey;
 
   const sheetProperties =  'https://sheets.googleapis.com/v4/spreadsheets/' +
-  sheetId + 
-  '?fields=sheets.properties&key=' +
-  apiKey;
-  function createAndSavePlayerTable(data){
-    const myPlayerRecords = data.values;
+              sheetId + 
+              '?fields=sheets.properties&key=' +
+              apiKey;
+
+  function createAndSavePlayerTable(data){    
+    const myPlayerRecords = data;
     let rowCount = myPlayerRecords.length;
+    
     let playerTable = [];
     let i;
     for (i = 0; i < rowCount; i++){
-      playerTable.push(myPlayerRecords[i].data);
+      playerTable.push(myPlayerRecords[i]);
     }
     set('playerTable', JSON.stringify(playerTable));
     setGamesAndPlayers(playerTable);
     window.location.reload(false);
 }
-  function setGamesAndPlayers(playerTable){
-    playerTable[0].splice(0,5);
+  function setGamesAndPlayers(playerTable){    
+    playerTable[0].splice(0,2);
     playerTable[0].unshift('all');
     set('games', JSON.stringify(playerTable[0]));
     playerTable.splice(0,1);
@@ -40,24 +42,21 @@ function SetUpGames () {
 fetch(sheetValues)
         .then((response) => response.json())
         .then(data => (jset('googleSheetValues', data)))
-let playerData = jget('googleSheetValues').values;
-console.log('playerData: ' + playerData);
 
 
 fetch(sheetProperties)
         .then((response) => response.json())
         .then(data => (jset('googleSheetProperties', data)))
-let sheetCount = jget('googleSheetProperties').sheets.length;
-let properties = jget('googleSheetProperties').sheets[0];
-console.log('sheetCount: ' + sheetCount);
-console.log('properties: ' + JSON.stringify(properties));
+
 let propertyArray = jget('googleSheetProperties').sheets;
+
 let propertyIndex = propertyArray.findIndex(x => x.properties.title === ghinNumber);
-console.log('propertyIndex: ' + propertyIndex);
 let baseURL = 'https://docs.google.com/spreadsheets/d/1GEP9S0xt1JBPLs3m0DoEOaQdwxwD8CEPFOXyxlxIKkg'
 if (propertyIndex > -1) {
-let playerData = jget('googleSheetValues').values;
-createAndSavePlayerTable(playerData);
+let valuesArray  = jget('googleSheetValues');
+let playerData = JSON.stringify(valuesArray.values);
+console.log('playerData: ' + playerData);
+//createAndSavePlayerTable(JSON.parse(playerData));
 let sheetGid = propertyArray[propertyIndex].properties.sheetId
 let sheetURL = baseURL + '/edit#gid=' + sheetGid;
     return (
@@ -65,7 +64,7 @@ let sheetURL = baseURL + '/edit#gid=' + sheetGid;
       <p className='center'>Your table of players and games<br></br>
                             is in Google Sheets.
                             </p>
-            <p className='center'>When you are done editing,<br></br>
+            <p className='center'>When you are done editing it,<br></br>
                             click your browser's back arrow<br></br>
                             to return here.
                             </p>

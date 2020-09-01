@@ -11,7 +11,7 @@ function CreateGameTableBodyRows (course, game) {
   RequestGHIN();
 
   //declare some variables
-  let players = jget('Players');
+  let players = jget('players');
   var rows = [];
   let rating;
   let slope;
@@ -25,14 +25,14 @@ function CreateGameTableBodyRows (course, game) {
   //choose which rows to add, the add them
   function addRow(item, index){ 
     let myGame = game.toLowerCase();
-    let games = jget('Games');
+    let games = jget('games');
     let gameNumber = games.indexOf(myGame);
     switch(gameNumber) {
       case 0:
         doAdd(item, index)
         break;
       default:
-        let gameIndex = gameNumber + 4;
+        let gameIndex = gameNumber;
         if ((item[gameIndex] === "Yes")|| (item[gameIndex] === "YES") || (item[gameIndex] === 'yes')){
           doAdd(item, index);
     }
@@ -100,7 +100,7 @@ function CreateGameTableBodyRows (course, game) {
     }
   
     function buildTeeArray() {
-      const myTeeArray = jget('TeesSelected');
+      const myTeeArray = jget('teesSelected');
       let teesSelected = myTeeArray.map(a => a.value);
       return teesSelected;
     }
