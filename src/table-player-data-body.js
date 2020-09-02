@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import {jget} from './local-storage-functions';
 
 function PlayerDataTableBody() {
-  let playerTable = jget("PlayerTable");
+  let playerTable = jget("playerTable");
   let rows = playerTable;
   let rowsTD = [];
   let colCount = rows[0].length;

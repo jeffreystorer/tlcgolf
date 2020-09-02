@@ -1,5 +1,6 @@
 import React from 'react';
 import {get, jset, jget} from './local-storage-functions';
+import PlayerDataTable from './table-player-data'
 
 function SetUpGames () {
   const ghinNumber = get('ghinNumber');
@@ -46,6 +47,8 @@ let sheetURL = baseURL + '/edit#gid=' + sheetGid;
         <div className='link-center'>
           <a href={sheetURL}>Click Here to Edit Your Table</a>
         </div>
+            <br></br>
+            <PlayerDataTable />
       </>
     )
   } else {

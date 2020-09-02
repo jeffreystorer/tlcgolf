@@ -1,11 +1,14 @@
 import {set, jget} from './local-storage-functions';
 
 export function createPlayerTableGamesPlayers () {
+  console.log('executing createPTGP');
+  
 
   function createAndSavePlayerTable(data){
     console.log('creating Player Table with data: ' + data);
-    const myPlayerRecords = data;
+    const myPlayerRecords = JSON.parse(data);
     let rowCount = myPlayerRecords.length;
+    console.log('rowCount: ' + rowCount)
     
     let playerTable = [];
     let i;
@@ -14,7 +17,6 @@ export function createPlayerTableGamesPlayers () {
     }
     set('playerTable', JSON.stringify(playerTable));
     setGamesAndPlayers(playerTable);
-    window.location.reload(false);
 }
   function setGamesAndPlayers(playerTable){    
     playerTable[0].splice(0,2);
@@ -27,5 +29,5 @@ export function createPlayerTableGamesPlayers () {
 let valuesArray  = jget('googleSheetValues');
 let playerData = JSON.stringify(valuesArray.values);
 console.log('playerData: ' + playerData);
-createAndSavePlayerTable(JSON.parse(playerData));
+createAndSavePlayerTable(playerData);
 }

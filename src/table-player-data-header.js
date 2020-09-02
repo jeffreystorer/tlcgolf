@@ -3,7 +3,7 @@ import {jget} from './local-storage-functions'
 
 
 function PlayerDataTableHeader() {
-  let playerTable = jget("PlayerTable");
+  let playerTable = jget("playerTable");
   let cols = playerTable[0];
   function getHeader() {
     var keys = cols;
