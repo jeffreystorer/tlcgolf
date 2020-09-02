@@ -1,5 +1,5 @@
 import React from 'react';
-import {set, get, jset, jget} from './local-storage-functions';
+import {get, jset, jget} from './local-storage-functions';
 
 function SetUpGames () {
   const ghinNumber = get('ghinNumber');
@@ -18,27 +18,6 @@ function SetUpGames () {
               '?fields=sheets.properties&key=' +
               apiKey;
 
-  function createAndSavePlayerTable(data){    
-    const myPlayerRecords = data;
-    let rowCount = myPlayerRecords.length;
-    
-    let playerTable = [];
-    let i;
-    for (i = 0; i < rowCount; i++){
-      playerTable.push(myPlayerRecords[i]);
-    }
-    set('playerTable', JSON.stringify(playerTable));
-    setGamesAndPlayers(playerTable);
-    window.location.reload(false);
-}
-  function setGamesAndPlayers(playerTable){    
-    playerTable[0].splice(0,2);
-    playerTable[0].unshift('all');
-    set('games', JSON.stringify(playerTable[0]));
-    playerTable.splice(0,1);
-    set('players', JSON.stringify(playerTable));
-} 
-
 fetch(sheetValues)
         .then((response) => response.json())
         .then(data => (jset('googleSheetValues', data)))
@@ -53,10 +32,6 @@ let propertyArray = jget('googleSheetProperties').sheets;
 let propertyIndex = propertyArray.findIndex(x => x.properties.title === ghinNumber);
 let baseURL = 'https://docs.google.com/spreadsheets/d/1GEP9S0xt1JBPLs3m0DoEOaQdwxwD8CEPFOXyxlxIKkg'
 if (propertyIndex > -1) {
-let valuesArray  = jget('googleSheetValues');
-let playerData = JSON.stringify(valuesArray.values);
-console.log('playerData: ' + playerData);
-//createAndSavePlayerTable(JSON.parse(playerData));
 let sheetGid = propertyArray[propertyIndex].properties.sheetId
 let sheetURL = baseURL + '/edit#gid=' + sheetGid;
     return (

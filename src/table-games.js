@@ -5,6 +5,7 @@ import GameTableBody from './table-games-body';
 import { set, get, jget} from './local-storage-functions';
 import * as courseData from './ratings-slopes-pars';
 import {useStateWithLocalStorage} from './use-state-with-local-storage';
+import {createPlayerTableGamesPlayers} from './create-playertable-games-players'
 
 
 function GameTable() {
@@ -60,7 +61,8 @@ function GameTable() {
       (games.includes(myGame)) &
       (courseData.courses.includes(myCourse))
       ) {
-        //we can display everything
+          //we can display everything
+      createPlayerTableGamesPlayers();
       return (
         <Fragment>
           <div className='select-dropdown-container'>
