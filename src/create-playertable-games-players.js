@@ -19,7 +19,7 @@ export function createPlayerTableGamesPlayers () {
     setGamesAndPlayers(playerTable);
 }
   function setGamesAndPlayers(playerTable){    
-    playerTable[0].splice(0,2);
+    playerTable[0].splice(0,5);
     playerTable[0].unshift('all');
     set('games', JSON.stringify(playerTable[0]));
     playerTable.splice(0,1);

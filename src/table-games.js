@@ -35,12 +35,13 @@ function GameTable() {
 //we are not going to display the table body or header
 
   let isLoggedIn = get('isLoggedIn');
+  let hasGoogleSheet = get('hasGoogleSheet')
   let teesSelected = jget('teesSelected');
   let games = jget('games');
   let myCourse;
   if (course !== null){ myCourse = course.toLowerCase()};
   let myGame;
-  if (game !== null){ myGame = game.toLowerCase()};
+  if (game !== null){ myGame = game};
   
   //now we decide what to display
   if (
@@ -49,6 +50,7 @@ function GameTable() {
     (teesSelected !== null) &
     (teesSelected !== []) &
     //we test games to see if he has set up his games
+    (hasGoogleSheet === 'true') &
     (games !== null) &
     (games !== [])
   ) {
@@ -62,7 +64,7 @@ function GameTable() {
       (courseData.courses.includes(myCourse))
       ) {
           //we can display everything
-      createPlayerTableGamesPlayers();
+      //createPlayerTableGamesPlayers();
       return (
         <Fragment>
           <div className='select-dropdown-container'>

@@ -1,6 +1,6 @@
 import * as courseData from './ratings-slopes-pars.js';
 import RequestGHIN from './request-ghin';
-import { jget} from './local-storage-functions';/* 
+import { get, jget} from './local-storage-functions';/* 
 import {useStateWithLocalStorage} from './use-state-with-local-storage'; */
 
 function CreateGameTableBodyRows (course, game) {
@@ -23,10 +23,9 @@ function CreateGameTableBodyRows (course, game) {
   let teesSelected = buildTeeArray();
 
   //choose which rows to add, the add them
-  function addRow(item, index){ 
-    let myGame = game.toLowerCase();
+  function addRow(item, index){
     let games = jget('games');
-    let gameNumber = games.indexOf(myGame);
+    let gameNumber = games.indexOf(game);
     switch(gameNumber) {
       case 0:
         doAdd(item, index)

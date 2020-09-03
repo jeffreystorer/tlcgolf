@@ -37,9 +37,15 @@ const SelectTees = () => {
   }
 
   function handleSelectTees () {
-    if ((jget('teesSelected') === null) || (jget('teesSelected') === '[]')){
+    console.log('teesSelected: ' + jget('teesSelected'));
+    
+    console.log('handleSelectTees');
+    
+    if ((jget('teesSelected') === null) || (jget('teesSelected') === []) || (jget('teesSelected') === "")){
+      console.log('none selected');
+      
       //if the user moves on without selecting a tee, we select all tees
-      set('teesSelected', JSON.stringify(options));
+      set('teesSelected', JSON.stringify([{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}]));
     }
   }
 
