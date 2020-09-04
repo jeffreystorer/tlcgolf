@@ -43,9 +43,7 @@ function RequestGHIN() {
     let ghinRequest = 'https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=' + ghinNumber + '&lastName=' + lastName + '&incllsudeLowHandicapIndex=true';
     requests = [...requests, fetch(ghinRequest)];
     
-/*     ghinRequest = '"' + ghinRequest + '"';
-    let fetchItem = 'fetch(' + ghinRequest + ')';
-    fetchArray = [...fetchArray, fetchItem]; */
+
   }
     return () => {
       //cleanup

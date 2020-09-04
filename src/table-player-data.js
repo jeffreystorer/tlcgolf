@@ -2,12 +2,12 @@ import React, {Fragment} from 'react';
 import './App.css';
 import PlayerDataTableHeader from './table-player-data-header';
 import PlayerDataTableBody from './table-player-data-body';
-import {useStateWithLocalStorage} from './use-state-with-local-storage';
+import {get} from './local-storage-functions';
 
 
 function PlayerDataTable() {
-  const [golfer, setGolfer] = useStateWithLocalStorage('golfer');
-  const [ghinNumber, setghinNumber] = useStateWithLocalStorage('ghinNumber');
+  const golfer = get('golfer');
+  const ghinNumber = get('ghinNumber');
   let playerName = golfer + " (" + ghinNumber + ")";
       return (
         <Fragment>

@@ -1,33 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {get, set, jget} from './local-storage-functions';
 import PlayerDataTable from './table-player-data'
-import {fetchGoogleSheets} from './fetch-google-sheets'
+import {fetchGoogleSheets} from './fetch-google-sheets-using-promise-all'
 import {createPlayerTableGamesPlayers} from './create-playertable-games-players';
-
+import {useStateWithLocalStorage} from './use-state-with-local-storage';
 function SetUpGames () {
+  const [hasGoogleSheet, setHasGoogleSheet] = useStateWithLocalStorage('hasGoogleSheet')
   let propertyArray;
-  let propertyIndex;
   const ghinNumber = get('ghinNumber');
+
+/*   useEffect(() => {
+  fetchGoogleSheets();
+    }, ) */
   fetchGoogleSheets();
   try {    
     propertyArray = jget('googleSheetProperties').sheets
-    propertyIndex = propertyArray.findIndex(x => x.properties.title === ghinNumber)
   } catch (error) {
-    console.log(error);
-    debugger;
-    //window.location.reload(false)
+    window.location.reload(false)
   }  
+  let propertyIndex = propertyArray.findIndex(x => x.properties.title === ghinNumber)
+
 
   let baseURL = 'https://docs.google.com/spreadsheets/d/1GEP9S0xt1JBPLs3m0DoEOaQdwxwD8CEPFOXyxlxIKkg'
   if (propertyIndex > -1) {
-  set('hasGoogleSheet', "true")
-  //try {
+  setHasGoogleSheet("true");
+  try {
   createPlayerTableGamesPlayers();
-/*   } catch (error) {
-    console.log(error);
-    debugger;
+  } catch (error) {
     window.location.reload(false)
-  } */
+  }
   let sheetGid = propertyArray[propertyIndex].properties.sheetId
   let sheetURL = baseURL + '/edit#gid=' + sheetGid;
       return (
@@ -47,7 +48,7 @@ function SetUpGames () {
         </>
       )
     } else {
-      set('hasGoogleSheet', "false");
+      setHasGoogleSheet("false");
       set('players', "[]");
       set('playerTable', "[]");
       set('games', "[]");

@@ -11,7 +11,7 @@ function IndividualTables() {
   const lastName = get('lastName');
   //eslint-disable-next-line
   const [{}, doFetch] = useDataAPI(
-    "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=0585871&lastName=Storer&incllsudeLowHandicapIndex=true",
+    "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=000000&lastName=None&incllsudeLowHandicapIndex=true",
     {hits: []},
   );
   

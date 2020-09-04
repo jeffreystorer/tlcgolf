@@ -5,7 +5,6 @@ import GameTableBody from './table-games-body';
 import { set, get, jget} from './local-storage-functions';
 import * as courseData from './ratings-slopes-pars';
 import {useStateWithLocalStorage} from './use-state-with-local-storage';
-import {createPlayerTableGamesPlayers} from './create-playertable-games-players'
 
 
 function GameTable() {
@@ -54,6 +53,10 @@ function GameTable() {
     (games !== null) &
     (games !== [])
   ) {
+    //build list of games
+      const optionItems = games.map((game) =>
+      <option value={game}>{game}</option>
+      );
     //golfer has logged in, selected tees, and set up his games
     //Now decide whether to dispay just the game and course
     //selectors or the entire table
@@ -64,18 +67,19 @@ function GameTable() {
       (courseData.courses.includes(myCourse))
       ) {
           //we can display everything
-      //createPlayerTableGamesPlayers();
+          //but first we have to build the list of games
       return (
         <Fragment>
           <div className='select-dropdown-container'>
             <label className='left-selector'>
               <select value={game} onChange={handleGameChange}>
                 <option value="">Select Game</option>
-                <option value="All">All</option>
+                {optionItems}
+{/*                 <option value="All">All</option>
                 <option value="Monday">Monday</option>
                 <option value="Wednesday">Wednesday</option>
                 <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
+                <option value="Saturday">Saturday</option> */}
               </select>
             </label>
             <label className='right-selector'>
@@ -111,11 +115,7 @@ function GameTable() {
             <label className='left-selector'>
               <select value={game} onChange={handleGameChange}>
                 <option value="">Select Game</option>
-                <option value="All">All</option>
-                <option value="Monday">Monday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
+                {optionItems}
               </select>
             </label>
             <label className='right-selector'>
