@@ -32,6 +32,11 @@ export function createPlayerTableGamesPlayers () {
   }
 
   let valuesArray  = jget('googleSheetValues');
-  let playerData = JSON.stringify(valuesArray.values);
+  let playerData;
+  try {
+    playerData = JSON.stringify(valuesArray.values);    
+  } catch (error) {
+    window.location.reload(false);
+  }
   createAndSavePlayerTable(playerData);
 }

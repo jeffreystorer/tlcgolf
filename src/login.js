@@ -13,8 +13,8 @@ function LoginPage() {
   const [ghinNumber, setGHINNumber] = useStateWithLocalStorage('ghinNumber');
   const [lastName, setLastName] = useStateWithLocalStorage('lastName');
   //eslint-disable-next-line
-  const [{}, doFetch] = useDataAPI(
-    "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=0585871&lastName=Storer&incllsudeLowHandicapIndex=true",
+  const [{}, doFetch] = useDataAPI("",
+    //"https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=0585871&lastName=Storer&incllsudeLowHandicapIndex=true",
     {hits: []},
   );
 

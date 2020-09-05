@@ -69,7 +69,7 @@ const SelectTees = () => {
             color="primary"
             onClick={handleSelectTees}>
               <NavLink exact 
-                to="/settings/editgames"
+                to="/settings/createoreditgames"
                 style={{color: "white"}}
               >
                 Next

@@ -4,6 +4,7 @@ import CHTableBody from './tables-individual-ch-body';
 import TSTableBody from './tables-individual-ts-body';
 import {get, jget} from './local-storage-functions';
 import useDataAPI from './use-data-api';
+import RefreshGames from './refresh-games'
 
 
 function IndividualTables() {
@@ -15,6 +16,13 @@ function IndividualTables() {
     {hits: []},
   );
   
+  
+  useEffect(() => {    
+    let hasGoogleSheet = get('hasGoogleSheet');
+    if (hasGoogleSheet === 'true') {
+      RefreshGames();
+    }
+  }, [])
 
   useEffect(() => {    
     let ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + ghinNumber + "&lastName=" + lastName + "&incllsudeLowHandicapIndex=true";

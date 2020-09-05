@@ -5,9 +5,6 @@ import GameTableBody from './table-games-body';
 import { set, get, jget} from './local-storage-functions';
 import * as courseData from './ratings-slopes-pars';
 import {useStateWithLocalStorage} from './use-state-with-local-storage';
-//import {createPlayerTableGamesPlayers} from './create-playertable-games-players';
-import {requestGHIN} from './request-ghin';
-
 
 
 function GameTable() {
@@ -54,13 +51,18 @@ function GameTable() {
     //we test games to see if he has set up his games
     (hasGoogleSheet === 'true')
   ) {
-    requestGHIN();
+    //RefreshGames();
     //first we create the tables of players and games
     //createPlayerTableGamesPlayers();
     //build list of games
-      const optionItems = games.map((game) =>
-      <option key={game} value={game}>{game}</option>
-      );
+    let optionItems;
+    try {
+      optionItems = games.map((game) =>
+      <option key={game} value={game}>{game}</option>);
+    } catch (error) {
+      console.log(error);
+    }
+
     //golfer has logged in, selected tees, and set up his games
     //Now decide whether to dispay just the game and course
     //selectors or the entire table
@@ -143,7 +145,7 @@ function GameTable() {
           <br/>
           <br/>
           <p className="center">
-            Please go to Settings, then login, select at least one set of tees,<br></br> and set up your table of games in order to display this table.
+            Please go to Settings, then login, select at least one set of tees,<br></br> and create your table of games in order to display this table.
           </p>
         </div>
       );

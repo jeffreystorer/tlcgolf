@@ -13,13 +13,9 @@ import IndividualTables from './tables-individual.js';
 import GameTable from './table-games';
 import LoginPage from './login';
 import SelectTees from './select-tees';
-import EditGames from './edit-games';
-import {get} from './local-storage-functions';
+import CreateOrEditGames from './create-or-edit-games';
 
 function App() {
-
-  
-
 
   return (
     <Router>
@@ -59,10 +55,10 @@ function Setting () {
         </>
       )
       
-    case "editgames":
+    case "createoreditgames":
       return (
        <>
-       <EditGames />
+       <CreateOrEditGames />
        </>
       )
   
@@ -77,14 +73,14 @@ function Setting () {
 }
 
 function Settings () {
-  const hasGoogleSheet = get('hasGoogleSheet');
+/*   const hasGoogleSheet = get('hasGoogleSheet');
   function gameTabLabel(){
   if (hasGoogleSheet === 'true') {
     return "Edit Games"
   } else {
-    return "Setup Games"
+    return "Create Games"
   }}
-  console.log(gameTabLabel());
+  console.log(gameTabLabel()); */
   let {path, url} = useRouteMatch();
   return (
     <Fragment>
@@ -92,7 +88,7 @@ function Settings () {
     <nav >
       <NavLink exact to={`${url}/login`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Login</NavLink>
       <NavLink exact to={`${url}/selecttees`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Select Tees</NavLink>
-      <NavLink exact to={`${url}/editgames`} className='navitem-last' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>{gameTabLabel()}</NavLink>
+      <NavLink exact to={`${url}/createoreditgames`} className='navitem-last' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Create or Edit Games</NavLink>
     </nav>
       <Switch>
         <Route path={`${path}/:settingId`}>

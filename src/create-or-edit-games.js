@@ -1,10 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {get, set, jset} from './local-storage-functions';
-import {createPlayerTableGamesPlayers} from './create-playertable-games-players';
-import {requestGHIN} from './request-ghin';
+import {get, set} from './local-storage-functions';
 
-function EditGames () {
-  //const [sheetURL, setSheetURL] = useState();
+function CreateOrEditGames () {
   let editSheet;
   let createSheet;
   let sheetURL;
@@ -13,23 +10,10 @@ function EditGames () {
   const sheetId = '1GEP9S0xt1JBPLs3m0DoEOaQdwxwD8CEPFOXyxlxIKkg';
   const apiKey = 'AIzaSyB-3BsNRWZE_rYWK70jhx422iQIQg5TTU4';
 
-  const sheetValues =  'https://sheets.googleapis.com/v4/spreadsheets/' +
-               sheetId + 
-               '/values/' + 
-               ghinNumber + 
-               "?key=" + 
-               apiKey;
-
   const sheetProperties =  'https://sheets.googleapis.com/v4/spreadsheets/' +
               sheetId + 
               '?fields=sheets.properties&key=' +
               apiKey;
-
-  useEffect(() => {
-    fetch(sheetValues)
-      .then((response) => response.json())
-      .then(data => (processSVData(data)))
-    }, [sheetValues])
 
   useEffect(() => {
     fetch(sheetProperties)
@@ -38,10 +22,6 @@ function EditGames () {
       //eslint-disable-next-line
     }, [sheetProperties])
 
-  function processSVData(data) {
-    jset('googleSheetValues', data);
-  };
-
   function processSPData(data){
     renderPage(data)
   }
@@ -49,19 +29,15 @@ function EditGames () {
   function renderPage(data) {
     let propertyArray;
     let propertyIndex;
-    try {    
-      //propertyArray = sheetPropData.sheets;
+    try { 
       propertyArray = data.sheets
       propertyIndex = propertyArray.findIndex(x => x.properties.title === ghinNumber)
     } catch (error) {
       console.log(error);
-      //window.location.reload(false)
     }
      let baseURL = 'https://docs.google.com/spreadsheets/d/1GEP9S0xt1JBPLs3m0DoEOaQdwxwD8CEPFOXyxlxIKkg'
       if (propertyIndex > -1) {
       set('hasGoogleSheet', "true")
-      createPlayerTableGamesPlayers();
-      requestGHIN();
       let sheetGid = propertyArray[propertyIndex].properties.sheetId
       sheetURL= baseURL + '/edit#gid=' + sheetGid;
 
@@ -117,4 +93,4 @@ function EditGames () {
     </>
     )
 }
-export default EditGames;
+export default CreateOrEditGames;
