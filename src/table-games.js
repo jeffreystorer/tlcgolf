@@ -5,6 +5,9 @@ import GameTableBody from './table-games-body';
 import { set, get, jget} from './local-storage-functions';
 import * as courseData from './ratings-slopes-pars';
 import {useStateWithLocalStorage} from './use-state-with-local-storage';
+//import {createPlayerTableGamesPlayers} from './create-playertable-games-players';
+import {requestGHIN} from './request-ghin';
+
 
 
 function GameTable() {
@@ -49,13 +52,14 @@ function GameTable() {
     (teesSelected !== null) &
     (teesSelected !== []) &
     //we test games to see if he has set up his games
-    (hasGoogleSheet === 'true') &
-    (games !== null) &
-    (games !== [])
+    (hasGoogleSheet === 'true')
   ) {
+    requestGHIN();
+    //first we create the tables of players and games
+    //createPlayerTableGamesPlayers();
     //build list of games
       const optionItems = games.map((game) =>
-      <option value={game}>{game}</option>
+      <option key={game} value={game}>{game}</option>
       );
     //golfer has logged in, selected tees, and set up his games
     //Now decide whether to dispay just the game and course
@@ -67,7 +71,6 @@ function GameTable() {
       (courseData.courses.includes(myCourse))
       ) {
           //we can display everything
-          //but first we have to build the list of games
       return (
         <Fragment>
           <div className='select-dropdown-container'>
@@ -140,7 +143,7 @@ function GameTable() {
           <br/>
           <br/>
           <p className="center">
-            Please go to Settings, then login, select at least one set of tees, and upload your table of games in order to display this table.
+            Please go to Settings, then login, select at least one set of tees,<br></br> and set up your table of games in order to display this table.
           </p>
         </div>
       );

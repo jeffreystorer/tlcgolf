@@ -1,6 +1,9 @@
+
+import { useEffect } from 'react';
 import { jget, jset } from './local-storage-functions';
 
-export function requestGHIN() {
+function RequestGHIN() {
+  useEffect(() => {
   let requests = [];
   let players = jget("players");
   players.forEach(buildRequests);
@@ -42,4 +45,12 @@ export function requestGHIN() {
     
 
   }
+    return () => {
+      //cleanup
+    }
+  }, [])
+
+  return null;
 }
+ 
+export default RequestGHIN;

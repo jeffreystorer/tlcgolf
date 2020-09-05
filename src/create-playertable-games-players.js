@@ -14,7 +14,7 @@ export function createPlayerTableGamesPlayers () {
     }
     set('playerTable', JSON.stringify(playerTable));
     setGamesAndPlayers(playerTable);
-}
+  }
   function setGamesAndPlayers(playerTable){    
     playerTable[0].splice(0,2);
     playerTable[0].unshift('All');
@@ -22,7 +22,7 @@ export function createPlayerTableGamesPlayers () {
     playerTable.splice(0,1);
     addFirstNameIndexGenderCols(playerTable);
     set('players', JSON.stringify(playerTable));
-}
+  }
 
   function addFirstNameIndexGenderCols(playerTable){
     let i;
@@ -31,7 +31,7 @@ export function createPlayerTableGamesPlayers () {
     }
   }
 
-let valuesArray  = jget('googleSheetValues');
-let playerData = JSON.stringify(valuesArray.values);
-createAndSavePlayerTable(playerData);
+  let valuesArray  = jget('googleSheetValues');
+  let playerData = JSON.stringify(valuesArray.values);
+  createAndSavePlayerTable(playerData);
 }

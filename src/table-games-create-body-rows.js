@@ -1,5 +1,5 @@
 import * as courseData from './ratings-slopes-pars.js';
-import RequestGHIN from './request-ghin';
+//import RequestGHIN from './request-ghin';
 import { jget} from './local-storage-functions';/* 
 import {useStateWithLocalStorage} from './use-state-with-local-storage'; */
 
@@ -8,7 +8,7 @@ function CreateGameTableBodyRows (course, game) {
 /*   const[ course, SetCourse] = useStateWithLocalStorage('Course');
   const[ game, SetGame] = useStateWithLocalStorage('Game'); */
   //first, we get ghin data, store it in local storage, and add to Players
-  RequestGHIN();
+  //RequestGHIN();
   //declare some variables
   let players = jget('players');
   var rows = [];
