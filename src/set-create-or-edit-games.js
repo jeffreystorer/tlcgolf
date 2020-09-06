@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {get, set} from './local-storage-functions';
 
-function SetCreateOrEditGames () {
+export function SetHasGoogleSheet () {
   let sheetURL;
   const ghinNumber = get('ghinNumber');
   const sheetId = '1GEP9S0xt1JBPLs3m0DoEOaQdwxwD8CEPFOXyxlxIKkg';
@@ -37,8 +37,6 @@ function SetCreateOrEditGames () {
       set('hasGoogleSheet', "true")
       let sheetGid = propertyArray[propertyIndex].properties.sheetId
       sheetURL= baseURL + '/edit#gid=' + sheetGid;
-      console.log('sheetURL: ' + sheetURL);
-      return sheetURL
     } else {
       set('hasGoogleSheet', "false");
       set('players', "[]");
@@ -48,13 +46,13 @@ function SetCreateOrEditGames () {
       set('course', "");
       set('ghinData', "[]");
       sheetURL = baseURL;
-      return sheetURL;
     }
+    set('sheetURL', sheetURL)
   }
 }
 
 export function SetCreateGames(){
-  let sheetURL = SetCreateOrEditGames();
+  const sheetURL = get('sheetURL')
   return (
     <div className='link-center'>
       <a href={sheetURL}>Click Here to Edit Your Table</a>
@@ -64,7 +62,7 @@ export function SetCreateGames(){
 }
 
 export function SetEditGames(){
-  let sheetURL = SetCreateOrEditGames();
+  const sheetURL = get('sheetURL');
   const ghinNumber = get('ghinNumber');
   return (
     <div>

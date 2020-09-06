@@ -7,6 +7,7 @@ import {
 import useDataAPI from './use-data-api';
 import { set } from './local-storage-functions';
 import {useStateWithLocalStorage} from './use-state-with-local-storage';
+import { SetHasGoogleSheet } from './set-create-or-edit-games';
 
 
 function LoginPage() {
@@ -39,13 +40,9 @@ function LoginPage() {
 
 
 
- /*  function handleLogin(e){
-    //first we set the ghinRequest api
-    ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + ghinNumber + "&lastName=" + lastName + "&incllsudeLowHandicapIndex=true";
-
-//TODO: fetch data from firebase
-
-    } */
+  function handleLogin(e){
+    SetHasGoogleSheet()
+    }
 
 
   return (
@@ -85,6 +82,7 @@ function LoginPage() {
             <Button
               variant="contained"
               color="primary"
+              onClick={handleLogin}
               >
                 <NavLink exact
                   to="/settings/selecttees"

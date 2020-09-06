@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import GameTableHeader from './table-games-header';
 import GameTableBody from './table-games-body';
@@ -44,6 +44,12 @@ function GameTable() {
   if (course !== null){ myCourse = course.toLowerCase()};
   let myGame;
   if (game !== null){ myGame = game};
+  let displayCreate = false;
+  let displayDropDowns = false;
+  let displayAll = false;
+  let Create;
+  let All;
+  let DropDowns;
   
   //now we decide what to display
   if (
@@ -53,7 +59,8 @@ function GameTable() {
     (teesSelected !== []) &
     //we test games to see if he has set up his games
     (hasGoogleSheet === 'true')
-  ) {
+  ) 
+  {
     //RefreshGames();
     //first we create the tables of players and games
     //createPlayerTableGamesPlayers();
@@ -65,7 +72,7 @@ function GameTable() {
     } catch (error) {
       console.log(error);
     }
-    const DropDowns = (
+    DropDowns = (
     <>
     <SetEditGames /><br></br>
       <div className='select-dropdown-container'>
@@ -88,6 +95,8 @@ function GameTable() {
         </label>
       </div>
       </>);
+      displayDropDowns = true;
+    }
 
     //golfer has logged in, selected tees, and set up his games
     //Now decide whether to dispay just the game and course
@@ -98,41 +107,44 @@ function GameTable() {
       (games.includes(myGame)) &
       (courseData.courses.includes(myCourse))
       ) {
-          //we can display everything
-      return (
-        <Fragment>      
-        <DropDowns />
-          <br/><br/>
-          <div id='table'>
-            <table id='gametable'>
-              <thead>
-                <GameTableHeader />
-              </thead>
-              <tbody>
-                <GameTableBody course={course} game={game}/>
-              </tbody>
-            </table>
-          </div>
-        </Fragment>
-      ); 
-        } else {
-        //otherwise we display only the game and course selectors
-      return (
-        <Fragment>
-          <DropDowns /><br></br>
-        </Fragment>
-      );
-     }
-    } else {
-        //otherwise we display instructions
-      return(
-        <div>
-          <br/>
-          <br/>
-          <SetCreateGames />
-        </div>
-      );
-    }
+        //we can display everything
+        All = (
+          <>      
+          <DropDowns />
+            <br/><br/>
+            <div id='table'>
+              <table id='gametable'>
+                <thead>
+                  <GameTableHeader />
+                </thead>
+                <tbody>
+                  <GameTableBody course={course} game={game}/>
+                </tbody>
+              </table>
+            </div>
+          </>
+        );
+          displayAll = true;
+      }
+
+      if (hasGoogleSheet === "false"){
+          Create = (
+            <>
+              <br/>
+              <br/>
+              <SetCreateGames />
+            </>
+          );
+          displayCreate = true;
+      }
+
+    return (
+      <>
+      {displayCreate && <Create />}
+      {displayAll && <All />}
+      {displayDropDowns && <DropDowns />}
+      </>
+    )
 }
 
 export default GameTable;
