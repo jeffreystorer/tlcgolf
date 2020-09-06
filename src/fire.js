@@ -1,15 +1,14 @@
 import firebase from 'firebase';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBFmu_PsYLnYHiK8d2yqxwRfPT5W1LxF4Y",
-  authDomain: "followed-golfers-ch.firebaseapp.com",
-  databaseURL: "https://followed-golfers-ch.firebaseio.com",
-  projectId: "followed-golfers-ch",
-  storageBucket: "followed-golfers-ch.appspot.com",
-  messagingSenderId: "51470860664",
-  appId: "1:51470860664:web:0289f804ee29695895c88d",
-  measurementId: "G-NNTBST7W1M"
+  apiKey: "AIzaSyCWOTHZxzxvJS7990cNcvF8pSWEoEf_cbg",
+  authDomain: "tlc-golf-ca7ad.firebaseapp.com",
+  databaseURL: "https://tlc-golf-ca7ad.firebaseio.com",
+  projectId: "tlc-golf-ca7ad",
+  storageBucket: "tlc-golf-ca7ad.appspot.com",
+  messagingSenderId: "289278089623",
+  appId: "1:289278089623:web:7a4238cf519228a4ed4cd2",
+  measurementId: "G-H1Z5JGWQR5"
 };
-
 var fire = firebase.initializeApp(firebaseConfig);
 export default fire;

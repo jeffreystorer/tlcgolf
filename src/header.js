@@ -8,7 +8,7 @@ return(
     <div
       className='header'
     >
-      TLC Golf Apps
+      TLC Golf
     </div>
   </Fragment>
 )}
