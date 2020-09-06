@@ -8,7 +8,7 @@ function CreateOrEditGames () {
   const [editOrCreate, setEditOrCreate] = useState();
   const ghinNumber = get('ghinNumber');
   const sheetId = '1GEP9S0xt1JBPLs3m0DoEOaQdwxwD8CEPFOXyxlxIKkg';
-  const apiKey = 'AIzaSyB-3BsNRWZE_rYWK70jhx422iQIQg5TTU4';
+  const apiKey = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY
 
   const sheetProperties =  'https://sheets.googleapis.com/v4/spreadsheets/' +
               sheetId + 

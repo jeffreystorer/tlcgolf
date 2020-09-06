@@ -6,7 +6,8 @@ import {requestGHIN} from './request-ghin';
 function RefreshGames () {
   const ghinNumber = get('ghinNumber');
   const sheetId = '1GEP9S0xt1JBPLs3m0DoEOaQdwxwD8CEPFOXyxlxIKkg';
-  const apiKey = 'AIzaSyB-3BsNRWZE_rYWK70jhx422iQIQg5TTU4';
+  //const apiKey = 'AIzaSyBv9b9QHzt1UY5K8xEGQf1JaPimhuonGmo';
+  const apiKey = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY
 
   const sheetValues =  'https://sheets.googleapis.com/v4/spreadsheets/' +
                sheetId + 

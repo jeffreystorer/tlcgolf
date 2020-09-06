@@ -1,7 +1,6 @@
 {
-
   "hosting": {
-    "site":"tlcgolf",
+"site":"tlcgolf",
     "public": "build",
     "ignore": [
       "firebase.json",

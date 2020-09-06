@@ -15,6 +15,9 @@ import LoginPage from './login';
 import SelectTees from './select-tees';
 import CreateOrEditGames from './create-or-edit-games';
 
+
+console.log(process.env.REACT_APP_GOOGLE_SHEETS_API_KEY)
+
 function App() {
 
   return (

@@ -5,12 +5,18 @@ import GameTableBody from './table-games-body';
 import { set, get, jget} from './local-storage-functions';
 import * as courseData from './ratings-slopes-pars';
 import {useStateWithLocalStorage} from './use-state-with-local-storage';
-
+import RefreshGames from './refresh-games';
 
 function GameTable() {
   const [course, setCourse] = useStateWithLocalStorage("course");
   const [game, setGame] = useStateWithLocalStorage("game");
-
+  useEffect(() => {    
+    let hasGoogleSheet = get('hasGoogleSheet');
+    if (hasGoogleSheet === 'true') {
+      RefreshGames();
+    }
+  }, [])
+  
   useEffect(() => {
     set('course', course);
   }, [course]);
