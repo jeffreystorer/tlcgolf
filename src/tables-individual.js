@@ -4,7 +4,8 @@ import CHTableBody from './tables-individual-ch-body';
 import TSTableBody from './tables-individual-ts-body';
 import {get, jget} from './local-storage-functions';
 import useDataAPI from './use-data-api';
-import RefreshGames from './refresh-games'
+import RefreshGames from './refresh-games';
+import LoginPage from './login';
 
 
 function IndividualTables() {
@@ -93,13 +94,9 @@ and has selected at least one set of tees
   );
   } else {
     return(
-      <div>
-        <br/>
-        <br/>
-        <p className="center">
-          Please go to Settings, then login and select at least one set of tees in order to display this table.
-        </p>
-      </div>
+      <>
+          <LoginPage />
+      </>
     )
   }
 }

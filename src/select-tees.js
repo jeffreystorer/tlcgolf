@@ -50,7 +50,7 @@ const SelectTees = () => {
       <h5>
         Please select at least one set of tees,<br/>
         then click the "Next" button<br/>
-        (default is all tees):
+        (default is C, C/M, M):
       </h5>
       <br/><br/>
       <Select
@@ -69,7 +69,7 @@ const SelectTees = () => {
             color="primary"
             onClick={handleSelectTees}>
               <NavLink exact 
-                to="/settings/createoreditgames"
+                to="/"
                 style={{color: "white"}}
               >
                 Next

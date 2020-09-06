@@ -13,10 +13,6 @@ import IndividualTables from './tables-individual.js';
 import GameTable from './table-games';
 import LoginPage from './login';
 import SelectTees from './select-tees';
-import CreateOrEditGames from './create-or-edit-games';
-
-
-console.log(process.env.REACT_APP_GOOGLE_SHEETS_API_KEY)
 
 function App() {
 
@@ -57,13 +53,6 @@ function Setting () {
         <SelectTees />
         </>
       )
-      
-    case "createoreditgames":
-      return (
-       <>
-       <CreateOrEditGames />
-       </>
-      )
   
     default:
       return (
@@ -76,14 +65,6 @@ function Setting () {
 }
 
 function Settings () {
-/*   const hasGoogleSheet = get('hasGoogleSheet');
-  function gameTabLabel(){
-  if (hasGoogleSheet === 'true') {
-    return "Edit Games"
-  } else {
-    return "Create Games"
-  }}
-  console.log(gameTabLabel()); */
   let {path, url} = useRouteMatch();
   return (
     <Fragment>
@@ -91,7 +72,6 @@ function Settings () {
     <nav >
       <NavLink exact to={`${url}/login`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Login</NavLink>
       <NavLink exact to={`${url}/selecttees`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Select Tees</NavLink>
-      <NavLink exact to={`${url}/createoreditgames`} className='navitem-last' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Create or Edit Games</NavLink>
     </nav>
       <Switch>
         <Route path={`${path}/:settingId`}>

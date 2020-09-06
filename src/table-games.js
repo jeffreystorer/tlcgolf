@@ -5,17 +5,12 @@ import GameTableBody from './table-games-body';
 import { set, get, jget} from './local-storage-functions';
 import * as courseData from './ratings-slopes-pars';
 import {useStateWithLocalStorage} from './use-state-with-local-storage';
-import RefreshGames from './refresh-games';
+import {SetCreateGames} from './set-create-or-edit-games';
+import {SetEditGames} from './set-create-or-edit-games';
 
 function GameTable() {
   const [course, setCourse] = useStateWithLocalStorage("course");
   const [game, setGame] = useStateWithLocalStorage("game");
-  useEffect(() => {    
-    let hasGoogleSheet = get('hasGoogleSheet');
-    if (hasGoogleSheet === 'true') {
-      RefreshGames();
-    }
-  }, [])
   
   useEffect(() => {
     set('course', course);
@@ -32,6 +27,8 @@ function GameTable() {
   function handleGameChange(e){
   setGame(e.target.value);
   }
+
+  
 
 //We are only going to display this table if the golfer is logged in
 //and has selected at least one set of tees and has set up his games.
@@ -68,6 +65,29 @@ function GameTable() {
     } catch (error) {
       console.log(error);
     }
+    const DropDowns = (
+    <>
+    <SetEditGames /><br></br>
+      <div className='select-dropdown-container'>
+        <label className='left-selector'>
+          <select value={game} onChange={handleGameChange}>
+            <option value="">Select Game</option>
+            {optionItems}
+          </select>
+        </label>
+        <label className='right-selector'>
+          <select value={course} onChange={handleCourseChange}>
+            <option value="">Select Course</option>
+            <option value="DC">Deer Creek</option>
+            <option value="MG">Magnolia</option>
+            <option value="MW">Marshwood</option>
+            <option value="OK">Oakridge</option>
+            <option value="PA">Palmetto</option>
+            <option value="TP">Terrapin Point</option>
+          </select>
+        </label>
+      </div>
+      </>);
 
     //golfer has logged in, selected tees, and set up his games
     //Now decide whether to dispay just the game and course
@@ -80,31 +100,8 @@ function GameTable() {
       ) {
           //we can display everything
       return (
-        <Fragment>
-          <div className='select-dropdown-container'>
-            <label className='left-selector'>
-              <select value={game} onChange={handleGameChange}>
-                <option value="">Select Game</option>
-                {optionItems}
-{/*                 <option value="All">All</option>
-                <option value="Monday">Monday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option> */}
-              </select>
-            </label>
-            <label className='right-selector'>
-              <select value={course} onChange={handleCourseChange}>
-                <option value="">Select Course</option>
-                <option value="DC">Deer Creek</option>
-                <option value="MG">Magnolia</option>
-                <option value="MW">Marshwood</option>
-                <option value="OK">Oakridge</option>
-                <option value="PA">Palmetto</option>
-                <option value="TP">Terrapin Point</option>
-              </select>
-            </label>
-          </div>
+        <Fragment>      
+        <DropDowns />
           <br/><br/>
           <div id='table'>
             <table id='gametable'>
@@ -122,25 +119,7 @@ function GameTable() {
         //otherwise we display only the game and course selectors
       return (
         <Fragment>
-          <div className='select-dropdown-container'>
-            <label className='left-selector'>
-              <select value={game} onChange={handleGameChange}>
-                <option value="">Select Game</option>
-                {optionItems}
-              </select>
-            </label>
-            <label className='right-selector'>
-              <select value={course} onChange={handleCourseChange}>
-                <option value="">Select Course</option>
-                <option value="DC">Deer Creek</option>
-                <option value="MG">Magnolia</option>
-                <option value="MW">Marshwood</option>
-                <option value="OK">Oakridge</option>
-                <option value="PA">Palmetto</option>
-                <option value="TP">Terrapin Point</option>
-              </select>
-            </label>
-          </div>
+          <DropDowns /><br></br>
         </Fragment>
       );
      }
@@ -150,9 +129,7 @@ function GameTable() {
         <div>
           <br/>
           <br/>
-          <p className="center">
-            Please go to Settings, then login, select at least one set of tees,<br></br> and create your table of games in order to display this table.
-          </p>
+          <SetCreateGames />
         </div>
       );
     }
