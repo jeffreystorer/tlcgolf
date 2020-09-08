@@ -1,8 +1,8 @@
 import React, {Fragment, useEffect} from 'react';
-import './App.css';
+import '../styles/App.css';
 import CHTableBody from './CHTableBody';
 import TSTableBody from './TSTableBody';
-import {get, jget} from '../functions/localStorage';
+import {get} from '../functions/localStorage';
 import useDataAPI from '../functions/useDataAPI';
 import RefreshGames from '../functions/refreshGames';
 import LoginPage from './LoginPage';
@@ -35,7 +35,7 @@ We are only going to display this table if the golfer is logged in
 and has selected at least one set of tees
 */
   let isLoggedIn = get('isLoggedIn')
-  let teesSelected = jget('teesSelected');
+  let teesSelected = get('teesSelected');
   if ((teesSelected !== null) & (teesSelected !== []) & isLoggedIn === 'true') {
 
   return (

@@ -1,5 +1,5 @@
 import * as courseData from '../data';
-import { get} from '../localStorage';/* 
+import { get} from './localStorage';/* 
 import {useStateWithLocalStorage} from './use-state-with-local-storage'; */
 
 function createGameTableBodyRows (course, game) {

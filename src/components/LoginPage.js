@@ -1,13 +1,12 @@
-import React, {useEffect, Fragment} from 'react';
-import './App.css';
+import React, {useEffect} from 'react';
+import '../styles/App.css';
 import { Button } from '@material-ui/core';
 import {
   NavLink
   } from "react-router-dom";
 import useDataAPI from '../functions/useDataAPI';
-import { set } from '../functions/localStorage';
-import {useStateWithLocalStorage} from '../use-state-with-local-storage';
-import { SetHasGoogleSheet } from '../functions/setSheetURL';
+import { set, useStateWithLocalStorage } from '../functions/localStorage';
+import setSheetURL  from '../functions/setSheetURL';
 
 
 function LoginPage() {
@@ -41,12 +40,12 @@ function LoginPage() {
 
 
   function handleLogin(e){
-    SetHasGoogleSheet()
+    setSheetURL(ghinNumber)
     }
 
 
   return (
-      <Fragment>
+      <>
         <div className='center' id='change-golfer'>
         <h5 width="95%">
           The first time you use this app on any device or<br/>
@@ -93,7 +92,7 @@ function LoginPage() {
             </Button>
           </div>
         </div>
-      </Fragment>
+      </>
   );
 }
 

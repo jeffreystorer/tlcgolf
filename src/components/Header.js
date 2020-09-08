@@ -1,16 +1,16 @@
-import React, {Fragment} from 'react';
-import './App.css';
+import React from 'react';
+import '../styles/App.css';
 
 function Header() {
 
 return(
-  <Fragment>
+  <>
     <div
       className='header'
     >
       TLC Golf
     </div>
-  </Fragment>
+  </>
 )}
 
 export default Header;

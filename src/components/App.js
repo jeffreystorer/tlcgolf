@@ -7,13 +7,12 @@ import {
   useParams,
   useRouteMatch
 } from "react-router-dom";
-import './styles/App.css';
-import Header from '../Header';
-import IndividualTables from '../IndividualTables';
-import GameTable from '../GameTable';
-import LoginPage from '../LoginPage';
-import SelectTeesPage from '../SelectTeesPage';
-import SettingsPage from '../SettingsPage'
+import '../styles/App.css';
+import Header from './Header';
+import IndividualTables from './IndividualTables';
+import GameTable from './GameTable';
+import LoginPage from './LoginPage';
+import SelectTeesPage from './SelectTeesPage';
 
 function App() {
 
@@ -76,7 +75,7 @@ function Settings () {
     </nav>
       <Switch>
         <Route path={`${path}/:settingId`}>
-          <SettingsPage />
+          <Setting />
         </Route>
       </Switch>
     </>
@@ -98,14 +97,6 @@ function Settings () {
         <br/><br/>
         <IndividualTables />
       </>
-    )
-  }
-
-  function Login() {
-    return(
-      <Fragment>
-        <LoginPage />
-      </Fragment>
     )
   }
 

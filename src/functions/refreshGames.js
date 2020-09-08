@@ -27,8 +27,8 @@ function refreshGames () {
 export function createPlayersAndGames () {
 
 
-  function createAndSavePlayerTable(data){
-    const myPlayerRecords = JSON.parse(data);
+  function createAndSavePlayerTable(){
+    const myPlayerRecords = get('googleSheetValues').values;
     let rowCount = myPlayerRecords.length;
     
     let playerTable = [];

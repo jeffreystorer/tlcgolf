@@ -1,8 +1,7 @@
-import {get, set} from './localStorage';
+import {set} from './localStorage';
 
-function setSheetURL () {
+function setSheetURL (ghinNumber) {
   let sheetURL;
-  const ghinNumber = get('ghinNumber');
   const sheetId = process.env.REACT_APP_GOOGLE_SHEETS_ID;
   const apiKey = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY;
 
@@ -25,20 +24,20 @@ function setSheetURL () {
     } catch (err) {
       console.log(err);
     }
-     let baseURL = 'https://docs.google.com/spreadsheets/d/' + sheetId;
-      if (propertyIndex > -1) {
-      set('hasGoogleSheet', "true")
-      let sheetGid = propertyArray[propertyIndex].properties.sheetId
-      sheetURL= baseURL + '/edit#gid=' + sheetGid;
+    let baseURL = 'https://docs.google.com/spreadsheets/d/' + sheetId;
+    if (propertyIndex > -1) {
+    set('hasGoogleSheet', "true")
+    let sheetGid = propertyArray[propertyIndex].properties.sheetId
+    sheetURL= baseURL + '/edit#gid=' + sheetGid;
     } else {
-      set('hasGoogleSheet', "false");
-      set('players', "[]");
-      set('playerTable', "[]");
-      set('games', "[]");
-      set('game', "");
-      set('course', "");
-      set('ghinData', "[]");
-      sheetURL = baseURL;
+    set('hasGoogleSheet', "false");
+    set('players', "[]");
+    set('playerTable', "[]");
+    set('games', "[]");
+    set('game', "");
+    set('course', "");
+    set('ghinData', "[]");
+    sheetURL = baseURL;
     }
     set('sheetURL', sheetURL)
   };

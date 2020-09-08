@@ -1,5 +1,5 @@
   
-import { get } from '../localStorage';
+import { get } from './localStorage';
   
   const createGameTableHeaderRow = () => {
   const myTeeArray = get('teesSelected');

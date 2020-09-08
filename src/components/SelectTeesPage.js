@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select'
-import './styles/App.css';
+import '../styles/App.css';
 import { Button } from '@material-ui/core';
 import {
   //BrowserRouter as Router,
@@ -37,11 +37,20 @@ const SelectTeesPage = () => {
   }
 
   function handleSelectTees () {
+    console.log('handling select tees');
+    const teesSelected = get('teesSelected');
+    console.log('teesSelected: ' + teesSelected);
     
-    if ((get('teesSelected') === null) || (get('teesSelected') === []) || (get('teesSelected') === "")){
+    if (
+      (teesSelected === null) || 
+      (teesSelected === []) || 
+      (teesSelected === "") ||
+      (teesSelected === undefined)
+      ){
       
-      //if the user moves on without selecting a tee, we select all tees
-      set('teesSelected', JSON.stringify([{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}]));
+      //if the user moves on without selecting a tee, we select some tees
+      const defaultTees =[{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}]
+      set('teesSelected', defaultTees);
     }
   }
 
