@@ -5,13 +5,13 @@ import {
   Route,
   NavLink
 } from "react-router-dom";
-import './App.css';
-import Header from './header.js';
-import Login from './login.js';
-import SelectTees from './select-tees';
+import './styles/App.css';
+import Header from '../Header';
+import LoginPage from '../LoginPage';
+import SelectTeesPage from '../SelectTeesPage';
 
 
-function Settings () {
+function SettingsPage () {
 
   return (
     <Router>
@@ -22,9 +22,7 @@ function Settings () {
       <div>
         <nav>
           <NavLink exact to="/" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Login</NavLink>
-          <NavLink exact to="/selecttees" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Select Tees</NavLink>
-          <NavLink exact to="/setupgames" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Set up Games</NavLink>
-        </nav>
+          <NavLink exact to="/selecttees" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Select Tees</NavLink>        </nav>
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -32,11 +30,8 @@ function Settings () {
           <Route path="/selecttees">
             <SelectTees />
           </Route>
-          <Route path="/setupgames">
-            <SetUpGames />
-          </Route>
           <Route path="/" >
-            <LoginPage />
+            <Login />
           </Route>
         </Switch>
       </div>
@@ -44,12 +39,12 @@ function Settings () {
   );
 
 
-  function LoginPage() {
+  function Login() {
   return (
     <div>
     <br/>
     <br/>
-    <Login />
+    <LoginPage />
     </div>
   )
   }
@@ -59,20 +54,10 @@ function Settings () {
       <div>
         <br/>
         <br/>
-        <SelectTees />
-      </div>
-    )
-  }
-  
-
-  function  SetUpGames() {
-    return (
-      <div>
-        <br/>
-        <SetUpGames />
+        <SelectTeesPage />
       </div>
     )
   }
 }
 
-export default Settings;
+export default SettingsPage;

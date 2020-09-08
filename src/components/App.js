@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,12 +7,13 @@ import {
   useParams,
   useRouteMatch
 } from "react-router-dom";
-import './App.css';
-import Header from './header.js';
-import IndividualTables from './tables-individual.js';
-import GameTable from './table-games';
-import LoginPage from './login';
-import SelectTees from './select-tees';
+import './styles/App.css';
+import Header from '../Header';
+import IndividualTables from '../IndividualTables';
+import GameTable from '../GameTable';
+import LoginPage from '../LoginPage';
+import SelectTeesPage from '../SelectTeesPage';
+import SettingsPage from '../SettingsPage'
 
 function App() {
 
@@ -50,14 +51,14 @@ function Setting () {
     case "selecttees":
       return (
         <>
-        <SelectTees />
+        <SelectTeesPage />
         </>
       )
   
     default:
       return (
         <>
-          <Login />
+          <LoginPage />
         </>
         )
   }
@@ -67,7 +68,7 @@ function Setting () {
 function Settings () {
   let {path, url} = useRouteMatch();
   return (
-    <Fragment>
+    <>
       <br/>
     <nav >
       <NavLink exact to={`${url}/login`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Login</NavLink>
@@ -75,28 +76,28 @@ function Settings () {
     </nav>
       <Switch>
         <Route path={`${path}/:settingId`}>
-          <Setting />
+          <SettingsPage />
         </Route>
       </Switch>
-    </Fragment>
+    </>
   );
 }
 
   function  Games() {
   return (
-    <Fragment>
+    <>
       <br/><br/>
       <GameTable />
-    </Fragment>
+    </>
   )
   }
     
   function  Individual() {
     return (
-      <Fragment>
+      <>
         <br/><br/>
         <IndividualTables />
-      </Fragment>
+      </>
     )
   }
 

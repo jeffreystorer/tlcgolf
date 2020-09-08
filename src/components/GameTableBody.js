@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import CreateGameTableBodyRows from './table-games-create-body-rows.js';
+import CreateGameTableBodyRows from '../functions/createGameTableBodyRows.js';
 
 const GameTableBody = ({ course, game}) => {  
   

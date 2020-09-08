@@ -1,11 +1,11 @@
 import React, {Fragment, useEffect} from 'react';
 import './App.css';
-import CHTableBody from './tables-individual-ch-body';
-import TSTableBody from './tables-individual-ts-body';
-import {get, jget} from './local-storage-functions';
-import useDataAPI from './use-data-api';
-import RefreshGames from './refresh-games';
-import LoginPage from './login';
+import CHTableBody from './CHTableBody';
+import TSTableBody from './TSTableBody';
+import {get, jget} from '../functions/localStorage';
+import useDataAPI from '../functions/useDataAPI';
+import RefreshGames from '../functions/refreshGames';
+import LoginPage from './LoginPage';
 
 
 function IndividualTables() {

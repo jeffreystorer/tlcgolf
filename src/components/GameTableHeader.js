@@ -1,5 +1,5 @@
-import React, {Fragment} from 'react';
-import createGameTableHeaderRow from './table-games-create-header-row.js'
+import React from 'react';
+import createGameTableHeaderRow from '../functions/createGameTableHeaderRow.js'
 
 
 function GameTableHeader() {
@@ -18,13 +18,12 @@ function GameTableHeader() {
   }
 
     return (
-        <Fragment>
+        <>
           <tr>
             {getHeader()}
           </tr>
-        </Fragment>
+        </>
     );
   }
-  
 
 export default GameTableHeader;

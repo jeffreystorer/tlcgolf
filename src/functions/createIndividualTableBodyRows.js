@@ -1,9 +1,9 @@
-import * as courseData from './ratings-slopes-pars.js';
-import { get, jget } from './local-storage-functions';
+import * as courseData from '../data';
+import { get} from './localStorage';
 
 
 function createIndividualTableBodyRows (table) {
-    const myTeeArray = jget('teesSelected');
+    const myTeeArray = get('teesSelected');
     let teesSelected = [];
 
     myTeeArray.forEach(myFunction);

@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select'
-import './App.css';
+import './styles/App.css';
 import { Button } from '@material-ui/core';
 import {
   //BrowserRouter as Router,
@@ -8,11 +8,11 @@ import {
   //Route,
   NavLink
 } from "react-router-dom";
-import { set, jset, jget} from './local-storage-functions';
+import { set, get} from '../functions/localStorage';
 
 
 let selectedOption;
-const SelectTees = () => {
+const SelectTeesPage = () => {
   const  options  = [
     { label:  'Championship (Men only)', value:  'CH'  },
     { label:  'Tournament (Men only)', value:  'T'  },
@@ -33,12 +33,12 @@ const SelectTees = () => {
   /*   if (selectedOption === null || selectedOption === '[]') {
       alert('You have not selected any tees.');
     } */
-    jset('teesSelected', selectedOption);
+    set('teesSelected', selectedOption);
   }
 
   function handleSelectTees () {
     
-    if ((jget('teesSelected') === null) || (jget('teesSelected') === []) || (jget('teesSelected') === "")){
+    if ((get('teesSelected') === null) || (get('teesSelected') === []) || (get('teesSelected') === "")){
       
       //if the user moves on without selecting a tee, we select all tees
       set('teesSelected', JSON.stringify([{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}]));
@@ -80,4 +80,4 @@ const SelectTees = () => {
       );
 }
 
-export default SelectTees;
+export default SelectTeesPage;

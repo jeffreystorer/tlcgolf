@@ -4,10 +4,10 @@ import { Button } from '@material-ui/core';
 import {
   NavLink
   } from "react-router-dom";
-import useDataAPI from './use-data-api';
-import { set } from './local-storage-functions';
-import {useStateWithLocalStorage} from './use-state-with-local-storage';
-import { SetHasGoogleSheet } from './set-create-or-edit-games';
+import useDataAPI from '../functions/useDataAPI';
+import { set } from '../functions/localStorage';
+import {useStateWithLocalStorage} from '../use-state-with-local-storage';
+import { SetHasGoogleSheet } from '../functions/setSheetURL';
 
 
 function LoginPage() {

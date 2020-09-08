@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import GameTableHeader from './table-games-header';
-import GameTableBody from './table-games-body';
-import { set, get, jget} from './local-storage-functions';
-import * as courseData from './ratings-slopes-pars';
-import {useStateWithLocalStorage} from './use-state-with-local-storage';
-import {SetCreateGames} from './set-create-or-edit-games';
-import {SetEditGames} from './set-create-or-edit-games';
+import GameTableHeader from './GameTableHeader';
+import GameTableBody from './GameTableBody';
+import { set, get, jget} from '../functions/localStorage';
+import * as courseData from '../data';
+import {useStateWithLocalStorage} from '../use-state-with-local-storage';
+import {SetCreateGames} from '../functions/setSheetURL';
+import {SetEditGames} from '../functions/setSheetURL';
 
 function GameTable() {
   const [course, setCourse] = useStateWithLocalStorage("course");

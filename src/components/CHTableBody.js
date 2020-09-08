@@ -1,11 +1,11 @@
-import React, {Fragment} from 'react';
-import createIndividualTableBodyRows from './tables-individual-create-body-rows.js'
+import React from 'react';
+import createIndividualTableBodyRows from '../functions/createIndividualTableBodyRows.js'
 
 function CHTableBody() {
   const rows = createIndividualTableBodyRows("CH");
 
   return (
-      <Fragment>
+      <>
                   {rows.map(
                       function(row, i) {
                           return (
@@ -22,7 +22,7 @@ function CHTableBody() {
                       }
                       )
                   }
-      </Fragment>
+      </>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {get, set} from './local-storage-functions';
+import {get, set} from '../functions/localStorage';
 
 function CreateOrEditGames () {
   let editSheet;

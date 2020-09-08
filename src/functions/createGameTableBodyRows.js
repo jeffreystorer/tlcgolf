@@ -1,16 +1,15 @@
-import * as courseData from './ratings-slopes-pars.js';
-//import RequestGHIN from './request-ghin';
-import { jget} from './local-storage-functions';/* 
+import * as courseData from '../data';
+import { get} from '../localStorage';/* 
 import {useStateWithLocalStorage} from './use-state-with-local-storage'; */
 
-function CreateGameTableBodyRows (course, game) {
+function createGameTableBodyRows (course, game) {
   
 /*   const[ course, SetCourse] = useStateWithLocalStorage('Course');
   const[ game, SetGame] = useStateWithLocalStorage('Game'); */
   //first, we get ghin data, store it in local storage, and add to Players
   //RequestGHIN();
   //declare some variables
-  let players = jget('players');
+  let players = get('players');
   var rows = [];
   let rating;
   let slope;
@@ -23,7 +22,7 @@ function CreateGameTableBodyRows (course, game) {
 
   //choose which rows to add, the add them
   function addRow(item, index){
-    let games = jget('games');
+    let games = get('games');
     let gameNumber = games.indexOf(game);
     switch(gameNumber) {
       case 0:
@@ -98,7 +97,7 @@ function CreateGameTableBodyRows (course, game) {
     }
   
     function buildTeeArray() {
-      const myTeeArray = jget('teesSelected');
+      const myTeeArray = get('teesSelected');
       let teesSelected = myTeeArray.map(a => a.value);
       return teesSelected;
     }
@@ -107,4 +106,4 @@ function CreateGameTableBodyRows (course, game) {
     return rows;
 }
 
-export default CreateGameTableBodyRows;
+export default createGameTableBodyRows;

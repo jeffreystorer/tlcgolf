@@ -1,6 +1,6 @@
 import {useState, useEffect, useReducer} from 'react';
 import axios from 'axios';
-import { set } from './local-storage-functions';
+import { set } from './localStorage';
 
 
 const dataFetchReducer = (state, action) => {

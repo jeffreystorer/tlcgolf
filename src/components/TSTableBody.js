@@ -1,11 +1,11 @@
-import React, {Fragment} from 'react';
-import createIndividualTableBody from './tables-individual-create-body-rows.js';
+import React from 'react';
+import createIndividualTableBody from '../functions/createIndividualTableBodyRows.js';
 
 function TSTableBody() {
   const rows = createIndividualTableBody("TS");
 
     return (
-        <Fragment>
+        <>
                     {rows.map(
                         function(row, i) {
                             return (
@@ -22,7 +22,7 @@ function TSTableBody() {
                         }
                         )
                     }
-        </Fragment>
+        </>
     );
 }
 
