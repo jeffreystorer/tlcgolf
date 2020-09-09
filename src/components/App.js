@@ -1,5 +1,13 @@
 import React from 'react';
 import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
+
+import {
   BrowserRouter as Router,
   Switch,
   Route,
@@ -17,7 +25,8 @@ import SelectTeesPage from './SelectTeesPage';
 function App() {
 
   return (
-    <Router>
+    <RecoilRoot>
+      <Router>
       <Header />
       <br/>
       <nav>
@@ -37,6 +46,7 @@ function App() {
         </Route>
       </Switch>
     </Router>
+    </RecoilRoot>
   );
 
 

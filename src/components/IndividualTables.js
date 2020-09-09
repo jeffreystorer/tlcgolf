@@ -1,5 +1,6 @@
 import React, {Fragment, useEffect} from 'react';
 import '../styles/App.css';
+import IndividualTableHeader from './IndividualTableHeader';
 import CHTableBody from './CHTableBody';
 import TSTableBody from './TSTableBody';
 import {get} from '../functions/localStorage';
@@ -47,20 +48,7 @@ and has selected at least one set of tees
       <div id='table'>
         <table id='chtable'>
           <thead>
-            <tr>
-              <th
-                scope='col'
-                className='left-header-cell'
-              >
-                CrsHcp
-              </th>
-              <th scope='col'>DC</th>
-              <th scope='col'>MG</th>
-              <th scope='col'>MW</th>
-              <th scope='col'>OK</th>
-              <th scope='col'>PA</th>
-              <th scope='col'>TP</th>
-            </tr>
+            <IndividualTableHeader tableName='CrsHcp' />
           </thead>
           <tbody>
             <CHTableBody />
@@ -70,20 +58,7 @@ and has selected at least one set of tees
           <br/>
         <table id='tstable'>
           <thead>
-            <tr>
-              <th
-                scope='col'
-                className='left-header-cell'
-              >
-                Score
-              </th>
-              <th scope='col'>DC</th>
-              <th scope='col'>MG</th>
-              <th scope='col'>MW</th>
-              <th scope='col'>OK</th>
-              <th scope='col'>PA</th>
-              <th scope='col'>TP</th>
-            </tr>
+            <IndividualTableHeader tableName='Score' />
           </thead>
           <tbody>
             <TSTableBody />
