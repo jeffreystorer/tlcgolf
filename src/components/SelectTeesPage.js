@@ -1,13 +1,6 @@
 import React from 'react';
 import Select from 'react-select'
 import '../styles/App.css';
-import { Button } from '@material-ui/core';
-import {
-  //BrowserRouter as Router,
-  //Switch,
-  //Route,
-  NavLink
-} from "react-router-dom";
 import { set, get} from '../functions/localStorage';
 
 
@@ -36,10 +29,8 @@ const SelectTeesPage = () => {
     set('teesSelected', selectedOption);
   }
 
-  function handleSelectTees () {
-    console.log('handling select tees');
+  function handleClick() {
     const teesSelected = get('teesSelected');
-    console.log('teesSelected: ' + teesSelected);
     
     if (
       (teesSelected === null) || 
@@ -52,6 +43,7 @@ const SelectTeesPage = () => {
       const defaultTees =[{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}]
       set('teesSelected', defaultTees);
     }
+    document.location = '/';
   }
 
     return (
@@ -73,17 +65,10 @@ const SelectTeesPage = () => {
       />
       <br/><br/>
         <div>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSelectTees}>
-              <NavLink exact 
-                to="/"
-                style={{color: "white"}}
-              >
-                Next
-              </NavLink>            
-          </Button>
+          <button
+            onClick={handleClick}>
+                Next         
+          </button>
         </div>
     </div>
       );

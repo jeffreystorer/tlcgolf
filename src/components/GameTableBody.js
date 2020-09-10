@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react';
-import CreateGameTableBodyRows from '../functions/createGameTableBodyRows.js';
+import CreateGameTableBodyRows from './CreateGameTableBodyRows.js';
 
-const GameTableBody = ({ course, game}) => {  
+const GameTableBody = () => {  
   
-  let rows = CreateGameTableBodyRows(course, game);
+  let rows = CreateGameTableBodyRows();
   let rowsTD = [];
   let colCount = rows[0].length;
 

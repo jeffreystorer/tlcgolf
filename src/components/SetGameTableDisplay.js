@@ -1,9 +1,11 @@
-import {get} from './localStorage';
+import {get} from '../functions/localStorage';
 import * as courseData from '../data';
+import {useRecoilValue} from 'recoil';
+import {courseState, gameState} from '../recoil/atoms';
 
-const setGameTableDisplay = () => {
-  const course = get('course');
-  const game = get("game");  
+const SetGameTableDisplay = () => {
+  const course = useRecoilValue(courseState);
+  const game = useRecoilValue(gameState);  
 
 //We are only going to display this table if the golfer is logged in
 //and has selected at least one set of tees and has set up his games.
@@ -14,7 +16,7 @@ const setGameTableDisplay = () => {
   let hasGoogleSheet = get('hasGoogleSheet');
   let games = get('games');
   let myCourse;
-  if (course !== null){ myCourse = course.toLowerCase()};
+  if (course !== null){ myCourse = course};
   let myGame;
   if (game !== null){ myGame = game};
   let displayNumber;
@@ -41,8 +43,7 @@ const setGameTableDisplay = () => {
   } else {
       displayNumber = 0;
   }
-  console.log('displayNumber: ' + displayNumber);
   return displayNumber;
 }
 
-export default setGameTableDisplay;
+export default SetGameTableDisplay;

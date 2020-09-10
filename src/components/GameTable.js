@@ -3,25 +3,27 @@ import '../styles/App.css';
 import All from './All';
 import Create from './Create';
 import DropDowns from './DropDowns';
-import setGameTableDisplay from '../functions/setGameTableDisplay';
-import {get} from '../functions/localStorage';
+import SetGameTableDisplay from './SetGameTableDisplay';
+import LinkButton from './LinkButton';
 
 function GameTable() {
-  const course = get('course');
-  const game = get('game');
-  const displayNumber = setGameTableDisplay();
+  const displayNumber = SetGameTableDisplay();
 
   switch (displayNumber) {
     case 1:
       return(
         <>
           <DropDowns />
+          <br></br>
+          <br></br>
+          <br></br>
+          <LinkButton title={'Edit Table'} />
         </>
       )
     case 2:
         return(
           <>
-            <All course={course} game={game}/>
+            <All />
           </>
         )
     default:

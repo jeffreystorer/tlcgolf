@@ -1,11 +1,13 @@
 import * as courseData from '../data';
-import { get} from './localStorage';/* 
+import { get} from '../functions/localStorage';/* 
 import {useStateWithLocalStorage} from './use-state-with-local-storage'; */
+import {useRecoilValue} from 'recoil';
+import {courseState, gameState} from '../recoil/atoms';
 
-function createGameTableBodyRows (course, game) {
-  
-/*   const[ course, SetCourse] = useStateWithLocalStorage('Course');
-  const[ game, SetGame] = useStateWithLocalStorage('Game'); */
+function CreateGameTableBodyRows () {
+  const course = useRecoilValue(courseState);
+  const game = useRecoilValue(gameState);
+
   //first, we get ghin data, store it in local storage, and add to Players
   //RequestGHIN();
   //declare some variables
@@ -50,7 +52,7 @@ function createGameTableBodyRows (course, game) {
     let strHcpIndex = aPlayer[3];
     hcpIndex = parseFloat(strHcpIndex);
     
-    let myCourse = course.toLowerCase();
+    
     let courses = courseData.courses;
     let tees = courseData.tees;
     let firstName = aPlayer[2];
@@ -61,7 +63,7 @@ function createGameTableBodyRows (course, game) {
     let i;
     for (i=0; i < teesSelected.length; i++){
       //here is where we compute the course handicap of the golfer for each of the selected tees
-      let courseNumber = courses.indexOf(myCourse);
+      let courseNumber = courses.indexOf(course);
       let teeNumber = tees.indexOf(teesSelected[i]);
       setRatingSlopePar(courseNumber, teeNumber);
       rowReturn.push(doMath())
@@ -106,4 +108,4 @@ function createGameTableBodyRows (course, game) {
     return rows;
 }
 
-export default createGameTableBodyRows;
+export default CreateGameTableBodyRows;

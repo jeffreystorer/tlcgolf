@@ -1,9 +1,5 @@
 import React, {useEffect} from 'react';
 import '../styles/App.css';
-import { Button } from '@material-ui/core';
-import {
-  NavLink
-  } from "react-router-dom";
 import useDataAPI from '../functions/useDataAPI';
 import { set, useStateWithLocalStorage } from '../functions/localStorage';
 import setSheetURL  from '../functions/setSheetURL';
@@ -39,8 +35,9 @@ function LoginPage() {
 
 
 
-  function handleLogin(e){
+  function handleClick(e){
     setSheetURL(ghinNumber)
+    document.location='/settings/selecttees';
     }
 
 
@@ -78,18 +75,11 @@ function LoginPage() {
           </div>
           <br/><br/>
           <div>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleLogin}
+             <button 
+              onClick={handleClick}
               >
-                <NavLink exact
-                  to="/settings/selecttees"
-                  style={{color: "white"}}
-                >
-                  Login
-                </NavLink> 
-            </Button>
+                Next 
+            </button>
           </div>
         </div>
       </>

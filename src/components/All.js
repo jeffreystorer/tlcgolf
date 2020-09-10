@@ -2,8 +2,10 @@ import React from 'react';
 import DropDowns from './DropDowns';
 import GameTableHeader from './GameTableHeader';
 import GameTableBody from './GameTableBody';
+import LinkButton from './LinkButton';
 
-function All(course, game) {
+function All() {
+
   return(
     <>
     <DropDowns />
@@ -14,10 +16,14 @@ function All(course, game) {
           <GameTableHeader />
         </thead>
         <tbody>
-          <GameTableBody course={course} game={game}/>
+          <GameTableBody />
         </tbody>
       </table>
     </div>
+          <br></br>
+          <br></br>
+          <br></br>
+    <LinkButton title={'Edit Table'} />
     </>
   )
 }
