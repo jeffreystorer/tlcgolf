@@ -23,28 +23,12 @@ const SelectTeesPage = () => {
   ]
 
   const  handleOnChange =  selectedOption  => {
-  /*   if (selectedOption === null || selectedOption === '[]') {
-      alert('You have not selected any tees.');
-    } */
+  if ((selectedOption !== null) & (selectedOption !== '[]')) {
     set('teesSelected', selectedOption);
+    }
   }
 
-  function handleClick() {
-    const teesSelected = get('teesSelected');
-    
-    if (
-      (teesSelected === null) || 
-      (teesSelected === []) || 
-      (teesSelected === "") ||
-      (teesSelected === undefined)
-      ){
-      
-      //if the user moves on without selecting a tee, we select some tees
-      const defaultTees =[{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}]
-      set('teesSelected', defaultTees);
-    }
-    document.location = '/';
-  }
+  function handleClick() {document.location = '/'};
 
     return (
     <div align="center">

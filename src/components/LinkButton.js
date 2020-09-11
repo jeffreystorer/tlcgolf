@@ -5,7 +5,9 @@ import '../styles/App.css';
 const LinkButton = ({title}) => {
 
   function handleClick() {
-    document.location=get('sheetURL');
+    let sheetURL = get('sheetURL');
+    localStorage.clear();
+    document.location=sheetURL;
 }
 
   return (

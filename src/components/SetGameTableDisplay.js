@@ -15,10 +15,6 @@ const SetGameTableDisplay = () => {
 
   let hasGoogleSheet = get('hasGoogleSheet');
   let games = get('games');
-  let myCourse;
-  if (course !== null){ myCourse = course};
-  let myGame;
-  if (game !== null){ myGame = game};
   let displayNumber;
   
   //now we decide what to display
@@ -32,10 +28,8 @@ const SetGameTableDisplay = () => {
     //Now decide whether to dispay just the game and course
     //selectors or the entire table
     if (
-      (myCourse !== null) &
-      (myGame !== null) &
-      (games.includes(myGame)) &
-      (courseData.courses.includes(myCourse))
+      (games.includes(game)) &
+      (courseData.courses.includes(course))
       ) {
         //we can display everything        
           displayNumber = 2;

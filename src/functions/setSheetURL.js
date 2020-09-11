@@ -1,5 +1,4 @@
 import {set} from './localStorage';
-
 function setSheetURL (ghinNumber) {
   let sheetURL;
   const sheetId = process.env.REACT_APP_GOOGLE_SHEETS_ID;

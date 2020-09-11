@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import '../styles/App.css';
 import useDataAPI from '../functions/useDataAPI';
 import { set, useStateWithLocalStorage } from '../functions/localStorage';
-import setSheetURL  from '../functions/setSheetURL';
 
 
 function LoginPage() {
@@ -33,10 +32,9 @@ function LoginPage() {
     }
   }, [ghinNumber, lastName, doFetch]);
 
-
-
   function handleClick(e){
-    setSheetURL(ghinNumber)
+    const defaultTees =[{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}];
+    set('teesSelected', defaultTees);
     document.location='/settings/selecttees';
     }
 
@@ -46,7 +44,9 @@ function LoginPage() {
         <div className='center' id='change-golfer'>
         <h5 width="95%">
           The first time you use this app on any device or<br/>
-          to change golfers, you must login:
+          to change golfers, you must login.<br/>
+          You must also login again after<br/>
+          creating or editing your table of games.
         </h5><br/>
           <div>
             <label htmlFor='ghinnumber'>GHIN Number:&nbsp;&nbsp;&nbsp;&nbsp;</label>

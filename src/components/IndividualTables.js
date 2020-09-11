@@ -5,8 +5,9 @@ import CHTableBody from './CHTableBody';
 import TSTableBody from './TSTableBody';
 import {get} from '../functions/localStorage';
 import useDataAPI from '../functions/useDataAPI';
-import RefreshGames from '../functions/refreshGames';
 import LoginPage from './LoginPage';
+import setSheetURL from '../functions/setSheetURL';
+import refreshGames from '../functions/refreshGames';
 
 
 function IndividualTables() {
@@ -17,20 +18,19 @@ function IndividualTables() {
     "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=000000&lastName=None&incllsudeLowHandicapIndex=true",
     {hits: []},
   );
-  
-  
-  useEffect(() => {    
-    let hasGoogleSheet = get('hasGoogleSheet');
-    if (hasGoogleSheet === 'true') {
-      RefreshGames();
-    }
-  }, [])
 
   useEffect(() => {    
     let ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + ghinNumber + "&lastName=" + lastName + "&incllsudeLowHandicapIndex=true";
     doFetch(ghinRequest);
     
   }, [ghinNumber, lastName, doFetch]);
+
+  useEffect(() => {
+    setSheetURL(ghinNumber);
+    return () => {
+      refreshGames();
+    }
+  },[ghinNumber])
 /*
 We are only going to display this table if the golfer is logged in
 and has selected at least one set of tees
