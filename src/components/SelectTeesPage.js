@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select'
 import '../styles/App.css';
-import { set, get} from '../functions/localStorage';
+import { set} from '../functions/localStorage';
 
 
 let selectedOption;

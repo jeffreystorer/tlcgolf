@@ -2,7 +2,7 @@ import * as courseData from '../data';
 import { get} from '../functions/localStorage';/* 
 import {useStateWithLocalStorage} from './use-state-with-local-storage'; */
 import {useRecoilValue} from 'recoil';
-import {courseState, gameState} from '../recoil/atoms';
+import {courseState, gameState} from '../state';
 
 function CreateGameTableBodyRows () {
   const course = useRecoilValue(courseState);

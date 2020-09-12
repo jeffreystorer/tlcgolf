@@ -2,16 +2,13 @@ import React, {useEffect} from 'react';
 import '../styles/App.css';
 import useDataAPI from '../functions/useDataAPI';
 import { set, useStateWithLocalStorage } from '../functions/localStorage';
-
+import setSheetURL from '../functions/setSheetURL';
 
 function LoginPage() {
   const [ghinNumber, setGHINNumber] = useStateWithLocalStorage('ghinNumber');
   const [lastName, setLastName] = useStateWithLocalStorage('lastName');
   //eslint-disable-next-line
-  const [{}, doFetch] = useDataAPI("",
-    //"https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=0585871&lastName=Storer&incllsudeLowHandicapIndex=true",
-    {hits: []},
-  );
+  const [{data}, doFetch] = useDataAPI("", []);
 
   useEffect(() => {
     localStorage.clear();
@@ -26,18 +23,25 @@ function LoginPage() {
   }, [lastName]);
 
   useEffect(() => {
-    if ((ghinNumber !== "") & (lastName !== "")){
     let ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + ghinNumber + "&lastName=" + lastName + "&incllsudeLowHandicapIndex=true";
-    doFetch(ghinRequest)
-    }
-  }, [ghinNumber, lastName, doFetch]);
+    
+    doFetch(ghinRequest);
+    alert('data: ' + JSON.stringify(data));
+      set('isLoggedIn', 'true');
+      try {
+        let aGolfer =  data.golfers[0].FirstName + ' ' + data.golfers[0].LastName;
+      } catch (error){
+        set('isLoggedIn', 'false');
+      }
+  }, [data, ghinNumber, lastName, doFetch]);
 
   function handleClick(e){
+    
     const defaultTees =[{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}];
     set('teesSelected', defaultTees);
+    setSheetURL(ghinNumber);
     document.location='/settings/selecttees';
     }
-
 
   return (
       <>

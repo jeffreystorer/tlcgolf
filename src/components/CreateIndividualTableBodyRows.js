@@ -1,8 +1,11 @@
 import * as courseData from '../data';
-import { get} from './localStorage';
+import { get} from '../functions/localStorage';
+import {useRecoilValue} from 'recoil';
+import {indexState, genderState} from '../state';
 
-
-function createIndividualTableBodyRows (table) {
+function CreateIndividualTableBodyRows (table) {
+const rawIndex = useRecoilValue(indexState);
+const gender = useRecoilValue(genderState);
     const myTeeArray = get('teesSelected');
     let teesSelected = [];
 
@@ -19,7 +22,7 @@ function createIndividualTableBodyRows (table) {
 
     function compute(aTee) {
       let rowReturn = [aTee];
-      let strIndex = get("index")
+      let strIndex = rawIndex;
       let index = parseFloat(strIndex);
       let tee = courseData.tees.indexOf(aTee);
   
@@ -46,7 +49,7 @@ function createIndividualTableBodyRows (table) {
     }
   
     function setRatingSlopePar(course, tee){
-    switch(get("gender")) {
+    switch(gender) {
         case 'F':
           rating = Number(courseData.wratings[course][tee]);
           slope = Number(courseData.wslopes[course][tee]);
@@ -85,4 +88,4 @@ function createIndividualTableBodyRows (table) {
     return rows;
 }
 
-export default createIndividualTableBodyRows;
+export default CreateIndividualTableBodyRows;

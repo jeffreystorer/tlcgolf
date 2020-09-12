@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {get} from '../functions/localStorage';
 import {useRecoilState} from 'recoil';
-import {courseState, gameState} from '../recoil/atoms';
+import {courseState, gameState} from '../state';
 
 function DropDowns() {
   const [course, setCourse] = useRecoilState(courseState);

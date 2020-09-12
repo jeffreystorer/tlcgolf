@@ -1,7 +1,7 @@
 import {get} from '../functions/localStorage';
 import * as courseData from '../data';
 import {useRecoilValue} from 'recoil';
-import {courseState, gameState} from '../recoil/atoms';
+import {courseState, gameState} from '../state';
 
 const SetGameTableDisplay = () => {
   const course = useRecoilValue(courseState);

@@ -1,8 +1,8 @@
 import React from 'react';
-import createIndividualTableBodyRows from '../functions/createIndividualTableBodyRows.js'
+import CreateIndividualTableBodyRows from './CreateIndividualTableBodyRows'
 
 function CHTableBody() {
-  const rows = createIndividualTableBodyRows("CH");
+  const rows = CreateIndividualTableBodyRows("CH");
 
   return (
       <>
