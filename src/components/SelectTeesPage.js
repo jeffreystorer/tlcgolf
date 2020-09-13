@@ -1,11 +1,15 @@
 import React from 'react';
 import Select from 'react-select'
 import '../styles/App.css';
-import { set} from '../functions/localStorage';
+import { set, get} from '../functions/localStorage';
+import setSheetURL from '../functions/setSheetURL';
+import fetchGoogleSheet from '../functions/fetchGoogleSheet';
 
 
 let selectedOption;
 const SelectTeesPage = () => {
+  let ghinNumber = get('ghinNumber');
+  setSheetURL(ghinNumber);
   const  options  = [
     { label:  'Championship (Men only)', value:  'CH'  },
     { label:  'Tournament (Men only)', value:  'T'  },
@@ -28,7 +32,11 @@ const SelectTeesPage = () => {
     }
   }
 
-  function handleClick() {document.location = '/'};
+  function handleClick() {
+    let hasGoogleSheet = get('hasGoogleSheet');
+    if (hasGoogleSheet === "true") fetchGoogleSheet(ghinNumber);
+    document.location = '/'
+  };
 
     return (
     <div align="center">

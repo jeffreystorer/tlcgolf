@@ -1,11 +1,12 @@
 import React from 'react';
-import {get} from '../functions/localStorage'
 import '../styles/App.css';
+import {useRecoilValue} from 'recoil';
+import * as state from '../state';
 
 const LinkButton = ({title}) => {
+  const sheetURL = useRecoilValue(state.sheetURLState);
 
   function handleClick() {
-    let sheetURL = get('sheetURL');
     localStorage.clear();
     document.location=sheetURL;
 }

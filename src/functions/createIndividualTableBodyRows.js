@@ -1,12 +1,7 @@
 import * as courseData from '../data';
-import { get} from '../functions/localStorage';
-import {useRecoilValue} from 'recoil';
-import {indexState, genderState} from '../state';
 
-function CreateIndividualTableBodyRows (table) {
-const rawIndex = useRecoilValue(indexState);
-const gender = useRecoilValue(genderState);
-    const myTeeArray = get('teesSelected');
+export default function createIndividualTableBodyRows (table, rawIndex, gender, teesSelectedProp) {
+  const myTeeArray = teesSelectedProp;
     let teesSelected = [];
 
     myTeeArray.forEach(myFunction);
@@ -22,8 +17,7 @@ const gender = useRecoilValue(genderState);
 
     function compute(aTee) {
       let rowReturn = [aTee];
-      let strIndex = rawIndex;
-      let index = parseFloat(strIndex);
+      let indexFloat = parseFloat(rawIndex);
       let tee = courseData.tees.indexOf(aTee);
   
       function doMath(course,tee){
@@ -32,9 +26,9 @@ const gender = useRecoilValue(genderState);
         } else {
             switch(table) {
               case 'CH':
-                return Math.round((index * (slope / 113)) + (rating - par));
+                return Math.round((indexFloat * (slope / 113)) + (rating - par));
               default:
-                return Math.trunc((index + .04) / (113 / slope) + rating);
+                return Math.trunc((indexFloat + .04) / (113 / slope) + rating);
             }
         }
       }
@@ -64,7 +58,7 @@ const gender = useRecoilValue(genderState);
     }
   
     function addRow(item){
-      switch(get('gender')) {
+      switch(gender) {
         case 'F':
           if (courseData.tees.indexOf(item) > 2) {
             doAdd(item);
@@ -88,4 +82,3 @@ const gender = useRecoilValue(genderState);
     return rows;
 }
 
-export default CreateIndividualTableBodyRows;

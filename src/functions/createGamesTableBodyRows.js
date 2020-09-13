@@ -1,17 +1,10 @@
 import * as courseData from '../data';
-import { get} from '../functions/localStorage';/* 
-import {useStateWithLocalStorage} from './use-state-with-local-storage'; */
-import {useRecoilValue} from 'recoil';
-import {courseState, gameState} from '../state';
 
-function CreateGameTableBodyRows () {
-  const course = useRecoilValue(courseState);
-  const game = useRecoilValue(gameState);
 
-  //first, we get ghin data, store it in local storage, and add to Players
-  //RequestGHIN();
+function createGameTableBodyRows (course, game, players, games, teesSelected) {
+
+
   //declare some variables
-  let players = get('players');
   var rows = [];
   let rating;
   let slope;
@@ -20,11 +13,10 @@ function CreateGameTableBodyRows () {
   let gender;
 
   //next, we build an array of tees
-  let teesSelected = buildTeeArray();
+  let teesSelectedArray = buildTeeArray();
 
   //choose which rows to add, the add them
   function addRow(item, index){
-    let games = get('games');
     let gameNumber = games.indexOf(game);
     switch(gameNumber) {
       case 0:
@@ -61,10 +53,10 @@ function CreateGameTableBodyRows () {
     let player = firstName + ' ' + lastName + ' (' + strHcpIndex + ')';
     let rowReturn = [player];
     let i;
-    for (i=0; i < teesSelected.length; i++){
+    for (i=0; i < teesSelectedArray.length; i++){
       //here is where we compute the course handicap of the golfer for each of the selected tees
       let courseNumber = courses.indexOf(course);
-      let teeNumber = tees.indexOf(teesSelected[i]);
+      let teeNumber = tees.indexOf(teesSelectedArray[i]);
       setRatingSlopePar(courseNumber, teeNumber);
       rowReturn.push(doMath())
     }
@@ -99,13 +91,12 @@ function CreateGameTableBodyRows () {
     }
   
     function buildTeeArray() {
-      const myTeeArray = get('teesSelected');
-      let teesSelected = myTeeArray.map(a => a.value);
-      return teesSelected;
+      let teesSelectedArray = teesSelected.map(a => a.value);
+      return teesSelectedArray;
     }
 
     players.forEach(addRow)
     return rows;
 }
 
-export default CreateGameTableBodyRows;
+export default createGameTableBodyRows;

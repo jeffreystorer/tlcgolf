@@ -1,11 +1,6 @@
-import {get} from '../functions/localStorage';
 import * as courseData from '../data';
-import {useRecoilValue} from 'recoil';
-import {courseState, gameState} from '../state';
 
-const SetGameTableDisplay = () => {
-  const course = useRecoilValue(courseState);
-  const game = useRecoilValue(gameState);  
+export default function getGameTableDisplayNumber(course, game, games, hasGoogleSheet) {
 
 //We are only going to display this table if the golfer is logged in
 //and has selected at least one set of tees and has set up his games.
@@ -13,8 +8,6 @@ const SetGameTableDisplay = () => {
 //If the golfer has done that but not selected a game and a course,
 //we are not going to display the table body or header
 
-  let hasGoogleSheet = get('hasGoogleSheet');
-  let games = get('games');
   let displayNumber;
   
   //now we decide what to display
@@ -39,5 +32,3 @@ const SetGameTableDisplay = () => {
   }
   return displayNumber;
 }
-
-export default SetGameTableDisplay;

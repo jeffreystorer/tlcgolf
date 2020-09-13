@@ -13,12 +13,12 @@ import {
 } from "react-router-dom";
 import '../styles/App.css';
 import Header from './Header';
-import IndividualTables from './IndividualTables';
-import GameTable from './GameTable';
+import IndividualPage from './IndividualPage';
+import GamesPage from './GamesTable';
 import LoginPage from './LoginPage';
 import SelectTeesPage from './SelectTeesPage';
 
-function App() {
+export default function App() {
 
   return (
     <RecoilRoot>
@@ -92,7 +92,7 @@ function Settings () {
   return (
     <>
       <br/><br/>
-      <GameTable />
+      <GamesPage />
     </>
   )
   }
@@ -101,9 +101,7 @@ function Settings () {
     return (
       <>
         <br/><br/>
-        <IndividualTables />
+        <IndividualPage />
       </>
     )
   }
-
-export default App;

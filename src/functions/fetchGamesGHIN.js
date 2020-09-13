@@ -1,9 +1,5 @@
-import {get, set} from './localStorage';
-
-
-export function requestGHIN() {
+export default function fetchGamesGHIN(players) {
   let requests = [];
-  let players = get("players");
   players.forEach(buildRequests);
 
   Promise.all(requests).then(function (responses) {
@@ -26,7 +22,8 @@ export function requestGHIN() {
       item[3] = data[index].golfers[0].Value;
       item[4] = data[index].golfers[0].Gender;
     }
-    set("players", players);
+    
+    return players;
 }
 
   function buildRequests(item, index) {
@@ -38,4 +35,3 @@ export function requestGHIN() {
 
   }
 }
-export default requestGHIN;

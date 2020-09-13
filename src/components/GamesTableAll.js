@@ -1,22 +1,22 @@
 import React from 'react';
-import DropDowns from './DropDowns';
-import GameTableHeader from './GameTableHeader';
-import GameTableBody from './GameTableBody';
+import GamesTableDropDowns from './GamesTableDropDowns';
+import GamesTableHeader from './GamesTableHeader';
+import GamesTableBody from './GamesTableBody';
 import LinkButton from './LinkButton';
 
-function All() {
+export default function All() {
 
   return(
     <>
-    <DropDowns />
+    <GamesTableDropDowns />
     <br/><br/>
     <div id='table'>
       <table id='gametable'>
         <thead>
-          <GameTableHeader />
+          <GamesTableHeader />
         </thead>
         <tbody>
-          <GameTableBody />
+          <GamesTableBody />
         </tbody>
       </table>
     </div>
@@ -28,4 +28,3 @@ function All() {
   )
 }
 
-export default All;

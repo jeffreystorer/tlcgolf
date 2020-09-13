@@ -1,12 +1,11 @@
 import React, {useEffect} from 'react';
-import {get} from '../functions/localStorage';
-import {useRecoilState} from 'recoil';
-import {courseState, gameState} from '../state';
+import {useRecoilState, useRecoilValue} from 'recoil';
+import * as state from '../state';
 
-function DropDowns() {
-  const [course, setCourse] = useRecoilState(courseState);
-  const [game, setGame] = useRecoilState(gameState);
-  let games = get('games');
+export default function DropDowns() {
+  const [course, setCourse] = useRecoilState(state.courseState);
+  const [game, setGame] = useRecoilState(state.gameState);
+  const games = useRecoilValue(state.gamesState);
   
   useEffect(() => {
     setCourse(course);
@@ -58,4 +57,3 @@ try {
   )
 }
 
-export default DropDowns;

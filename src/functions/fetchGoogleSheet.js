@@ -1,7 +1,6 @@
-import {get, set} from './localStorage';
+import {set} from './localStorage';
 
-function fetchGoogleSheet () {
-  const ghinNumber = get('ghinNumber');  
+function fetchGoogleSheet (ghinNumber) {
   const sheetId = process.env.REACT_APP_GOOGLE_SHEETS_ID;
   const apiKey = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY
 
@@ -19,6 +18,7 @@ function fetchGoogleSheet () {
 }
 
 function createPlayersAndGames (values) {
+  console.log('values: ' + JSON.stringify(values));
 
   function createAndSavePlayerTable(){
     let rowCount = values.length;

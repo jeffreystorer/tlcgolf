@@ -1,5 +1,6 @@
-import fetchGoogleSheet from './fetchGoogleSheet';
+
 import {set} from './localStorage';
+
 function setSheetURL (ghinNumber) {
   let sheetURL;
   const sheetId = process.env.REACT_APP_GOOGLE_SHEETS_ID;
@@ -29,7 +30,7 @@ function setSheetURL (ghinNumber) {
     set('hasGoogleSheet', "true")
     let sheetGid = propertyArray[propertyIndex].properties.sheetId
     sheetURL= baseURL + '/edit#gid=' + sheetGid;
-    fetchGoogleSheet();
+    //fetchGoogleSheet(ghinNumber);
 
     } else {
     set('hasGoogleSheet', "false");
