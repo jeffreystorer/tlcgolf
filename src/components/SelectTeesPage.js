@@ -3,7 +3,6 @@ import Select from 'react-select'
 import '../styles/App.css';
 import { set, get} from '../functions/localStorage';
 import setSheetURL from '../functions/setSheetURL';
-import fetchGoogleSheet from '../functions/fetchGoogleSheet';
 
 
 let selectedOption;
@@ -32,9 +31,7 @@ const SelectTeesPage = () => {
     }
   }
 
-  function handleClick() {
-    let hasGoogleSheet = get('hasGoogleSheet');
-    if (hasGoogleSheet === "true") fetchGoogleSheet(ghinNumber);
+  function handleClick() {;
     document.location = '/'
   };
 

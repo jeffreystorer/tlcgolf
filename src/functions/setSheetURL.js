@@ -1,4 +1,4 @@
-
+import fetchGoogleSheet from './fetchGoogleSheet';
 import {set} from './localStorage';
 
 function setSheetURL (ghinNumber) {
@@ -30,12 +30,11 @@ function setSheetURL (ghinNumber) {
     set('hasGoogleSheet', "true")
     let sheetGid = propertyArray[propertyIndex].properties.sheetId
     sheetURL= baseURL + '/edit#gid=' + sheetGid;
-    //fetchGoogleSheet(ghinNumber);
+    fetchGoogleSheet(ghinNumber);
 
     } else {
     set('hasGoogleSheet', "false");
     set('players', "[]");
-    set('playerTable', "[]");
     set('games', "[]");
     set('ghinData', "[]");
     sheetURL = baseURL;

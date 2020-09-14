@@ -3,6 +3,7 @@ import '../styles/App.css';
 import { set, useStateWithLocalStorage } from '../functions/localStorage';
 //import {useRecoilState} from 'recoil';
 //import {ghinNumberState, lastNameState} from '../state';
+import setSheetURL from '../functions/setSheetURL';
 import useDataAPI from '../functions/useDataAPI';
 
 function LoginPage() {
@@ -33,6 +34,13 @@ function LoginPage() {
       set('isLoggedIn', 'false');
     }
   }, [data, ghinNumber, lastName, doFetch]);
+
+  useEffect(() => {
+
+    return () => {
+      setSheetURL(ghinNumber);
+    }
+  }, [ghinNumber])
 
   function handleClick(e){
     set('ghinNumber', ghinNumber);

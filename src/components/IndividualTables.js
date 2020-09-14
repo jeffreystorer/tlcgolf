@@ -4,21 +4,29 @@ import CHTableBody from './CHTableBody';
 import TSTableBody from './TSTableBody';
 import '../styles/App.css';
 import useDataAPI from '../functions/useDataAPI';
-import {get, set} from '../functions/localStorage'
+import {get, useStateWithLocalStorage} from '../functions/localStorage'
 
 export default function IndividualTables(){
-  const ghinNumber = get('ghinNumber');
-  const lastName = get('lastName');
+  //eslint-disable-next-line
+  const [ghinNumber, setGHINNumber] = useStateWithLocalStorage('ghinNumber');
+  //eslint-disable-next-line
+  const [lastName, setLastName] = useStateWithLocalStorage('lastName');
+  const [index, setIndex] = useStateWithLocalStorage('index');
+  const [gender, setGender] = useStateWithLocalStorage('gender');
+  const [golfer, setGolfer] = useStateWithLocalStorage('golfer')
   const [{data}, doFetch] = useDataAPI("", [])
-  let index, gender, teesSelected, golfer;
 
   useEffect(() => {
     let ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + ghinNumber + "&lastName=" + lastName + "&incllsudeLowHandicapIndex=true";
     doFetch(ghinRequest);
+    console.log('data: ' + JSON.stringify(data));
     try {
-    set('index', data.golfers[0].Value);
-    set('gender', data.golfers[0].Gender);
-    set('golfer', data.golfers[0].FirstName + " " + get('lastName') + " (" + get('index') + ")")
+/*       set('index', data.golfers[0].Value);
+      set('gender', data.golfers[0].Gender);
+      set('golfer', data.golfers[0].FirstName + " " + get('lastName') + " (" + get('index') + ")") */
+      setIndex(data.golfers[0].Value);
+      setGender(data.golfers[0].Gender);
+      setGolfer(data.golfers[0].FirstName + " " + get('lastName') + " (" + data.golfers[0].Value + ")")
     } catch (error) {
       console.log('error: ' + error)
     }
@@ -26,10 +34,10 @@ export default function IndividualTables(){
   }, [data, ghinNumber, lastName, doFetch])
 
 
-  teesSelected = get('teesSelected');
-  index = get('index');
+  let teesSelected = get('teesSelected');
+/*   index =  get('index');
   gender = get('gender');
-  golfer = get('golfer')
+  golfer = get('golfer'); */
   
     return(
         <>

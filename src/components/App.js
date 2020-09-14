@@ -14,7 +14,7 @@ import {
 import '../styles/App.css';
 import Header from './Header';
 import IndividualPage from './IndividualPage';
-import GamesPage from './GamesTable';
+import GamesPage from './GamesPage';
 import LoginPage from './LoginPage';
 import SelectTeesPage from './SelectTeesPage';
 

@@ -5,32 +5,31 @@ import GamesTableCreate from './GamesTableCreate';
 import GamesTableDropDowns from './GamesTableDropDowns';
 import getGameTableDisplayNumber from '../functions/getGameTableDisplayNumber';
 import LinkButton from './LinkButton';
-import {get} from '../functions/localStorage';
 import fetchGamesGHIN from '../functions/fetchGamesGHIN';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {get} from '../functions/localStorage'
+import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
 
 export default function GamesTable() {
   const [games, setGames] = useRecoilState(state.gamesState)
   setGames(get('games'));
-  const [players, setPlayers] = useRecoilState(state.playersState);
-  setPlayers(get('players'));
-  //eslint-disable-next-line
+  //es-lint-dsiable-next-line
   const [teesSelected, setTeesSelected] = useRecoilState(state.teesSelectedState);
   setTeesSelected(get('teesSelected'));
-  //eslint-disable-next-line
+///eslint-disable-next-line
   const [ghinNumber, setGHINNumber] = useRecoilState(state.ghinNumberState);
   setGHINNumber(get('ghinNumber'));
-  //eslint-disable-next-line
+  /*//eslint-disable-next-line
   const [sheetURL, setSheetURL] = useRecoilState(state.sheetURLState);
-  setSheetURL(get('sheetURL'));
+  setSheetURL(get('sheetURL')); */
   const course = useRecoilValue(state.courseState);
   const game = useRecoilValue(state.gameState);
-  const [hasGoogleSheet, setHasGoogleSheet] = useRecoilState(state.hasGoogleSheetState);
-  setHasGoogleSheet(get('hasGoogleSheet'));
+/*   const [hasGoogleSheet, setHasGoogleSheet] = useRecoilState(state.hasGoogleSheetState);
+  setHasGoogleSheet(get('hasGoogleSheet')); */
+  const hasGoogleSheet = get('hasGoogleSheet')
 
   let displayNumber = getGameTableDisplayNumber(course, game, games, hasGoogleSheet);
-  if (hasGoogleSheet === 'true') {setPlayers(fetchGamesGHIN(players))};
+  if (hasGoogleSheet === 'true') {fetchGamesGHIN()};
   
 
   

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import * as state from '../state';
+import {get} from '../functions/localStorage';
 
 export default function DropDowns() {
   const [course, setCourse] = useRecoilState(state.courseState);

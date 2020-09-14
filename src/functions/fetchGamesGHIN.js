@@ -1,4 +1,7 @@
-export default function fetchGamesGHIN(players) {
+import {get, set} from '../functions/localStorage';
+
+export default function fetchGamesGHIN() {
+  let players = get('players');
   let requests = [];
   players.forEach(buildRequests);
 
@@ -23,7 +26,7 @@ export default function fetchGamesGHIN(players) {
       item[4] = data[index].golfers[0].Gender;
     }
     
-    return players;
+    set('players', players);
 }
 
   function buildRequests(item, index) {

@@ -6,9 +6,8 @@ import '../styles/App.css';
 import GamesTable from './GamesTable';
 import {get} from '../functions/localStorage';
 
-export default function GamesPage() {
-/*  We are only going to display this table if the golfer is logged in
-  and has selected at least one set of tees
+function GamesPage() {
+/*  We are only going to display the tabls if the golfer is logged in
   */
     const isLoggedIn = get('isLoggedIn');
     if (isLoggedIn === 'true') {
@@ -20,9 +19,11 @@ export default function GamesPage() {
   );
   } else {
     return(
-      <Route exact path="/">
+      <Route exact path="/games">
           <Redirect to="/settings/login"/>
       </Route>
     )
   }
 }
+
+export default GamesPage;
