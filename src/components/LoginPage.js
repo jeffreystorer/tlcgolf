@@ -13,6 +13,10 @@ function LoginPage() {
 
   useEffect(() => {
     localStorage.clear();
+    setGHINNumber("GHIN Number");
+    setLastName('Last Name');
+    set('isLoggedIn', "false")
+    //eslint-disable-next-line
   },[]);
   
   useEffect(() => {
