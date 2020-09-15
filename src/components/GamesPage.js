@@ -6,7 +6,7 @@ import '../styles/App.css';
 import GamesTable from './GamesTable';
 import {get} from '../functions/localStorage';
 
-function GamesPage() {
+export default function GamesPage() {
 /*  We are only going to display the tabls if the golfer is logged in
   */
     const isLoggedIn = get('isLoggedIn');
@@ -26,4 +26,3 @@ function GamesPage() {
   }
 }
 
-export default GamesPage;

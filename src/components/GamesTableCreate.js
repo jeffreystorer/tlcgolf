@@ -3,7 +3,7 @@ import LinkButton from './LinkButton';
 import {useRecoilValue} from 'recoil';
 import * as state from '../state'
 
-export default function Create() {
+export default function GamesTableCreate() {
   const ghinNumber = useRecoilValue(state.ghinNumberState)
   return(
     <>
@@ -16,7 +16,7 @@ export default function Create() {
                             You may give your games any name you wish (no spaces).
                             </p>
       <p className='center'>When you have created your table,<br></br>
-                          restart this app.
+                          go back to this app with your browser<br></br>and login again.
                         </p><br></br>
       <LinkButton title={'Create Table'} />
     </>

@@ -1,8 +1,9 @@
 import * as courseData from '../data';
+import {get} from '../functions/localStorage';
 
 
-function createGameTableBodyRows (course, game, players, games, teesSelected) {
-
+export default function createGamesTableBodyRows (course, game, games, teesSelected) {
+  const players = get('players');
 
   //declare some variables
   var rows = [];
@@ -98,5 +99,3 @@ function createGameTableBodyRows (course, game, players, games, teesSelected) {
     players.forEach(addRow)
     return rows;
 }
-
-export default createGameTableBodyRows;

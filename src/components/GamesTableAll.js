@@ -4,14 +4,14 @@ import GamesTableHeader from './GamesTableHeader';
 import GamesTableBody from './GamesTableBody';
 import LinkButton from './LinkButton';
 
-export default function All() {
+export default function GamesTableAll() {
 
   return(
     <>
     <GamesTableDropDowns />
     <br/><br/>
     <div id='table'>
-      <table id='gametable'>
+      <table id='gamestable'>
         <thead>
           <GamesTableHeader />
         </thead>

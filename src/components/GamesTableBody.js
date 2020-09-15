@@ -6,11 +6,10 @@ import * as state from '../state';
 const GamesTableBody = () => {
   const course = useRecoilValue(state.courseState);
   const game = useRecoilValue(state.gameState);
-  const players = useRecoilValue(state.playersState);
   const games = useRecoilValue(state.gamesState);
   const teesSelected = useRecoilValue(state.teesSelectedState);
   
-  let rows = createGamesTableBodyRows(course, game, players, games, teesSelected);
+  let rows = createGamesTableBodyRows(course, game, games, teesSelected);
   let rowsTD = [];
   let colCount = rows[0].length;
 

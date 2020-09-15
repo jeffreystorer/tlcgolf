@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../styles/App.css';
 import GamesTableAll from './GamesTableAll';
 import GamesTableCreate from './GamesTableCreate';
@@ -12,24 +12,27 @@ import * as state from '../state';
 
 export default function GamesTable() {
   const [games, setGames] = useRecoilState(state.gamesState)
-  setGames(get('games'));
-  //es-lint-dsiable-next-line
+  //eslint-disable-next-line
   const [teesSelected, setTeesSelected] = useRecoilState(state.teesSelectedState);
-  setTeesSelected(get('teesSelected'));
-///eslint-disable-next-line
+  //eslint-disable-next-line
   const [ghinNumber, setGHINNumber] = useRecoilState(state.ghinNumberState);
-  setGHINNumber(get('ghinNumber'));
-  /*//eslint-disable-next-line
-  const [sheetURL, setSheetURL] = useRecoilState(state.sheetURLState);
-  setSheetURL(get('sheetURL')); */
   const course = useRecoilValue(state.courseState);
   const game = useRecoilValue(state.gameState);
-/*   const [hasGoogleSheet, setHasGoogleSheet] = useRecoilState(state.hasGoogleSheetState);
-  setHasGoogleSheet(get('hasGoogleSheet')); */
-  const hasGoogleSheet = get('hasGoogleSheet')
+  const hasGoogleSheet = get('hasGoogleSheet');
+
+  useEffect(() => {
+    setGHINNumber(get('ghinNumber'));
+    setGames(get('games'));
+    setTeesSelected(get('teesSelected'));
+    
+    return () => {
+      //cleanup
+    }
+  //eslint-disable-next-line
+  }, [])
 
   let displayNumber = getGameTableDisplayNumber(course, game, games, hasGoogleSheet);
-  if (hasGoogleSheet === 'true') {fetchGamesGHIN()};
+  if (hasGoogleSheet === 'true') fetchGamesGHIN();
   
 
   

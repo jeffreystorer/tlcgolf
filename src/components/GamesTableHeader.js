@@ -1,12 +1,12 @@
 import React from 'react';
-import createGameTableHeaderRow from '../functions/createGamesTableHeaderRow';
+import createGamesTableHeaderRow from '../functions/createGamesTableHeaderRow';
 import {useRecoilValue} from 'recoil';
 import {teesSelectedState} from '../state'
 
 
-function GameTableHeader() {
+export default function GamesTableHeader() {
   const teesSelected = useRecoilValue(teesSelectedState);
-  let cols = createGameTableHeaderRow(teesSelected);
+  let cols = createGamesTableHeaderRow(teesSelected);
   const getHeader = () => {
     var keys = cols;
     return keys.map((key, index)=>{
@@ -28,5 +28,3 @@ function GameTableHeader() {
         </>
     );
   }
-
-export default GameTableHeader;

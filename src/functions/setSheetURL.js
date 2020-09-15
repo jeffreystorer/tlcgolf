@@ -36,7 +36,6 @@ function setSheetURL (ghinNumber) {
     set('hasGoogleSheet', "false");
     set('players', "[]");
     set('games', "[]");
-    set('ghinData', "[]");
     sheetURL = baseURL;
     }
     set('sheetURL', sheetURL)

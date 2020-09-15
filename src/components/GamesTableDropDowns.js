@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import * as state from '../state';
-import {get} from '../functions/localStorage';
 
-export default function DropDowns() {
+export default function GamesTableDropDowns() {
   const [course, setCourse] = useRecoilState(state.courseState);
   const [game, setGame] = useRecoilState(state.gameState);
   const games = useRecoilValue(state.gamesState);
