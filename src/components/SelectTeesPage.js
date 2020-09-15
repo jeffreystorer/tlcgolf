@@ -3,7 +3,7 @@ import Select from 'react-select'
 import '../styles/App.css';
 import { set, get} from '../functions/localStorage';
 import setSheetURL from '../functions/setSheetURL';
-import timeout from '../functions/timeout';
+//import timeout from '../functions/timeout';
 
 
 let selectedOption;
@@ -33,7 +33,7 @@ const SelectTeesPage = () => {
   }
 
   function handleClick() {;
-    timeout(1000);
+    //timeout(1000);
     document.location = '/'
   };
 
