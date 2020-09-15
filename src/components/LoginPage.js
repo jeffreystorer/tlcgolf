@@ -5,6 +5,7 @@ import { set, useStateWithLocalStorage } from '../functions/localStorage';
 //import {ghinNumberState, lastNameState} from '../state';
 import setSheetURL from '../functions/setSheetURL';
 import useDataAPI from '../functions/useDataAPI';
+import timeout from '../functions/timeout';
 
 function LoginPage() {
   const [ghinNumber, setGHINNumber] = useStateWithLocalStorage('ghinNumber');
@@ -43,6 +44,7 @@ function LoginPage() {
 
     return () => {
       setSheetURL(ghinNumber);
+      timeout(1000);
     }
   }, [ghinNumber])
 
@@ -51,6 +53,7 @@ function LoginPage() {
     set('lastName', lastName);
     const defaultTees =[{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}];
     set('teesSelected', defaultTees);
+    timeout(1000);
     document.location='/settings/selecttees';
     }
 
