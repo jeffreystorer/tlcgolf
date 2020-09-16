@@ -9,6 +9,7 @@ import fetchGamesGHIN from '../functions/fetchGamesGHIN';
 import {get} from '../functions/localStorage'
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
+import useVisibilityChange from 'use-visibility-change';
 
 export default function GamesTable() {
   const [games, setGames] = useRecoilState(state.gamesState)
@@ -19,6 +20,10 @@ export default function GamesTable() {
   const course = useRecoilValue(state.courseState);
   const game = useRecoilValue(state.gameState);
   const hasGoogleSheet = get('hasGoogleSheet');
+  const onShow = () => {
+    window.location.reload();
+  }
+  useVisibilityChange({onShow});
 
   useEffect(() => {
     setGHINNumber(get('ghinNumber'));
