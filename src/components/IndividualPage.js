@@ -7,23 +7,17 @@ import IndividualTables from './IndividualTables';
 import {get} from '../functions/localStorage';
 
 function IndividualPage() {
-/*  We are only going to display the tabls if the golfer is logged in
-  */
-    const isLoggedIn = get('isLoggedIn');
-    if (isLoggedIn === 'true') {
-      console.log('IndividualPage isLoggedIn: ' + isLoggedIn);
-      console.log('IndividualPage routing to Individual Tables');
-      
-      
+/*  We are only going to display the tabls if the golfer is logged in  */
+  const isLoggedIn = get('isLoggedIn');
+  if (isLoggedIn === 'true') {
 
-  return (
-    <>
-      <IndividualTables />
-    </>
-  );
-  } else {
-    console.log('IndividualPage routing to login');
-    
+    return (
+      <>
+        <IndividualTables />
+      </>
+    );
+    } else {
+      
     return(
       <Route exact path="/">
           <Redirect to="/settings/login"/>

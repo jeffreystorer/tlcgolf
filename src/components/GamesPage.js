@@ -7,21 +7,17 @@ import GamesTable from './GamesTable';
 import {get} from '../functions/localStorage';
 
 export default function GamesPage() {
-/*  We are only going to display the tabls if the golfer is logged in
-  */
-    const isLoggedIn = get('isLoggedIn');
-    if (isLoggedIn === 'true') {
-      console.log('GamesPage isLoggedIn: ' + isLoggedIn);
-      console.log('GamesPage routing to GamesTable');
+/*  We are only going to display the tables if the golfer is logged in  */
+  const isLoggedIn = get('isLoggedIn');
+  if (isLoggedIn === 'true') {
 
-  return (
-    <>
-      <GamesTable />
-    </>
-  );
-  } else {
-    console.log('GamesTable routing to login');
-    
+    return (
+      <>
+        <GamesTable />
+      </>
+    );
+    } else {
+
     return(
       <Route exact path="/games">
           <Redirect to="/settings/login"/>
