@@ -14,8 +14,8 @@ function LoginPage() {
 
   useEffect(() => {
     localStorage.clear();
-    setGHINNumber("GHIN Number");
-    setLastName('Last Name');
+    setGHINNumber("");
+    setLastName("");
     set('isLoggedIn', "false")
     //eslint-disable-next-line
   },[]);
@@ -72,7 +72,7 @@ function LoginPage() {
               type="text" 
               id="ghinnumber" 
               name="ghinnumber"
-              defaultValue='GHIN Number'
+              defaultValue=""
               onFocus={event => event.target.value = ghinNumber}
               onBlur={event => setGHINNumber(event.target.value)}
             />
@@ -86,7 +86,7 @@ function LoginPage() {
               type="text" 
               id="lastName" 
               name="lastName"
-              defaultValue='Last Name'
+              defaultValue=""
               onFocus={event => event.target.value = lastName}
               onBlur={event => setLastName(event.target.value)}
             />

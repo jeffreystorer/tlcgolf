@@ -11,6 +11,10 @@ function IndividualPage() {
   */
     const isLoggedIn = get('isLoggedIn');
     if (isLoggedIn === 'true') {
+      console.log('IndividualPage isLoggedIn: ' + isLoggedIn);
+      console.log('IndividualPage routing to Individual Tables');
+      
+      
 
   return (
     <>
@@ -18,6 +22,8 @@ function IndividualPage() {
     </>
   );
   } else {
+    console.log('IndividualPage routing to login');
+    
     return(
       <Route exact path="/">
           <Redirect to="/settings/login"/>

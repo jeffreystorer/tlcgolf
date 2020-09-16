@@ -11,6 +11,8 @@ export default function GamesPage() {
   */
     const isLoggedIn = get('isLoggedIn');
     if (isLoggedIn === 'true') {
+      console.log('GamesPage isLoggedIn: ' + isLoggedIn);
+      console.log('GamesPage routing to GamesTable');
 
   return (
     <>
@@ -18,6 +20,8 @@ export default function GamesPage() {
     </>
   );
   } else {
+    console.log('GamesTable routing to login');
+    
     return(
       <Route exact path="/games">
           <Redirect to="/settings/login"/>

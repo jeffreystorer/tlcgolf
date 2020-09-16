@@ -18,7 +18,6 @@ function fetchGoogleSheet (ghinNumber) {
 }
 
 function createPlayersAndGames (values) {
-  console.log('values: ' + JSON.stringify(values));
 
   function createAndSavePlayerTable(){
     let rowCount = values.length;
