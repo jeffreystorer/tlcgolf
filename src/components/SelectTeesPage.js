@@ -3,12 +3,14 @@ import Select from 'react-select'
 import '../styles/App.css';
 import { set, get} from '../functions/localStorage';
 import setSheetURL from '../functions/setSheetURL';
-//import timeout from '../functions/timeout';
+import fetchIndividualGHIN from '../functions/fetchIndividualGHIN';
 
 
 let selectedOption;
 const SelectTeesPage = () => {
-  let ghinNumber = get('ghinNumber');
+let ghinNumber = get('ghinNumber');
+let lastName = get('lastName');
+  fetchIndividualGHIN(ghinNumber, lastName);
   setSheetURL(ghinNumber);
   const  options  = [
     { label:  'Championship (Men only)', value:  'CH'  },

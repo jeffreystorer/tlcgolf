@@ -56,12 +56,14 @@ export default function IndividualTables(){
               <br/>
             <table id='tstable'>
               <thead>
-                <IndividualTableHeader tableName='Score' />
+                <IndividualTableHeader tableName='Score*' />
               </thead>
               <tbody>
                 <TSTableBody  index={index} gender={gender} teesSelected ={teesSelected}/>
               </tbody>
             </table>
+            <br></br>
+            <p className='center'>*Score you must average eight out of your<br></br>last twenty rounds to maintain your index.</p>
           </div>
         </>
 

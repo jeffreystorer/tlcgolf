@@ -50,7 +50,7 @@ export default function GamesTable() {
       )
   case 1:
     return(
-      <>
+      <><p className='center-bold'>Click on the dropdown boxes below<br></br>to select a game and a course.</p>
         <GamesTableDropDowns />
         <br></br>
         <br></br>

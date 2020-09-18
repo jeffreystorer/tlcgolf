@@ -1,23 +1,20 @@
 import React, {useEffect} from 'react';
 import '../styles/App.css';
-import { set, useStateWithLocalStorage } from '../functions/localStorage';
-//import {useRecoilState} from 'recoil';
-//import {ghinNumberState, lastNameState} from '../state';
 import setSheetURL from '../functions/setSheetURL';
-import useDataAPI from '../functions/useDataAPI';
-//import timeout from '../functions/timeout';
+import {get, set} from '../functions/localStorage';
+import fetchIndividualGHIN from '../functions/fetchIndividualGHIN';
 
 function LoginPage() {
-  const [ghinNumber, setGHINNumber] = useStateWithLocalStorage('ghinNumber');
-  const [lastName, setLastName] = useStateWithLocalStorage('lastName');
-  const [{data}, doFetch] = useDataAPI("", []);
+  let ghinNumber, lastName;
 
   useEffect(() => {
     localStorage.clear();
-    setGHINNumber("");
-    setLastName("");
-    set('isLoggedIn', "false")
+    set('isLoggedIn', "false");
     //eslint-disable-next-line
+    ghinNumber = "";
+    //eslint-disable-next-line
+    lastName = "";
+    ////eslint-disable-next-line
   },[]);
   
   useEffect(() => {
@@ -28,24 +25,15 @@ function LoginPage() {
     set('lastName', lastName);
   }, [lastName]);
 
-  useEffect(() => {
-    let ghinRequest = "https://api2.ghin.com/api/v1/golfermethods.asmx/FindGolfer.json?activeOnly=true&username=GHIN2020&password=GHIN2020&club=0&association=0&ghinNumber=" + ghinNumber + "&lastName=" + lastName + "&incllsudeLowHandicapIndex=true";
-    doFetch(ghinRequest);
-    set('isLoggedIn', 'true');
-    try {
-      //eslint-disable-next-line
-      let aGolfer =  data.golfers[0].FirstName + ' ' + data.golfers[0].LastName;
-    } catch (error){
-      set('isLoggedIn', 'false');
-    }
-  }, [data, ghinNumber, lastName, doFetch]);
+ 
 
   useEffect(() => {
 
     return () => {
+      fetchIndividualGHIN(ghinNumber, lastName);
       setSheetURL(ghinNumber);
-      //timeout(1000);
     }
+  //eslint-disable-next-line
   }, [ghinNumber])
 
   function handleClick(e){
@@ -53,14 +41,13 @@ function LoginPage() {
     set('lastName', lastName);
     const defaultTees =[{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}];
     set('teesSelected', defaultTees);
-    //timeout(1000);
     document.location='/settings/selecttees';
     }
 
   return (
       <>
         <div className='center' id='change-golfer'>
-        <h5 width="95%">
+        <h5 classNmae='center-bold' width="95%">
           The first time you use this app on any device or<br/>
           to change golfers, you must login.<br/>
           You must also login again after<br/>
@@ -73,8 +60,8 @@ function LoginPage() {
               id="ghinnumber" 
               name="ghinnumber"
               defaultValue=""
-              onFocus={event => event.target.value = ghinNumber}
-              onBlur={event => setGHINNumber(event.target.value)}
+              onFocus={event => event.target.value = get('ghinNumber')}
+              onBlur={event => ghinNumber = event.target.value}
             />
           </div>
 
@@ -87,8 +74,8 @@ function LoginPage() {
               id="lastName" 
               name="lastName"
               defaultValue=""
-              onFocus={event => event.target.value = lastName}
-              onBlur={event => setLastName(event.target.value)}
+              onFocus={event => event.target.value = get('lastName')}
+              onBlur={event => lastName = event.target.value}
             />
           </div>
           <br/><br/>

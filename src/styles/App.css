@@ -25,6 +25,13 @@
   text-align: center;
 }
 
+.center-bold{
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: bold;
+
+}
+
 .hidden{
   display: none
 }
