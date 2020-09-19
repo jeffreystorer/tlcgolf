@@ -6,6 +6,7 @@ import setIsLoggedIn from '../functions/setIsLoggedIn';
 
 function LoginPage() {
   let ghinNumber, lastName;
+  set(('build', '9/19 17:50'))
 
   useEffect(() => {
     localStorage.clear();
