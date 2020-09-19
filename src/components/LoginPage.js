@@ -6,11 +6,11 @@ import setIsLoggedIn from '../functions/setIsLoggedIn';
 
 function LoginPage() {
   let ghinNumber, lastName;
-  set('build', '9/19 17:56')
 
   useEffect(() => {
     localStorage.clear();
     set('isLoggedIn', "false");
+    set('build', "9/19 18:08");
     //eslint-disable-next-line
     ghinNumber = "";
     //eslint-disable-next-line
