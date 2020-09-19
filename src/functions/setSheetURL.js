@@ -11,9 +11,21 @@ function setSheetURL (ghinNumber) {
               '?fields=sheets.properties&key=' +
               apiKey;
 
-  fetch(sheetProperties)
+  var json= XMLHttpRequest.responseType;
+
+  var request = new XMLHttpRequest();
+  request.responseType = json;
+  request.open('GET', sheetProperties, false);  // `false` makes the request synchronous
+  request.send(null);
+
+  if (request.status === 200) {
+    const data =JSON.parse(request.response);
+    processSPData(data);
+    };
+
+/*   fetch(sheetProperties)
     .then((response) => response.json())
-    .then(data => (processSPData(data)))
+    .then(data => (processSPData(data))) */
 
 
   function processSPData(data){

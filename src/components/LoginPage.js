@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import '../styles/App.css';
 import setSheetURL from '../functions/setSheetURL';
 import {get, set} from '../functions/localStorage';
-import fetchIndividualGHIN from '../functions/fetchIndividualGHIN';
+import setIsLoggedIn from '../functions/setIsLoggedIn';
 
 function LoginPage() {
   let ghinNumber, lastName;
@@ -25,29 +25,20 @@ function LoginPage() {
     set('lastName', lastName);
   }, [lastName]);
 
- 
-
-  useEffect(() => {
-
-    return () => {
-      fetchIndividualGHIN(ghinNumber, lastName);
-      setSheetURL(ghinNumber);
-    }
-  //eslint-disable-next-line
-  }, [ghinNumber])
-
   function handleClick(e){
     set('ghinNumber', ghinNumber);
     set('lastName', lastName);
     const defaultTees =[{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}];
     set('teesSelected', defaultTees);
+    setIsLoggedIn(ghinNumber, lastName);
+    setSheetURL(ghinNumber);
     document.location='/settings/selecttees';
     }
 
   return (
       <>
         <div className='center' id='change-golfer'>
-        <h5 classNmae='center-bold' width="95%">
+        <h5>
           The first time you use this app on any device or<br/>
           to change golfers, you must login.<br/>
           You must also login again after<br/>
