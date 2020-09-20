@@ -46,7 +46,6 @@ function LoginPage() {
 
   return (
       <>
-        <ToastContainer />
         <div className='center' id='change-golfer'>
         <h5>
           The first time you use this app on any device or<br/>
