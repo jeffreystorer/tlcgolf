@@ -241,3 +241,19 @@ button:hover{
 #gametable {
   width: fit-content;
 }
+
+/* .dispay-build-date{
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+} */
+
+footer{
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  text-align: center;
+}

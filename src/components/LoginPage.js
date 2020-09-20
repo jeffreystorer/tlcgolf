@@ -3,15 +3,21 @@ import '../styles/App.css';
 import setSheetURL from '../functions/setSheetURL';
 import {get, set} from '../functions/localStorage';
 import setIsLoggedIn from '../functions/setIsLoggedIn';
-import fetchGoogleSheet from '../functions/fetchGoogleSheet'
+import fetchGoogleSheet from '../functions/fetchGoogleSheet';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+import preval from 'preval.macro';
+
 
 function LoginPage() {
+  const dateTimeStamp = preval`module.exports = new Date().toLocaleString();`
+  const notify = () => toast(dateTimeStamp);
+
   let ghinNumber, lastName;
 
   useEffect(() => {
     localStorage.clear();
     set('isLoggedIn', "false");
-    set('build', "9/20 10:30");
     //eslint-disable-next-line
     ghinNumber = "";
     //eslint-disable-next-line
@@ -41,6 +47,7 @@ function LoginPage() {
 
   return (
       <>
+        <ToastContainer />
         <div className='center' id='change-golfer'>
         <h5>
           The first time you use this app on any device or<br/>
@@ -81,6 +88,14 @@ function LoginPage() {
                 Next 
             </button>
           </div>
+          <br></br>
+          <br></br>
+          <footer align='center'>
+            <button
+            onClick={notify}>
+              Display Build Date
+            </button>
+          </footer>
         </div>
       </>
   );
