@@ -10,8 +10,7 @@ import preval from 'preval.macro';
 
 
 function LoginPage() {
-  const dateTimeStamp = preval`module.exports = new Date().toLocaleString();`
-  const notify = () => toast(dateTimeStamp);
+  const build = "Build: " + preval`module.exports = new Date().toLocaleString();`
 
   let ghinNumber, lastName;
 
@@ -91,10 +90,7 @@ function LoginPage() {
           <br></br>
           <br></br>
           <footer align='center'>
-            <button
-            onClick={notify}>
-              Display Build Date
-            </button>
+              {build}
           </footer>
         </div>
       </>
