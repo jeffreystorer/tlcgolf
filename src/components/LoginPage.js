@@ -4,8 +4,8 @@ import setSheetURL from '../functions/setSheetURL';
 import {get, set} from '../functions/localStorage';
 import setIsLoggedIn from '../functions/setIsLoggedIn';
 import fetchGoogleSheet from '../functions/fetchGoogleSheet';
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+//import {ToastContainer, toast} from 'react-toastify';
+//import 'react-toastify/dist/ReactToastify.min.css';
 import preval from 'preval.macro';
 
 
