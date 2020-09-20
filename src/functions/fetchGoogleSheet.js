@@ -11,9 +11,19 @@ function fetchGoogleSheet (ghinNumber) {
                "?key=" + 
                apiKey;
 
-  fetch(sheetValues)
-    .then((response) => response.json())
-    .then(data => (createPlayersAndGames(data.values)))
+    var request = new XMLHttpRequest();
+    request.open('GET', sheetValues, false);  // `false` makes the request synchronous
+    request.send(null);
+  
+    if (request.status === 200) {
+      const data =JSON.parse(request.response);
+      console.log('data');
+      try {
+        createPlayersAndGames(data.values);
+      } catch (error){
+        console.log('error: ' + error)
+      };
+    }
 
 }
 

@@ -3,6 +3,7 @@ import '../styles/App.css';
 import setSheetURL from '../functions/setSheetURL';
 import {get, set} from '../functions/localStorage';
 import setIsLoggedIn from '../functions/setIsLoggedIn';
+import fetchGoogleSheet from '../functions/fetchGoogleSheet'
 
 function LoginPage() {
   let ghinNumber, lastName;
@@ -10,7 +11,7 @@ function LoginPage() {
   useEffect(() => {
     localStorage.clear();
     set('isLoggedIn', "false");
-    set('build', "9/19 18:08");
+    set('build', "9/20 10:30");
     //eslint-disable-next-line
     ghinNumber = "";
     //eslint-disable-next-line
@@ -33,6 +34,8 @@ function LoginPage() {
     set('teesSelected', defaultTees);
     setIsLoggedIn(ghinNumber, lastName);
     setSheetURL(ghinNumber);
+    console.log('isLoggedIn: ' + get('isLoggedIn'));    
+    if (get('isLoggedIn') === 'true') {fetchGoogleSheet(ghinNumber)}
     document.location='/settings/selecttees';
     }
 
