@@ -1,9 +1,4 @@
-import {set} from './localStorage';
-
-function fetchCourseData () {
-  const sheetId = process.env.REACT_APP_GOOGLE_SHEETS_ID;
-  const apiKey = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY
-  const sheet = 'Course_Data'
+//import {set} from './localStorage';
 
 let dcmrating = []; 
 let dcmslope = []; 
@@ -40,23 +35,26 @@ let tpmslope = [];
 let tpmpar = []; 
 let tpwrating = []; 
 let tpwslope = []; 
-let tpwpar = []; 
+let tpwpar = [];
+ //Combined Arrays
+ const mratings = [dcmrating,mgmrating, mwmrating, okmrating, pamrating, tpmrating];
+ const mslopes = [dcmslope,mgmslope, mwmslope, okmslope, pamslope, tpmslope];
+ const mpars = [dcmpar, mgmpar, mwmpar, okmpar,pampar, tpmpar];
+ const wratings = [dcwrating,mgwrating, mwwrating, okwrating, pawrating, tpwrating];
+ const wslopes = [dcwslope,mgwslope, mwwslope, okwslope, pawslope, tpwslope];
+ const wpars = [dcwpar, mgwpar, mwwpar, okwpar,pawpar, tpwpar];
+ 
+ const ratings = [mratings, wratings];
+ const slopes = [mslopes, wslopes];
+ const pars = [mpars, wpars];
 
-//Combined Arrays
-let mratings = [dcmrating,mgmrating, mwmrating, okmrating, pamrating, tpmrating];
-let mslopes = [dcmslope,mgmslope, mwmslope, okmslope, pamslope, tpmslope];
-let mpars = [dcmpar, mgmpar, mwmpar, okmpar,pampar, tpmpar];
-let wratings = [dcwrating,mgwrating, mwwrating, okwrating, pawrating, tpwrating];
-let wslopes = [dcwslope,mgwslope, mwwslope, okwslope, pawslope, tpwslope];
-let wpars = [dcwpar, mgwpar, mwwpar, okwpar,pawpar, tpwpar];
-let courseDataItems = [];
+function fetchCourseData () {
+  const sheetId = process.env.REACT_APP_GOOGLE_SHEETS_ID;
+  const apiKey = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY
+  const sheet = 'Course_Data';  
+  
+  
 
-let ratings = [mratings, wratings];
-let slopes = [mslopes, wslopes];
-let pars = [mpars, wpars];
-
-let tees = ["CH", "T", "T/C", "C", "C/M", "M", "M/CRS", "LCRS", "CRS", "SCRS", "ISL", "CRS/SK", "SK"];
-let courses = ["dc", "mg", "mw", "ok", "pa", "tp"]
 
   const sheetValues =  'https://sheets.googleapis.com/v4/spreadsheets/' +
                sheetId + 
@@ -76,40 +74,19 @@ let courses = ["dc", "mg", "mw", "ok", "pa", "tp"]
         createCourseDataArrays(data.values);
       } catch (error){
         console.log('error: ' + error)
-      };
+      }
     }
 
-}
+ return [ratings, slopes, pars]
 
-function createCourseDataArrays (values) {
-
-  function createAndSavePlayerTable(){
-    let rowCount = values.length;
-    
-    let playerTable = [];
+  function createCourseDataArrays (values) {
+    let courseDataItems = [dcmrating,mgmrating, mwmrating, okmrating, pamrating, tpmrating, dcmslope,mgmslope, mwmslope, okmslope, pamslope, tpmslope, dcmpar, mgmpar, mwmpar, okmpar,pampar, tpmpar, dcwrating,mgwrating, mwwrating, okwrating, pawrating, tpwrating, dcwslope,mgwslope, mwwslope, okwslope, pawslope, tpwslope, dcwpar, mgwpar, mwwpar, okwpar,pawpar, tpwpar];
     let i;
-    for (i = 0; i < rowCount; i++){
-      playerTable.push(values[i]);
-    }
-    //set('playerTable', JSON.stringify(playerTable));
-    setGamesAndPlayers(playerTable);
-  }
-  function setGamesAndPlayers(playerTable){    
-    playerTable[0].splice(0,2);
-    playerTable[0].unshift('All');
-    set('games', playerTable[0]);
-    playerTable.splice(0,1);
-    addFirstNameIndexGenderCols(playerTable);
-    set('players', playerTable);
-  }
-
-  function addFirstNameIndexGenderCols(playerTable){
-    let i;
-    for (i = 0; i < playerTable.length; i++) {
-      playerTable[i].splice(2,0, "", "", "");
+    for (i = 1; i < 38; i++) {
+      courseDataItems[i-1] = values[1].splice(0,1)
+      console.log('courseDataItem '+ i-1 + ": "+ courseDataItems[i-1])
     }
   }
-  createAndSavePlayerTable();
 }
 
 export default fetchCourseData;
