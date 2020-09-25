@@ -1,6 +1,6 @@
 import {set} from './localStorage';
 
-function fetchGoogleSheet (ghinNumber) {
+function fetchPlayersAndGames (ghinNumber) {
   const sheetId = process.env.REACT_APP_GOOGLE_SHEETS_ID;
   const apiKey = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY
 
@@ -58,4 +58,4 @@ function createPlayersAndGames (values) {
   createAndSavePlayerTable();
 }
 
-export default fetchGoogleSheet;
+export default fetchPlayersAndGames;

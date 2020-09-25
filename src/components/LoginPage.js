@@ -3,9 +3,7 @@ import '../styles/App.css';
 import setSheetURL from '../functions/setSheetURL';
 import {get, set} from '../functions/localStorage';
 import setIsLoggedIn from '../functions/setIsLoggedIn';
-import fetchGoogleSheet from '../functions/fetchGoogleSheet';
-//import {ToastContainer, toast} from 'react-toastify';
-//import 'react-toastify/dist/ReactToastify.min.css';
+import fetchPlayersAndGames from '../functions/fetchPlayersAndGames';
 import preval from 'preval.macro';
 
 
@@ -40,7 +38,7 @@ function LoginPage() {
     setIsLoggedIn(ghinNumber, lastName);
     setSheetURL(ghinNumber);
     console.log('isLoggedIn: ' + get('isLoggedIn'));    
-    if (get('isLoggedIn') === 'true') {fetchGoogleSheet(ghinNumber)}
+    if (get('isLoggedIn') === 'true') {fetchPlayersAndGames(ghinNumber)}
     document.location='/settings/selecttees';
     }
 
