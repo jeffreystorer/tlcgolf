@@ -1,6 +1,6 @@
-import * as courseData from '../data';
+import {tees} from '../data';
 
-export default function createIndividualTableBodyRows (table, rawIndex, gender, teesSelectedProp) {
+export default function createIndividualTableBodyRows (table, rawIndex, gender, teesSelectedProp, ratings, slopes, pars) {
   if (!rawIndex) rawIndex = "0.0"
   const myTeeArray = teesSelectedProp;
   let teesSelected = [];
@@ -19,7 +19,7 @@ export default function createIndividualTableBodyRows (table, rawIndex, gender, 
   function compute(aTee) {
     let rowReturn = [aTee];
     let indexFloat = parseFloat(rawIndex);
-    let tee = courseData.tees.indexOf(aTee);
+    let tee = tees.indexOf(aTee);
 
     function doMath(course,tee){
     if (rating === 0) {
@@ -46,14 +46,14 @@ export default function createIndividualTableBodyRows (table, rawIndex, gender, 
   function setRatingSlopePar(course, tee){
   switch(gender) {
       case 'F':
-        rating = Number(courseData.wratings[course][tee]);
-        slope = Number(courseData.wslopes[course][tee]);
-        par = Number(courseData.wpars[course][tee]);
+        rating = Number(ratings[1][course][tee]);
+        slope = Number(slopes[1][course][tee]);
+        par = Number(pars[1][course][tee]);
         break;
       default:
-        rating = Number(courseData.mratings[course][tee]);
-        slope = Number(courseData.mslopes[course][tee]);
-        par = Number(courseData.mpars[course][tee]);
+        rating = Number(ratings[0][course][tee]);
+        slope = Number(slopes[0][course][tee]);
+        par = Number(pars[0][course][tee]);
   }
 
   }
@@ -61,7 +61,7 @@ export default function createIndividualTableBodyRows (table, rawIndex, gender, 
   function addRow(item){
     switch(gender) {
       case 'F':
-        if (courseData.tees.indexOf(item) > 2) {
+        if (tees.indexOf(item) > 2) {
           doAdd(item);
         }
         break;

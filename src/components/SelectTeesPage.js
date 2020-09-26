@@ -18,7 +18,7 @@ const SelectTeesPage = () => {
     { label:  'Course', value:  'CRS'},
     { label:  'Short Course (Women Only)', value:  'SCRS'},
     { label:  'Island', value:  'ISL'},
-    { label:  'Skidaway/Course', value:  'SK/CRS'},
+    { label:  'Skidaway/Course', value:  'CRS/SK'},
     { label:  'Skidaway', value: 'SK'}
   ]
 

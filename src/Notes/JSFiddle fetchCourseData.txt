@@ -1,0 +1,102 @@
+let values = fetchCourseData();
+console.log('ratings: ' + values[0]);
+console.log('slopes: ' + values[1]);
+console.log('pars: ' + values[2]);
+
+function fetchCourseData() {
+  let dcmrating = [];
+  let dcmslope = [];
+  let dcmpar = [];
+  let dcwrating = [];
+  let dcwslope = [];
+  let dcwpar = [];
+  let mgmrating = [];
+  let mgmslope = [];
+  let mgmpar = [];
+  let mgwrating = [];
+  let mgwslope = [];
+  let mgwpar = [];
+  let mwmrating = [];
+  let mwmslope = [];
+  let mwmpar = [];
+  let mwwrating = [];
+  let mwwslope = [];
+  let mwwpar = [];
+  let okmrating = [];
+  let okmslope = [];
+  let okmpar = [];
+  let okwrating = [];
+  let okwslope = [];
+  let okwpar = [];
+  let pamrating = [];
+  let pamslope = [];
+  let pampar = [];
+  let pawrating = [];
+  let pawslope = [];
+  let pawpar = [];
+  let tpmrating = [];
+  let tpmslope = [];
+  let tpmpar = [];
+  let tpwrating = [];
+  let tpwslope = [];
+  let tpwpar = [];
+  //Combined Arrays
+  const mratings = [dcmrating, mgmrating, mwmrating, okmrating, pamrating, tpmrating];
+  const mslopes = [dcmslope, mgmslope, mwmslope, okmslope, pamslope, tpmslope];
+  const mpars = [dcmpar, mgmpar, mwmpar, okmpar, pampar, tpmpar];
+  const wratings = [dcwrating, mgwrating, mwwrating, okwrating, pawrating, tpwrating];
+  const wslopes = [dcwslope, mgwslope, mwwslope, okwslope, pawslope, tpwslope];
+  const wpars = [dcwpar, mgwpar, mwwpar, okwpar, pawpar, tpwpar];
+
+  const ratings = [mratings, wratings];
+  const slopes = [mslopes, wslopes];
+  const pars = [mpars, wpars];
+  const sheetId = "1GEP9S0xt1JBPLs3m0DoEOaQdwxwD8CEPFOXyxlxIKkg";
+  const apiKey = "AIzaSyCWOTHZxzxvJS7990cNcvF8pSWEoEf_cbg";
+  const sheet = 'Course_Data';
+
+
+
+
+  const sheetValues = 'https://sheets.googleapis.com/v4/spreadsheets/' +
+    sheetId +
+    '/values/' +
+    sheet +
+    "?key=" +
+    apiKey;
+
+  var request = new XMLHttpRequest();
+  request.open('GET', sheetValues, false); // `false` makes the request synchronous
+  request.send(null);
+
+  if (request.status === 200) {
+    const data = JSON.parse(request.response);
+    //console.log(data);
+    try {
+      createCourseDataArrays(data.values);
+    } catch (error) {
+      console.log('error: ' + error)
+    }
+  }
+
+  return [ratings, slopes, pars]
+
+  function createCourseDataArrays(values) {
+    let courseDataItemList = [dcmrating, mgmrating, mwmrating, okmrating, pamrating, tpmrating, dcmslope, mgmslope, mwmslope, okmslope, pamslope, tpmslope, dcmpar, mgmpar, mwmpar, okmpar, pampar, tpmpar, dcwrating, mgwrating, mwwrating, okwrating, pawrating, tpwrating, dcwslope, mgwslope, mwwslope, okwslope, pawslope, tpwslope, dcwpar, mgwpar, mwwpar, okwpar, pawpar, tpwpar];
+    let courseDataItems = [];
+    let i;
+    for (i = 0; i < 36; i++) {
+    	//console.log("values: " + values[i+1]);
+  		let data = [];
+      values[i+1].splice(0,1);
+      data = values[i+1];
+      //console.log("data: " + data);
+      courseDataItems.push(data);
+      console.log('courseDataItem ' + i + ": " + courseDataItems[i]);
+    }
+    console.log('courseDataItems: ' + courseDataItems)
+   courseDataItemList.forEach(addData)
+   function addData(item,index){
+   item[index] = courseDataItems[index]
+  }
+}}

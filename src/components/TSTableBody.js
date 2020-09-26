@@ -2,7 +2,7 @@ import React from 'react';
 import createIndividualTableBodyRows from '../functions/createIndividualTableBodyRows';
 
 const TSTableBody = props => {
-    const rows = createIndividualTableBodyRows("TS", props.index, props.gender, props.teesSelected);
+    const rows = createIndividualTableBodyRows("TS", props.index, props.gender, props.teesSelected, props.ratings, props.slopes, props.pars);
     return (
         <>
                     {rows.map(
