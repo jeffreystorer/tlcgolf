@@ -3,7 +3,7 @@ import IndividualTableHeader from './IndividualTableHeader';
 import CHTableBody from './CHTableBody';
 import TSTableBody from './TSTableBody';
 import '../styles/App.css';
-import {get, set} from '../functions/localStorage';
+import {get} from '../functions/localStorage';
 import fetchIndividualGHIN from '../functions/fetchIndividualGHIN';
 import fetchCourseData from '../functions/fetchCourseData';
 
