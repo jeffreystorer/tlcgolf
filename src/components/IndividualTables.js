@@ -9,7 +9,7 @@ import fetchCourseData from '../functions/fetchCourseData';
 
 export default function IndividualTables(){
   const [index, gender, golfer] = fetchIndividualGHIN();
-  const [ratings, slopes, pars] = fetchCourseData;
+  const [ratings, slopes, pars] = fetchCourseData();
 
   let teesSelected = get('teesSelected');
   

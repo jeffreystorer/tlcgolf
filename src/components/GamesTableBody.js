@@ -2,14 +2,16 @@ import React from 'react';
 import createGamesTableBodyRows from '../functions/createGamesTableBodyRows.js';
 import {useRecoilValue} from 'recoil';
 import * as state from '../state';
+import fetchCourseData from '../functions/fetchCourseData';
 
 const GamesTableBody = () => {
   const course = useRecoilValue(state.courseState);
   const game = useRecoilValue(state.gameState);
   const games = useRecoilValue(state.gamesState);
-  const teesSelected = useRecoilValue(state.teesSelectedState);
+  const teesSelected = useRecoilValue(state.teesSelectedState); 
+  const [ratings, slopes, pars] = fetchCourseData();
   
-  let rows = createGamesTableBodyRows(course, game, games, teesSelected);
+  let rows = createGamesTableBodyRows(course, game, games, teesSelected, ratings, slopes, pars);
   let rowsTD = [];
   let colCount = rows[0].length;
 

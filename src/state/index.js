@@ -19,6 +19,19 @@ export const gameState = atom({
   default: "",
 });
 
+export const ratingsState = atom({
+  key: "ratingsState",
+  default: [],
+})
+export const slopesState = atom({
+  key: "slopesState",
+  default: [],
+})
+export const parsState = atom({
+  key: "parsState",
+  default: [],
+})
+
 export const indexState = atom({
   key: "indexState",
   default: "0.0",

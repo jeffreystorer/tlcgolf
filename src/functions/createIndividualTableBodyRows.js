@@ -1,63 +1,17 @@
 import {tees} from '../data';
+import setRatingSlopePar from '../functions/setRatingSlopePar';
 
-export default function createIndividualTableBodyRows (table, rawIndex, gender, teesSelectedProp, ratings, slopes, pars) {
+export default function createIndividualTableBodyRows (table, rawIndex, gender, teesSelected, ratings, slopes, pars) {
   if (!rawIndex) rawIndex = "0.0"
-  const myTeeArray = teesSelectedProp;
-  let teesSelected = [];
 
-  myTeeArray.forEach(myFunction);
-  
-  function myFunction(item, index) {
-    teesSelected = [...teesSelected, item.value];
-  }
-  
+//declare some variables
   var rows = [];
-  let rating;
-  let slope;
-  let par;
+  let indexFloat;
 
-  function compute(aTee) {
-    let rowReturn = [aTee];
-    let indexFloat = parseFloat(rawIndex);
-    let tee = tees.indexOf(aTee);
+  //next, we build an array of tees
+  let teesSelectedArray = buildTeeArray();
 
-    function doMath(course,tee){
-    if (rating === 0) {
-        return "-"
-      } else {
-          switch(table) {
-            case 'CH':
-              return Math.round((indexFloat * (slope / 113)) + (rating - par));
-            default:
-              return Math.trunc((indexFloat + .04) / (113 / slope) + rating);
-          }
-      }
-    }
-
-    let i;
-    for (i = 0; i<6; i++){
-    setRatingSlopePar(i, tee);
-      rowReturn.push(doMath());
-    };
-
-    return rowReturn;
-  }
-
-  function setRatingSlopePar(course, tee){
-  switch(gender) {
-      case 'F':
-        rating = Number(ratings[1][course][tee]);
-        slope = Number(slopes[1][course][tee]);
-        par = Number(pars[1][course][tee]);
-        break;
-      default:
-        rating = Number(ratings[0][course][tee]);
-        slope = Number(slopes[0][course][tee]);
-        par = Number(pars[0][course][tee]);
-  }
-
-  }
-
+  //filter tees by gender, then add rows
   function addRow(item){
     switch(gender) {
       case 'F':
@@ -71,15 +25,48 @@ export default function createIndividualTableBodyRows (table, rawIndex, gender, 
         }
 
     }
+  }
+
+  //construct the row
+  function compute(aTee) {
+    let rowReturn = [aTee];
+    indexFloat = parseFloat(rawIndex);
+    let tee = tees.indexOf(aTee);
+    let i;
+    for (i = 0; i<6; i++){
+      const [rating, slope, par] = setRatingSlopePar(ratings, slopes, pars, i, tee, gender);
+      rowReturn.push(doMath(rating, slope, par));
+    };
+    return rowReturn;
+  }
+
+//compute course handicap or target score
+  function doMath(rating, slope, par){
+  if (rating === 0) {
+      return "-"
+    } else {
+        switch(table) {
+          case 'CH':
+            return Math.round((indexFloat * (slope / 113)) + (rating - par));
+          default:
+            return Math.trunc((indexFloat + .04) / (113 / slope) + rating);
+        }
+    }
+  }
+  //build array of tees
+  function buildTeeArray() {
+    let teesSelectedArray = teesSelected.map(a => a.value);
+    return teesSelectedArray;
+  }
+
+//add a row for each tee
   function doAdd(item) {
     let aTee = item;
     var newRow = compute(aTee);
     rows.push(newRow);
   }
 
-  }
-
-  teesSelected.forEach(addRow);
+  teesSelectedArray.forEach(addRow);
   return rows;
 }
 
