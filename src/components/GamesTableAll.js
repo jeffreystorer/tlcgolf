@@ -4,7 +4,7 @@ import GamesTableHeader from './GamesTableHeader';
 import GamesTableBody from './GamesTableBody';
 import LinkButton from './LinkButton';
 
-export default function GamesTableAll() {
+export default function GamesTableAll({ratings, slopes, pars}) {
 
   return(
     <>
@@ -16,7 +16,7 @@ export default function GamesTableAll() {
           <GamesTableHeader />
         </thead>
         <tbody>
-          <GamesTableBody />
+          <GamesTableBody ratings={ratings} slopes={slopes} pars={pars}/>
         </tbody>
       </table>
     </div>

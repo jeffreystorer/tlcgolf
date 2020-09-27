@@ -11,7 +11,7 @@ import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
 import useVisibilityChange from 'use-visibility-change';
 
-export default function GamesTable() { 
+export default function GamesTable({ratings, slopes, pars}) { 
   const [games, setGames] = useRecoilState(state.gamesState)
   //eslint-disable-next-line
   const [teesSelected, setTeesSelected] = useRecoilState(state.teesSelectedState);
@@ -61,7 +61,7 @@ export default function GamesTable() {
   case 2:
       return(
         <>
-          <GamesTableAll />
+          <GamesTableAll ratings={ratings} slopes={slopes} pars={pars} />
         </>
       )
     default:
