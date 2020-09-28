@@ -32,8 +32,7 @@ const SelectTeesPage = () => {
       <br/>
       <div >
   <label>
-    <select multiple={true} value={tees} size={14} onChange={handleSelectTees}>
-      <option disabled={true}></option>
+    <select multiple={true} value={tees} size={13} onChange={handleSelectTees}>
       <option value="CH">Championship (Men only)</option>
       <option value="T">Tournament (Men only)</option>
       <option value="T/C">Tournament/Club (Men only)</option>
