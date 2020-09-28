@@ -21,15 +21,15 @@ export default function GamesTableDropDowns() {
     setCourse(e.target.value);
     }
   
-    function handleGameChange(e){
-    setGame(e.target.value);
-    }
-try {
-  optionItems = games.map((game) =>
-  <option key={game} value={game}>{game}</option>);
-} catch (error) {
-  console.log(error);
-}
+  function handleGameChange(e){
+  setGame(e.target.value);
+  }
+  try {
+    optionItems = games.map((game) =>
+    <option key={game} value={game}>{game}</option>);
+  } catch (error) {
+    console.log(error);
+  }
 
 
   return(
