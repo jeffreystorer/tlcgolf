@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/App.css';
-import { set } from '../functions/localStorage';
 
 const SelectTeesPage = () => {
   let tees = [];
