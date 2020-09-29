@@ -44,22 +44,22 @@
   text-align: center;
 }
 
-input {
+input :not(#next) {
   border: 1px solid black;
   width: 150px;
   font-size: 14px;
   padding: 2px;
 }
 
-input:hover {
+input:hover :not(#next) {
   background-color: #eee;
 }
 
-input:focus {
+input:focus:not(#next){
   background-color: #ccf;
 }
 
-input:not(:focus) {
+input:not(:focus) :not(#next){
   text-align: center;
 }
 
