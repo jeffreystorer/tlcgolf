@@ -204,7 +204,7 @@ nav {
   border-color: #3378ac;
 }
 
-button{
+button, #next{
   background-color: #3378AC;
   padding: 1px 15px;
 	text-decoration: none;
@@ -219,7 +219,7 @@ button{
   margin: 2px 2px;
   cursor: pointer;
 }
-button:hover{
+button:hover, #next:hover{
   color: #c00;
   background-color: white;
 }

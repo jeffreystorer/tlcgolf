@@ -36,9 +36,10 @@ const SelectTeesPage = () => {
     return (
     <div align="center">
       <h5>
-        Please select at least one set of tees,<br/>
-        then click the "Next" button<br/>
-        (default is C, C/M, M):
+        Please select one or more tees,<br/>
+        then click "Next", or,<br/>
+        just click "Next" to accept<br/>
+        the default set of C, C/M, M:
       </h5>
       <br/><br/>
       <Select
