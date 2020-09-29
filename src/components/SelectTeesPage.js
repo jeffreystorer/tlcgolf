@@ -14,14 +14,8 @@ const SelectTeesPage = () => {
     for (var i = 0, len = alloptions.length; i < len; i++){
       if (alloptions[i].selected) {options = [...options, alloptions[i]]};
     }
-
     Array.from(options).forEach(function (element){tees = [...tees, JSON.stringify({label: element.text, value: element.value})]});
-    if (tees.length) {
-      localStorage.setItem('teesSelected', "[" + tees + "]");
-    } else {
-    const defaultTees =[{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}];
-    set('teesSelected', defaultTees);
-    }
+    localStorage.setItem('teesSelected', "[" + tees + "]");
     document.location = '/'
   };
 
@@ -40,9 +34,9 @@ const SelectTeesPage = () => {
           <option value="CH">Championship (Men only)</option>
           <option value="T">Tournament (Men only)</option>
           <option value="T/C">Tournament/Club (Men only)</option>
-          <option value="C">Club</option>
-          <option value="C/M">Club/Medal</option>
-          <option value="M">Medal</option>
+          <option value="C" selected={true}>Club</option>
+          <option value="C/M"selected={true}>Club/Medal</option>
+          <option value="M" selected={true}>Medal</option>
           <option value="M/CRS">Medal/Course</option>
           <option value="LCRS">Long Course</option>
           <option value="CRS">Course</option>

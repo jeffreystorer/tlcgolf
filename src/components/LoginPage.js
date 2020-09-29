@@ -33,8 +33,6 @@ function LoginPage() {
   function handleClick(e){
     set('ghinNumber', ghinNumber);
     set('lastName', lastName);
-    const defaultTees =[{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}];
-    set('teesSelected', defaultTees);
     setIsLoggedIn(ghinNumber, lastName);
     setSheetURL(ghinNumber);
     console.log('isLoggedIn: ' + get('isLoggedIn'));    
