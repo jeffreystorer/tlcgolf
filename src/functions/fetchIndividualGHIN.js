@@ -13,7 +13,9 @@ export default function fetchIndividualGHIN (){
     try {
       let index = data.golfers[0].Value;
       let gender = data.golfers[0].Gender;
-      let golfer = data.golfers[0].FirstName + " " + get('lastName') + " (" + data.golfers[0].Value + ")"
+      let firstName = data.golfers[0].FirstName;
+      if (firstName.indexOf('.')) firstName = firstName.toUpperCase();
+      let golfer = firstName + " " + get('lastName') + " (" + data.golfers[0].Value + ")"
       return [index, gender, golfer]
     } catch (error) {
     }

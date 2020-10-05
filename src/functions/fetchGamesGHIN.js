@@ -16,7 +16,9 @@ export default function fetchGamesGHIN() {
     players.forEach(addData);
     function addData(item, index) {
       try {
-      item[2] =  data[index].golfers[0].FirstName;
+      let firstName = data[index].golfers[0].FirstName;
+      if (firstName.indexOf('.')) firstName = firstName.toUpperCase();
+      item[2] =  firstName;
     } catch (error){
       item[2] = 'BAD PLAYER';
       item[3] = '-.-'
