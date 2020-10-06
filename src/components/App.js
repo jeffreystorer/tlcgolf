@@ -17,6 +17,8 @@ import IndividualPage from './IndividualPage';
 import GamesPage from './GamesPage';
 import LoginPage from './LoginPage';
 import SelectTeesPage from './SelectTeesPage';
+import PreferredTeePage from './PreferredTeePage';
+import ManageTeamsPage from './ManageTeamsPage'
 
 export default function App() {
 
@@ -28,11 +30,15 @@ export default function App() {
       <nav>
         <NavLink exact to="/" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Individual</NavLink>
         <NavLink exact to="/games" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Games</NavLink>
+        <NavLink exact to="/lineup" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Lineup</NavLink>
         <NavLink exact to="/settings" className='navitem-last' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Settings</NavLink>
       </nav>
       <Switch>
         <Route path="/games">
           <Games />
+        </Route>
+        <Route path="/lineup">
+          <Lineups />
         </Route>
         <Route path="/settings" >
           <Settings />
@@ -46,6 +52,45 @@ export default function App() {
   );
 
 
+  }
+
+  function LineupPage () {
+    let {lineupId } = useParams();
+    let aLineup = lineupId;
+    switch (aLineup) {
+      case "teams":
+        return (
+          <>
+          <ManageTeamsPage />
+          </>
+        )
+    
+      default:
+        return (
+          <>
+            <PreferredTeePage />
+          </>
+          )
+    }
+  
+  }
+  
+  function Lineups () {
+    let {path, url} = useRouteMatch();
+    return (
+      <>
+        <br/>
+      <nav >
+        <NavLink exact to={`${url}/tees`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Tees</NavLink>
+        <NavLink exact to={`${url}/teams`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Teams</NavLink>
+      </nav>
+        <Switch>
+          <Route path={`${path}/:lineupId`}>
+            <LineupPage />
+          </Route>
+        </Switch>
+      </>
+    );
   }
   
 
