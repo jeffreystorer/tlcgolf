@@ -25,6 +25,10 @@
   text-align: center;
 }
 
+.text-align-left{
+  text-align: left;
+}
+
 .center-bold{
   text-align: center;
   font-family: sans-serif;
@@ -252,3 +256,12 @@ footer{
   bottom: 0px;
   text-align: center;
 }
+ #playerName {     
+  border-color: #3378ac;
+  border-bottom: 1px solid #3378AC;
+ }
+
+ .lineup{
+   width: fit-content;
+   text-align: left;
+ }

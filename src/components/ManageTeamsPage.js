@@ -6,18 +6,19 @@ const ManageTeamsPage = () => {
     const teeTimeObj = {
       time: '',
       players: [],
+      number: '',
     }
   
     const playersArray = [
       { id: 0, name: ''},
-      { id: 1, name: 'Laist' },
-      { id: 2, name: 'Lieb' },
-      { id: 3, name: 'Lieberman' },
-      { id: 4, name: 'Nichols' },
-      { id: 5, name: 'Pajak' },
-      { id: 6, name: 'Pohl'},
-      { id: 7, name: 'Storer'},
-      { id: 8, name: 'Tate'},
+      { id: 1, name: 'Laist', tee: 'M', courseHandicap: '6'},
+      { id: 2, name: 'Lieb', tee: 'C/M', courseHandicap: '14' },
+      { id: 3, name: 'Lieberman', tee: 'C', courseHandicap: '6' },
+      { id: 4, name: 'Nichols', tee: 'C', courseHandicap: '6' },
+      { id: 5, name: 'Pajak', tee: 'C', courseHandicap: '10' },
+      { id: 6, name: 'Pohl', tee: 'C/M', courseHandicap: '11'},
+      { id: 7, name: 'Storer', tee: 'C', courseHandicap: '7'},
+      { id: 8, name: 'Tate', tee: 'C', courseHandicap: '8'},
     ]
 
     //eslint-disable-next-line
@@ -43,11 +44,14 @@ const ManageTeamsPage = () => {
                 ...prevTeeTime,
                 [name]: value,
             }));
-            players.shift();
-            console.log(players);
-            let newPlayer = {id: 0, name: teeTime.time};
-            players.unshift(newPlayer);
-            console.log(players);
+            playersArray[0].name = value;
+            //console.log('playersArray');
+            //console.log(playersArray[0].name);
+            setPlayers(playersArray);
+            //console.log('players');
+            //console.log(players[0].name);
+            //console.log('playersList');
+            //console.log(playersList[0].name);
         }
     }
 
@@ -57,20 +61,16 @@ const ManageTeamsPage = () => {
             [authority]: prevTeeTime[authority].filter(player => player.id !== id),
         }));
     }
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(teeTime);
-    }
-
     // you don't need to re-add anything field because this function will automatically filtered it out
     // filter out the users that is not in team or that is not selected 
+    
+    
     let playersList = getPlayersNotInTeeTime(players, teeTime);
 
     return (
         <>
             <TeamsPage teeTime={teeTime}
                 playerNameList={playersList}
-                handleSubmit={handleSubmit}
                 handleChange={handleChange}
                 handleDeleteClick={handleDeleteClick}
             />
