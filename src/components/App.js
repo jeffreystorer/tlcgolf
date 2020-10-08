@@ -17,8 +17,7 @@ import IndividualPage from './IndividualPage';
 import GamesPage from './GamesPage';
 import LoginPage from './LoginPage';
 import SelectTeesPage from './SelectTeesPage';
-import PreferredTeePage from './PreferredTeePage';
-import ManageTeamsPage from './ManageTeamsPage'
+import ManageLineupPage from './ManageLineupPage'
 
 export default function App() {
 
@@ -38,7 +37,7 @@ export default function App() {
           <Games />
         </Route>
         <Route path="/lineup">
-          <Lineups />
+          <Lineup />
         </Route>
         <Route path="/settings" >
           <Settings />
@@ -53,46 +52,6 @@ export default function App() {
 
 
   }
-
-  function LineupPage () {
-    let {lineupId } = useParams();
-    let aLineup = lineupId;
-    switch (aLineup) {
-      case "teams":
-        return (
-          <>
-          <ManageTeamsPage />
-          </>
-        )
-    
-      default:
-        return (
-          <>
-            <PreferredTeePage />
-          </>
-          )
-    }
-  
-  }
-  
-  function Lineups () {
-    let {path, url} = useRouteMatch();
-    return (
-      <>
-        <br/>
-      <nav >
-        <NavLink exact to={`${url}/tees`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Tees</NavLink>
-        <NavLink exact to={`${url}/teams`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Teams</NavLink>
-      </nav>
-        <Switch>
-          <Route path={`${path}/:lineupId`}>
-            <LineupPage />
-          </Route>
-        </Switch>
-      </>
-    );
-  }
-  
 
 function Setting () {
   let {settingId } = useParams();
@@ -147,6 +106,15 @@ function Settings () {
       <>
         <br/><br/>
         <IndividualPage />
+      </>
+    )
+  }
+
+  function Lineup(){
+    return (
+      <>
+      <br></br>
+      <ManageLineupPage />
       </>
     )
   }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import TeamsPage from './TeamsPage';
+import LineupPage from './LineupPage';
 
 
-const ManageTeamsPage = () => {
+const ManageLineupPage = () => {
     const teeTimeObj = {
       time: '',
       players: [],
@@ -69,7 +69,7 @@ const ManageTeamsPage = () => {
 
     return (
         <>
-            <TeamsPage teeTime={teeTime}
+            <LineupPage teeTime={teeTime}
                 playerNameList={playersList}
                 handleChange={handleChange}
                 handleDeleteClick={handleDeleteClick}
@@ -87,4 +87,4 @@ export const getPlayersNotInTeeTime = (playersList, teeTime) => {
 
 
 
-export default ManageTeamsPage;
+export default ManageLineupPage;
