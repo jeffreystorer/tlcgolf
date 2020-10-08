@@ -36,10 +36,7 @@ const LineupPage = ({
 
     }
 
-    function handlePlayingDateSubmit(e){
-      e.preventDefault();
-      alert('playingDate: ' + playingDate);
-    }
+
     return (
     <>
         <div className='center'>
