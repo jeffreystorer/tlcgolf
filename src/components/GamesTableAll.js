@@ -1,5 +1,5 @@
 import React from 'react';
-import GamesTableDropDowns from './GamesTableDropDowns';
+import GamesTableDropDowns from './GamesAndLineupTableDropDowns';
 import GamesTableHeader from './GamesTableHeader';
 import GamesTableBody from './GamesTableBody';
 import LinkButton from './LinkButton';

@@ -3,11 +3,11 @@ import LinkButton from './LinkButton';
 import {useRecoilValue} from 'recoil';
 import * as state from '../state'
 
-export default function GamesTableCreate() {
+export default function GamesAndLineupTableCreate() {
   const ghinNumber = useRecoilValue(state.ghinNumberState)
   return(
     <>
-      <p className='center'>Before you can display the table of Games,<br></br>
+      <p className='center'>Before you can display this table,<br></br>
                             you must create a table of your players<br></br>
                             and games in Google Sheets.<br></br><br></br>
                             Do this by adding a new sheet, whose name is<br></br>

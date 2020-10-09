@@ -1,13 +1,12 @@
 import React from 'react';
 
-export default function LineupPageDropDowns() {
+const LineupTableDropDowns = ({
+   playingDateOptionItems
+}) => {
   
 
-  function handlePlayingDateChange(e){
-    setPlayingDate(e.target.value);
-    }
   
-  function handleLinkTimeChange(e){
+/*   function handleLinkTimeChange(e){
   setLinkTime(e.target.value);
   }
   try {
@@ -15,23 +14,25 @@ export default function LineupPageDropDowns() {
     <option key={game} value={game}>{game}</option>);
   } catch (error) {
     console.log(error);
-  }
+  } */
 
-  function handleTeeTimeCountChange(e) {
+ 
 
-  }
+ /*  function handleTeeTimeCountChange(e) {
+
+  } */
 
 
   return(
     <>
   <div className='select-dropdown-container'>
     <label className='left-selector'>
-      <select value={playingDate} onChange={handlePlayingDateChange}>
+      <select>
         <option value="">Playing Date</option>
-        {optionItems}
+        {playingDateOptionItems}
       </select>
     </label>
-    <label className='middle-selector'>
+    {/* <label className='middle-selector'>
       <select value={linkTime} onChange={handleLinkTimeChange}>
         <option value="">Link Time</option>
         {optionItems}
@@ -48,10 +49,12 @@ export default function LineupPageDropDowns() {
         <option value="6">6</option>
         <option value="7">7</option>
         <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
       </select>
-    </label>
+    </label> */}
   </div>
     </>
   )
 }
-
+export default LineupTableDropDowns;

@@ -17,7 +17,7 @@ import IndividualPage from './IndividualPage';
 import GamesPage from './GamesPage';
 import LoginPage from './LoginPage';
 import SelectTeesPage from './SelectTeesPage';
-import ManageLineupPage from './ManageLineupPage'
+import LineupPage from './LineupCards'
 
 export default function App() {
 
@@ -114,7 +114,7 @@ function Settings () {
     return (
       <>
       <br></br>
-      <ManageLineupPage />
+      <LineupPage />
       </>
     )
   }

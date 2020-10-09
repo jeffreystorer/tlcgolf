@@ -1,8 +1,30 @@
-import React, { useState } from 'react';
-import LineupPage from './LineupPage';
+import React, { useState, useEffect } from 'react';
+import LineupPage from './LineupCards';
+import {useRecoilValue, useRecoilState} from 'recoil';
+import {get} from '../functions/localStorage';
+import * as state from '../state';
+import useVisibilityChange from 'use-visibility-change';
 
 
 const ManageLineupPage = () => {
+    //eslint-disable-next-line
+    const [games, setGames] = useRecoilState(state.gamesState)
+    //eslint-disable-next-line
+    const course = useRecoilValue(state.courseState);
+    //eslint-disable-next-line
+    const game = useRecoilValue(state.gameState);
+    const onShow = () => {
+      window.location.reload();
+    }
+    useVisibilityChange({onShow});
+  
+    useEffect(() => {
+      setGames(get('games'));return () => {
+        //cleanup
+      }
+    //eslint-disable-next-line
+    }, [])
+
     const teeTimeObj = {
       time: '',
       players: [],
@@ -66,6 +88,20 @@ const ManageLineupPage = () => {
     
     
     let playersList = getPlayersNotInTeeTime(players, teeTime);
+    function playingDates() {
+        let playingDates = [];
+        const now = new Date();
+        for (let i = 0; i <  7; i++){
+        let month = now.getMonth() + 1;
+        let day = now.getDate();
+        let year = now.getFullYear();
+        let playingDate = month+"/"+day+"/"+year
+        playingDates[i] = playingDate
+        now.setDate(now.getDate() + 1)}
+        return playingDates;
+      }
+      let playingDateOptionItems = playingDates().map((playingDate) =>
+      <option>{playingDate}</option>)
 
     return (
         <>
@@ -73,6 +109,7 @@ const ManageLineupPage = () => {
                 playerNameList={playersList}
                 handleChange={handleChange}
                 handleDeleteClick={handleDeleteClick}
+                playingDateOptionItems={playingDateOptionItems}
             />
         </>
     )

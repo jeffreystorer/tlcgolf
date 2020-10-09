@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import * as state from '../state';
 
-export default function GamesTableDropDowns() {
+export default function GamesAndLineupTableDropDowns() {
   const [course, setCourse] = useRecoilState(state.courseState);
   const [game, setGame] = useRecoilState(state.gameState);
   const games = useRecoilValue(state.gamesState);
