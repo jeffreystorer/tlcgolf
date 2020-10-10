@@ -1,7 +1,13 @@
 import React from 'react';
 
 const LineupTableDropDowns = ({
-   playingDateOptionItems
+   playingDateOptionItems,
+   linkTime,
+   linkTimeOptionItems,
+   handleLinkTimeChange,
+   teeTimeCount,
+   teeTimeCountOptionItems,
+   handleTeeTimeCountChange
 }) => {
   
 
@@ -32,27 +38,18 @@ const LineupTableDropDowns = ({
         {playingDateOptionItems}
       </select>
     </label>
-    {/* <label className='middle-selector'>
-      <select value={linkTime} onChange={handleLinkTimeChange}>
-        <option value="">Link Time</option>
-        {optionItems}
+    <label className='middle-selector'>
+      <select value={teeTimeCount} onChange={handleTeeTimeCountChange}>
+        <option value="">No. of Tee Times</option>
+        {teeTimeCountOptionItems}
       </select>
     </label>
     <label className='right-selector'>
-      <select value={teeTimeCount} onChange={handleTeeTimeCountChange}>
-        <option value="">No. of Tee Times</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
+      <select value={linkTime} onChange={handleLinkTimeChange}>
+        <option value="">Link Time</option>
+        {linkTimeOptionItems}
       </select>
-    </label> */}
+    </label>
   </div>
     </>
   )

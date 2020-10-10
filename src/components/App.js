@@ -17,7 +17,7 @@ import IndividualPage from './IndividualPage';
 import GamesPage from './GamesPage';
 import LoginPage from './LoginPage';
 import SelectTeesPage from './SelectTeesPage';
-import LineupPage from './LineupCards'
+import LineupPage from './LineupPage'
 
 export default function App() {
 
