@@ -73,10 +73,18 @@ input:not(:focus) :not(#next){
 }
 
 
-th, td.left-row-cell{
+th, td.left-row-cell, :not(team-card-header), :not(team-card-header-players){
   text-align: center;
   background-color: #3378ac;
   color: #ffffff;
+}
+
+.team-card-header, 
+.team-card-header-select, 
+.team-card-header-players,
+.span-player{
+  text-align: left;
+  vertical-align: top;
 }
 
 th.left-header-cell{
@@ -89,11 +97,15 @@ td.lastName-col {
   text-align: left;
 }
 
-tr{
+tr, :not(team-card-row){
   text-align: center;
   background-color: #ffffff;
   color: #000000;
   }
+
+.team-card-row, .team-card-header-select{
+  text-align: left;
+}
 
 th.left-row-cell-game, td.left-row-cell-game{
     text-align: left;

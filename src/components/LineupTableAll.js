@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import GamesAndLineupTableDropDowns from './GamesAndLineupTableDropDowns';
 import LineupTableDropDowns from './LineupTableDropDowns';
-import TeamTable from './TeamTable';
+import TeamCard from './TeamCard';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
 
   const playersArray = [
-    { id: 0, name: 'Laist', tee: 'M', courseHandicap: '6'},
-    { id: 1, name: 'Lieb', tee: 'C/M', courseHandicap: '14' },
-    { id: 2, name: 'Lieberman', tee: 'C', courseHandicap: '6' },
-    { id: 3, name: 'Nichols', tee: 'C', courseHandicap: '6' },
-    { id: 4, name: 'Pajak', tee: 'C', courseHandicap: '10' },
-    { id: 5, name: 'Pohl', tee: 'C/M', courseHandicap: '11'},
-    { id: 6, name: 'Storer', tee: 'C', courseHandicap: '7'},
-    { id: 7, name: 'Tate', tee: 'C', courseHandicap: '8'},
+    { id: 0, playerName: 'Laist', tee: 'M', courseHandicap: '6'},
+    { id: 1, playerName: 'Lieb', tee: 'C/M', courseHandicap: '14' },
+    { id: 2, playerName: 'Lieberman', tee: 'C', courseHandicap: '6' },
+    { id: 3, playerName: 'Nichols', tee: 'C', courseHandicap: '6' },
+    { id: 4, playerName: 'Pajak', tee: 'C', courseHandicap: '10' },
+    { id: 5, playerName: 'Pohl', tee: 'C/M', courseHandicap: '11'},
+    { id: 6, playerName: 'Storer', tee: 'C', courseHandicap: '7'},
+    { id: 7, playerName: 'Tate', tee: 'C', courseHandicap: '8'},
   ]
   //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray);
@@ -74,7 +74,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         teamTables.times[i] = linkTimes()[linkTimeIndex + i]
       }
     }
-    console.log(teamTables.times)
   }
 
   function playingDates() {
@@ -131,21 +130,60 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     <option key={uuidv4()} value={linkTime}>{linkTime}</option>)
     
     let playerNameList = getPlayersNotInTeeTime(players, teamTables);
+    console.log(playerNameList);
 
     let TeamTables = [];
     function generateTeamTables (){
       for (var i = 0; i < teeTimeCount; i++){
         let teamName = "team" + i;
+        let teamMembers = [];
+        switch (i) {
+          case 0:
+            teamMembers = teamTables.team0;
+            break;
+          case 1:
+          teamMembers = teamTables.team1;
+          break;
+          case 2:
+          teamMembers = teamTables.team2;
+          break;
+          case 3:
+          teamMembers = teamTables.team3;
+          break;
+          case 4:
+          teamMembers = teamTables.team4;
+          break;
+          case 5:
+          teamMembers = teamTables.team5;
+          break;
+          case 6:
+          teamMembers = teamTables.team6;
+          break;
+          case 7:
+          teamMembers = teamTables.team7;
+          break;
+          case 8:
+          teamMembers = teamTables.team8;
+          break;
+          case 9:
+          teamMembers = teamTables.team9;
+          break;
+          default:
+            break;
+        }
         TeamTables[i] = (
-        <TeamTable key={uuidv4()}
+        <TeamCard 
+          key={uuidv4()}
           teamNumber={i}
           teamName={teamName}
           teamTables={teamTables}
+          teamMembers={teamMembers}
           playerNameList={playerNameList}
           handleAddTeamMember={handleAddTeamMember}
           handleDeleteTeamMember={handleDeleteTeamMember}
         />
         )
+        console.log(TeamTables[i]);
       }
       return TeamTables;
     }
@@ -175,16 +213,16 @@ export default function LineupTableAll({ratings, slopes, pars}) {
 export const getPlayersNotInTeeTime = (playersList, teamTables) => {
   const{ team0 = [], team1 = [], team2 = [], team3 = [], team4 = [], team5 = [], team6 = [], team7 = [], team8 = [], team9 = []} = teamTables;
   return playersList.filter(player => {
-      return !(team0.find(p => p.id === player.id)) ||
-      (team1.find(p => p.id === player.id)) ||
-      (team2.find(p => p.id === player.id)) ||
-      (team3.find(p => p.id === player.id)) ||
-      (team4.find(p => p.id === player.id)) ||
-      (team5.find(p => p.id === player.id)) ||
-      (team6.find(p => p.id === player.id)) ||
-      (team7.find(p => p.id === player.id)) ||
-      (team8.find(p => p.id === player.id)) ||
-      (team9.find(p => p.id === player.id));
+      return !(team0.find(p => p.id === player.id) ||
+      team1.find(p => p.id === player.id) ||
+      team2.find(p => p.id === player.id) ||
+      team3.find(p => p.id === player.id) ||
+      team4.find(p => p.id === player.id) ||
+      team5.find(p => p.id === player.id) ||
+      team6.find(p => p.id === player.id) ||
+      team7.find(p => p.id === player.id) ||
+      team8.find(p => p.id === player.id) ||
+      team9.find(p => p.id === player.id));
   });
 }
 
