@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import GamesAndLineupTableDropDowns from './GamesAndLineupTableDropDowns';
+import GamesTableHeader from "./GamesTableHeader";
 import LineupTableDropDowns from './LineupTableDropDowns';
 import TeamCard from './TeamCard';
 import { v4 as uuidv4 } from 'uuid';
@@ -137,40 +138,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       for (var i = 0; i < teeTimeCount; i++){
         let teamName = "team" + i;
         let teamMembers = [];
-        switch (i) {
-          case 0:
-            teamMembers = teamTables.team0;
-            break;
-          case 1:
-          teamMembers = teamTables.team1;
-          break;
-          case 2:
-          teamMembers = teamTables.team2;
-          break;
-          case 3:
-          teamMembers = teamTables.team3;
-          break;
-          case 4:
-          teamMembers = teamTables.team4;
-          break;
-          case 5:
-          teamMembers = teamTables.team5;
-          break;
-          case 6:
-          teamMembers = teamTables.team6;
-          break;
-          case 7:
-          teamMembers = teamTables.team7;
-          break;
-          case 8:
-          teamMembers = teamTables.team8;
-          break;
-          case 9:
-          teamMembers = teamTables.team9;
-          break;
-          default:
-            break;
-        }
+        teamMembers = teamTables[teamName];
         TeamTables[i] = (
         <TeamCard 
           key={uuidv4()}
@@ -204,6 +172,13 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       />
       <textarea rows="4" cols="45" defaultValue="[Games, Entry Fee, Prize, Rules]"></textarea>
       <br></br>
+      <table id='teamTable'>
+        <thead>
+          <GamesTableHeader />
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
       {generateTeamTables()}
       </div>
       </>
