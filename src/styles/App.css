@@ -78,14 +78,14 @@
     background-color: #3378ac;
     color: #ffffff;
   }
-  
+/*   
   .team-card-header, 
   .team-card-header-select, 
   .team-card-header-players,
   .span-player{
     text-align: left;
     vertical-align: top;
-  }
+  } */
   
   th.left-header-cell{
     text-align: left;
@@ -97,15 +97,12 @@
     text-align: left;
   }
   
-  tr, :not(team-card-row){
+  tr{
     text-align: center;
     background-color: #ffffff;
     color: #000000;
     }
-  
-  .team-card-row, .team-card-header-select{
-    text-align: left;
-  }
+
   
   th.left-row-cell-game, td.left-row-cell-game{
       text-align: left;
@@ -125,9 +122,9 @@
     margin-right: auto;
     font-family: sans-serif;
     font-weight: bold;
-    width: 90%;
-  
+    width: 90%;  
   }
+
   textarea {
     font-family: sans-serif;
     font-weight: bold;
@@ -280,9 +277,4 @@
    #playerName {     
     border-color: #3378ac;
     border-bottom: 1px solid #3378AC;
-   }
-  
-   .lineup{
-     width: fit-content;
-     text-align: left;
    }
