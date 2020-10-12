@@ -73,21 +73,13 @@
   }
   
   
-  th, td.left-row-cell{
+  th.individual-other-header-cell, th.game-header-cell{
     text-align: center;
     background-color: #3378ac;
     color: #ffffff;
   }
-/*   
-  .team-card-header, 
-  .team-card-header-select, 
-  .team-card-header-players,
-  .span-player{
-    text-align: left;
-    vertical-align: top;
-  } */
-  
-  th.left-header-cell{
+
+  th.individual-left-header-cell{
     text-align: left;
     background-color: #ffffff;
     color: #000000;
@@ -97,20 +89,20 @@
     text-align: left;
   }
   
-  tr{
+  td.other-row-cell-game{
     text-align: center;
     background-color: #ffffff;
     color: #000000;
     }
 
   
-  th.left-row-cell-game, td.left-row-cell-game{
+  td.left-row-cell-game{
       text-align: left;
       background-color: #ffffff;
       color: #000000;
       }
     
-  td.left-row-cell{
+  td.individual-left-row-cell{
     text-align: center;
     background-color: #3378ac;
     color: #ffffff;
@@ -277,4 +269,7 @@
    #playerName {     
     border-color: #3378ac;
     border-bottom: 1px solid #3378AC;
+   }
+   td.team-card-col-player, div.team-card-col-players, span.team-card-col-players{
+     text-align: left,
    }

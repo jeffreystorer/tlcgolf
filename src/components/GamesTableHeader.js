@@ -11,7 +11,7 @@ export default function GamesTableHeader() {
     var keys = cols;
     return keys.map((key, index)=>{
     return (
-      <th
+      <th className='game-header-cell'
         key={index}
         scope='col'
       >
@@ -22,7 +22,7 @@ export default function GamesTableHeader() {
 
     return (
         <>
-          <tr>
+          <tr className='game-header-row'>
             {getHeader()}
           </tr>
         </>

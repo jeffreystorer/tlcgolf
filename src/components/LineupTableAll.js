@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
 import GamesAndLineupTableDropDowns from './GamesAndLineupTableDropDowns';
-import GamesTableHeader from "./GamesTableHeader";
+//import GamesTableHeader from "./GamesTableHeader";
 import LineupTableDropDowns from './LineupTableDropDowns';
-import TeamCard from './TeamCard';
+import TeamCard from './TeamCard using table';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
 
-  const playersArray = [
-    { id: 0, playerName: 'Laist', tee: 'M', courseHandicap: '6'},
-    { id: 1, playerName: 'Lieb', tee: 'C/M', courseHandicap: '14' },
-    { id: 2, playerName: 'Lieberman', tee: 'C', courseHandicap: '6' },
-    { id: 3, playerName: 'Nichols', tee: 'C', courseHandicap: '6' },
-    { id: 4, playerName: 'Pajak', tee: 'C', courseHandicap: '10' },
-    { id: 5, playerName: 'Pohl', tee: 'C/M', courseHandicap: '11'},
-    { id: 6, playerName: 'Storer', tee: 'C', courseHandicap: '7'},
-    { id: 7, playerName: 'Tate', tee: 'C', courseHandicap: '8'},
-  ]
+  const playersArray =  [
+    {id: 1917731, playerName: 'William Costa', courseHandicaps: []},
+    {id: 4438481, playerName: 'Christopher Dooley', courseHandicaps: []},
+    {id: 293338, playerName: 'Charles Duprey', courseHandicaps: []},
+    {id: 8625458, playerName: 'Dave Holcombe', courseHandicaps: []},
+    {id: 8482977, playerName: 'Fred Laist', courseHandicaps: []},
+    {id: 8482980, playerName: 'Donald Lieb', courseHandicaps: []},
+    {id: 5891112, playerName: 'Paul Lieberman', courseHandicaps: []},
+    {id: 10220640, playerName: 'Andy Long', courseHandicaps: []},
+    {id: 1884886, playerName: 'Peter Nichols', courseHandicaps: []},
+    {id: 2897876, playerName: 'Doug Pajak', courseHandicaps: []},
+    {id: 8482979, playerName: 'John Pohl', courseHandicaps: []},
+    {id: 1570352, playerName: 'Sam Poore', courseHandicaps: []},
+    {id: 2145248, playerName: 'Rick Saunders', courseHandicaps: []},
+    {id: 585871, playerName: 'Jeffrey Storer', courseHandicaps: []},
+    {id: 8546778, playerName: 'Marc Tate', courseHandicaps: []},
+    {id: 1621216, playerName: 'Mike Werneke', courseHandicaps: []},
+    ]
+    
   //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray);
   const teamTablesObj = {
@@ -160,7 +169,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       <>
       <div className='center'>
       <GamesAndLineupTableDropDowns />
-      <br></br>
+      <br></br><br></br>
       <LineupTableDropDowns
         playingDateOptionItems={playingDateOptionItems}
         linkTime={linkTime}
@@ -169,16 +178,9 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         teeTimeCount={teeTimeCount}
         teeTimeCountOptionItems={teeTimeCountOptionItems}
         handleTeeTimeCountChange={handleTeeTimeCountChange}
-      />
+      /><br></br>
       <textarea rows="4" cols="45" defaultValue="[Games, Entry Fee, Prize, Rules]"></textarea>
       <br></br>
-      <table id='teamTable'>
-        <thead>
-          <GamesTableHeader />
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
       {generateTeamTables()}
       </div>
       </>

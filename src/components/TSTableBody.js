@@ -9,7 +9,7 @@ const TSTableBody = props => {
                         function(row, i) {
                             return (
                             <tr key={i}>
-                                <th scope='row' className='left-row-cell'>{row[0]}</th>
+                                <td className='individual-left-row-cell'>{row[0]}</td>
                                 <td>{row[1]}</td>
                                 <td>{row[2]}</td>
                                 <td>{row[3]}</td>

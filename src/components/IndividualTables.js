@@ -19,7 +19,7 @@ export default function IndividualTables(){
               {golfer}
           </div>      
           <br/>
-          <div id='table'>
+          <div id='table-individual'>
             <table id='chtable'>
               <thead>
                 <IndividualTableHeader tableName='CrsHcp' />
