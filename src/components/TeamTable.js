@@ -10,7 +10,19 @@ const TeamTable = ({
     handleDeleteTeamMember,
     teamTables,
     playerNameList
-}) => {  
+}) => {
+  const getCourseHandicaps = () => {
+    return (
+      {teamMembers && teamMembers.map(player => {
+      let keys = [player.courseHandicaps]
+      return keys.map((key, index)=>{
+      return (<div key={player.id}>
+      <td className='other-row-cell-lineup'>
+         player.courseHandicaps[index]
+        </div>)
+      </td>
+ })}
+    )})
 
   return (
     <>  
@@ -27,13 +39,14 @@ const TeamTable = ({
         </thead>
         <tbody>
           <tr>
-            <td className='left-row-cell-game'>
+            <td className='left-row-cell-lineup'>
                  {teamMembers && teamMembers.map(player => {
                 return (<div key={player.id}>
                     <span onClick={handleDeleteTeamMember(teamName, player.id)}> {player.playerName}</span>
                    </div>)
             })}
             </td>
+            {getCourseHandicaps}
             </tr>
           </tbody>
         </table>
