@@ -10,8 +10,8 @@ export default function GamesTableAll({ratings, slopes, pars}) {
     <>
     <GamesTableDropDowns />
     <br/><br/>
-    <div id='table'>
-      <table id='gamestable'>
+    <div>
+      <table id='games-table'>
         <thead>
           <GamesTableHeader />
         </thead>

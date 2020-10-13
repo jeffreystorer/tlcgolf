@@ -189,7 +189,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         handleTeeTimeCountChange={handleTeeTimeCountChange}
       /><br></br>
       <br></br>
-      <table >
+      <table id="lineup-table">
         <caption>Lineup for {playingDate} at {linkTime} at {course.toUpperCase()}</caption>
       </table>
         <tbody>

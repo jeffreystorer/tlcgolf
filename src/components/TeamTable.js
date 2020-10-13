@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/App.css';
 import LineupTableHeader from './LineupTableHeader';
 
-const TeamCard = ({
+const TeamTable = ({
     teamNumber,
     teamName,
     teamMembers,
@@ -43,4 +43,4 @@ const TeamCard = ({
     )
 }
 
-export default TeamCard;
+export default TeamTable;
