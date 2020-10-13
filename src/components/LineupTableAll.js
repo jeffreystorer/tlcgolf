@@ -3,7 +3,7 @@ import GamesAndLineupTableDropDowns from './GamesAndLineupTableDropDowns';
 //import GamesTableHeader from "./GamesTableHeader";
 import LineupTableDropDowns from './LineupTableDropDowns';
 import TeamTable from './TeamTable';
-import LineupTableHeader from './LineupTableHeader';
+//import LineupTableHeader from './LineupTableHeader';
 import { v4 as uuidv4 } from 'uuid';
 import {useRecoilValue} from 'recoil';
 import * as state from '../state';
