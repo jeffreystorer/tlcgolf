@@ -72,15 +72,21 @@
     text-align: center;
   }
   
-  
-  th.individual-other-header-cell, th.game-header-cell{
+  th.lineup-left-header-cell{
     text-align: center;
     background-color: #3378ac;
     color: #ffffff;
+    width: 50%;
+  }
+  
+  th.individual-other-header-cell, th.game-header-cell, th.lineup-other-header-cell{
+    text-align: center;
+    background-color: #3378ac;
+    color: #ffffff;
+    width: fit-content;
   }
 
   th.individual-left-header-cell{
-    text-align: left;
     background-color: #ffffff;
     color: #000000;
     width: 20%;}
@@ -109,7 +115,7 @@
     width: 20%;
   }
   
-  table, .golfer-center{
+  table, .team-table, .golfer-center{
     margin-left: auto;
     margin-right: auto;
     font-family: sans-serif;
@@ -256,7 +262,7 @@
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
   
-  #gamestable {
+  #gamestable, .team-table{
     width: fit-content;
   }
   

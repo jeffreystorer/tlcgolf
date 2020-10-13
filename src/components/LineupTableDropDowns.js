@@ -7,33 +7,15 @@ const LineupTableDropDowns = ({
    handleLinkTimeChange,
    teeTimeCount,
    teeTimeCountOptionItems,
+   handlePlayingDateChange,
    handleTeeTimeCountChange
 }) => {
-  
-
-  
-/*   function handleLinkTimeChange(e){
-  setLinkTime(e.target.value);
-  }
-  try {
-    optionItems = games.map((game) =>
-    <option key={game} value={game}>{game}</option>);
-  } catch (error) {
-    console.log(error);
-  } */
-
- 
-
- /*  function handleTeeTimeCountChange(e) {
-
-  } */
-
 
   return(
     <>
   <div className='select-dropdown-container'>
     <label className='left-selector'>
-      <select>
+      <select onChange={handlePlayingDateChange}>
         <option value="">Playing Date</option>
         {playingDateOptionItems}
       </select>

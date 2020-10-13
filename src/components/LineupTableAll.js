@@ -2,28 +2,32 @@ import React, { useState } from 'react';
 import GamesAndLineupTableDropDowns from './GamesAndLineupTableDropDowns';
 //import GamesTableHeader from "./GamesTableHeader";
 import LineupTableDropDowns from './LineupTableDropDowns';
-import TeamCard from './TeamCard using table';
+import TeamTable from './TeamTable';
+import LineupTableHeader from './LineupTableHeader';
 import { v4 as uuidv4 } from 'uuid';
+import {useRecoilValue} from 'recoil';
+import * as state from '../state';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
+  const course = useRecoilValue(state.courseState);
 
   const playersArray =  [
-    {id: 1917731, playerName: 'William Costa', courseHandicaps: []},
-    {id: 4438481, playerName: 'Christopher Dooley', courseHandicaps: []},
-    {id: 293338, playerName: 'Charles Duprey', courseHandicaps: []},
-    {id: 8625458, playerName: 'Dave Holcombe', courseHandicaps: []},
-    {id: 8482977, playerName: 'Fred Laist', courseHandicaps: []},
-    {id: 8482980, playerName: 'Donald Lieb', courseHandicaps: []},
-    {id: 5891112, playerName: 'Paul Lieberman', courseHandicaps: []},
-    {id: 10220640, playerName: 'Andy Long', courseHandicaps: []},
-    {id: 1884886, playerName: 'Peter Nichols', courseHandicaps: []},
-    {id: 2897876, playerName: 'Doug Pajak', courseHandicaps: []},
-    {id: 8482979, playerName: 'John Pohl', courseHandicaps: []},
-    {id: 1570352, playerName: 'Sam Poore', courseHandicaps: []},
-    {id: 2145248, playerName: 'Rick Saunders', courseHandicaps: []},
-    {id: 585871, playerName: 'Jeffrey Storer', courseHandicaps: []},
-    {id: 8546778, playerName: 'Marc Tate', courseHandicaps: []},
-    {id: 1621216, playerName: 'Mike Werneke', courseHandicaps: []},
+    {id: 1917731, playerName: 'William Costa', courseHandicaps: [7,6,5]},
+    {id: 4438481, playerName: 'Christopher Dooley', courseHandicaps: [7,6,5]},
+    {id: 293338, playerName: 'Charles Duprey', courseHandicaps: [7,6,5]},
+    {id: 8625458, playerName: 'Dave Holcombe', courseHandicaps: [7,6,5]},
+    {id: 8482977, playerName: 'Fred Laist', courseHandicaps: [7,6,5]},
+    {id: 8482980, playerName: 'Donald Lieb', courseHandicaps: [7,6,5]},
+    {id: 5891112, playerName: 'Paul Lieberman', courseHandicaps: [7,6,5]},
+    {id: 10220640, playerName: 'Andy Long', courseHandicaps: [7,6,5]},
+    {id: 1884886, playerName: 'Peter Nichols', courseHandicaps: [7,6,5]},
+    {id: 2897876, playerName: 'Doug Pajak', courseHandicaps: [7,6,5]},
+    {id: 8482979, playerName: 'John Pohl', courseHandicaps: [7,6,5]},
+    {id: 1570352, playerName: 'Sam Poore', courseHandicaps: [7,6,5]},
+    {id: 2145248, playerName: 'Rick Saunders', courseHandicaps: [7,6,5]},
+    {id: 585871, playerName: 'Jeffrey Storer', courseHandicaps: [7,6,5]},
+    {id: 8546778, playerName: 'Marc Tate', courseHandicaps: [7,6,5]},
+    {id: 1621216, playerName: 'Mike Werneke', courseHandicaps: [7,6,5]},
     ]
     
   //eslint-disable-next-line
@@ -42,8 +46,9 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     team9:[],
   }
   const [teamTables, setTeamTables] = useState(teamTablesObj);
-  const [linkTime, setLinkTime] = useState();
+  const [linkTime, setLinkTime] = useState("Time");
   const [teeTimeCount, setTeeTimeCount] = useState();
+  const [playingDate, setPlayingDate] = useState("Date");
 
   
   const handleAddTeamMember = (event) => {
@@ -65,6 +70,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   const handleLinkTimeChange = (event) => {
     setLinkTime(event.target.value);
     setTeeTimes(event.target.value, teeTimeCount);
+  }
+
+  const handlePlayingDateChange = (event) => {
+    setPlayingDate(event.target.value);
   }
 
   const handleTeeTimeCountChange = (event) => {
@@ -149,7 +158,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         let teamMembers = [];
         teamMembers = teamTables[teamName];
         TeamTables[i] = (
-        <TeamCard 
+        <TeamTable 
           key={uuidv4()}
           teamNumber={i}
           teamName={teamName}
@@ -160,7 +169,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
           handleDeleteTeamMember={handleDeleteTeamMember}
         />
         )
-        console.log(TeamTables[i]);
       }
       return TeamTables;
     }
@@ -177,11 +185,18 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         handleLinkTimeChange={handleLinkTimeChange}
         teeTimeCount={teeTimeCount}
         teeTimeCountOptionItems={teeTimeCountOptionItems}
+        handlePlayingDateChange={handlePlayingDateChange}
         handleTeeTimeCountChange={handleTeeTimeCountChange}
       /><br></br>
-      <textarea rows="4" cols="45" defaultValue="[Games, Entry Fee, Prize, Rules]"></textarea>
       <br></br>
-      {generateTeamTables()}
+      <table >
+        <caption>Lineup for {playingDate} at {linkTime} at {course.toUpperCase()}</caption>
+      </table>
+        <tbody>
+          {generateTeamTables()}
+        </tbody>
+        <br></br>
+      <textarea rows="4" cols="45" defaultValue="[Games, Entry Fee, Prize, Rules]"></textarea>
       </div>
       </>
   )
