@@ -149,7 +149,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     <option key={uuidv4()} value={linkTime}>{linkTime}</option>)
     
     let playerNameList = getPlayersNotInTeeTime(players, teamTables);
-    console.log(playerNameList);
 
     let TeamTables = [];
     function generateTeamTables (){
@@ -191,10 +190,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       <br></br>
       <table id="lineup-table">
         <caption>Lineup for {playingDate} at {linkTime} at {course.toUpperCase()}</caption>
-      </table>
         <tbody>
           {generateTeamTables()}
         </tbody>
+      </table>
         <br></br>
       <textarea rows="4" cols="45" defaultValue="[Games, Entry Fee, Prize, Rules]"></textarea>
       </div>

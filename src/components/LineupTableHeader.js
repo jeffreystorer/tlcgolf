@@ -19,7 +19,7 @@ const LineupTableHeader = ({
     var keys = cols;
     return keys.map((key, index)=>{
     return (
-      <th className='game-header-cell'>
+      <th className='game-header-cell' key={uuidv4()}>
         {key}
       </th>
     )})
