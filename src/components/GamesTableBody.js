@@ -17,7 +17,7 @@ const GamesTableBody = ({ratings, slopes, pars}) => {
     for (var i = 0; i <rows.length; i++){
       rowsTD[i] = (
         <tr key={i}>
-          <td className="left-row-cell-game">{rows[i][0]}</td>
+          <td className="game-left-row-cell">{rows[i][0]}</td>
           {generateCols(i)}
         </tr>
       )
@@ -29,7 +29,7 @@ const GamesTableBody = ({ratings, slopes, pars}) => {
       let tds = [];
       for (var j = 1; j < colCount; j++){
         tds[j] = (
-          <td className='other-row-cell-game' key={j}>
+          <td className='game-other-row-cell' key={j}>
             {rows[i][j]}
           </td>
         )

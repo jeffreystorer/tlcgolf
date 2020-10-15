@@ -19,8 +19,8 @@ export default function IndividualTables(){
               {golfer}
           </div>      
           <br/>
-          <div id='table-individual'>
-            <table id='chtable'>
+          <div id='individual-table'>
+            <table id='ch-table'>
               <thead>
                 <IndividualTableHeader tableName='CrsHcp' />
               </thead>
@@ -30,7 +30,7 @@ export default function IndividualTables(){
     
             </table>
               <br/>
-            <table id='tstable'>
+            <table id='ts-table'>
               <thead>
                 <IndividualTableHeader tableName='Score*' />
               </thead>

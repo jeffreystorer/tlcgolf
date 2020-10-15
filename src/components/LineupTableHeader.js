@@ -19,7 +19,7 @@ const LineupTableHeader = ({
     var keys = cols;
     return keys.map((key, index)=>{
     return (
-      <th className='game-header-cell' key={uuidv4()}>
+      <th className='lineup-other-header-cell' key={uuidv4()}>
         {key}
       </th>
     )})
@@ -28,8 +28,8 @@ const LineupTableHeader = ({
     return (
         <>
           <tr>
-          <th className="game-header-cell"
-            key="1">
+          <th className="lineup-left-header-cell"
+            key={uuidv4()}>
             <select className='select-dropdown-container' name={teamName} value={""} onChange={handleAddTeamMember}>
                 <option key={uuidv4()}>{teamTables.times[teamNumber]}</option>
                 {playerNameList.map(({id, playerName}) =>

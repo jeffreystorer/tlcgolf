@@ -27,7 +27,7 @@ const TeamTable = ({
       rowsTD[i] = (
         <tr key={uuidv4()}>
           <td 
-            className="left-row-cell-lineup"
+            className="lineup-left-row-cell"
             onClick={handleDeleteTeamMember(teamName, teamMembers[i].id)}
             >
               {rows[i].playerName}
@@ -43,7 +43,7 @@ const TeamTable = ({
     let tds = [];
     for (var j = 0; j < teeCount; j++){
       tds[j] = (
-        <td className='other-row-cell-lineup' key={uuidv4()}>
+        <td className='lineup-other-row-cell' key={uuidv4()}>
           {rows[i].courseHandicaps[j]}
         </td>
       )

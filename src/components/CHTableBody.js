@@ -12,12 +12,12 @@ const CHTableBody = props => {
                           return (
                           <tr key={i}>
                               <td className='individual-left-row-cell'>{row[0]}</td>
-                              <td>{row[1]}</td>
-                              <td>{row[2]}</td>
-                              <td>{row[3]}</td>
-                              <td>{row[4]}</td>
-                              <td>{row[5]}</td>
-                              <td>{row[6]}</td>
+                              <td className='individual-other-row-cell'>{row[1]}</td>
+                              <td className='individual-other-row-cell'>{row[2]}</td>
+                              <td className='individual-other-row-cell'>{row[3]}</td>
+                              <td className='individual-other-row-cell'>{row[4]}</td>
+                              <td className='individual-other-row-cell'>{row[5]}</td>
+                              <td className='individual-other-row-cell'>{row[6]}</td>
                           </tr>
                           );
                       }

@@ -7,11 +7,17 @@ import TeamTable from './TeamTable';
 import { v4 as uuidv4 } from 'uuid';
 import {useRecoilValue} from 'recoil';
 import * as state from '../state';
+import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
   const course = useRecoilValue(state.courseState);
-
-  const playersArray =  [
+  const game = useRecoilValue(state.gameState);
+  const games = useRecoilValue(state.gamesState);
+  const teesSelected = useRecoilValue(state.teesSelectedState);
+  
+  const playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars);
+  
+/*    [
     {id: 1917731, playerName: 'William Costa', courseHandicaps: [7,6,5]},
     {id: 4438481, playerName: 'Christopher Dooley', courseHandicaps: [7,6,5]},
     {id: 293338, playerName: 'Charles Duprey', courseHandicaps: [7,6,5]},
@@ -28,7 +34,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     {id: 585871, playerName: 'Jeffrey Storer', courseHandicaps: [7,6,5]},
     {id: 8546778, playerName: 'Marc Tate', courseHandicaps: [7,6,5]},
     {id: 1621216, playerName: 'Mike Werneke', courseHandicaps: [7,6,5]},
-    ]
+    ] */
     
   //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray);
@@ -195,7 +201,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         </tbody>
       </table>
         <br></br>
-      <textarea rows="4" cols="45" defaultValue="[Games, Entry Fee, Prize, Rules]"></textarea>
+      <textarea rows="6" cols="38" defaultValue="[Games, Entry Fee, Prize, Rules]"></textarea>
       </div>
       </>
   )
