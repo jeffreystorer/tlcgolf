@@ -6,6 +6,7 @@ const LineupTableDropDowns = ({
    linkTimeOptionItems,
    handleLinkTimeChange,
    teeTimeCount,
+   playingDate,
    teeTimeCountOptionItems,
    handlePlayingDateChange,
    handleTeeTimeCountChange
@@ -15,7 +16,7 @@ const LineupTableDropDowns = ({
     <>
   <div className='select-dropdown-container'>
     <label className='left-selector'>
-      <select onChange={handlePlayingDateChange}>
+      <select value={playingDate} onChange={handlePlayingDateChange}>
         <option value="">Playing Date</option>
         {playingDateOptionItems}
       </select>

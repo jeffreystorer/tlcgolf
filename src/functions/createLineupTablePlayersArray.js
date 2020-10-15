@@ -36,7 +36,7 @@ export default function createLineupTablePlayersArrray (course, game, games, tee
     let firstName = aPlayer[2];
     let lastName = aPlayer[1];
     gender = aPlayer[4];
-    let player = firstName + ' ' + lastName;
+    let player = firstName + ' ' + lastName + " (" + strHcpIndex + ")";
     let playerReturn = {
       id: Number(aPlayer[0]),
       playerName: player,
