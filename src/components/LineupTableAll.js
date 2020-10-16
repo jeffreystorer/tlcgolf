@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import LineupTableDropDowns from './LineupTableDropDowns';
 import TeamTable from './TeamTable';
 import { v4 as uuidv4 } from 'uuid';
@@ -12,12 +12,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   const game = useRecoilValue(state.gameState);
   const games = useRecoilValue(state.gamesState);
   const teesSelected = useRecoilValue(state.teesSelectedState);
-  
-  const playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars);
-  
-
-  //eslint-disable-next-line
-  const [players, setPlayers] = useState(playersArray);
   const teamTablesObj = {
     times: [],
     team0:[],
@@ -31,11 +25,29 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     team8:[],
     team9:[],
   }
+  let savedGame = get('savedGame');
+  let savedCourse = get('savedCourse');
+  const [teamTables, setTeamTables] = useState((savedCourse === course && savedGame === game && get('savedTeamTables')) ? get('savedTeamTables') : teamTablesObj);
+  const [linkTime, setLinkTime] = useState((savedCourse === course && savedGame === game  && get('savedLinkTime')) ? get('savedLinkTime') : "Time");
+  const [teeTimeCount, setTeeTimeCount] = useState((savedCourse === course && savedGame === game  && get('savedTeeTimeCount')) ? get('savedTeeTimeCount') : 2);
+  const [playingDate, setPlayingDate] = useState((savedCourse === course && savedGame === game  && get('savedPlayingDate')) ? get('savedPlayingDate') : "Date");
+  const [textAreaValue, setTextAreaValue] = useState((savedCourse === course && savedGame === game  && get('savedTextAreaValue')) ? get('savedTextAreaValue') : "[Games, Entry, Prize, Rules]");
+
+
+  useEffect(() => {
+    set('savedTeamTables', teamTables);
+    return () => {
+      set('savedGame', game);
+      set('savedCourse', course);
+    }
+  //eslint-disable-next-line
+  }, [teamTables])
+
  
-  const [teamTables, setTeamTables] = useState(teamTablesObj);
-  const [linkTime, setLinkTime] = useState("Time");
-  const [teeTimeCount, setTeeTimeCount] = useState();
-  const [playingDate, setPlayingDate] = useState("Date");
+  const playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars);
+  //eslint-disable-next-line
+  const [players, setPlayers] = useState(playersArray);
+ 
   
 
   
@@ -45,11 +57,11 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     setTeamTables(prevTeamTables => ({
         ...prevTeamTables,
         [name]: prevTeamTables[name].concat(newPlayerObj),
-    }))
+    }));
   }
 
   const handleDeleteTeamMember = (authority, id) => (event) => {
-      setTeamTables(prevTeamTables => ({
+    setTeamTables(prevTeamTables => ({
           ...prevTeamTables,
           [authority]: prevTeamTables[authority].filter(player => player.id !== id),
       }));
@@ -58,15 +70,18 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   const handleLinkTimeChange = (event) => {
     setLinkTime(event.target.value);
     setTeeTimes(event.target.value, teeTimeCount);
+    set('savedLinkTime', event.target.value);
   }
 
   const handlePlayingDateChange = (event) => {
     setPlayingDate(event.target.value);
+    set('savedPlayingDate', event.target.value)
   }
 
   const handleTeeTimeCountChange = (event) => {
     setTeeTimeCount(event.target.value);
     setTeeTimes(linkTime, event.target.value);
+    set('savedTeeTimeCount', event.target.value);
   } 
 
   function setTeeTimes(aLinkTime, aTeeTimeCount){
@@ -185,9 +200,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       <textarea 
         id='lineup-textarea'
         rows="6" cols="38"
-        defaultValue={get('textAreaValue')}
-        onFocus={event => event.target.value = get('textAreaValue')}
-        onBlur={event => set('textAreaValue',event.target.value)}
+        defaultValue={textAreaValue}
+        onFocus={event => event.target.value = textAreaValue}
+        onBlur={event => {setTextAreaValue(event.target.value); 
+          set('savedTextAreaValue', event.target.value)}}
         >
         </textarea>
       </div>
