@@ -15,12 +15,9 @@ const TeamTable = ({
 }) => {
   const teesSelected = useRecoilValue(state.teesSelectedState);
   let rows = teamMembers;
-  console.log(rows);
   let rowsTD = [];
   let teeCount = teesSelected.length;
-  console.log('teeCount: ' + teeCount);
   let playerCount = teamMembers.length;
-  console.log('playerCount: ' + playerCount)
 
   function generateRows(){
     for (let i =0; i < playerCount; i++){
@@ -34,7 +31,6 @@ const TeamTable = ({
             </td>
           {generateCols(i)}
         </tr>)
-        console.log(rowsTD[i]);
     }
       return rowsTD;
   }
@@ -47,7 +43,6 @@ const TeamTable = ({
           {rows[i].courseHandicaps[j]}
         </td>
       )
-      console.log(tds[j]);
     }
     return tds;
   }
