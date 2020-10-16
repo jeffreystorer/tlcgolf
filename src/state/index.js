@@ -84,20 +84,3 @@ export const golferStateSelector = selector({
   return golfer;
   }
 })
-
-export const teamTablesState = atom ({
-  key: "teamTablesState",
-  default: {
-    times: [],
-    team0:[],
-    team1:[],
-    team2:[],
-    team3:[],
-    team4:[],
-    team5:[],
-    team6:[],
-    team7:[],
-    team8:[],
-    team9:[],
-  },
-})

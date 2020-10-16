@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import '../styles/App.css';
 import LineupTableAll from './LineupTableAll';
 import GamesAndLineupTableCreate from './GamesAndLineupTableCreate';
-import GamesAndLineupTableDropDowns from './GamesAndLineupTableDropDowns';
 import getGamesAndLineupTableDisplayNumber from '../functions/getGamesAndLineupTableDisplayNumber';
 import fetchGamesGHIN from '../functions/fetchGamesGHIN';
 import {get} from '../functions/localStorage'
@@ -45,8 +44,7 @@ export default function LineupTable({ratings, slopes, pars}) {
       )
   case 1:
     return(
-      <><p className='center-bold'>Click on the dropdown boxes below<br></br>to select a game and a course.</p>
-        <GamesAndLineupTableDropDowns />
+      <><p className='center-bold'>Go to the Games page to select a game and a course.</p>
       </>
     )
   case 2:

@@ -1,13 +1,11 @@
-import React, { useState, useEffect} from 'react';
-import GamesAndLineupTableDropDowns from './GamesAndLineupTableDropDowns';
-//import GamesTableHeader from "./GamesTableHeader";
+import React, { useState} from 'react';
 import LineupTableDropDowns from './LineupTableDropDowns';
 import TeamTable from './TeamTable';
-//import LineupTableHeader from './LineupTableHeader';
 import { v4 as uuidv4 } from 'uuid';
-import {useRecoilValue, useRecoilState} from 'recoil';
+import {useRecoilValue} from 'recoil';
 import * as state from '../state';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
+import {set, get} from '../functions/localStorage';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
   const course = useRecoilValue(state.courseState);
@@ -33,18 +31,12 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     team8:[],
     team9:[],
   }
-  //const [teamTables, setTeamTables] = useRecoilState(state.teamTablesState);
+ 
   const [teamTables, setTeamTables] = useState(teamTablesObj);
   const [linkTime, setLinkTime] = useState("Time");
   const [teeTimeCount, setTeeTimeCount] = useState();
   const [playingDate, setPlayingDate] = useState("Date");
   
-/* 
-  useEffect(() => {
-    let newGame = game;
-    console.log(newGame)
-    setTeamTables(teamTablesObj);
-  }, [game, teamTablesObj]); */
 
   
   const handleAddTeamMember = (event) => {
@@ -171,8 +163,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   return (
       <>
       <div className='center'>
-      <GamesAndLineupTableDropDowns />
-      <br></br><br></br>
       <LineupTableDropDowns
         playingDateOptionItems={playingDateOptionItems}
         linkTime={linkTime}
@@ -192,7 +182,14 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         </tbody>
       </table>
         <br></br>
-      <textarea rows="6" cols="38" defaultValue="[Games, Entry Fee, Prize, Rules]"></textarea>
+      <textarea 
+        id='lineup-textarea'
+        rows="6" cols="38"
+        defaultValue={get('textAreaValue')}
+        onFocus={event => event.target.value = get('textAreaValue')}
+        onBlur={event => set('textAreaValue',event.target.value)}
+        >
+        </textarea>
       </div>
       </>
   )
