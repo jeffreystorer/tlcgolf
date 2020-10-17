@@ -32,7 +32,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   const [teeTimeCount, setTeeTimeCount] = useState((savedCourse === course && savedGame === game  && get('savedTeeTimeCount')) ? get('savedTeeTimeCount') : "");
   const [playingDate, setPlayingDate] = useState((savedCourse === course && savedGame === game  && get('savedPlayingDate')) ? get('savedPlayingDate') : "Date");
   const [textAreaValue, setTextAreaValue] = useState((savedCourse === course && savedGame === game  && get('savedTextAreaValue')) ? get('savedTextAreaValue') : "[Games, Entry, Prize, Rules]");
-
+  const [progs, setProgs] = useState("");
 
   useEffect(() => {
     set('savedTeamTables', teamTables);
@@ -60,10 +60,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     }));
   }
 
-  const handleDeleteTeamMember = (authority, id) => (event) => {
+  const handleDeleteTeamMember = (teamName, id) => (event) => {
     setTeamTables(prevTeamTables => ({
           ...prevTeamTables,
-          [authority]: prevTeamTables[authority].filter(player => player.id !== id),
+          [teamName]: prevTeamTables[teamName].filter(player => player.id !== id),
       }));
   }
 
@@ -82,7 +82,11 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     setTeeTimeCount(event.target.value);
     setTeeTimes(linkTime, event.target.value);
     set('savedTeeTimeCount', event.target.value);
-  } 
+  }
+
+  const handleProgsChange = (event) => {
+    setProgs(event.target.value)
+  }
 
   function setTeeTimes(aLinkTime, aTeeTimeCount){
     let firstRegularTimeIndex = linkTimes().indexOf("8:02")
@@ -169,6 +173,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
           playerNameList={playerNameList}
           handleAddTeamMember={handleAddTeamMember}
           handleDeleteTeamMember={handleDeleteTeamMember}
+          progs={progs}
         />
         )
       }
@@ -188,12 +193,18 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         teeTimeCountOptionItems={teeTimeCountOptionItems}
         handlePlayingDateChange={handlePlayingDateChange}
         handleTeeTimeCountChange={handleTeeTimeCountChange}
+        progs={progs}
+        handleProgsChange={handleProgsChange}
       /><br></br>
       <br></br>
       <table id="lineup-table">
         <caption>Lineup for {playingDate} at {linkTime} at {course.toUpperCase()}</caption>
         <tbody>
-          {generateTeamTables()}
+          <tr>
+            <td>
+            {generateTeamTables()}
+            </td>
+          </tr>
         </tbody>
       </table>
         <br></br>

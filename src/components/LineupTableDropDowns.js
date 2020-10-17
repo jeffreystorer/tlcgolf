@@ -9,7 +9,9 @@ const LineupTableDropDowns = ({
    playingDate,
    teeTimeCountOptionItems,
    handlePlayingDateChange,
-   handleTeeTimeCountChange
+   handleTeeTimeCountChange,
+   progs,
+   handleProgsChange
 }) => {
 
   return(
@@ -31,6 +33,18 @@ const LineupTableDropDowns = ({
       <select value={linkTime} onChange={handleLinkTimeChange}>
         <option value="">Link Time</option>
         {linkTimeOptionItems}
+      </select>
+    </label>
+  </div>
+  
+  <div className='select-dropdown-container'>
+    <label className='lone-selector'>
+      <select value={progs} onChange={handleProgsChange}>
+        <option value="">Progs</option>
+        <option value="0">No Progs</option>
+        <option value="6">Progs 6/6/6</option>
+        <option value="9">Progs 9&9</option>
+
       </select>
     </label>
   </div>

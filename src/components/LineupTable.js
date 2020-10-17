@@ -3,7 +3,6 @@ import '../styles/App.css';
 import LineupTableAll from './LineupTableAll';
 import GamesAndLineupTableCreate from './GamesAndLineupTableCreate';
 import getGamesAndLineupTableDisplayNumber from '../functions/getGamesAndLineupTableDisplayNumber';
-import fetchGamesGHIN from '../functions/fetchGamesGHIN';
 import {get} from '../functions/localStorage'
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
@@ -16,7 +15,7 @@ export default function LineupTable({ratings, slopes, pars}) {
   const [ghinNumber, setGHINNumber] = useRecoilState(state.ghinNumberState);
   const course = useRecoilValue(state.courseState);
   const game = useRecoilValue(state.gameState);
-  const hasGoogleSheet = get('hasGoogleSheet');
+  //const hasGoogleSheet = get('hasGoogleSheet');
  
 
   useEffect(() => {
@@ -30,8 +29,8 @@ export default function LineupTable({ratings, slopes, pars}) {
   //eslint-disable-next-line
   }, [])
 
-  let displayNumber = getGamesAndLineupTableDisplayNumber(course, game, games, hasGoogleSheet);
-  if (hasGoogleSheet === 'true') fetchGamesGHIN();
+  let displayNumber = getGamesAndLineupTableDisplayNumber(course, game, games, 'true');
+  //if (hasGoogleSheet === 'true') fetchGamesGHIN();
   
 
   

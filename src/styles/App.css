@@ -25,6 +25,11 @@
   margin-right: auto;
 }
 
+.lone-selector{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 
 .center{
   text-align: center;

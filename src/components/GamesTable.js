@@ -6,7 +6,7 @@ import GamesTableDropDowns from './GamesAndLineupTableDropDowns';
 import getGameTableDisplayNumber from '../functions/getGamesAndLineupTableDisplayNumber';
 import LinkButton from './LinkButton';
 import fetchGamesGHIN from '../functions/fetchGamesGHIN';
-import {get} from '../functions/localStorage'
+import {get} from '../functions/localStorage';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
 import useVisibilityChange from 'use-visibility-change';

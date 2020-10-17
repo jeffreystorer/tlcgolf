@@ -16,7 +16,6 @@ function fetchCourseData() {
 
   if (request.status === 200) {
     const data = JSON.parse(request.response);
-    //console.log(data);
     try {
       values = data.values;
     } catch (error) {

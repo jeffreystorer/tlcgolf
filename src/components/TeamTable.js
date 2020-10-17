@@ -1,8 +1,10 @@
 import React from 'react';
 import '../styles/App.css';
-import LineupTableHeader from './LineupTableHeader';import {useRecoilValue} from 'recoil';
+import LineupTableHeader from './LineupTableHeader';
+import {useRecoilValue} from 'recoil';
 import * as state from '../state';
 import { v4 as uuidv4 } from 'uuid';
+import TeeChoiceDropDown from './TeeChoiceDropDown';
 
 const TeamTable = ({
     teamNumber,
@@ -11,7 +13,8 @@ const TeamTable = ({
     handleAddTeamMember,
     handleDeleteTeamMember,
     teamTables,
-    playerNameList
+    playerNameList,
+    progs
 }) => {
   const teesSelected = useRecoilValue(state.teesSelectedState);
   let rows = teamMembers;
@@ -22,7 +25,7 @@ const TeamTable = ({
   function generateRows(){
     for (let i =0; i < playerCount; i++){
       rowsTD[i] = (
-        <tr key={uuidv4()}>
+        <tr key={rows[i].id}>
           <td 
             className="lineup-left-row-cell"
             onClick={handleDeleteTeamMember(teamName, teamMembers[i].id)}
@@ -44,8 +47,26 @@ const TeamTable = ({
         </td>
       )
     }
+    tds.push(<TeeChoiceDropDown
+      key={uuidv4()}
+      handleTeeChoiceChange={handleTeeChoiceChange}
+      teeChoiceOptionItems={teeChoiceOptionItems}
+      baseTee={baseTee}
+      playerId={rows[i].id}
+      />)
     return tds;
   }
+  let teesSelectedArray = teesSelected.map(a => a.value);
+  let baseTee = teesSelectedArray[0];
+  let teeChoiceOptionItems = teesSelectedArray.map((tee) =>
+      <option key={uuidv4()} value={tee}>{tee}</option>);
+
+  const handleTeeChoiceChange = (event) => {
+    //event.target.name = id = ghinNumber
+    //event.target.value = teeChoice e.g. C or C/M or M
+    /* On tee  time change, change selected tee to bold?
+    If progs > 0, recalculate teamProg */
+  };
 
   return (
         <table className='team-table'>
@@ -61,6 +82,15 @@ const TeamTable = ({
           <tbody>
               {generateRows()}
           </tbody>
+          { (progs > 0) 
+          ? <tfoot>
+            <tr>
+              <td>
+                Team progs per {progs}:
+              </td>
+            </tr>
+           </tfoot>
+          : <></>}
         </table>
     )
 }
