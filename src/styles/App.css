@@ -99,7 +99,8 @@ td.individual-left-row-cell{
   text-align: center;
   background-color: #3378ac;
   color: #ffffff;
-  width: 20%;
+  font-weight: bold;
+  width: fit-content;
 }
   
 td.individual-other-row-cell{

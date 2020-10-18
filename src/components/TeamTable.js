@@ -54,14 +54,14 @@ const TeamTable = ({
       key={uuidv4()}
       handleTeeChoiceChange={handleTeeChoiceChange}
       teeChoiceOptionItems={teeChoiceOptionItems}
-      baseTee={baseTee}
+      baseTee={rows[i].teeChoice}
       playerId={rows[i].id}
       teamNumber={teamNumber}
       />)
     return tds;
   }
   let teesSelectedArray = teesSelected.map(a => a.value);
-  let baseTee = teesSelectedArray[0];
+  //let baseTee = teesSelectedArray[0];
   let teeChoiceOptionItems = teesSelectedArray.map((tee) =>
       <option key={uuidv4()} value={tee}>{tee}</option>);
 

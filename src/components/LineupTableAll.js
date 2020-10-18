@@ -111,13 +111,15 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }
    
   function setTeeChoice(aTeamNumber, anId, aTeeChoice){
-    let team = "team" + aTeamNumber;
-    let playerIndex = teamTables[team].findIndex(player => player.id === anId);
-    console.table(teamTables[team]);
+    let teamName = "team" + aTeamNumber;
+    const playerIndex = teamTables[teamName].findIndex(player => player.id === Number(anId));
+    console.log("teamTables[" + teamName +"]:")
+    console.table(teamTables[teamName]);
     console.log(aTeamNumber, anId, aTeeChoice);
     console.log('playerIndex: ' + playerIndex);
-    teamTables[team][playerIndex].teeChoice = aTeeChoice;
-    console.table(teamTables[team]);
+    teamTables[teamName][playerIndex].teeChoice = aTeeChoice;
+    console.table(teamTables[teamName]);
+    set('savedTeamTables', teamTables);
   }
 
   function setTeeTimes(aLinkTime, aTeeTimeCount){

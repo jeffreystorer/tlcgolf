@@ -4,9 +4,9 @@ const TeeChoiceDropDown = ({
   teeChoice,
   handleTeeChoiceChange,
   teeChoiceOptionItems,
-  baseTee,
   playerId,
-  teamNumber
+  teamNumber,
+  baseTee
 }) => {
 
   return(

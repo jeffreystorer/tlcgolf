@@ -3,6 +3,7 @@ import '../styles/App.css';
 
 const SelectTeesPage = () => {
   let tees = [];
+  let defaultValue = ["C","C/M", "M"];
 
 
   function handleSubmit(e){
@@ -29,13 +30,13 @@ const SelectTeesPage = () => {
     <br/>
     <form onSubmit={handleSubmit}>
       <label>
-        <select id='teeSelector' name='tees' multiple={true} size={13}>
+        <select defaultValue={defaultValue} id='teeSelector' name='tees' multiple={true} size={13}>
           <option value="CH">Championship (Men only)</option>
           <option value="T">Tournament (Men only)</option>
           <option value="T/C">Tournament/Club (Men only)</option>
-          <option value="C" selected={true}>Club</option>
-          <option value="C/M"selected={true}>Club/Medal</option>
-          <option value="M" selected={true}>Medal</option>
+          <option value="C" >Club</option>
+          <option value="C/M">Club/Medal</option>
+          <option value="M">Medal</option>
           <option value="M/CRS">Medal/Course</option>
           <option value="LCRS">Long Course</option>
           <option value="CRS">Course</option>
