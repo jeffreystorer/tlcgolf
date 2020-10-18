@@ -5,13 +5,14 @@ const TeeChoiceDropDown = ({
   handleTeeChoiceChange,
   teeChoiceOptionItems,
   baseTee,
-  playerId
+  playerId,
+  teamNumber
 }) => {
 
   return(
     <td className='select-dropdown-container'>
     <label className='embedded-selector'>
-      <select name={playerId} defaultValue={baseTee} value={teeChoice} onChange={handleTeeChoiceChange}>
+      <select id={teamNumber} name={playerId} defaultValue={baseTee} value={teeChoice} onChange={handleTeeChoiceChange}>
         {teeChoiceOptionItems}
       </select>
     </label>

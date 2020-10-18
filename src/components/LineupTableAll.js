@@ -33,6 +33,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   const [playingDate, setPlayingDate] = useState((savedCourse === course && savedGame === game  && get('savedPlayingDate')) ? get('savedPlayingDate') : "Date");
   const [textAreaValue, setTextAreaValue] = useState((savedCourse === course && savedGame === game  && get('savedTextAreaValue')) ? get('savedTextAreaValue') : "[Games, Entry, Prize, Rules]");
   const [progs, setProgs] = useState("");
+  //eslint-disable-next-line
+  const [teamHcp, setTeamHcp] = useState([]);
+  //eslint-disable-next-line
+  const [teamProgs, setTeamProgs] = useState([])
 
   useEffect(() => {
     set('savedTeamTables', teamTables);
@@ -43,14 +47,12 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   //eslint-disable-next-line
   }, [teamTables])
 
- 
   const playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars);
   //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray);
- 
-  
+  console.log('players:')
+  console.table(players);
 
-  
   const handleAddTeamMember = (event) => {
     const { name, value } = event.target;
     const newPlayerObj = players.find(player => player.id === Number(value));
@@ -86,6 +88,36 @@ export default function LineupTableAll({ratings, slopes, pars}) {
 
   const handleProgsChange = (event) => {
     setProgs(event.target.value)
+  }
+  const handleTeeChoiceChange = (event) => {
+    //first, update the teeChoice for the player
+    let aTeeChoice = event.target.value;
+    let anId = event.target.name;
+    let aTeamNumber =event.target.id;
+    calculateTeamHcp(aTeamNumber);
+    calculateTeamProgs(aTeamNumber);
+    setTeeChoice(aTeamNumber, anId, aTeeChoice);
+  };
+
+  function calculateTeamHcp(teamNumber){
+    console.log('calculating TeamHcp for team: ' + teamNumber);
+    console.table(teamTables);
+    //setTeamHcp()
+  }
+
+  function calculateTeamProgs(teamNumber){
+    console.log('calculating TeamProgs for team: ' + teamNumber);
+    //setTeamProgs()
+  }
+   
+  function setTeeChoice(aTeamNumber, anId, aTeeChoice){
+    let team = "team" + aTeamNumber;
+    let playerIndex = teamTables[team].findIndex(player => player.id === anId);
+    console.table(teamTables[team]);
+    console.log(aTeamNumber, anId, aTeeChoice);
+    console.log('playerIndex: ' + playerIndex);
+    teamTables[team][playerIndex].teeChoice = aTeeChoice;
+    console.table(teamTables[team]);
   }
 
   function setTeeTimes(aLinkTime, aTeeTimeCount){
@@ -155,70 +187,74 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   let linkTimeOptionItems = linkTimes().map((linkTime) =>
     <option key={uuidv4()} value={linkTime}>{linkTime}</option>)
     
-    let playerNameList = getPlayersNotInTeeTime(players, teamTables);
-
-    let TeamTables = [];
-    function generateTeamTables (){
-      for (var i = 0; i < teeTimeCount; i++){
-        let teamName = "team" + i;
-        let teamMembers = [];
-        teamMembers = teamTables[teamName];
-        TeamTables[i] = (
-        <TeamTable 
-          key={uuidv4()}
-          teamNumber={i}
-          teamName={teamName}
-          teamTables={teamTables}
-          teamMembers={teamMembers}
-          playerNameList={playerNameList}
-          handleAddTeamMember={handleAddTeamMember}
-          handleDeleteTeamMember={handleDeleteTeamMember}
-          progs={progs}
-        />
-        )
-      }
-      return TeamTables;
+  let playerNameList = getPlayersNotInTeeTime(players, teamTables);
+  let TeamTables = [];
+  function generateTeamTables (){
+    for (var i = 0; i < teeTimeCount; i++){
+      let teamName = "team" + i;
+      let teamMembers = [];
+      teamMembers = teamTables[teamName];
+      console.log('teamMember:' + teamName);
+      console.table(teamMembers)
+      TeamTables[i] = (
+      <TeamTable 
+        key={uuidv4()}
+        teamNumber={i}
+        teamName={teamName}
+        teamTables={teamTables}
+        teamMembers={teamMembers}
+        playerNameList={playerNameList}
+        handleAddTeamMember={handleAddTeamMember}
+        handleDeleteTeamMember={handleDeleteTeamMember}
+        progs={progs}
+        teamHcp={teamHcp[i]}
+        teamProgs={teamProgs[i]}
+        handleTeeChoiceChange={handleTeeChoiceChange}
+      />
+      )
     }
+    return TeamTables;
+  }
 
   return (
-      <>
-      <div className='center'>
-      <LineupTableDropDowns
-        playingDateOptionItems={playingDateOptionItems}
-        linkTime={linkTime}
-        linkTimeOptionItems={linkTimeOptionItems}
-        handleLinkTimeChange={handleLinkTimeChange}
-        teeTimeCount={teeTimeCount}
-        playingDate={playingDate}
-        teeTimeCountOptionItems={teeTimeCountOptionItems}
-        handlePlayingDateChange={handlePlayingDateChange}
-        handleTeeTimeCountChange={handleTeeTimeCountChange}
-        progs={progs}
-        handleProgsChange={handleProgsChange}
-      /><br></br>
-      <br></br>
-      <table id="lineup-table">
-        <caption>Lineup for {playingDate} at {linkTime} at {course.toUpperCase()}</caption>
-        <tbody>
-          <tr>
-            <td>
-            {generateTeamTables()}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-        <br></br>
-      <textarea 
-        id='lineup-textarea'
-        rows="6" cols="38"
-        defaultValue={textAreaValue}
-        onFocus={event => event.target.value = textAreaValue}
-        onBlur={event => {setTextAreaValue(event.target.value); 
-          set('savedTextAreaValue', event.target.value)}}
-        >
-        </textarea>
-      </div>
-      </>
+  <>
+  <div className='center'>
+  <LineupTableDropDowns
+    playingDateOptionItems={playingDateOptionItems}
+    linkTime={linkTime}
+    linkTimeOptionItems={linkTimeOptionItems}
+    handleLinkTimeChange={handleLinkTimeChange}
+    teeTimeCount={teeTimeCount}
+    playingDate={playingDate}
+    teeTimeCountOptionItems={teeTimeCountOptionItems}
+    handlePlayingDateChange={handlePlayingDateChange}
+    handleTeeTimeCountChange={handleTeeTimeCountChange}
+    progs={progs}
+    handleProgsChange={handleProgsChange}
+  /><br></br>
+  <br></br>
+  <table id="lineup-table">
+    <caption>Lineup for {playingDate} at {linkTime} at {course.toUpperCase()}</caption>
+    <tbody>
+      <tr>
+        <td>
+        {generateTeamTables()}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+    <br></br>
+  <textarea 
+    id='lineup-textarea'
+    rows="6" cols="38"
+    defaultValue={textAreaValue}
+    onFocus={event => event.target.value = textAreaValue}
+    onBlur={event => {setTextAreaValue(event.target.value); 
+      set('savedTextAreaValue', event.target.value)}}
+    >
+    </textarea>
+  </div>
+  </>
   )
 }
 

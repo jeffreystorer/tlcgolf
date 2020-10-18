@@ -40,7 +40,8 @@ export default function createLineupTablePlayersArrray (course, game, games, tee
     let playerReturn = {
       id: Number(aPlayer[0]),
       playerName: player,
-      courseHandicaps: []
+      courseHandicaps: [],
+      teeChoice: ""
     };
     let i;
     for (i=0; i < teesSelectedArray.length; i++){
@@ -50,6 +51,7 @@ export default function createLineupTablePlayersArrray (course, game, games, tee
       const [rating, slope, par] = setRatingSlopePar(ratings, slopes, pars, courseNumber, teeNumber, gender);
       playerReturn.courseHandicaps.push(doMath(rating, slope, par))
     };
+    playerReturn.teeChoice = teesSelectedArray[0];
     return playerReturn;
   }
 

@@ -14,7 +14,10 @@ const TeamTable = ({
     handleDeleteTeamMember,
     teamTables,
     playerNameList,
-    progs
+    progs, 
+    teamHcp,
+    teamProgs,
+    handleTeeChoiceChange
 }) => {
   const teesSelected = useRecoilValue(state.teesSelectedState);
   let rows = teamMembers;
@@ -53,6 +56,7 @@ const TeamTable = ({
       teeChoiceOptionItems={teeChoiceOptionItems}
       baseTee={baseTee}
       playerId={rows[i].id}
+      teamNumber={teamNumber}
       />)
     return tds;
   }
@@ -61,12 +65,7 @@ const TeamTable = ({
   let teeChoiceOptionItems = teesSelectedArray.map((tee) =>
       <option key={uuidv4()} value={tee}>{tee}</option>);
 
-  const handleTeeChoiceChange = (event) => {
-    //event.target.name = id = ghinNumber
-    //event.target.value = teeChoice e.g. C or C/M or M
-    /* On tee  time change, change selected tee to bold?
-    If progs > 0, recalculate teamProg */
-  };
+
 
   return (
         <table className='team-table'>
@@ -82,15 +81,18 @@ const TeamTable = ({
           <tbody>
               {generateRows()}
           </tbody>
-          { (progs > 0) 
-          ? <tfoot>
+          <tfoot>
             <tr>
-              <td>
-                Team progs per {progs}:
+              <td colSpan="5">
+                <span>Team Hcp: {teamHcp}</span>
+                { (progs > 0) 
+          ? <span>
+                &nbsp;&nbsp;Team progs per {progs}: {teamProgs}
+              </span>
+          : <></>}
               </td>
             </tr>
-           </tfoot>
-          : <></>}
+          </tfoot>
         </table>
     )
 }
