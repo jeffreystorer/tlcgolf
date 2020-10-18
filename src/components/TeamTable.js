@@ -14,7 +14,7 @@ const TeamTable = ({
     handleDeleteTeamMember,
     teamTables,
     playerNameList,
-    progs, 
+    progs069, 
     teamHcp,
     teamProgs,
     handleTeeChoiceChange
@@ -83,11 +83,11 @@ const TeamTable = ({
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan="5">
+              <td colSpan={teeCount + 2}>
                 <span>Team Hcp: {teamHcp}</span>
-                { (progs > 0) 
+                { (progs069 > 0) 
           ? <span>
-                &nbsp;&nbsp;Team progs per {progs}: {teamProgs}
+                &nbsp;&nbsp;Team progs per {progs069}: {teamProgs}
               </span>
           : <></>}
               </td>

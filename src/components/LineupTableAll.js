@@ -27,12 +27,14 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }
   let savedGame = get('savedGame');
   let savedCourse = get('savedCourse');
+  let teamMembers = [];
   const [teamTables, setTeamTables] = useState((savedCourse === course && savedGame === game && get('savedTeamTables')) ? get('savedTeamTables') : teamTablesObj);
   const [linkTime, setLinkTime] = useState((savedCourse === course && savedGame === game  && get('savedLinkTime')) ? get('savedLinkTime') : "Time");
   const [teeTimeCount, setTeeTimeCount] = useState((savedCourse === course && savedGame === game  && get('savedTeeTimeCount')) ? get('savedTeeTimeCount') : "");
   const [playingDate, setPlayingDate] = useState((savedCourse === course && savedGame === game  && get('savedPlayingDate')) ? get('savedPlayingDate') : "Date");
   const [textAreaValue, setTextAreaValue] = useState((savedCourse === course && savedGame === game  && get('savedTextAreaValue')) ? get('savedTextAreaValue') : "[Games, Entry, Prize, Rules]");
-  const [progs, setProgs] = useState("");
+  const [progs069, setProgs069] = useState((savedCourse === course && savedGame === game  && get('savedProgs069')) ? get('savedProgs069') : "");
+  const [progAdj, setProgAdj] = useState((savedCourse === course && savedGame === game  && get('savedProgAdj')) ? get('savedProgAdj') : "");
   //eslint-disable-next-line
   const [teamHcp, setTeamHcp] = useState([]);
   //eslint-disable-next-line
@@ -86,39 +88,80 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     set('savedTeeTimeCount', event.target.value);
   }
 
-  const handleProgsChange = (event) => {
-    setProgs(event.target.value)
+  const handleProgs069Change = (event) => {
+    setProgs069(event.target.value);
+    set('savedProgs069', event.target.value);
+  }
+
+  const handleProgAdjChange = (event) => {
+    setProgAdj(event.target.value);
+    set('savedProgAdj', event.target.value);
+
   }
   const handleTeeChoiceChange = (event) => {
     //first, update the teeChoice for the player
     let aTeeChoice = event.target.value;
     let anId = event.target.name;
     let aTeamNumber =event.target.id;
-    calculateTeamHcp(aTeamNumber);
-    calculateTeamProgs(aTeamNumber);
+    setTeamHcpAndProgs(aTeamNumber);
     setTeeChoice(aTeamNumber, anId, aTeeChoice);
   };
 
-  function calculateTeamHcp(teamNumber){
-    console.log('calculating TeamHcp for team: ' + teamNumber);
-    console.table(teamTables);
-    //setTeamHcp()
+  function setTeamHcpAndProgs(teamNumber){
+    let aTeamHcp = 0;
+    let aTeamProgs = 0;
+    let playerCount = teamMembers.length;
+    console.log('playerCount', playerCount);
+    console.log('teamMembers', teamNumber);
+    console.table(teamMembers);
+    teamMembers.forEach(computeHcpAndProgs);
+    setTeamHcp([...teamHcp, teamHcp[teamNumber] = aTeamHcp]);
+    setTeamProgs([...teamProgs, teamProgs[teamNumber] = aTeamProgs.toFixed(1)])
+    
+    function computeHcpAndProgs(item){
+      let teeChoice = item.teeChoice;
+      let teesSelectedArray = teesSelected.map(a => a.value)
+      let teeNo = teesSelectedArray.indexOf(teeChoice);
+      aTeamHcp = aTeamHcp + item.courseHandicaps[teeNo];
+      aTeamProgs = aTeamProgs + (36 - item.courseHandicaps[teeNo]);
+      console.log('item', item, 'teeChoice', teeChoice, 'teeNo', teeNo, 'aTeamHcp', aTeamHcp, 'aTeamProgs', aTeamProgs);
+      switch (Number(progAdj)) {
+        case 3:
+          switch (Number(progs069)) {
+            case 6:
+              if (playerCount === 3) aTeamProgs = aTeamProgs/3 + 1
+              break;
+            case 9:
+              if (playerCount === 3) aTeamProgs = aTeamProgs/2 + 1.5
+              break;
+            default:
+              break;
+          }
+          break;
+        case 4:
+          switch (Number(progs069)) {
+            case 6:
+              if (playerCount === 4) aTeamProgs = aTeamProgs/3 - 1
+              break;
+            case 9:
+              if (playerCount === 4) aTeamProgs = aTeamProgs/2 - 1.5
+              break;
+            default:
+              break;
+          }
+          break;
+        default:
+          break;
+      }
+    }
   }
 
-  function calculateTeamProgs(teamNumber){
-    console.log('calculating TeamProgs for team: ' + teamNumber);
-    //setTeamProgs()
-  }
+
    
   function setTeeChoice(aTeamNumber, anId, aTeeChoice){
     let teamName = "team" + aTeamNumber;
     const playerIndex = teamTables[teamName].findIndex(player => player.id === Number(anId));
-    console.log("teamTables[" + teamName +"]:")
-    console.table(teamTables[teamName]);
-    console.log(aTeamNumber, anId, aTeeChoice);
-    console.log('playerIndex: ' + playerIndex);
     teamTables[teamName][playerIndex].teeChoice = aTeeChoice;
-    console.table(teamTables[teamName]);
     set('savedTeamTables', teamTables);
   }
 
@@ -194,7 +237,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   function generateTeamTables (){
     for (var i = 0; i < teeTimeCount; i++){
       let teamName = "team" + i;
-      let teamMembers = [];
       teamMembers = teamTables[teamName];
       console.log('teamMember:' + teamName);
       console.table(teamMembers)
@@ -208,7 +250,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         playerNameList={playerNameList}
         handleAddTeamMember={handleAddTeamMember}
         handleDeleteTeamMember={handleDeleteTeamMember}
-        progs={progs}
+        progs069={progs069}
         teamHcp={teamHcp[i]}
         teamProgs={teamProgs[i]}
         handleTeeChoiceChange={handleTeeChoiceChange}
@@ -231,8 +273,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     teeTimeCountOptionItems={teeTimeCountOptionItems}
     handlePlayingDateChange={handlePlayingDateChange}
     handleTeeTimeCountChange={handleTeeTimeCountChange}
-    progs={progs}
-    handleProgsChange={handleProgsChange}
+    progs069={progs069}
+    handleProgs069Change={handleProgs069Change}
+    progAdj={progAdj}
+    handleProgAdjChange={handleProgAdjChange}
   /><br></br>
   <br></br>
   <table id="lineup-table">
