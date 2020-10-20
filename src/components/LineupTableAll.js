@@ -126,53 +126,51 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     let playerCount = teamMembers.length;
     console.log('playerCount', playerCount);
     teamMembers.forEach(computeHcpAndProgs);
-    console.log('progAdj', progAdj, 'progs069', progs069, 'aTeamProgs', aTeamProgs);
+    console.log('progAdj', Number(progAdj), 'progs069', Number(progs069), 'aTeamProgs', aTeamProgs);
 
-    const teamProgs = () =>{
-      const SIXTHREE = 9;
-      const NINETHREE =12;
-      const SIXFOUR = 10;
-      const NINEFOUR = 13;
-      let progCase = progAdj + progs069;
-      switch (progCase) {
-        case SIXTHREE:
-          if (playerCount === 3) {
-            aTeamProgs = aTeamProgs/3 + 1
-          } else {
-            aTeamProgs = aTeamProgs/3
-          }            
+    
+    switch (Number(progAdj)) {
+      case 3:
+        switch (Number(progs069)) {
+          case 6:
+            if (playerCount === 3) aTeamProgs = aTeamProgs/3 + 1
+            break;
+          case 9:
+            if (playerCount === 3) aTeamProgs = aTeamProgs/2 + 1.5
+            break;
+          default:
+            break;
+        }
         break;
-        case SIXFOUR:
-          if (playerCount === 3) {
-            aTeamProgs = aTeamProgs/3
-          } else {
-            aTeamProgs = aTeamProgs/3 - 1
-          }            
-        break;
-        case NINETHREE:
-          if (playerCount === 3) {
-            aTeamProgs = aTeamProgs/2 + 1.5
-          } else {
-            aTeamProgs = aTeamProgs/2
-          }            
-
-        break;
-        case NINEFOUR:
-          if (playerCount === 3) {
-            aTeamProgs = aTeamProgs/2
-          } else {
-            aTeamProgs = aTeamProgs/2 - 1.5
-          }            
-
-        break;
-      
+        case 4:
+          switch (Number(progs069)) {
+            case 6:
+              if (playerCount === 4) aTeamProgs = aTeamProgs/3 - 1
+              break;
+            case 9:
+              if (playerCount === 4) aTeamProgs = aTeamProgs/2 - 1.5
+              break;
+            default:
+              break;
+          }
+          break;
+        case 0:
+          switch (Number(progs069)) {
+            case 6:
+              aTeamProgs = aTeamProgs/3
+              break;
+            case 9:
+              aTeamProgs = aTeamProgs/2
+              break;
+            default:
+              break;
+          }
+          break;
         default:
           break;
-      }
-    return aTeamProgs.toFixed(1)
-    }
-    
-    aTeamProgs = teamProgs();
+      };
+    let teamProgs = aTeamProgs.toFixed(1);
+    aTeamProgs = teamProgs;
     console.log('aTeamProgs', aTeamProgs)
     console.log('TeamHcp', aTeamHcp, 'TeamProgs', aTeamProgs);
     setTeamHcpAndProgsArray(prevTeamHcpAndProgsArray => ({
