@@ -5,6 +5,7 @@ import {useRecoilValue} from 'recoil';
 import * as state from '../state';
 import { v4 as uuidv4 } from 'uuid';
 import TeeChoiceDropDown from './TeeChoiceDropDown';
+import {get} from '../functions/localStorage';
 
 const TeamTable = ({
     teamNumber,
@@ -19,6 +20,7 @@ const TeamTable = ({
     teamProgs,
     handleTeeChoiceChange
 }) => {
+  
   const teesSelected = useRecoilValue(state.teesSelectedState);
   let rows = teamMembers;
   let rowsTD = [];

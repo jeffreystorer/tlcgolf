@@ -25,7 +25,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     team8:[],
     team9:[],
   }
-  const teamHcpAndProgObj = {
+  let teamHcpAndProgs =
+  {
     team0:[0,0],
     team1:[0,0],
     team2:[0,0],
@@ -39,6 +40,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }
   let savedGame = get('savedGame');
   let savedCourse = get('savedCourse');
+  if (savedCourse === course && savedGame === game) teamHcpAndProgs = get('savedTeamHcpAndProgs');
   let teamMembers = [];
   const [teamTables, setTeamTables] = useState((savedCourse === course && savedGame === game && get('savedTeamTables')) ? get('savedTeamTables') : teamTablesObj);
   const [linkTime, setLinkTime] = useState((savedCourse === course && savedGame === game  && get('savedLinkTime')) ? get('savedLinkTime') : "Time");
@@ -47,9 +49,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   const [textAreaValue, setTextAreaValue] = useState((savedCourse === course && savedGame === game  && get('savedTextAreaValue')) ? get('savedTextAreaValue') : "[Games, Entry, Prize, Rules]");
   const [progs069, setProgs069] = useState((savedCourse === course && savedGame === game  && get('savedProgs069')) ? get('savedProgs069') : "");
   const [progAdj, setProgAdj] = useState((savedCourse === course && savedGame === game  && get('savedProgAdj')) ? get('savedProgAdj') : "");
+  //trick the component into rerending with tee choice changes
   //eslint-disable-next-line
-  const [teamHcpAndProgsArray, setTeamHcpAndProgsArray] = useState(teamHcpAndProgObj);
-
+  const [teeChoiceChangedId, setTeeChoiceChangedId] = useState(0);
+  //const [teamHcpAndProgsArray, setTeamHcpAndProgsArray] = useRecoilState(state.teamHcpAndProgsArrayState);
   useEffect(() => {
     set('savedTeamTables', teamTables);
     return () => {
@@ -58,6 +61,13 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     }
   //eslint-disable-next-line
   }, [teamTables])
+
+  useEffect(() => {
+    setEachTeamsHcpAndProgs();
+    return () => {
+    setEachTeamsHcpAndProgs();
+    }
+  }, )
 
   const playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars);
   //eslint-disable-next-line
@@ -70,7 +80,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         ...prevTeamTables,
         [name]: prevTeamTables[name].concat(newPlayerObj),
     }));
-    setTeamHcpAndProgs(name);
+    setEachTeamsHcpAndProgs();
   }
 
   const handleDeleteTeamMember = (teamName, id) => (event) => {
@@ -78,7 +88,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
           ...prevTeamTables,
           [teamName]: prevTeamTables[teamName].filter(player => player.id !== id),
       }));      
-    setTeamHcpAndProgs(teamName);
+    setEachTeamsHcpAndProgs();
   }
 
   const handleLinkTimeChange = (event) => {
@@ -101,59 +111,39 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   const handleProgs069Change = (event) => {
     setProgs069(event.target.value);
     set('savedProgs069', event.target.value);
+    setEachTeamsHcpAndProgs();
   }
 
   const handleProgAdjChange = (event) => {
     setProgAdj(event.target.value);
     set('savedProgAdj', event.target.value);
+    setEachTeamsHcpAndProgs();
+  }
+
+  function setEachTeamsHcpAndProgs(){
+    for (let i = 0; i < teeTimeCount; i++){
+      let teamName = "team" + i;
+      setTeamHcpAndProgs(teamName);
+    }
   }
   const handleTeeChoiceChange = (event) => {
+    setTeeChoiceChangedId(uuidv4());
     //first, update the teeChoice for the player
     let aTeeChoice = event.target.value;
     let anId = event.target.name;
     let aTeamNumber =event.target.id;
-    let aTeamName = "team" + aTeamNumber;
-    setTeamHcpAndProgs(aTeamName);
     setTeeChoice(aTeamNumber, anId, aTeeChoice);
+    setEachTeamsHcpAndProgs();
   };
 
   function setTeamHcpAndProgs(teamName){
     
     let teamMembers = teamTables[teamName];
-    console.log('teamName', teamName);
     let aTeamHcp = 0;
     let aTeamProgs = 0;
     let playerCount = teamMembers.length;
-    console.log('playerCount', playerCount);
     teamMembers.forEach(computeHcpAndProgs);
-    console.log('progAdj', Number(progAdj), 'progs069', Number(progs069), 'aTeamProgs', aTeamProgs);
-
-    
     switch (Number(progAdj)) {
-      case 3:
-        switch (Number(progs069)) {
-          case 6:
-            if (playerCount === 3) aTeamProgs = aTeamProgs/3 + 1
-            break;
-          case 9:
-            if (playerCount === 3) aTeamProgs = aTeamProgs/2 + 1.5
-            break;
-          default:
-            break;
-        }
-        break;
-        case 4:
-          switch (Number(progs069)) {
-            case 6:
-              if (playerCount === 4) aTeamProgs = aTeamProgs/3 - 1
-              break;
-            case 9:
-              if (playerCount === 4) aTeamProgs = aTeamProgs/2 - 1.5
-              break;
-            default:
-              break;
-          }
-          break;
         case 0:
           switch (Number(progs069)) {
             case 6:
@@ -163,22 +153,68 @@ export default function LineupTableAll({ratings, slopes, pars}) {
               aTeamProgs = aTeamProgs/2
               break;
             default:
+              aTeamProgs = 0;
               break;
           }
           break;
         default:
           break;
+      case 3:
+        switch (Number(progs069)) {
+          case 6:
+            if (playerCount === 3) {
+              aTeamProgs = aTeamProgs/3 + 1
+            } else {
+              aTeamProgs = aTeamProgs/3
+            }
+            break;
+          case 9:
+            if (playerCount === 3) {
+              aTeamProgs = aTeamProgs/2 + 1.5
+            } else {
+              aTeamProgs = aTeamProgs/2
+            }
+            break;
+          default:
+            aTeamProgs = 0;
+            break;
+        }
+        break;
+        case 4:
+          switch (Number(progs069)) {
+            case 6:
+              if (playerCount === 4) {
+                aTeamProgs = aTeamProgs/3 - 1
+              } else {
+                aTeamProgs = aTeamProgs/3
+              }
+              break;
+            case 9:
+              if (playerCount === 4) {
+                aTeamProgs = aTeamProgs/2 - 1.5
+              } else {
+                aTeamProgs = aTeamProgs/2
+              }
+              break;
+            default:
+              aTeamProgs = 0;
+              break;
+          }
+          break;
       };
     let teamProgs = aTeamProgs.toFixed(1);
     aTeamProgs = teamProgs;
-    console.log('aTeamProgs', aTeamProgs)
+    teamHcpAndProgs[teamName][0] = aTeamHcp;
+    teamHcpAndProgs[teamName][1] = aTeamProgs;
+    set('savedTeamHcpAndProgs', teamHcpAndProgs)
+    console.clear();
+    console.log('teamName', teamName);
+    console.log('playerCount', playerCount);
+    console.log('progAdj', Number(progAdj), 'progs069', Number(progs069));
     console.log('TeamHcp', aTeamHcp, 'TeamProgs', aTeamProgs);
-    setTeamHcpAndProgsArray(prevTeamHcpAndProgsArray => ({
-      ...prevTeamHcpAndProgsArray,
-      [teamName]: [aTeamHcp, aTeamProgs]
-  }));
-    console.log('teamHcpAndProgsArray')
-    console.table(teamHcpAndProgsArray);
+    console.log('teamHcp', teamHcpAndProgs[teamName][0], 'teamProgs', teamHcpAndProgs[teamName][1]);
+    console.log('teamHcpAndProgs')
+    console.table(teamHcpAndProgs);
 
     function computeHcpAndProgs(item){
       let teeChoice = item.teeChoice;
@@ -265,6 +301,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     for (var i = 0; i < teeTimeCount; i++){
       let teamName = "team" + i;
       teamMembers = teamTables[teamName];
+      setEachTeamsHcpAndProgs();
+      teamHcpAndProgs = get('savedTeamHcpAndProgs');
+      let teamHcp = teamHcpAndProgs[teamName][0];
+      let teamProgs = teamHcpAndProgs[teamName][1];
       TeamTables[i] = (
       <TeamTable 
         key={uuidv4()}
@@ -276,8 +316,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         handleAddTeamMember={handleAddTeamMember}
         handleDeleteTeamMember={handleDeleteTeamMember}
         progs069={progs069}
-        teamHcp={teamHcpAndProgsArray[teamName][0]}
-        teamProgs={teamHcpAndProgsArray[teamName][1]}
+        teamHcp={teamHcp}
+        teamProgs={teamProgs}
         handleTeeChoiceChange={handleTeeChoiceChange}
       />
       )

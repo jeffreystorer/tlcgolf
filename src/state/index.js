@@ -84,3 +84,19 @@ export const golferStateSelector = selector({
   return golfer;
   }
 })
+
+export const teamHcpAndProgsArrayState = atom ({
+  key: "teamHcpAndProgsArrayState",
+  default: {
+    team0:[0,0],
+    team1:[0,0],
+    team2:[0,0],
+    team3:[0,0],
+    team4:[0,0],
+    team5:[0,0],
+    team6:[0,0],
+    team7:[0,0],
+    team8:[0,0],
+    team9:[0,0],
+  }
+})
