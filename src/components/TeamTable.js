@@ -5,7 +5,6 @@ import {useRecoilValue} from 'recoil';
 import * as state from '../state';
 import { v4 as uuidv4 } from 'uuid';
 import TeeChoiceDropDown from './TeeChoiceDropDown';
-import {get} from '../functions/localStorage';
 
 const TeamTable = ({
     teamNumber,
