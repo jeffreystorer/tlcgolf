@@ -6,6 +6,7 @@ import {useRecoilValue} from 'recoil';
 import * as state from '../state';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
 import {set, get} from '../functions/localStorage';
+import html2canvas from 'html2canvas';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
   const course = useRecoilValue(state.courseState);
@@ -49,7 +50,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   const [textAreaValue, setTextAreaValue] = useState((savedCourse === course && savedGame === game  && get('savedTextAreaValue')) ? get('savedTextAreaValue') : "[Games, Entry, Prize, Rules]");
   const [progs069, setProgs069] = useState((savedCourse === course && savedGame === game  && get('savedProgs069')) ? get('savedProgs069') : "");
   const [progAdj, setProgAdj] = useState((savedCourse === course && savedGame === game  && get('savedProgAdj')) ? get('savedProgAdj') : "");
-  //trick the component into rerending with tee choice changes
+  //trick the component into rerendering with tee choice changes
   //eslint-disable-next-line
   const [teeChoiceChangedId, setTeeChoiceChangedId] = useState(0);
   //const [teamHcpAndProgsArray, setTeamHcpAndProgsArray] = useRecoilState(state.teamHcpAndProgsArrayState);
@@ -69,7 +70,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     }
   }, )
 
-  const playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars);
+  const playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount);
   //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray);
 
@@ -206,15 +207,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     aTeamProgs = teamProgs;
     teamHcpAndProgs[teamName][0] = aTeamHcp;
     teamHcpAndProgs[teamName][1] = aTeamProgs;
-    set('savedTeamHcpAndProgs', teamHcpAndProgs)
-    console.clear();
-    console.log('teamName', teamName);
-    console.log('playerCount', playerCount);
-    console.log('progAdj', Number(progAdj), 'progs069', Number(progs069));
-    console.log('TeamHcp', aTeamHcp, 'TeamProgs', aTeamProgs);
-    console.log('teamHcp', teamHcpAndProgs[teamName][0], 'teamProgs', teamHcpAndProgs[teamName][1]);
-    console.log('teamHcpAndProgs')
-    console.table(teamHcpAndProgs);
+    set('savedTeamHcpAndProgs', teamHcpAndProgs);
 
     function computeHcpAndProgs(item){
       let teeChoice = item.teeChoice;
@@ -383,6 +376,13 @@ export const getPlayersNotInTeeTime = (playersList, teamTables) => {
       team8.find(p => p.id === player.id) ||
       team9.find(p => p.id === player.id));
   });
+}
+export function screenShot(){
+ //let input = document.getElementById('lineup-table');
+
+  html2canvas(document.body).then(function(canvas){  
+    document.body.appendChild(canvas);
+    });
 }
 
 
