@@ -5,6 +5,7 @@ import {useRecoilValue} from 'recoil';
 import * as state from '../state';
 import { v4 as uuidv4 } from 'uuid';
 import TeeChoiceDropDown from './TeeChoiceDropDown';
+import OverrideCHDropDown from './OverrideCHDropDown';
 
 const TeamTable = ({
     teamNumber,
@@ -17,7 +18,9 @@ const TeamTable = ({
     progs069, 
     teamHcp,
     teamProgs,
-    handleTeeChoiceChange
+    handleTeeChoiceChange,
+    handleOverrideCHChange,
+    manualCHOptionItems
 }) => {
   
   const teesSelected = useRecoilValue(state.teesSelectedState);
@@ -51,6 +54,10 @@ const TeamTable = ({
         </td>
       )
     }
+  
+  let aChosenTeeIndex = rows[i].courseHandicaps.indexOf(rows[i].teeChoice);
+  let manualCH = rows[i].courseHandicaps[aChosenTeeIndex];
+  
     tds.push(<TeeChoiceDropDown
       key={uuidv4()}
       handleTeeChoiceChange={handleTeeChoiceChange}
@@ -58,6 +65,14 @@ const TeamTable = ({
       baseTee={rows[i].teeChoice}
       playerId={rows[i].id}
       teamNumber={teamNumber}
+      />)
+      tds.push(<OverrideCHDropDown
+        key={uuidv4()}
+        manualCH={manualCH}
+        handleOverrideCHChange={handleOverrideCHChange}
+        manualCHOptionItems={manualCHOptionItems}
+        playerId={rows[i].id}
+        teamNumber={teamNumber}
       />)
     return tds;
   }

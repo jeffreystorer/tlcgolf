@@ -53,7 +53,9 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   //trick the component into rerendering with tee choice changes
   //eslint-disable-next-line
   const [teeChoiceChangedId, setTeeChoiceChangedId] = useState(0);
-  //const [teamHcpAndProgsArray, setTeamHcpAndProgsArray] = useRecoilState(state.teamHcpAndProgsArrayState);
+  //eslint-disable-next-line
+  const [overrideCHChoiceChangedId, setOverrideCHChoiceChangedId] = useState(0);
+
   useEffect(() => {
     set('savedTeamTables', teamTables);
     return () => {
@@ -136,6 +138,16 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     setTeeChoice(aTeamNumber, anId, aTeeChoice);
     setEachTeamsHcpAndProgs();
   };
+
+  const handleOverrideCHChange = (event) =>{
+    setOverrideCHChoiceChangedId(uuidv4());
+    //first, update the teeChoice for the player
+    let aManualCH = event.target.value;
+    let anId = event.target.name;
+    let aTeamNumber =event.target.id;
+    setManualCH(aTeamNumber, anId, aManualCH);
+    setEachTeamsHcpAndProgs();
+  }
 
   function setTeamHcpAndProgs(teamName){
     
@@ -225,6 +237,33 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     set('savedTeamTables', teamTables);
   }
 
+  function setManualCH(aTeamNumber, anId, aManualCH){
+    let teamName = "team" + aTeamNumber;
+    const playerIndex = teamTables[teamName].findIndex(player => player.id === Number(anId));
+    let aTeeChoice = teamTables[teamName][playerIndex].teeChoice;
+    let aCHArray = teamTables[teamName][playerIndex].courseHandicaps;
+    let teesSelectedArray = teesSelected.map(a => a.value);
+    let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice);
+    for (let i = 0; i < teeTimeCount; i++){
+      aCHArray[i]="*"
+    }  
+    console.clear();
+    console.log("aCHArray");
+    console.table(aCHArray);
+    aCHArray[aChosenTeeIndex] = aManualCH;
+    teamTables[teamName][playerIndex].courseHandicaps = aCHArray;
+  
+    console.log("playerIndex", playerIndex, "aTeeChoice", aTeeChoice);
+    console.log('aCHArray');
+    console.table(aCHArray);
+    console.log('aChosenTeeIndex', aChosenTeeIndex);
+    console.log('teamTables')
+    console.table(teamTables);
+
+    set('savedTeamTables', teamTables);
+
+  }
+
   function setTeeTimes(aLinkTime, aTeeTimeCount){
     let firstRegularTimeIndex = linkTimes().indexOf("8:02")
     let linkTimeIndex = linkTimes().indexOf(aLinkTime);
@@ -284,10 +323,16 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     minute = firstLinkTime.getMinutes();
     linkTimes.push(setLinkTime());
     }
-        return linkTimes;
+    return linkTimes;
   }
   const linkTimeOptionItems = linkTimes().map((linkTime) =>
     <option key={uuidv4()} value={linkTime}>{linkTime}</option>)
+  let manualCHList =[];
+  manualCHList.push("*");
+  for (let i = -10; i < 61; i++) manualCHList.push(i);
+  const manualCHOptionItems = manualCHList.map((manualCH) =>
+    <option key ={uuidv4()} value={manualCH}>{manualCH}</option>);
+
   const playerNameList = getPlayersNotInTeeTime(players, teamTables);
   let TeamTables = [];
   function generateTeamTables (){
@@ -312,6 +357,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         teamHcp={teamHcp}
         teamProgs={teamProgs}
         handleTeeChoiceChange={handleTeeChoiceChange}
+        handleOverrideCHChange={handleOverrideCHChange}
+        manualCHOptionItems={manualCHOptionItems}
       />
       )
     }
