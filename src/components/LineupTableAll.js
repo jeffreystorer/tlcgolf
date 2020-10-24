@@ -256,6 +256,20 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     set('savedTeamTables', teamTables);
 
   }
+  function setManualCHCourseHandicaps(teamMembers){
+    for (let i = 0; i < teamMembers.length; i++){
+    let aTeeChoice = teamMembers[i].teeChoice;
+    let aManualCH = teamMembers[i].manualCH;
+    if (aManualCH !== "") {
+      let teesSelectedArray = teesSelected.map(a => a.value);
+      let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice);
+      for (let j = 0; j < teesSelectedArray.length; j++){
+        teamMembers[i].courseHandicaps[i]="*"
+      }
+      teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH;
+      }
+  }
+  }
 
   function setTeeTimes(aLinkTime, aTeeTimeCount){
     let firstRegularTimeIndex = linkTimes().indexOf("8:02")
@@ -332,6 +346,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     for (var i = 0; i < teeTimeCount; i++){
       let teamName = "team" + i;
       teamMembers = teamTables[teamName];
+      setManualCHCourseHandicaps(teamMembers);
+      console.log('generating teamMembers');
+      console.log('teamMembers: ' + i);
+      console.table(teamMembers);
       setEachTeamsHcpAndProgs();
       teamHcpAndProgs = get('savedTeamHcpAndProgs');
       let teamHcp = teamHcpAndProgs[teamName][0];
@@ -375,8 +393,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     handleProgs069Change={handleProgs069Change}
     progAdj={progAdj}
     handleProgAdjChange={handleProgAdjChange}
-  /><br></br>
-  <br></br>
+  />
+  <p>
+    Click * to set manual handicap
+  </p>
   <table id="lineup-table">
     <caption>Lineup for {playingDate} at {linkTime} at {course.toUpperCase()}</caption>
     <tbody>
@@ -387,7 +407,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       </tr>
     </tbody>
   </table>
-    <p>*=handicap set by captain</p>
+    
   <textarea 
     id='lineup-textarea'
     rows="6" cols="38"
