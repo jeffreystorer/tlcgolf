@@ -49,7 +49,8 @@ export default function createLineupTablePlayersArrray (course,
       id: Number(aPlayer[0]),
       playerName: player,
       courseHandicaps: [],
-      teeChoice: ""
+      teeChoice: "",
+      manualCH: ""
     };
     let i;
     for (i=0; i < teesSelectedArray.length; i++){

@@ -11,7 +11,7 @@ const OverrideCHDropDown = ({
   return(
     <td className='select-dropdown-container'>
     <label className='embedded-selector'>
-      <select id={teamNumber} name={playerId} defaultValue="*" value={manualCH} onChange={handleOverrideCHChange}>
+      <select className='select-manual-CH' id={teamNumber} name={playerId} defaultValue="*" value={manualCH} onChange={handleOverrideCHChange}>
         {manualCHOptionItems}
       </select>
     </label>

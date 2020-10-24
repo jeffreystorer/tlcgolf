@@ -141,7 +141,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
 
   const handleOverrideCHChange = (event) =>{
     setOverrideCHChoiceChangedId(uuidv4());
-    //first, update the teeChoice for the player
     let aManualCH = event.target.value;
     let anId = event.target.name;
     let aTeamNumber =event.target.id;
@@ -241,21 +240,15 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     let teamName = "team" + aTeamNumber;
     const playerIndex = teamTables[teamName].findIndex(player => player.id === Number(anId));
     let aTeeChoice = teamTables[teamName][playerIndex].teeChoice;
-    let aCHArray = teamTables[teamName][playerIndex].courseHandicaps;
     let teesSelectedArray = teesSelected.map(a => a.value);
     let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice);
-    for (let i = 0; i < teeTimeCount; i++){
-      aCHArray[i]="*"
-    }  
-    console.clear();
-    console.log("aCHArray");
-    console.table(aCHArray);
-    aCHArray[aChosenTeeIndex] = aManualCH;
-    teamTables[teamName][playerIndex].courseHandicaps = aCHArray;
-  
+    for (let i = 0; i < teesSelectedArray.length; i++){
+      teamTables[teamName][playerIndex].courseHandicaps[i]="*"
+    }
+    teamTables[teamName][playerIndex].courseHandicaps[aChosenTeeIndex] = aManualCH;
+    teamTables[teamName][playerIndex].manualCH = aManualCH;
+    console.clear(); 
     console.log("playerIndex", playerIndex, "aTeeChoice", aTeeChoice);
-    console.log('aCHArray');
-    console.table(aCHArray);
     console.log('aChosenTeeIndex', aChosenTeeIndex);
     console.log('teamTables')
     console.table(teamTables);
@@ -394,7 +387,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       </tr>
     </tbody>
   </table>
-    <br></br>
+    <p>*=handicap set by captain</p>
   <textarea 
     id='lineup-textarea'
     rows="6" cols="38"
