@@ -50,7 +50,7 @@ export default function createLineupTablePlayersArrray (course,
       playerName: player,
       courseHandicaps: [],
       teeChoice: "",
-      manualCH: ""
+      manualCH: "Auto"
     };
     let i;
     for (i=0; i < teesSelectedArray.length; i++){

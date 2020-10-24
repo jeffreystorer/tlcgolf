@@ -257,18 +257,19 @@ export default function LineupTableAll({ratings, slopes, pars}) {
 
   }
   function setManualCHCourseHandicaps(teamMembers){
+    //iterate through teamMembers
     for (let i = 0; i < teamMembers.length; i++){
-    let aTeeChoice = teamMembers[i].teeChoice;
-    let aManualCH = teamMembers[i].manualCH;
-    if (aManualCH !== "") {
-      let teesSelectedArray = teesSelected.map(a => a.value);
-      let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice);
-      for (let j = 0; j < teesSelectedArray.length; j++){
-        teamMembers[i].courseHandicaps[i]="*"
+      let aTeeChoice = teamMembers[i].teeChoice;
+      let aManualCH = teamMembers[i].manualCH;
+      if (aManualCH !== "Auto") {
+        let teesSelectedArray = teesSelected.map(a => a.value);
+        let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice);
+        for (let j = 0; j < teesSelectedArray.length; j++){
+          teamMembers[i].courseHandicaps[j]="*"
+        }
+        teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH;
       }
-      teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH;
-      }
-  }
+    }
   }
 
   function setTeeTimes(aLinkTime, aTeeTimeCount){
@@ -336,6 +337,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     <option key={uuidv4()} value={linkTime}>{linkTime}</option>)
   let manualCHList =[];
   manualCHList.push("*");
+  manualCHList.push("Auto");
   for (let i = -10; i < 61; i++) manualCHList.push(i);
   const manualCHOptionItems = manualCHList.map((manualCH) =>
     <option key ={uuidv4()} value={manualCH}>{manualCH}</option>);
