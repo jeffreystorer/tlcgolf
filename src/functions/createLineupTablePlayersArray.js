@@ -16,6 +16,7 @@ export default function createLineupTablePlayersArrray (course,
 
   //declare some variables
   var playersArray = [];
+  let strHcpIndex;
   let hcpIndex;
   let gender;
 
@@ -39,7 +40,7 @@ export default function createLineupTablePlayersArrray (course,
 
   //construct the row
   function compute(aPlayer, index) {
-    let strHcpIndex = aPlayer[3];
+    strHcpIndex = aPlayer[3];
     hcpIndex = parseFloat(strHcpIndex);
     let firstName = aPlayer[2];
     let lastName = aPlayer[1];
@@ -66,12 +67,16 @@ export default function createLineupTablePlayersArrray (course,
 
   //compute the course handicap
   function doMath(rating, slope, par){
-      if (rating === 0) {
-        return "-"
-      } else {
-              return Math.round((hcpIndex * (slope / 113)) + (rating - par));
-      }
-  }
+    if (rating === 0) {
+      return "-"
+    } else {
+        if (strHcpIndex === 'guest'){
+          return 0
+        } else {
+          return Math.round((hcpIndex * (slope / 113)) + (rating - par)); 
+        }
+    }
+}
 
   //build array of tees
   function buildTeeArray() {

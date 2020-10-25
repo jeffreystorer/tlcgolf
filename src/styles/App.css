@@ -141,6 +141,10 @@ color: #000000;
   width: fit-content;
 }
 
+#help-table{
+  width: 100%;
+}
+
 table.team-table {
   width: 100%;
 }
@@ -168,6 +172,12 @@ td.lineup-other-row-call{
 
 td.lastName-col {
   text-align: left;
+}
+
+td.help-topic {
+  font-weight: bold;
+  vertical-align: top;
+  width: 20%;
 }
 
 

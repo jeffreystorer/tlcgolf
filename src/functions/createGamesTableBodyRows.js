@@ -8,6 +8,7 @@ export default function createGamesTableBodyRows (course, game, games, teesSelec
 
   //declare some variables
   var rows = [];
+  let strHcpIndex;
   let hcpIndex;
   let gender;
 
@@ -31,7 +32,7 @@ export default function createGamesTableBodyRows (course, game, games, teesSelec
 
   //construct the row
   function compute(aPlayer, index) {
-    let strHcpIndex = aPlayer[3];
+    strHcpIndex = aPlayer[3];
     hcpIndex = parseFloat(strHcpIndex);
     let firstName = aPlayer[2];
     let lastName = aPlayer[1];
@@ -54,7 +55,11 @@ export default function createGamesTableBodyRows (course, game, games, teesSelec
       if (rating === 0) {
         return "-"
       } else {
-              return Math.round((hcpIndex * (slope / 113)) + (rating - par));
+          if (strHcpIndex === 'guest'){
+            return 0
+          } else {
+            return Math.round((hcpIndex * (slope / 113)) + (rating - par)); 
+          }
       }
   }
 

@@ -17,7 +17,8 @@ import IndividualPage from './IndividualPage';
 import GamesPage from './GamesPage';
 import LoginPage from './LoginPage';
 import SelectTeesPage from './SelectTeesPage';
-import LineupPage from './LineupPage'
+import LineupPage from './LineupPage';
+import HelpPage from './HelpPage';
 
 export default function App() {
 
@@ -63,6 +64,12 @@ function Setting () {
         <SelectTeesPage />
         </>
       )
+    case 'help':
+      return (
+        <>
+        <HelpPage />
+        </>
+      )
   
     default:
       return (
@@ -82,6 +89,7 @@ function Settings () {
     <nav >
       <NavLink exact to={`${url}/login`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Login</NavLink>
       <NavLink exact to={`${url}/selecttees`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Select Tees</NavLink>
+      <NavLink exact to={`${url}/help`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Help</NavLink>
     </nav>
       <Switch>
         <Route path={`${path}/:settingId`}>

@@ -20,8 +20,8 @@ export default function fetchGamesGHIN() {
       if (firstName.indexOf('.') > 0) firstName = firstName.toUpperCase();
       item[2] =  firstName;
     } catch (error){
-      item[2] = 'BAD PLAYER';
-      item[3] = '-.-'
+      item[2] = '';
+      item[3] = 'guest'
       return
     };
       item[3] = data[index].golfers[0].Value;

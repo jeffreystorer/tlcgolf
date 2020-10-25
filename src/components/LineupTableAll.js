@@ -47,7 +47,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   const [linkTime, setLinkTime] = useState((savedCourse === course && savedGame === game  && get('savedLinkTime')) ? get('savedLinkTime') : "Time");
   const [teeTimeCount, setTeeTimeCount] = useState((savedCourse === course && savedGame === game  && get('savedTeeTimeCount')) ? get('savedTeeTimeCount') : "");
   const [playingDate, setPlayingDate] = useState((savedCourse === course && savedGame === game  && get('savedPlayingDate')) ? get('savedPlayingDate') : "Date");
-  const [textAreaValue, setTextAreaValue] = useState((savedCourse === course && savedGame === game  && get('savedTextAreaValue')) ? get('savedTextAreaValue') : "[Games, Entry, Prize, Rules]");
+  const [textAreaValue, setTextAreaValue] = useState((savedCourse === course && savedGame === game  && get('savedTextAreaValue')) ? get('savedTextAreaValue') : "[Bets, Entry, Prize, Rules]");
   const [progs069, setProgs069] = useState((savedCourse === course && savedGame === game  && get('savedProgs069')) ? get('savedProgs069') : "");
   const [progAdj, setProgAdj] = useState((savedCourse === course && savedGame === game  && get('savedProgAdj')) ? get('savedProgAdj') : "");
   //trick the component into rerendering with tee choice changes
