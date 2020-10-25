@@ -38,7 +38,7 @@ export default function HelpPage(){
                   </td>
                   <td>
                   For your convenience in adding players to your table, the TLC-Golf Google Sheets spreadsheet 
-                  includes a sheet titled "GHIN_Numbers", which has GHIN numbers and local numbers
+                  includes a sheet named "GHIN_Numbers", which has GHIN numbers and local numbers
                    for all players in the club.  This sheet is updated from time to time and may not always 
                    include new members who joined recently.
                   </td>
