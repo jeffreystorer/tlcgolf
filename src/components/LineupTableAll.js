@@ -224,8 +224,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       let teeChoice = item.teeChoice;
       let teesSelectedArray = teesSelected.map(a => a.value)
       let teeNo = teesSelectedArray.indexOf(teeChoice);
-      aTeamHcp = aTeamHcp + item.courseHandicaps[teeNo];
-      aTeamProgs = aTeamProgs + (36 - item.courseHandicaps[teeNo]);
+      aTeamHcp = aTeamHcp + Number(item.courseHandicaps[teeNo]);
+      aTeamProgs = aTeamProgs + (36 - Number(item.courseHandicaps[teeNo]));
     }
   }
 
@@ -268,6 +268,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
           teamMembers[i].courseHandicaps[j]="*"
         }
         teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH;
+        teamMembers[i].playerName = teamMembers[i].playerName + "*";
       }
     }
   }
