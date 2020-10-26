@@ -49,12 +49,16 @@ export default function HelpPage(){
 
                   </td>
                   <td>
-                  <span style={{fontWeight: "bold"}} >To add a guest</span> to the player's list for a game, 
-                  edit your table to add a player
-                  at the bottom, using the dummy value 9999990 as the player's GHIN number and the player's full name
-                  in the "Last_Name" column.  See the sheet for user 585871 for an example.  
+                  <span style={{fontWeight: "bold"}} >To add a guest</span> to the player's list for a game: if you know
+                  the guest's GHIN number, simply add the player to your list.  Your list is not limited to club members;
+                  it can include any player with a GHIN number.  If you don't know the guest's GHIN number, 
+                  then add the player at the bottom of your list, using the dummy value 9999990 as the player's 
+                  GHIN number and the player's full name in the "Last_Name" column. 
+                  See the sheet for user 585871 for an example.  
                   If you want to add more than one guest, use the next consecutive dummy value (e.g.,
-                  9999991) and so on.  You should add your guest(s) to your table before making a lineup that
+                  9999991) and so on.  For a guest whose GHIN number you don't know, you will simply specify a manual 
+                  course handicap from a chosen tee in your lineup (see below).  
+                  Whether or not you know the GHIN number, you should add your guest(s) to your table before making a lineup that
                   will include the guest(s).
                   </td>
                 </tr>
