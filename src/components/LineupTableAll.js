@@ -413,7 +413,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     
   <textarea 
     id='lineup-textarea'
-    rows="6" cols="38"
+    rows="8" cols="40"
     defaultValue={textAreaValue}
     onFocus={event => event.target.value = textAreaValue}
     onBlur={event => {setTextAreaValue(event.target.value); 

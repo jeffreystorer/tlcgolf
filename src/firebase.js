@@ -1,14 +1,17 @@
-import firebase from 'firebase';
+import * as firebase from "firebase";
+import "firebase/database";
 
-const firebaseConfig = {
+let config = {
   apiKey: "AIzaSyCWOTHZxzxvJS7990cNcvF8pSWEoEf_cbg",
   authDomain: "tlc-golf-ca7ad.firebaseapp.com",
   databaseURL: "https://tlc-golf-ca7ad.firebaseio.com",
   projectId: "tlc-golf-ca7ad",
   storageBucket: "tlc-golf-ca7ad.appspot.com",
   messagingSenderId: "289278089623",
-  appId: "1:289278089623:web:7a4238cf519228a4ed4cd2",
-  measurementId: "G-H1Z5JGWQR5"
+  appId: "1:289278089623:web:c391bc4b73ca52b9ed4cd2",
+  measurementId: "G-V7BY7Z072K"
 };
-var fire = firebase.initializeApp(firebaseConfig);
-export default fire;
+
+firebase.initializeApp(config);
+
+export default firebase.database();

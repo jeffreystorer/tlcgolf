@@ -1,4 +1,5 @@
 import React from 'react';
+//import "bootstrap/dist/css/bootstrap.min.css";
 import {
   RecoilRoot
 } from 'recoil';
@@ -19,6 +20,7 @@ import LoginPage from './LoginPage';
 import SelectTeesPage from './SelectTeesPage';
 import LineupPage from './LineupPage';
 import HelpPage from './HelpPage';
+import LineupsList from './LineupsList';
 
 export default function App() {
 
@@ -100,6 +102,44 @@ function Settings () {
   );
 }
 
+
+function Lineup () {
+  let {lineupId } = useParams();
+  let aLineup= lineupId;
+  switch (aLineup) {
+    case "savedlineups":
+      return (
+        <>
+        <LineupsList />
+        </>
+      )
+    default:
+      return (
+        <>
+          <LineupPage />
+        </>
+        )
+  }
+
+}
+
+function Lineups () {
+  let {path, url} = useRouteMatch();
+  return (
+    <>
+      <br/>
+    <nav >
+      <NavLink exact to={`${url}/savedlineups`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Saved Lineups</NavLink>
+    </nav>
+      <Switch>
+        <Route path={`${path}/:settingId`}>
+          <Lineup />
+        </Route>
+      </Switch>
+    </>
+  );
+}
+
   function  Games() {
   return (
     <>
@@ -114,15 +154,6 @@ function Settings () {
       <>
         <br/><br/>
         <IndividualPage />
-      </>
-    )
-  }
-
-  function Lineup(){
-    return (
-      <>
-      <br></br>
-      <LineupPage />
       </>
     )
   }
