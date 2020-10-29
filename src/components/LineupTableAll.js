@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import LineupTableDropDowns from './LineupTableDropDowns';
 import TeamTable from './TeamTable';
 import { v4 as uuidv4 } from 'uuid';
-import {useRecoilValue} from 'recoil';
+import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
-import {set, get} from '../functions/localStorage';
+//import {set, get} from '../functions/localStorage';
 import html2canvas from 'html2canvas';
 import saveLineupToFirebase from '../functions/saveLineupToFirebase';
+import LineupsList from './LineupsList';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
+  const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState)
   const course = useRecoilValue(state.courseState);
   const game = useRecoilValue(state.gameState);
   const games = useRecoilValue(state.gamesState);
@@ -40,31 +42,31 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     team8:[0,0],
     team9:[0,0],
   }
-  let savedGame = get('savedGame');
+/*   let savedGame = get('savedGame');
   let savedCourse = get('savedCourse');
-  if (savedCourse === course && savedGame === game) teamHcpAndProgs = get('savedTeamHcpAndProgs');
+  if (savedCourse === course && savedGame === game) teamHcpAndProgs = get('savedTeamHcpAndProgs'); */
   let teamMembers = [];
-  const [teamTables, setTeamTables] = useState((savedCourse === course && savedGame === game && get('savedTeamTables')) ? get('savedTeamTables') : teamTablesObj);
-  const [linkTime, setLinkTime] = useState((savedCourse === course && savedGame === game  && get('savedLinkTime')) ? get('savedLinkTime') : "Time");
-  const [teeTimeCount, setTeeTimeCount] = useState((savedCourse === course && savedGame === game  && get('savedTeeTimeCount')) ? get('savedTeeTimeCount') : "");
-  const [playingDate, setPlayingDate] = useState((savedCourse === course && savedGame === game  && get('savedPlayingDate')) ? get('savedPlayingDate') : "Date");
-  const [textAreaValue, setTextAreaValue] = useState((savedCourse === course && savedGame === game  && get('savedTextAreaValue')) ? get('savedTextAreaValue') : "[Bets, Entry, Prize, Rules]");
-  const [progs069, setProgs069] = useState((savedCourse === course && savedGame === game  && get('savedProgs069')) ? get('savedProgs069') : "");
-  const [progAdj, setProgAdj] = useState((savedCourse === course && savedGame === game  && get('savedProgAdj')) ? get('savedProgAdj') : "");
+  const [teamTables, setTeamTables] = useState(teamTablesObj);
+  const [linkTime, setLinkTime] = useState("Time");
+  const [teeTimeCount, setTeeTimeCount] = useState("");
+  const [playingDate, setPlayingDate] = useState("Date");
+  const [textAreaValue, setTextAreaValue] = useState("[Bets, Entry, Prize, Rules]");
+  const [progs069, setProgs069] = useState("0");
+  const [progAdj, setProgAdj] = useState("0");
   //trick the component into rerendering with tee choice changes
   //eslint-disable-next-line
   const [teeChoiceChangedId, setTeeChoiceChangedId] = useState(0);
   //eslint-disable-next-line
   const [overrideCHChoiceChangedId, setOverrideCHChoiceChangedId] = useState(0);
 
-  useEffect(() => {
+/*   useEffect(() => {
     set('savedTeamTables', teamTables);
     return () => {
       set('savedGame', game);
       set('savedCourse', course);
     }
   //eslint-disable-next-line
-  }, [teamTables])
+  }, [teamTables]) */
 
   useEffect(() => {
     setEachTeamsHcpAndProgs();
@@ -98,29 +100,29 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   const handleLinkTimeChange = (event) => {
     setLinkTime(event.target.value);
     setTeeTimes(event.target.value, teeTimeCount);
-    set('savedLinkTime', event.target.value);
+    //set('savedLinkTime', event.target.value);
   }
 
   const handlePlayingDateChange = (event) => {
     setPlayingDate(event.target.value);
-    set('savedPlayingDate', event.target.value)
+    //set('savedPlayingDate', event.target.value)
   }
 
   const handleTeeTimeCountChange = (event) => {
     setTeeTimeCount(event.target.value);
     setTeeTimes(linkTime, event.target.value);
-    set('savedTeeTimeCount', event.target.value);
+    //set('savedTeeTimeCount', event.target.value);
   }
 
   const handleProgs069Change = (event) => {
     setProgs069(event.target.value);
-    set('savedProgs069', event.target.value);
+    //set('savedProgs069', event.target.value);
     setEachTeamsHcpAndProgs();
   }
 
   const handleProgAdjChange = (event) => {
     setProgAdj(event.target.value);
-    set('savedProgAdj', event.target.value);
+    //set('savedProgAdj', event.target.value);
     setEachTeamsHcpAndProgs();
   }
 
@@ -152,6 +154,11 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   function handleSaveLineupClick(){
     saveLineupToFirebase();
   }
+
+  function handleLoadDeleteSavedLineupClick(){
+    setLoadDeleteSavedLineup(true);
+  }
+
 
   function setTeamHcpAndProgs(teamName){
     
@@ -223,7 +230,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     aTeamProgs = teamProgs;
     teamHcpAndProgs[teamName][0] = aTeamHcp;
     teamHcpAndProgs[teamName][1] = aTeamProgs;
-    set('savedTeamHcpAndProgs', teamHcpAndProgs);
+    //set('savedTeamHcpAndProgs', teamHcpAndProgs);
 
     function computeHcpAndProgs(item){
       let teeChoice = item.teeChoice;
@@ -238,7 +245,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     let teamName = "team" + aTeamNumber;
     const playerIndex = teamTables[teamName].findIndex(player => player.id === Number(anId));
     teamTables[teamName][playerIndex].teeChoice = aTeeChoice;
-    set('savedTeamTables', teamTables);
+    //set('savedTeamTables', teamTables);
   }
 
   function setManualCH(aTeamNumber, anId, aManualCH){
@@ -253,7 +260,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     teamTables[teamName][playerIndex].courseHandicaps[aChosenTeeIndex] = aManualCH;
     teamTables[teamName][playerIndex].manualCH = aManualCH;
 
-    set('savedTeamTables', teamTables);
+    //set('savedTeamTables', teamTables);
 
   }
   function setManualCHCourseHandicaps(teamMembers){
@@ -351,7 +358,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       teamMembers = teamTables[teamName];
       setManualCHCourseHandicaps(teamMembers);
       setEachTeamsHcpAndProgs();
-      teamHcpAndProgs = get('savedTeamHcpAndProgs');
+      //teamHcpAndProgs = get('savedTeamHcpAndProgs');
       let teamHcp = teamHcpAndProgs[teamName][0];
       let teamProgs = teamHcpAndProgs[teamName][1];
       TeamTables[i] = (
@@ -380,6 +387,9 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   <>
   <div className='center'>
   <br></br>
+    <button onClick={handleLoadDeleteSavedLineupClick}>Load/Delete Saved Lineups</button>
+    {loadDeleteSavedLineup && <LineupsList />}
+  <br></br><br></br>
   <LineupTableDropDowns
     playingDateOptionItems={playingDateOptionItems}
     linkTime={linkTime}
@@ -415,7 +425,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     defaultValue={textAreaValue}
     onFocus={event => event.target.value = textAreaValue}
     onBlur={event => {setTextAreaValue(event.target.value); 
-      set('savedTextAreaValue', event.target.value)}}
+      //set('savedTextAreaValue', event.target.value)
+      }}
     >
     </textarea>
     <br></br>

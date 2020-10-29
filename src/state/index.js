@@ -72,6 +72,11 @@ export const teesSelectedState = atom ({
   default: [],
 })
 
+export const loadDeleteSaveLineupsState = atom({
+  key: "loadDeleteSavedLineupsState",
+  default: false,
+})
+
 export const golferStateSelector = selector({
   key: "golferStateSelector",
   get:  ({ get }) => {

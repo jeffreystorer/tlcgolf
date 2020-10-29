@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { useList } from "react-firebase-hooks/database";
 import LineupDataService from "../services/LineupService";
 import Lineup from "./Lineup";
+import {useRecoilState} from 'recoil';
+import * as state from '../state';
 
 const LineupsList = () => {
+  //eslint-disable-next-line
+  const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState);
   const [currentLineup, setCurrentLineup] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
 
@@ -30,6 +34,7 @@ const LineupsList = () => {
     LineupDataService.removeAll()
       .then(() => {
         refreshList();
+        setLoadDeleteSavedLineup(false);
       })
       .catch((e) => {
         console.log(e);
@@ -59,7 +64,7 @@ const LineupsList = () => {
         <button
           onClick={removeAllLineups}
         >
-          Remove All
+          Delete All
         </button>
       
         {currentLineup ? (

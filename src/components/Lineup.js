@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import LineupDataService from "../services/LineupService";
 import { useObject } from 'react-firebase-hooks/database';
 import pushSavedLineupToLocalStorage from '../functions/pushSavedLineupToLocalStorage';
-
+import {useRecoilState} from 'recoil';
+import * as state from '../state';
 
 const Lineup = (props) => {
+
+  //eslint-disable-next-line
+  const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState);
+
   const initialLineupState = {
     key: null,
     title: "",
@@ -35,13 +40,15 @@ const Lineup = (props) => {
     if(!loading && !error) setMessage("Lineup has been loaded.");
     let lineupObj = value.val();
     let savedLineup = lineupObj.lineup;
-    pushSavedLineupToLocalStorage(savedLineup)
+    pushSavedLineupToLocalStorage(savedLineup);
+    setLoadDeleteSavedLineup(false);
   };
 
   const deleteLineup = () => {
     LineupDataService.remove(currentLineup.key)
       .then(() => {
         props.refreshList();
+        setLoadDeleteSavedLineup(false);
       })
       .catch((e) => {
         console.log(e);

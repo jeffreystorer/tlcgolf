@@ -19,7 +19,7 @@ import LoginPage from './LoginPage';
 import SelectTeesPage from './SelectTeesPage';
 import LineupPage from './LineupPage';
 import HelpPage from './HelpPage';
-import LineupsList from './LineupsList';
+//import LineupsList from './LineupsList';
 
 export default function App() {
 
@@ -39,7 +39,7 @@ export default function App() {
           <Games />
         </Route>
         <Route path="/lineup">
-          <Lineups />
+          <Lineup />
         </Route>
         <Route path="/settings" >
           <Settings />
@@ -86,7 +86,7 @@ function Settings () {
   let {path, url} = useRouteMatch();
   return (
     <>
-      <br/>
+    <br></br>
     <nav >
       <NavLink exact to={`${url}/login`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Login</NavLink>
       <NavLink exact to={`${url}/selecttees`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Select Tees</NavLink>
@@ -102,48 +102,12 @@ function Settings () {
 }
 
 
-function Lineup () {
-  let {lineupId } = useParams();
-  let aLineup= lineupId;
-  switch (aLineup) {
-    case "savedlineups":
-      return (
-        <>
-        <LineupsList />
-        </>
-      )
-    default:
-      return (
-        <>
-          <LineupPage />
-        </>
-        )
-  }
 
-}
-
-function Lineups () {
-  let {path, url} = useRouteMatch();
-  return (
-    <>
-      <br/>
-    <nav >
-      <NavLink exact to={`${url}/lineups`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Create/Edit</NavLink>
-      <NavLink exact to={`${url}/savedlineups`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Load/Delete</NavLink>
-    </nav>
-      <Switch>
-        <Route path={`${path}/:lineupId`}>
-          <Lineup />
-        </Route>
-      </Switch>
-    </>
-  );
-}
 
   function  Games() {
   return (
     <>
-      <br/><br/>
+    <br></br>
       <GamesPage />
     </>
   )
@@ -152,8 +116,19 @@ function Lineups () {
   function  Individual() {
     return (
       <>
-        <br/><br/>
+      <br></br>
         <IndividualPage />
       </>
     )
   }
+
+  
+    
+  function  Lineup() {
+    return (
+      <>
+        <LineupPage />
+      </>
+    )
+  }
+
