@@ -37,44 +37,38 @@ const LineupsList = () => {
   };
 
   return (
-    <div className="list row">
-      <div className="col-md-6">
-        <h4>Lineups List</h4>
+    <div className="list">
+        <h4>Saved Lineups List</h4>
 
         {error && <strong>Error: {error}</strong>}
         {loading && <span>Loading...</span>}
-        <ul className="list-group">
+        <ul>
           {!loading &&
             Lineups &&
             Lineups.map((Lineup, index) => (
               <li
-                className={"list-group-item " + (index === currentIndex ? "active" : "")}
+                className={(index === currentIndex ? "active" : "")}
                 onClick={() => setActiveLineup(Lineup, index)}
                 key={index}
               >
                 {Lineup.val().title}
-                {/* Lineup.title */}
               </li>
             ))}
         </ul>
 
         <button
-          className="m-3 btn btn-sm btn-danger"
           onClick={removeAllLineups}
         >
           Remove All
         </button>
-      </div>
-      <div className="col-md-6">
+      
         {currentLineup ? (
           <Lineup Lineup={currentLineup} refreshList={refreshList} />
-        ) : (
-          <div>
-            <br />
-            <p>Please click on a Lineup...</p>
-          </div>
+        ) : (<div>
+              <br></br>
+              <p>Please click on a Lineup to load or delete it...</p>
+            </div>
         )}
-      </div>
     </div>
   );
 };

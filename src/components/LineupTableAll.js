@@ -7,6 +7,7 @@ import * as state from '../state';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
 import {set, get} from '../functions/localStorage';
 import html2canvas from 'html2canvas';
+import saveLineupToFirebase from '../functions/saveLineupToFirebase';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
   const course = useRecoilValue(state.courseState);
@@ -148,6 +149,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     setEachTeamsHcpAndProgs();
   }
 
+  function handleSaveLineupClick(){
+    saveLineupToFirebase();
+  }
+
   function setTeamHcpAndProgs(teamName){
     
     let teamMembers = teamTables[teamName];
@@ -247,11 +252,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     }
     teamTables[teamName][playerIndex].courseHandicaps[aChosenTeeIndex] = aManualCH;
     teamTables[teamName][playerIndex].manualCH = aManualCH;
-    console.clear(); 
-    console.log("playerIndex", playerIndex, "aTeeChoice", aTeeChoice);
-    console.log('aChosenTeeIndex', aChosenTeeIndex);
-    console.log('teamTables')
-    console.table(teamTables);
 
     set('savedTeamTables', teamTables);
 
@@ -350,9 +350,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       let teamName = "team" + i;
       teamMembers = teamTables[teamName];
       setManualCHCourseHandicaps(teamMembers);
-      console.log('generating teamMembers');
-      console.log('teamMembers: ' + i);
-      console.table(teamMembers);
       setEachTeamsHcpAndProgs();
       teamHcpAndProgs = get('savedTeamHcpAndProgs');
       let teamHcp = teamHcpAndProgs[teamName][0];
@@ -382,6 +379,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   return (
   <>
   <div className='center'>
+  <br></br>
   <LineupTableDropDowns
     playingDateOptionItems={playingDateOptionItems}
     linkTime={linkTime}
@@ -420,6 +418,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       set('savedTextAreaValue', event.target.value)}}
     >
     </textarea>
+    <br></br>
+    <button className='center' onClick={handleSaveLineupClick}>
+      Save Lineup
+    </button>
   </div>
   </>
   )

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LineupDataService from "../services/LineupService";
 
+
 const Lineup = (props) => {
   const initialLineupState = {
     key: null,
@@ -52,7 +53,7 @@ const Lineup = (props) => {
   };
 
   return (
-    <div>
+    <div className='center'>
       {currentLineup ? (
         <div className="edit-form">
           <h4>Lineup</h4>

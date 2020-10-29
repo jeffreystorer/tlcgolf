@@ -1,5 +1,4 @@
 import React from 'react';
-//import "bootstrap/dist/css/bootstrap.min.css";
 import {
   RecoilRoot
 } from 'recoil';
@@ -40,7 +39,7 @@ export default function App() {
           <Games />
         </Route>
         <Route path="/lineup">
-          <Lineup />
+          <Lineups />
         </Route>
         <Route path="/settings" >
           <Settings />
@@ -129,10 +128,11 @@ function Lineups () {
     <>
       <br/>
     <nav >
-      <NavLink exact to={`${url}/savedlineups`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Saved Lineups</NavLink>
+      <NavLink exact to={`${url}/lineups`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Create/Edit</NavLink>
+      <NavLink exact to={`${url}/savedlineups`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Load/Delete</NavLink>
     </nav>
       <Switch>
-        <Route path={`${path}/:settingId`}>
+        <Route path={`${path}/:lineupId`}>
           <Lineup />
         </Route>
       </Switch>
