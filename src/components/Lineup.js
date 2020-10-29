@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import LineupDataService from "../services/LineupService";
+import { useObject } from 'react-firebase-hooks/database';
+import pushSavedLineupToLocalStorage from '../functions/pushSavedLineupToLocalStorage';
 
 
 const Lineup = (props) => {
@@ -12,8 +14,8 @@ const Lineup = (props) => {
       playingDate: "",
       teeTimeCount: 0,
       linkTime: "",
-      progs069: "",
-      progsAdj: "",
+      progs069: "0",
+      progsAdj: "0",
       teamTables: {},
       teamHcpAndProgs: {},
       textAreaValue: "",
@@ -27,19 +29,13 @@ const Lineup = (props) => {
     setCurrentLineup(Lineup);
     setMessage("");
   }
-
-   const loadLineup = () => {
-    const data = {
-      title: currentLineup.title
-    };
-
-    LineupDataService.update(currentLineup.key, data)
-      .then(() => {
-        setMessage("Lineup has been loaded.");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  console.log('Lineup.key: ' + Lineup.key);
+  const [value, loading, error] = useObject(LineupDataService.getLineup(Lineup.key));
+  const LoadLineup = () => {
+    if(!loading && !error) setMessage("Lineup has been loaded.");
+    let lineupObj = value.val();
+    let savedLineup = lineupObj.lineup;
+    pushSavedLineupToLocalStorage(savedLineup)
   };
 
   const deleteLineup = () => {
@@ -55,23 +51,22 @@ const Lineup = (props) => {
   return (
     <div className='center'>
       {currentLineup ? (
-        <div className="edit-form">
+        <div>
           <h4>Lineup</h4>
           <form>
-            <div className="form-group">
+            <div>
               <p>{currentLineup.title}</p>
             </div>
           </form>
 
           <button
             type="submit"
-            className="badge badge-success"
-            onClick={loadLineup}
+            onClick={LoadLineup}
           >
             Load
           </button>
 
-          <button className="badge badge-danger mr-2" onClick={deleteLineup}>
+          <button onClick={deleteLineup}>
             Delete
           </button>
           <p>{message}</p>

@@ -1,10 +1,13 @@
 import firebase from "../firebase";
-localStorage.setItem('ghinNumber', "585871")
 let ghinNumber = localStorage.getItem("ghinNumber");
 const db = firebase.ref("/" + ghinNumber);
 
 const getAll = () => {
   return db;
+};
+
+const getLineup = (key) => {
+  return db.child(key);
 };
 
 const create = (data) => {
@@ -25,6 +28,7 @@ const removeAll = () => {
 
 export default {
   getAll,
+  getLineup,
   create,
   update,
   remove,

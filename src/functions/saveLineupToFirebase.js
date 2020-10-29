@@ -13,7 +13,8 @@ export default function saveLineupToFirebase (){
   if (!progsAdj) progsAdj = 0;
   const teamTables = get('savedTeamTables');
   const teamHcpAndProgs = get('savedTeamHcpAndProgs');
-  const textAreaValue = get('savedTextAreaValue');
+  let textAreaValue = get('savedTextAreaValue');
+  if (!textAreaValue) textAreaValue = "[Bets, Entry, Prize, Rules]"
   const initialLineupState = {
     key: null,
     title: "",
