@@ -51,7 +51,7 @@ export default function GamesTable({ratings, slopes, pars}) {
   case 1:
     return(
       <><p className='center-bold'>Click on the dropdown boxes below<br></br>to select a game and a course.</p>
-        <GamesTableDropDowns />
+        <GamesTableDropDowns table="Games"/>
         <br></br>
         <br></br>
         <br></br>

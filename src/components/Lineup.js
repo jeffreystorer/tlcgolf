@@ -3,6 +3,7 @@ import LineupDataService from "../services/LineupService";
 import { useObject } from 'react-firebase-hooks/database';
 import {useRecoilState} from 'recoil';
 import * as state from '../state';
+import '../styles/App.css';
 
 const Lineup = (props) => {
 
@@ -54,7 +55,7 @@ const Lineup = (props) => {
   };
 
   return (
-    <div className='center'>
+    <div className='center list-lineup'>
       {currentLineup ? (
         <div>
           <h4>Lineup</h4>

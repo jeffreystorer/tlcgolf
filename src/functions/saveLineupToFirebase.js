@@ -16,7 +16,7 @@ export default function saveLineupToFirebase (
 
   const saveLineup = () => {
     var data = {
-      title: "Lineup for " + playingDate + " at " + linkTime + " at " + course.toUpperCase(),
+      title: game + ", " + playingDate + " at " + linkTime + " at " + course.toUpperCase(),
       lineup: {
         players: players,
         game: game,

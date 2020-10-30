@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import LineupTableDropDowns from './LineupTableDropDowns';
 import GamesAndLineupTableDropDowns from './GamesAndLineupTableDropDowns';
 import TeamTable from './TeamTable';
@@ -6,12 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
-import {set, get} from '../functions/localStorage';
+//import {set} from '../functions/localStorage';
 import html2canvas from 'html2canvas';
 import saveLineupToFirebase from '../functions/saveLineupToFirebase';
 import LineupsList from './LineupsList';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
+  const textAreaElement = useRef(null)
   const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState)
   const [course, setCourse] = useRecoilState(state.courseState);
   const [game, setGame] = useRecoilState(state.gameState);
@@ -60,26 +61,16 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   //eslint-disable-next-line
   const [overrideCHChoiceChangedId, setOverrideCHChoiceChangedId] = useState(0);
 
-/*   useEffect(() => {
-    set('savedTeamTables', teamTables);
-    return () => {
-      set('savedGame', game);
-      set('savedCourse', course);
+  useEffect(() => {
+    if (textAreaElement.current) {
+      textAreaElement.current.focus();
     }
-  //eslint-disable-next-line
-  }, [teamTables]) */
+  }, );
 
   useEffect(() => {
     setEachTeamsHcpAndProgs();
     return () => {
     setEachTeamsHcpAndProgs();
-    }
-  }, )
-
-  useEffect(() => {
-    set('savedTextAreaValue', textAreaValue)
-    return () => {
-      set('savedTextAreaValue', textAreaValue) 
     }
   }, )
 
@@ -159,11 +150,16 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     setEachTeamsHcpAndProgs();
   }
 
-  const handleTextAreaValueChange = (event) => {
+  const handleTextAreaOnBlur = (event) => {
     setTextAreaValue(event.target.value);
-    set('savedTextAreaValue', event.target.value)
+    //set('savedTextAreaValue', event.target.value);
   }
+  
 
+/*   const handleTextAreaOnChange = (event) => {
+    setTextAreaValue(event.target.value);
+  }
+ */
   function handleSaveLineupClick(){
     saveLineupToFirebase(
       players,
@@ -427,13 +423,14 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         setTeamTables(teamTables);
         setTeeTimeCount(teeTimeCount);
         setTextAreaValue(textAreaValue);
-        set('savedTextAreaValue', textAreaValue)
+        //set('savedTextAreaValue', textAreaValue)
     }
   return (
   <>
   <div className='center'>
-  <br></br>
-  <GamesAndLineupTableDropDowns />
+  <p><span style={{fontWeight: "bold"}} >To change the game:</span><br></br>
+   Go to the Games page.<br></br></p>
+  <GamesAndLineupTableDropDowns table="Lineup"/>
   <br></br>
   <p><span style={{fontWeight: "bold"}} >To load or delete a saved lineup:</span><br></br>
    Click on the "Saved Lineups" button.<br></br></p>
@@ -457,7 +454,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   />
   <br></br><br></br>
   <table id="lineup-table">
-    <caption>Lineup for {playingDate} at {linkTime} at {course.toUpperCase()}</caption>
+    <caption>{"Lineup for " + game + ", " + playingDate + " at " + linkTime + " at " + course.toUpperCase()}</caption>
     <tbody>
       <tr>
         <td>
@@ -469,9 +466,11 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   <textarea 
     id='lineup-textarea'
     rows="8" cols="40"
-    defaultValue={get("savedTextAreaValue")}
-    onFocus={event => event.target.value = get('savedTextAreaValue')}
-    onBlur={handleTextAreaValueChange}
+    autoFocus
+    defaultValue={textAreaValue}
+    onFocus={event => event.target.value = textAreaValue}
+    onBlur={handleTextAreaOnBlur}
+    ref={textAreaElement}
     >
     </textarea>
     <br></br>

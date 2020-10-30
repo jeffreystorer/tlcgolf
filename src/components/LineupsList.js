@@ -4,6 +4,7 @@ import LineupDataService from "../services/LineupService";
 import Lineup from "./Lineup";
 import {useRecoilState} from 'recoil';
 import * as state from '../state';
+import '../styles/App.css';
 
 const LineupsList = ({loadLineupFromFirebase}) => {
   //eslint-disable-next-line
@@ -41,8 +42,12 @@ const LineupsList = ({loadLineupFromFirebase}) => {
       });
   };
 
+  const closeLineupList = () => {    
+    setLoadDeleteSavedLineup(false);
+  }
+
   return (
-    <div className="list">
+    <div className="center list-lineups">
         <h4>Saved Lineups List</h4>
 
         {error && <strong>Error: {error}</strong>}
@@ -66,7 +71,13 @@ const LineupsList = ({loadLineupFromFirebase}) => {
         >
           Delete All
         </button>
-      
+
+        <button
+          onClick={closeLineupList}
+        >
+          Close List
+        </button>
+              
         {currentLineup ? (
           <Lineup
             Lineup={currentLineup}

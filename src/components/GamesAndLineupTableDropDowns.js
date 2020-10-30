@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import * as state from '../state';
 
-export default function GamesAndLineupTableDropDowns() {
+export default function GamesAndLineupTableDropDowns(props) {
   const [course, setCourse] = useRecoilState(state.courseState);
   const [game, setGame] = useRecoilState(state.gameState);
   const games = useRecoilValue(state.gamesState);
@@ -37,10 +37,15 @@ export default function GamesAndLineupTableDropDowns() {
     <>
   <div className='select-dropdown-container'>
     <label className='left-selector'>
-      <select value={game} onChange={handleGameChange}>
+      {props.table === "Lineup"
+        ? <select value={game} onChange={handleGameChange} disabled>
         <option value="">Select Game</option>
         {optionItems}
       </select>
+      : <select value={game} onChange={handleGameChange}>
+        <option value="">Select Game</option>
+        {optionItems}
+      </select>}
     </label>
     <label className='right-selector'>
       <select value={course} onChange={handleCourseChange}>

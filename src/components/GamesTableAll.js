@@ -8,7 +8,7 @@ export default function GamesTableAll({ratings, slopes, pars}) {
 
   return(
     <>
-    <GamesTableDropDowns />
+    <GamesTableDropDowns table="Games" />
     <br/><br/>
     <div>
       <table id='games-table'>
