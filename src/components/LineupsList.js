@@ -5,7 +5,7 @@ import Lineup from "./Lineup";
 import {useRecoilState} from 'recoil';
 import * as state from '../state';
 
-const LineupsList = () => {
+const LineupsList = ({loadLineupFromFirebase}) => {
   //eslint-disable-next-line
   const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState);
   const [currentLineup, setCurrentLineup] = useState(null);
@@ -68,7 +68,10 @@ const LineupsList = () => {
         </button>
       
         {currentLineup ? (
-          <Lineup Lineup={currentLineup} refreshList={refreshList} />
+          <Lineup
+            Lineup={currentLineup}
+            refreshList={refreshList}
+            loadLineupFromFirebase={loadLineupFromFirebase} />
         ) : (<div>
               <br></br>
               <p>Please click on a Lineup to load or delete it...</p>

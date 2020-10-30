@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import LineupDataService from "../services/LineupService";
 import { useObject } from 'react-firebase-hooks/database';
-import pushSavedLineupToLocalStorage from '../functions/pushSavedLineupToLocalStorage';
 import {useRecoilState} from 'recoil';
 import * as state from '../state';
 
@@ -20,7 +19,7 @@ const Lineup = (props) => {
       teeTimeCount: 0,
       linkTime: "",
       progs069: "0",
-      progsAdj: "0",
+      progAdj: "0",
       teamTables: {},
       teamHcpAndProgs: {},
       textAreaValue: "",
@@ -34,13 +33,12 @@ const Lineup = (props) => {
     setCurrentLineup(Lineup);
     setMessage("");
   }
-  console.log('Lineup.key: ' + Lineup.key);
   const [value, loading, error] = useObject(LineupDataService.getLineup(Lineup.key));
   const LoadLineup = () => {
     if(!loading && !error) setMessage("Lineup has been loaded.");
     let lineupObj = value.val();
     let savedLineup = lineupObj.lineup;
-    pushSavedLineupToLocalStorage(savedLineup);
+    props.loadLineupFromFirebase(savedLineup);
     setLoadDeleteSavedLineup(false);
   };
 

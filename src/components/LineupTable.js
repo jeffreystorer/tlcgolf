@@ -3,9 +3,10 @@ import '../styles/App.css';
 import LineupTableAll from './LineupTableAll';
 import GamesAndLineupTableCreate from './GamesAndLineupTableCreate';
 import getGamesAndLineupTableDisplayNumber from '../functions/getGamesAndLineupTableDisplayNumber';
-import {get} from '../functions/localStorage'
+import {get, set} from '../functions/localStorage'
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
+import GamesAndLineupTableDropDowns from './GamesAndLineupTableDropDowns';
 
 export default function LineupTable({ratings, slopes, pars}) { 
   const [games, setGames] = useRecoilState(state.gamesState)
@@ -41,9 +42,11 @@ export default function LineupTable({ratings, slopes, pars}) {
         <GamesAndLineupTableCreate />
         </>
       )
-  case 1:
+  case 1:    
     return(
-      <><p className='center-bold'>Go to the Games page to select a game and a course.</p>
+      <><p className='center-bold'>Click on the dropdown boxes below<br></br>to select a game and a course.</p>
+        {set('savedTextAreaValue', '[Bets, Entry, Prize, Rules]')}
+        <GamesAndLineupTableDropDowns />
       </>
     )
   case 2:

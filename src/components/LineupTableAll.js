@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import LineupTableDropDowns from './LineupTableDropDowns';
+import GamesAndLineupTableDropDowns from './GamesAndLineupTableDropDowns';
 import TeamTable from './TeamTable';
 import { v4 as uuidv4 } from 'uuid';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
-//import {set, get} from '../functions/localStorage';
+import {set, get} from '../functions/localStorage';
 import html2canvas from 'html2canvas';
 import saveLineupToFirebase from '../functions/saveLineupToFirebase';
 import LineupsList from './LineupsList';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
   const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState)
-  const course = useRecoilValue(state.courseState);
-  const game = useRecoilValue(state.gameState);
+  const [course, setCourse] = useRecoilState(state.courseState);
+  const [game, setGame] = useRecoilState(state.gameState);
   const games = useRecoilValue(state.gamesState);
   const teesSelected = useRecoilValue(state.teesSelectedState);
   const teamTablesObj = {
@@ -72,6 +73,13 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     setEachTeamsHcpAndProgs();
     return () => {
     setEachTeamsHcpAndProgs();
+    }
+  }, )
+
+  useEffect(() => {
+    set('savedTextAreaValue', textAreaValue)
+    return () => {
+      set('savedTextAreaValue', textAreaValue) 
     }
   }, )
 
@@ -151,17 +159,30 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     setEachTeamsHcpAndProgs();
   }
 
+  const handleTextAreaValueChange = (event) => {
+    setTextAreaValue(event.target.value);
+    set('savedTextAreaValue', event.target.value)
+  }
+
   function handleSaveLineupClick(){
-    saveLineupToFirebase();
+    saveLineupToFirebase(
+      players,
+      game, 
+      course, 
+      playingDate, 
+      teeTimeCount, 
+      linkTime, 
+      progs069,
+      progAdj, 
+      teamTables,
+      textAreaValue);
   }
 
   function handleLoadDeleteSavedLineupClick(){
     setLoadDeleteSavedLineup(true);
   }
 
-
-  function setTeamHcpAndProgs(teamName){
-    
+  function setTeamHcpAndProgs(teamName){    
     let teamMembers = teamTables[teamName];
     let aTeamHcp = 0;
     let aTeamProgs = 0;
@@ -263,6 +284,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     //set('savedTeamTables', teamTables);
 
   }
+
   function setManualCHCourseHandicaps(teamMembers){
     //iterate through teamMembers
     for (let i = 0; i < teamMembers.length; i++){
@@ -306,6 +328,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       now.setDate(now.getDate() + 1)}
       return playingDates;
     }
+
   const playingDateOptionItems = playingDates().map((playingDate) =>
     <option key={uuidv4()}>{playingDate}</option>);
   const teeTimeCounts = [2,3,4,5,6,7,8,9,10];
@@ -382,13 +405,40 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     }
     return TeamTables;
   }
-
+  function loadLineupFromFirebase({
+    players,
+    course, 
+    game, 
+    linkTime, 
+    playingDate, 
+    progs069, 
+    progAdj,
+    teamTables, 
+    teeTimeCount, 
+    textAreaValue
+    }){
+        setPlayers(players);
+        setCourse(course);
+        setGame(game);
+        setLinkTime(linkTime);
+        setPlayingDate(playingDate);
+        setProgs069(progs069);
+        setProgAdj(progAdj)
+        setTeamTables(teamTables);
+        setTeeTimeCount(teeTimeCount);
+        setTextAreaValue(textAreaValue);
+        set('savedTextAreaValue', textAreaValue)
+    }
   return (
   <>
   <div className='center'>
   <br></br>
-    <button onClick={handleLoadDeleteSavedLineupClick}>Load/Delete Saved Lineups</button>
-    {loadDeleteSavedLineup && <LineupsList />}
+  <GamesAndLineupTableDropDowns />
+  <br></br>
+  <p><span style={{fontWeight: "bold"}} >To load or delete a saved lineup:</span><br></br>
+   Click on the "Saved Lineups" button.<br></br></p>
+    <button onClick={handleLoadDeleteSavedLineupClick}>Saved Lineups</button>
+    {loadDeleteSavedLineup && <LineupsList loadLineupFromFirebase={loadLineupFromFirebase} />}
   <br></br><br></br>
   <LineupTableDropDowns
     playingDateOptionItems={playingDateOptionItems}
@@ -405,9 +455,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     progAdj={progAdj}
     handleProgAdjChange={handleProgAdjChange}
   />
-  <p>
-    Click * to set manual handicap
-  </p>
+  <br></br><br></br>
   <table id="lineup-table">
     <caption>Lineup for {playingDate} at {linkTime} at {course.toUpperCase()}</caption>
     <tbody>
@@ -418,18 +466,27 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       </tr>
     </tbody>
   </table>
-    
   <textarea 
     id='lineup-textarea'
     rows="8" cols="40"
-    defaultValue={textAreaValue}
-    onFocus={event => event.target.value = textAreaValue}
-    onBlur={event => {setTextAreaValue(event.target.value); 
-      //set('savedTextAreaValue', event.target.value)
-      }}
+    defaultValue={get("savedTextAreaValue")}
+    onFocus={event => event.target.value = get('savedTextAreaValue')}
+    onBlur={handleTextAreaValueChange}
     >
     </textarea>
     <br></br>
+  <p><span style={{fontWeight: "bold"}} >To set a manual handicap:</span><br></br>
+    Click <span style={{fontWeight: "bold"}} >*</span> at the end of a player's row<br></br>
+    and select the course handicap.<br></br>
+    Select "Auto" to use GHIN course handicaps again.
+ </p>
+  <p><span style={{fontWeight: "bold"}} >To save a lineup:</span><br></br>
+    Click the "Save Lineup" button.<br></br>
+    Saving a lineup will make it available<br></br>
+    for future use on this device and<br></br>
+    any other device on which you run this app.
+ </p>
+  <br></br>
     <button className='center' onClick={handleSaveLineupClick}>
       Save Lineup
     </button>

@@ -23,6 +23,7 @@ export default function GamesAndLineupTableDropDowns() {
   
   function handleGameChange(e){
   setGame(e.target.value);
+
   }
   try {
     optionItems = games.map((game) =>
