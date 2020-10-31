@@ -77,13 +77,14 @@ const LineupsList = ({loadLineupFromFirebase}) => {
           Close List
         </button>
               
-        {currentLineup ? (
+        {currentLineup ? (<div className='center'>
           <Lineup
             lineupCount={Lineups.length}
             Lineup={currentLineup}
             refreshList={refreshList}
             loadLineupFromFirebase={loadLineupFromFirebase} />
-        ) : (<div>
+            </div>
+        ) : (<div className='center'>
               <br></br>
               <p>Please click on a Lineup to load or delete it...</p>
             </div>

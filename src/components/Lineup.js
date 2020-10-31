@@ -60,11 +60,11 @@ const Lineup = (props) => {
         <div className='center'>
           <h4>Lineup</h4>
           <form>
-            <div>
+            <div className='center'>
               <p>{currentLineup.title}</p>
             </div>
           </form>
-
+        
           <button
             type="submit"
             onClick={LoadLineup}

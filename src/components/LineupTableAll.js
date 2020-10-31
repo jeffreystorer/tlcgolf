@@ -505,7 +505,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         <td>
           <textarea 
           id='lineup-textarea'
-          rows="8" cols="40"
+          rows="8" cols="38"
           value={textAreaValue}
           onChange={handleTextAreaValueChange}
           onFocus={event => event.target.value = textAreaValue}

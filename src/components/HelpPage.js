@@ -136,10 +136,11 @@ export default function HelpPage(){
                     Saving a Lineup
                   </td>
                   <td>
-                    The app automatically saves the lineup for the latest combination of Game and Course.
-                    You can come back to the saved lineup later by going to the Games page and choosing 
-                    that combination of Game and Course.  If you choose a different combination of Game and Course, 
-                    your saved lineup will be replaced with the lineup for the new combination.  
+                    At the bottom of the Lineup page, there is a "Save Lineup" button. Click this 
+                    and your lineup will be saved to storage in the cloud.  You 
+                    can load a saved lineup by clicking the "Saved Lineups" button near the top
+                    of the Lineup page.  Your saved lineups are available on any device where 
+                    you run the app, not just the one on which you created the lineup. 
                     Also, if you make a lineup one day and come back to it the
                      next, the course handicaps will be automatically updated using the players'
                     current indexes.
