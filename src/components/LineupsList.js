@@ -14,7 +14,6 @@ const LineupsList = ({loadLineupFromFirebase}) => {
 
   /* use react-firebase-hooks */
   const [Lineups, loading, error] = useList(LineupDataService.getAll());
-
   const refreshList = () => {
     setCurrentLineup(null);
     setCurrentIndex(-1);

@@ -386,3 +386,26 @@ li:hover{
   color: #c00;
   background-color: #fff;
 }
+
+#lineup-table {  
+  /*border: 1px solid black;*/
+/*   border-top: 2px dashed black;
+  border-bottom: 2px dashed black; */
+  padding-left: 11px;
+}
+
+.lineup-table-head {
+  text-align: left;
+  font: 16px sans-serif;
+  font-weight: bold;
+}
+
+tfoot {
+  text-align: left;
+}
+
+.team-table-footer {
+  text-align: center;
+  font-style: italic;
+  /*font-weight: bold;*/
+}

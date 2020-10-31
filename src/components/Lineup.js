@@ -57,7 +57,7 @@ const Lineup = (props) => {
   return (
     <div className='center list-lineup'>
       {currentLineup ? (
-        <div>
+        <div className='center'>
           <h4>Lineup</h4>
           <form>
             <div>
@@ -78,7 +78,7 @@ const Lineup = (props) => {
           <p>{message}</p>
         </div>
       ) : (
-        <div>
+        <div className='center'>
           <br />
           <p>Please click on a Lineup...</p>
         </div>

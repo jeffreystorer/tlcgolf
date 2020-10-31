@@ -97,7 +97,7 @@ const TeamTable = ({
           <tbody>
               {generateRows()}
           </tbody>
-          <tfoot>
+          <tfoot className='team-table-footer'>
             <tr>
               <td colSpan={teeCount + 2}>
                 <span>Team Hcp: {teamHcp}</span>

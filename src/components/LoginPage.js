@@ -36,6 +36,7 @@ function LoginPage() {
     setIsLoggedIn(ghinNumber, lastName);
     setSheetURL(ghinNumber);
     if (get('isLoggedIn') === 'true') {fetchPlayersAndGames(ghinNumber)}
+    set('showTips', true);
     document.location='/settings/selecttees';
     }
 
