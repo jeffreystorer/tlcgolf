@@ -46,7 +46,7 @@ const Lineup = (props) => {
   const deleteLineup = () => {
     LineupDataService.remove(currentLineup.key)
       .then(() => {
-        props.refreshList();
+        if (props.lineupCount > 1) props.refreshList();
         setLoadDeleteSavedLineup(false);
       })
       .catch((e) => {

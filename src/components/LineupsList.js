@@ -33,7 +33,7 @@ const LineupsList = ({loadLineupFromFirebase}) => {
   const removeAllLineups = () => {
     LineupDataService.removeAll()
       .then(() => {
-        refreshList();
+        //refreshList();
         setLoadDeleteSavedLineup(false);
       })
       .catch((e) => {
@@ -79,6 +79,7 @@ const LineupsList = ({loadLineupFromFirebase}) => {
               
         {currentLineup ? (
           <Lineup
+            lineupCount={Lineups.length}
             Lineup={currentLineup}
             refreshList={refreshList}
             loadLineupFromFirebase={loadLineupFromFirebase} />

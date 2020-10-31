@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import LineupTableDropDowns from './LineupTableDropDowns';
 import GamesAndLineupTableDropDowns from './GamesAndLineupTableDropDowns';
 import TeamTable from './TeamTable';
@@ -16,7 +16,6 @@ import LineupDataService from "../services/LineupService";
 
 export default function LineupTableAll({ratings, slopes, pars}) {
   const [showTips, setShowTips] = useState(get('showTips'));
-  const savedTextAreaValue = useRef(null)
   const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState)
   const [course, setCourse] = useRecoilState(state.courseState);
   const [game, setGame] = useRecoilState(state.gameState);
@@ -61,26 +60,11 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   const [teeChoiceChangedId, setTeeChoiceChangedId] = useState(0);
   //eslint-disable-next-line
   const [overrideCHChoiceChangedId, setOverrideCHChoiceChangedId] = useState(0);
-/* 
-  useEffect(() => {
-    if (textAreaElement.current) {
-      textAreaElement.current.focus();
-    }
-  }, ); */
 
   useEffect(() => {
     setEachTeamsHcpAndProgs();
     return () => {
     setEachTeamsHcpAndProgs();
-    }
-  }, )
-
-  useEffect(() => {
-    savedTextAreaValue.current = textAreaValue;
-    console.log("useEffect: " + savedTextAreaValue.current)
-    return () => {
-      savedTextAreaValue.current = textAreaValue;
-      console.log("useEffect cleanup: " + savedTextAreaValue.current)
     }
   }, )
 
@@ -118,9 +102,13 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }
 
   const handleTeeTimeCountChange = (event) => {
+    const oldCount = teeTimeCount;
+    const newCount = event.target.value;
+    const droppedTimesCount = oldCount-newCount;
+    console.log('dropped: '+ droppedTimesCount)
+    if (droppedTimesCount > 0) restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount, droppedTimesCount)
     setTeeTimeCount(event.target.value);
     setTeeTimes(linkTime, event.target.value);
-    //set('savedTeeTimeCount', event.target.value);
   }
 
   const handleProgs069Change = (event) => {
@@ -135,6 +123,16 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     setEachTeamsHcpAndProgs();
   }
 
+  function restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount, droppedTimesCount){
+    console.log(oldCount, newCount, droppedTimesCount)
+    for (let i = newCount; i < oldCount; i++){
+      let teamName = "team" + i;
+      console.log(teamName)
+      teamTables[teamName] = [];
+      console.table(teamTables[teamName])
+    }
+
+  }
   function setEachTeamsHcpAndProgs(){
     for (let i = 0; i < teeTimeCount; i++){
       let teamName = "team" + i;
@@ -165,11 +163,10 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     //set('savedTextAreaValue', event.target.value);
   }
   
-
-/*   const handleTextAreaOnChange = (event) => {
+  const handleTextAreaValueChange = (event) => {
     setTextAreaValue(event.target.value);
   }
- */
+
 
   function handleShowTipsChange(){
     set('showTips', !showTips);
@@ -327,7 +324,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       }
     }
   }
-
+  
   const playingDates = () => {
       let playingDates = [];
       const now = new Date();
@@ -343,7 +340,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
 
   const playingDateOptionItems = playingDates().map((playingDate) =>
     <option key={uuidv4()}>{playingDate}</option>);
-  const teeTimeCounts = [2,3,4,5,6,7,8,9,10];
+  const teeTimeCounts = [1,2,3,4,5,6,7,8,9,10];
+  
   const teeTimeCountOptionItems = teeTimeCounts.map((count) =>
     <option key={uuidv4()} value={count}>{count + "  tee times"}</option>);
   const linkTimes = () => {
@@ -445,7 +443,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   const savedLineupCount = () => {
     return Lineups.length
   }
-  //setSavedLineupCount(Lineups.length);
+ 
   return (
   <>
   <div className='center'>
@@ -454,8 +452,9 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         <p><span style={{fontWeight: "bold"}} >To change the game:</span><br></br>
         Go to the Games page.<br></br></p>        
         <p><span style={{fontWeight: "bold"}} >To change the course:</span><br></br>
-        Click on the dropdown below:<br></br></p>
+        Click on the dropdown below:</p>
       </div>}
+      <br></br>
   <GamesAndLineupTableDropDowns table="Lineup"/>
   <br></br>
     {savedLineupCount() > 0 &&
@@ -503,15 +502,15 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     </tbody>
     <tfoot>
       <tr>
-        <td>          
+        <td>
           <textarea 
           id='lineup-textarea'
           rows="8" cols="40"
-          autoFocus
-          defaultValue={savedTextAreaValue.current}
+          value={textAreaValue}
+          onChange={handleTextAreaValueChange}
           onFocus={event => event.target.value = textAreaValue}
           onBlur={handleTextAreaOnBlur}
-          //ref={textAreaElement}
+          autoFocus
           >
           </textarea>
         </td>
