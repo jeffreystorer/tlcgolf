@@ -33,7 +33,7 @@ export default function saveLineupToFirebase (
 
     LineupDataService.create(data)
       .then(() => {
-        
+       alert("Lineup Saved") 
       })
       .catch(e => {
         console.log(e);
