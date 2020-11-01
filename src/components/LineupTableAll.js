@@ -105,7 +105,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     const oldCount = teeTimeCount;
     const newCount = event.target.value;
     const droppedTimesCount = oldCount-newCount;
-    console.log('dropped: '+ droppedTimesCount)
     if (droppedTimesCount > 0) restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount, droppedTimesCount)
     setTeeTimeCount(event.target.value);
     setTeeTimes(linkTime, event.target.value);
@@ -124,12 +123,9 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }
 
   function restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount, droppedTimesCount){
-    console.log(oldCount, newCount, droppedTimesCount)
     for (let i = newCount; i < oldCount; i++){
       let teamName = "team" + i;
-      console.log(teamName)
       teamTables[teamName] = [];
-      console.table(teamTables[teamName])
     }
 
   }
@@ -434,7 +430,11 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         setPlayingDate(playingDate);
         setProgs069(progs069);
         setProgAdj(progAdj)
-        setTeamTables(teamTables);
+        if (teamTables) {
+          setTeamTables(teamTables)
+          } else {
+          setTeamTables(teamTablesObj)
+        };
         setTeeTimeCount(teeTimeCount);
         setTextAreaValue(textAreaValue);
     }
@@ -502,7 +502,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     </tbody>
     <tfoot>
       <tr>
-        <td>
+        <td className='center text-area-cell'>
           <textarea 
           id='lineup-textarea'
           rows="8" cols="39"
@@ -510,7 +510,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
           onChange={handleTextAreaValueChange}
           onFocus={event => event.target.value = textAreaValue}
           onBlur={handleTextAreaOnBlur}
-          autoFocus
           >
           </textarea>
         </td>

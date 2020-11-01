@@ -22,7 +22,6 @@ const Lineup = (props) => {
       progs069: "0",
       progAdj: "0",
       teamTables: {},
-      teamHcpAndProgs: {},
       textAreaValue: "",
     },
   };

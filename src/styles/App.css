@@ -409,3 +409,7 @@ tfoot {
   font-style: italic;
   /*font-weight: bold;*/
 }
+
+textarea{
+  resize: both;
+}
