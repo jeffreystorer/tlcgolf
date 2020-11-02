@@ -6,13 +6,14 @@ import { v4 as uuidv4 } from 'uuid';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
-//import {set} from '../functions/localStorage';
 import html2canvas from 'html2canvas';
+import domtoimage from 'dom-to-image';
 import saveLineupToFirebase from '../functions/saveLineupToFirebase';
 import LineupsList from './LineupsList';
 import { get, set } from '../functions/localStorage';
 import { useList } from "react-firebase-hooks/database";
 import LineupDataService from "../services/LineupService";
+import { saveAs } from './FileSaver.js';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
   const [showTips, setShowTips] = useState(get('showTips'));
@@ -446,7 +447,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
  
   return (
   <>
-  <div className='center'>
+  <div id='lineup-page' className='center'>
     {showTips && 
       <div>
         <p><span style={{fontWeight: "bold"}} >To change the game:</span><br></br>
@@ -485,6 +486,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     handleProgAdjChange={handleProgAdjChange}
   />
   <br></br><br></br>
+  <div id='lineup-table-div'>
   <table id="lineup-table">
     <thead className='lineup-table-head'>
       <tr>
@@ -516,6 +518,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       </tr>
     </tfoot>
   </table>
+  </div>
     {showTips && 
       <div>
           <p><span style={{fontWeight: "bold"}} >To set a manual handicap:</span><br></br>
@@ -533,10 +536,23 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   <br></br>
     <button className='center' onClick={handleSaveLineupClick}>
       Save Lineup
-    </button><br></br><br></br>
+    </button>
+    {showTips && 
+      <div>
+          <p><span style={{fontWeight: "bold"}} >To download a screenshot of the lineup:</span><br></br>
+            Click the "Download Screenshot" button.<br></br>
+            This will download a screenshot of the lineup<br></br>
+            to your download folder.  You can then crop it<br></br>
+            using an image editor, such as Paint, and save it<br></br>
+            for use in an email to your players.
+        </p>
+      </div>}
+    <br></br>
+    <button className='center' onClick={DownloadPNG}>Download Screenshot</button>
+    <br></br><br></br>
     <input type='checkbox' id='showTips'onChange={handleShowTipsChange} defaultChecked={showTips}></input>
-    <label htmlFor='showTips'>Show Tips</label> 
-  </div>
+    <label htmlFor='showTips'>Show Tips</label>
+    </div>
   </>
   )
 }
@@ -564,4 +580,63 @@ export function screenShot(){
     });
 }
 
+export function getScreenShot(){
+        let src = document.getElementById('lineup-table-div');
+        html2canvas(src, {
+          width: 500,
+          height: 1500,
+        }).then(function(canvas) {
+          document.getElementById("lineup-page").appendChild(canvas);
+          canvas.toBlob(function(blob) {
+            navigator.clipboard
+              .write([
+                new window.ClipboardItem(
+                  Object.defineProperty({}, blob.type, {
+                    value: blob,
+                    enumerable: true
+                  })
+                )
+              ])
+              .then(function() {
+                  // do something
+                  alert("Screenshot captured to clipboard")
+              });
+          });
+        });
+      }
 
+export function downloadScreenShot(){
+  domtoimage.toJpeg(document.getElementById('lineup-page'), { quality: 0.95 })
+    .then(function (dataUrl) {
+        var link = document.createElement('a');
+        link.download = 'lineup.jpeg';
+        link.href = dataUrl;
+        link.click();
+    });
+}
+
+export function DownloadPNG(){
+ 
+  // eslint-disable-next-line no-unused-vars
+  const [course, setCourse] = useRecoilState(state.courseState);  
+  // eslint-disable-next-line no-unused-vars
+  const [game, setGame] = useRecoilState(state.gameState);
+  domtoimage.toBlob(document.getElementById('lineup-table-div'))
+    .then(function (blob) {
+        saveAs(blob, 'Lineup for ' + game + " at " + course.toUpperCase() + '.png');
+    });
+}
+
+export function displayPNG(){
+var node = document.getElementById('lineup-table-div');
+
+domtoimage.toPng(node)
+    .then(function (dataUrl) {
+        var img = new Image();
+        img.src = dataUrl;
+        document.body.appendChild(img);
+    })
+    .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+    });
+}
