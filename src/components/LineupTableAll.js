@@ -6,14 +6,12 @@ import { v4 as uuidv4 } from 'uuid';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
-import html2canvas from 'html2canvas';
-import domtoimage from 'dom-to-image';
 import saveLineupToFirebase from '../functions/saveLineupToFirebase';
 import LineupsList from './LineupsList';
 import { get, set } from '../functions/localStorage';
 import { useList } from "react-firebase-hooks/database";
 import LineupDataService from "../services/LineupService";
-import { saveAs } from './FileSaver.js';
+import ButtonDownloadScreenShot from './ButtonDownloadScreenshot';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
   const [showTips, setShowTips] = useState(get('showTips'));
@@ -547,8 +545,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
             for use in an email to your players.
         </p>
       </div>}
-    <br></br>
-    <button className='center' onClick={DownloadPNG}>Download Screenshot</button>
+    <br></br><br></br>
+    <ButtonDownloadScreenShot game={game} course={course} element='lineup-table-div'/>
     <br></br><br></br>
     <input type='checkbox' id='showTips'onChange={handleShowTipsChange} defaultChecked={showTips}></input>
     <label htmlFor='showTips'>Show Tips</label>
@@ -572,71 +570,9 @@ export const getPlayersNotInTeeTime = (playersList, teamTables) => {
       team9.find(p => p.id === player.id));
   });
 }
-export function screenShot(){
- //let input = document.getElementById('lineup-table');
 
-  html2canvas(document.body).then(function(canvas){  
-    document.body.appendChild(canvas);
-    });
-}
 
-export function getScreenShot(){
-        let src = document.getElementById('lineup-table-div');
-        html2canvas(src, {
-          width: 500,
-          height: 1500,
-        }).then(function(canvas) {
-          document.getElementById("lineup-page").appendChild(canvas);
-          canvas.toBlob(function(blob) {
-            navigator.clipboard
-              .write([
-                new window.ClipboardItem(
-                  Object.defineProperty({}, blob.type, {
-                    value: blob,
-                    enumerable: true
-                  })
-                )
-              ])
-              .then(function() {
-                  // do something
-                  alert("Screenshot captured to clipboard")
-              });
-          });
-        });
-      }
 
-export function downloadScreenShot(){
-  domtoimage.toJpeg(document.getElementById('lineup-page'), { quality: 0.95 })
-    .then(function (dataUrl) {
-        var link = document.createElement('a');
-        link.download = 'lineup.jpeg';
-        link.href = dataUrl;
-        link.click();
-    });
-}
 
-export function DownloadPNG(){
- 
-  // eslint-disable-next-line no-unused-vars
-  const [course, setCourse] = useRecoilState(state.courseState);  
-  // eslint-disable-next-line no-unused-vars
-  const [game, setGame] = useRecoilState(state.gameState);
-  domtoimage.toBlob(document.getElementById('lineup-table-div'))
-    .then(function (blob) {
-        saveAs(blob, 'Lineup for ' + game + " at " + course.toUpperCase() + '.png');
-    });
-}
 
-export function displayPNG(){
-var node = document.getElementById('lineup-table-div');
 
-domtoimage.toPng(node)
-    .then(function (dataUrl) {
-        var img = new Image();
-        img.src = dataUrl;
-        document.body.appendChild(img);
-    })
-    .catch(function (error) {
-        console.error('oops, something went wrong!', error);
-    });
-}
