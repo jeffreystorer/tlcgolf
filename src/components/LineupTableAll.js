@@ -561,14 +561,14 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       <div>
           <p><span style={{fontWeight: "bold"}} >To download a screenshot of the lineup:</span><br></br>
             Click the "Download Screenshot" button.<br></br>
-            This will download a screenshot of the lineup<br></br>
-            to your download folder.  You can then crop it<br></br>
+            On a computer, this will download a screenshot<br></br>
+            of the lineup to your download folder.  You can then open it<br></br>
             using an image editor, such as Paint, and save it<br></br>
             for use in an email to your players.
         </p>
       </div>}
     <br></br><br></br>
-    <ButtonDownloadScreenShot game={game} course={course} element='lineup-table-div'/>
+    <ButtonDownloadScreenShot game={game} course={course} element='lineup-table-div' format="PNG" />
     <br></br><br></br>
     <input type='checkbox' id='showTips'onChange={handleShowTipsChange} defaultChecked={showTips}></input>
     <label htmlFor='showTips'>Show Tips</label>
