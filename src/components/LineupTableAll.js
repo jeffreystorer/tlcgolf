@@ -529,7 +529,50 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   </div>
   </table>
     {showTips && 
-      <div>
+    <div>
+        <table className='table-tip'>
+          <thead>
+            <tr>
+              <th>
+              To set a manual handicap:
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+              Click <span style={{fontWeight: "bold"}} >*</span> at the end of a player's row 
+              and select the course handicap. 
+              Select "Auto" to use GHIN course handicaps again.
+              </td>
+            </tr>
+          </tbody>
+        </table><br></br>
+        <table className='table-tip'>
+          <thead>
+            <tr>
+              <th>
+              To save a lineup:
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+              Click the "Save Lineup" button and your lineup will be saved to storage in the cloud.  You 
+              can load a saved lineup by clicking the "Saved Lineups" button near the top
+              of this page.  Your saved lineups are available on any device where 
+              you run the app, not just the one on which you created the lineup. 
+              Also, if you make a lineup one day and come back to it the
+              next, the course handicaps will be automatically updated using the players'
+              current indexes.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+    }
+{/*       <div>
           <p><span style={{fontWeight: "bold"}} >To set a manual handicap:</span><br></br>
             Click <span style={{fontWeight: "bold"}} >*</span> at the end of a player's row<br></br>
             and select the course handicap.<br></br>
@@ -541,7 +584,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
             for future use on this device and<br></br>
             any other device on which you run this app.
         </p>
-      </div>}
+      </div>} */}
   <br></br>
     <button className='center' onClick={handleSaveLineupClick}>
       Save Lineup
@@ -559,14 +602,49 @@ export default function LineupTableAll({ratings, slopes, pars}) {
 />
     {showTips && 
       <div>
+      <br></br>
+        <table className='table-tip'>
+          <thead>
+            <tr>
+              <th>
+                To download a screenshot of the lineup:
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+              Click the "Download Screenshot" button. 
+              On a computer, this will download a screenshot 
+              of the lineup to your download folder.  You can then insert 
+              it into an email to your players. 
+              On an iPad or iPhone, this should open up a popup 
+              with the image.  A long press on the image 
+              will let you save the image or copy it 
+              to the clipboard.  You can then paste it 
+              into an e-mail to your players. 
+              On an Android device, the downloaded file 
+              does not display properly.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>}
+      {/* <div>
           <p><span style={{fontWeight: "bold"}} >To download a screenshot of the lineup:</span><br></br>
             Click the "Download Screenshot" button.<br></br>
             On a computer, this will download a screenshot<br></br>
-            of the lineup to your download folder.  You can then open it<br></br>
-            using an image editor, such as Paint, and save it<br></br>
-            for use in an email to your players.
+            of the lineup to your download folder.  You can then insert<br></br>
+            it into an email to your players.<br></br>
+            On an iPad or iPhone, this should open up a popup<br></br>
+            with the image.  A long press on the image<br></br>
+            will let you save the image or copy it<br></br>
+            to the clipboard.  You can then paste it<br></br>
+            into an e-mail to your players.<br></br>
+            On an Android device, the downloaded file<br></br>
+            does not display properly.
         </p>
-      </div>}
+      </div>} */}
     <br></br><br></br>
     <ButtonDownloadScreenShot game={game} course={course} element='lineup-table-div' format="PNG" />
     <br></br><br></br>
