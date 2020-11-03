@@ -12,6 +12,8 @@ import { get, set } from '../functions/localStorage';
 import { useList } from "react-firebase-hooks/database";
 import LineupDataService from "../services/LineupService";
 import ButtonDownloadScreenShot from './ButtonDownloadScreenshot';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
   const [showTips, setShowTips] = useState(get('showTips'));
@@ -180,6 +182,15 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       progAdj, 
       teamTables,
       textAreaValue);
+    toast("Lineup Saved",{
+      position: "bottom-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
   }
 
   function handleLoadDeleteSavedLineupClick(){
@@ -467,7 +478,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         <button onClick={handleLoadDeleteSavedLineupClick}>Saved Lineups</button>
         {loadDeleteSavedLineup && <LineupsList loadLineupFromFirebase={loadLineupFromFirebase} />}
       </div>}
-  <br></br><br></br>
+  <br></br>
   <LineupTableDropDowns
     playingDateOptionItems={playingDateOptionItems}
     linkTime={linkTime}
@@ -484,8 +495,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     handleProgAdjChange={handleProgAdjChange}
   />
   <br></br><br></br>
-  <div id='lineup-table-div'>
   <table id="lineup-table">
+  <div id='lineup-table-div'>
     <thead className='lineup-table-head'>
       <tr>
         <td>
@@ -515,8 +526,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         </td>
       </tr>
     </tfoot>
-  </table>
   </div>
+  </table>
     {showTips && 
       <div>
           <p><span style={{fontWeight: "bold"}} >To set a manual handicap:</span><br></br>
@@ -535,6 +546,17 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     <button className='center' onClick={handleSaveLineupClick}>
       Save Lineup
     </button>
+    <ToastContainer
+      position="bottom-center"
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+/>
     {showTips && 
       <div>
           <p><span style={{fontWeight: "bold"}} >To download a screenshot of the lineup:</span><br></br>
