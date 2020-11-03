@@ -195,9 +195,9 @@ table, .golfer-center{
   width: 90%;  
 }
 
-/* table.table-tip{
-  width: 28%;
-} */
+.table-tip-td{
+  text-align: left;
+}
 
 .lineup-left-header-cell{
   width: 200px;

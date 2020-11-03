@@ -163,7 +163,8 @@ export default function HelpPage(){
                     to the clipboard.  You can insert this  
                     into an e-mail to your players.
                     On an Android device, the downloaded file 
-                    does not display properly.
+                    does not display properly, so you will need 
+                    to take a screenshot manually.
                   </td>
                 </tr>
               </tbody>
