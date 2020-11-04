@@ -45,14 +45,14 @@ function createPlayersAndGames (values) {
     playerTable[0].unshift('All');
     set('games', playerTable[0]);
     playerTable.splice(0,1);
-    addFirstNameIndexGenderCols(playerTable);
+    addFirstNameIndexGenderLocalCols(playerTable);
     set('players', playerTable);
   }
 
-  function addFirstNameIndexGenderCols(playerTable){
+  function addFirstNameIndexGenderLocalCols(playerTable){
     let i;
     for (i = 0; i < playerTable.length; i++) {
-      playerTable[i].splice(2,0, "", "", "");
+      playerTable[i].splice(2,0, "", "", "", "");
     }
   }
   createAndSavePlayerTable();

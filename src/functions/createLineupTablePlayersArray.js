@@ -31,7 +31,7 @@ export default function createLineupTablePlayersArrray (course,
         doAdd(item, index)
         break;
       default:
-        let gameIndex = gameNumber + 4;
+        let gameIndex = gameNumber + 5;
         if ((item[gameIndex] === "Yes")|| (item[gameIndex] === "YES") || (item[gameIndex] === 'yes')){
           doAdd(item, index);
         }

@@ -10,15 +10,18 @@ import preval from 'preval.macro';
 function LoginPage() {
   const build = "Build: " + preval`module.exports = new Date().toLocaleString();`
 
-  let ghinNumber, lastName;
+  let ghinNumber, lastName, showTips;
+  ghinNumber = get('ghinNumber');
+  lastName = get('lastName');
+  showTips = get('showTips');
 
   useEffect(() => {
     localStorage.clear();
     set('isLoggedIn', "false");
-    //eslint-disable-next-line
+   /*  //eslint-disable-next-line
     ghinNumber = "";
     //eslint-disable-next-line
-    lastName = "";
+    lastName = ""; */
     ////eslint-disable-next-line
   },[]);
   
@@ -36,7 +39,7 @@ function LoginPage() {
     setIsLoggedIn(ghinNumber, lastName);
     setSheetURL(ghinNumber);
     if (get('isLoggedIn') === 'true') {fetchPlayersAndGames(ghinNumber)}
-    set('showTips', true);
+    set('showTips', showTips);
     document.location='/settings/selecttees';
     }
 
@@ -55,7 +58,7 @@ function LoginPage() {
               type="text" 
               id="ghinnumber" 
               name="ghinnumber"
-              defaultValue=""
+              defaultValue={ghinNumber}
               onFocus={event => event.target.value = get('ghinNumber')}
               onBlur={event => ghinNumber = event.target.value}
             />
@@ -69,7 +72,7 @@ function LoginPage() {
               type="text" 
               id="lastName" 
               name="lastName"
-              defaultValue=""
+              defaultValue={lastName}
               onFocus={event => event.target.value = get('lastName')}
               onBlur={event => lastName = event.target.value}
             />
