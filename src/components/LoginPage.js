@@ -14,6 +14,7 @@ function LoginPage() {
   ghinNumber = get('ghinNumber');
   lastName = get('lastName');
   showTips = get('showTips');
+  let teesSelected = get('teesSelected');
 
   useEffect(() => {
     localStorage.clear();
@@ -40,6 +41,7 @@ function LoginPage() {
     setSheetURL(ghinNumber);
     if (get('isLoggedIn') === 'true') {fetchPlayersAndGames(ghinNumber)}
     set('showTips', showTips);
+    set('teesSelected', teesSelected)
     document.location='/settings/selecttees';
     }
 

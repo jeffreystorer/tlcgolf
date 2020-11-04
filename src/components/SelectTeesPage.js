@@ -1,9 +1,16 @@
 import React from 'react';
+import { get } from '../functions/localStorage';
 import '../styles/App.css';
 
 const SelectTeesPage = () => {
   let tees = [];
+  let teesSelected;
   let defaultValue = ["C","C/M", "M"];
+  if (get('teesSelected')) {
+    teesSelected = get('teesSelected');
+    let teesSelectedArray = teesSelected.map(a => a.value);
+    defaultValue = teesSelectedArray;
+    }
 
 
   function handleSubmit(e){
@@ -25,7 +32,7 @@ const SelectTeesPage = () => {
       Please select one or more tees,<br/>
       then click "Next", or,<br/>
       just click "Next" to accept<br/>
-      the default set of C, C/M, M:
+      the tees already selected:
     </h5>
     <br/>
     <form onSubmit={handleSubmit}>
