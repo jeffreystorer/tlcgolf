@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import '../styles/App.css';
 import GamesTableAll from './GamesTableAll';
 import GamesAndLineupTableCreate from './GamesAndLineupTableCreate';
