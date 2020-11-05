@@ -619,7 +619,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         </table>
       </div>}
     <br></br><br></br>
-    <ButtonDownloadScreenShot game={game} course={course} element='lineup-table-div' format="PNG" />
+    <ButtonDownloadScreenShot game={game} course={course} element='lineup-table-div' format="PNG" page="Lineup" />
     <br></br><br></br>
     <input type='checkbox' id='showTips'onChange={handleShowTipsChange} defaultChecked={showTips}></input>
     <label htmlFor='showTips'>Show Tips</label>

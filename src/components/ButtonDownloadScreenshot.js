@@ -7,21 +7,28 @@ const ButtonDownLoadScreenshot = ({
     game,
     course,
     element,
-    format
+    format,
+    page
 }) => {
 
 function handleClick(){
+  let fileName;
+  if (page === "Lineup") {
+    fileName = 'Lineup for ' + game + " at " + course.toUpperCase() + '.png'
+  } else {
+    fileName = 'Course Handicaps for ' + game + " at " + course.toUpperCase();
+  }
   if (format === "PNG") {
     domtoimage.toBlob(document.getElementById(element))
       .then(function (blob) {
-          saveAs(blob, 'Lineup for ' + game + " at " + course.toUpperCase() + '.png');
+          saveAs(blob, fileName + '.png');
       });
     }
   if (format === "JPEG"){
     domtoimage.toJpeg(document.getElementById(element), { quality: 0.95 })
     .then(function (dataUrl) {
         var link = document.createElement('a');
-        link.download = 'Lineup for ' + game + " at " + course.toUpperCase() + '.jpeg';
+        link.download = fileName + '.jpeg';
         link.href = dataUrl;
         link.click();
     });

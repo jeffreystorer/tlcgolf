@@ -10,10 +10,11 @@ import preval from 'preval.macro';
 function LoginPage() {
   const build = "Build: " + preval`module.exports = new Date().toLocaleString();`
 
-  let ghinNumber, lastName, showTips;
-  ghinNumber = get('ghinNumber');
-  lastName = get('lastName');
-  showTips = get('showTips');
+  let ghinNumber, lastName, showTips, showLocalNumbers;
+  ghinNumber = get('ghinNumber') ? get('ghinNumber') : "GHIN Number";
+  lastName = get('lastName') ? get("lastName") : "Last Name";
+  showTips = get('showTips') ? get('showTips') : "true";
+  showLocalNumbers = get('showLocalNumbers') ? get('showLocalNumbers') : "true";
   let teesSelected = get('teesSelected');
 
   useEffect(() => {
@@ -41,6 +42,7 @@ function LoginPage() {
     setSheetURL(ghinNumber);
     if (get('isLoggedIn') === 'true') {fetchPlayersAndGames(ghinNumber)}
     set('showTips', showTips);
+    set('showLocalNumbers', showLocalNumbers)
     set('teesSelected', teesSelected)
     document.location='/settings/selecttees';
     }

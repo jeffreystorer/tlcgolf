@@ -35,7 +35,6 @@ export default function fetchGamesGHIN() {
 
   const localNumber = (golfer) => {
     const targetIndex = golfer.golfers.findIndex(item => item.ClubId=== "13961")
-    console.log('targetIndex', targetIndex)
     if (targetIndex > -1) {
       return golfer.golfers[targetIndex].Local
     } else {
