@@ -127,6 +127,13 @@ function checkValidServiceWorker(swUrl, config) {
       );
     });
 }
+window.addEventListener('fetch', function (event) {
+  event.respondWith(
+    fetch(event.request).catch(function () {
+      return caches.match(event.request);
+    }),
+  );
+});
 
 export function unregister() {
   if ('serviceWorker' in navigator) {
@@ -139,3 +146,4 @@ export function unregister() {
       });
   }
 }
+
