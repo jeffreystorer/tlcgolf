@@ -16,6 +16,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
+  const [randomTeams, setRandomTeams] = useState(false);
   const [showTips, setShowTips] = useState(get('showTips'));
   const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState)
   const [course, setCourse] = useRecoilState(state.courseState);
@@ -69,7 +70,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     }
   }, )
 
-  const playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount);
+  
+  let playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount, randomTeams);
   //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray);
 
@@ -168,6 +170,12 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   function handleShowTipsChange(){
     set('showTips', !showTips);
     setShowTips(!showTips);
+  }
+
+  function handleRandomTeamsChange(){
+    playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount, !randomTeams);
+    setPlayers(playersArray);
+    setRandomTeams(!randomTeams);
   }
 
   function handleSaveLineupClick(){
@@ -494,7 +502,38 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     progAdj={progAdj}
     handleProgAdjChange={handleProgAdjChange}
   />
-  <br></br><br></br>
+    <br></br><br></br>
+    {showTips && 
+      <div>
+      <br></br>
+        <table className='table-tip'>
+          <thead>
+            <tr>
+              <th>
+                To randomize the list of players:
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className='table-tip-td'>
+              Check the "Random Teams" box.  
+              This will randomize the list of players 
+              in your game that appears in the teetime 
+              dropdowns.  You can go back to alphabetical
+              order by unchecking the box.  If you check it 
+              again, you will get a different randomized
+              list.  The random list with which you make 
+              a game will be saved with the game and 
+              restored when you load the saved game.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>}
+    <input type='checkbox' id='randomTeams'onChange={handleRandomTeamsChange} defaultChecked={randomTeams}></input>
+    <label htmlFor='randomTeams'>Random Teams</label>
+    <br></br><br></br>
   <table id="lineup-table">
   <div id='lineup-table-div'>
     <thead className='lineup-table-head'>

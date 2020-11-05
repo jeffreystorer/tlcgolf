@@ -1,7 +1,7 @@
 import {tees} from '../data';
 import setRatingSlopePar from '../functions/setRatingSlopePar';
 
-export default function createIndividualTableBodyRows (table, rawIndex, gender, teesSelected, ratings, slopes, pars) {
+export default function createIndividualTableBodyRows (table, rawIndex, gender, teesSelected, ratings, slopes, pars, shuffle) {
   if (!rawIndex) rawIndex = "0.0"
 
 //declare some variables

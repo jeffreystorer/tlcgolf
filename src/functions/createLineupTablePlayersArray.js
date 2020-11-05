@@ -1,6 +1,7 @@
 import {tees, courses} from '../data';
 import {get} from './localStorage';
-import setRatingSlopePar from './setRatingSlopePar'
+import setRatingSlopePar from './setRatingSlopePar';
+import shuffleArray from '../functions/shuffleArray';
 
 
 export default function createLineupTablePlayersArrray (course, 
@@ -11,7 +12,8 @@ export default function createLineupTablePlayersArrray (course,
   slopes, 
   pars, 
   teamTables,
-  teeTimeCount) {
+  teeTimeCount,
+  randomTeams) {
   const players = get('players');
 
   //declare some variables
@@ -107,6 +109,7 @@ export default function createLineupTablePlayersArrray (course,
     }
   }
   players.forEach(addRow);
-  updateTeamTables()
+  updateTeamTables();
+  if (randomTeams === true) shuffleArray(playersArray);
   return playersArray;
 }
