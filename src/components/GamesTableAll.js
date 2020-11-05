@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GamesTableDropDowns from './GamesAndLineupTableDropDowns';
 import GamesTableHeader from './GamesTableHeader';
 import GamesTableBody from './GamesTableBody';
 import LinkButton from './LinkButton';
 import ButtonDownloadScreenShot from './ButtonDownloadScreenshot';
+import {get, set} from '../functions/localStorage';
 
 export default function GamesTableAll({
   ratings, 
   slopes, 
   pars, 
   game, 
-  course,
-  handleShowLocalNumbersChange,
-  showLocalNumbers}) {
+  course}) {
+    const [showLocalNumbers, setShowLocalNumbers] = useState(get('showLocalNumbers'));
 
+
+    function handleShowLocalNumbersChange(){
+      set('showLocalNumbers', !showLocalNumbers);
+      setShowLocalNumbers(!showLocalNumbers);
+    }
   return(
     <>
     <GamesTableDropDowns table="Games" />
@@ -36,7 +41,7 @@ export default function GamesTableAll({
     <br></br><br></br>
     <div className='center'>
     <ButtonDownloadScreenShot game={game} course={course} element='games-table-div' format="PNG" page="Games" /><br></br><br></br>
-    <input type='checkbox' id='showLocalNumbers'onChange={handleShowLocalNumbersChange} defaultChecked={showLocalNumbers}></input>
+    <input type='checkbox' id='showLocalNumbers' onChange={handleShowLocalNumbersChange} defaultChecked={showLocalNumbers}></input>
     <label htmlFor='showLocalNumbers'>Show Local Numbers</label>
     </div>
     </>

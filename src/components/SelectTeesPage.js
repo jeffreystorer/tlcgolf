@@ -4,8 +4,8 @@ import '../styles/App.css';
 
 const SelectTeesPage = () => {
   let tees = [];
-  let teesSelected;
   let defaultValue = ["C","C/M", "M"];
+  let teesSelected = defaultValue;
   if (get('teesSelected')) {
     teesSelected = get('teesSelected');
     let teesSelectedArray = teesSelected.map(a => a.value);

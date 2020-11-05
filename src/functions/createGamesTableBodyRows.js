@@ -5,7 +5,7 @@ import setRatingSlopePar from '../functions/setRatingSlopePar'
 
 export default function createGamesTableBodyRows (course, game, games, teesSelected, ratings, slopes, pars) {
   const players = get('players');
-  const showLocalNumbers = get('showLocalNumbers')
+  const showLocalNumbers = get('showLocalNumbers');
 
   //declare some variables
   var rows = [];
@@ -39,7 +39,8 @@ export default function createGamesTableBodyRows (course, game, games, teesSelec
     let lastName = aPlayer[1];
     gender = aPlayer[4];
     let local = aPlayer[5];
-    let prefix = (showLocalNumbers === true) ? local + " " : "";
+    let prefix = "";
+    if ((showLocalNumbers  === true) | (showLocalNumbers === 'true')) prefix = local + " ";
     let player = prefix + firstName + ' ' + lastName + ' (' + strHcpIndex + ')';
     let rowReturn = [player];
     let i;

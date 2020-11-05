@@ -6,13 +6,12 @@ import GamesTableDropDowns from './GamesAndLineupTableDropDowns';
 import getGameTableDisplayNumber from '../functions/getGamesAndLineupTableDisplayNumber';
 import LinkButton from './LinkButton';
 import fetchGamesGHIN from '../functions/fetchGamesGHIN';
-import {get, set} from '../functions/localStorage';
+import {get} from '../functions/localStorage';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
 import useVisibilityChange from 'use-visibility-change';
 
 export default function GamesTable({ratings, slopes, pars}) {
-  const [showLocalNumbers, setShowLocalNumbers] = useState(get('showLocalNumbers'));
   const [games, setGames] = useRecoilState(state.gamesState)
   //eslint-disable-next-line
   const [teesSelected, setTeesSelected] = useRecoilState(state.teesSelectedState);
@@ -40,10 +39,7 @@ export default function GamesTable({ratings, slopes, pars}) {
   let displayNumber = getGameTableDisplayNumber(course, game, games, hasGoogleSheet);
   if (hasGoogleSheet === 'true') fetchGamesGHIN();
   
-  function handleShowLocalNumbersChange(){
-    set('showLocalNumbers', !showLocalNumbers);
-    setShowLocalNumbers(!showLocalNumbers);
-  }
+  
   
   switch (displayNumber) {
   case 0:
@@ -71,8 +67,6 @@ export default function GamesTable({ratings, slopes, pars}) {
             pars={pars} 
             game={game} 
             course={course}
-            handleShowLocalNumbersChange={handleShowLocalNumbersChange}
-            showLocalNumbers={showLocalNumbers}
              />
         </>
       )

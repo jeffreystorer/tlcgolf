@@ -13,8 +13,8 @@ function LoginPage() {
   let ghinNumber, lastName, showTips, showLocalNumbers;
   ghinNumber = get('ghinNumber') ? get('ghinNumber') : "GHIN Number";
   lastName = get('lastName') ? get("lastName") : "Last Name";
-  showTips = get('showTips') ? get('showTips') : "true";
-  showLocalNumbers = get('showLocalNumbers') ? get('showLocalNumbers') : "true";
+  showTips = get('showTips');
+  showLocalNumbers = get('showLocalNumbers');
   let teesSelected = get('teesSelected');
 
   useEffect(() => {
@@ -34,6 +34,15 @@ function LoginPage() {
   useEffect(() => {
     set('lastName', lastName);
   }, [lastName]);
+
+  useEffect(() => {
+    set('showTips', showTips);
+  }, [showTips]);
+  
+
+  useEffect(() => {
+    set('showLocalNumbers', showLocalNumbers);
+  }, [showLocalNumbers]);
 
   function handleClick(e){
     set('ghinNumber', ghinNumber);
