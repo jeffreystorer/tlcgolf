@@ -14,7 +14,7 @@ const ButtonDownLoadScreenshot = ({
 function handleClick(){
   let fileName;
   if (page === "Lineup") {
-    fileName = 'Lineup for ' + game + " at " + course.toUpperCase() + '.png'
+    fileName = 'Lineup for ' + game + " at " + course.toUpperCase();
   } else {
     fileName = 'Course Handicaps for ' + game + " at " + course.toUpperCase();
   }
