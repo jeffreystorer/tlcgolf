@@ -12,6 +12,7 @@ import * as state from '../state';
 import useVisibilityChange from 'use-visibility-change';
 
 export default function GamesTable({ratings, slopes, pars}) {
+  const dataMode = get('dataMode');
   const [games, setGames] = useRecoilState(state.gamesState)
   //eslint-disable-next-line
   const [teesSelected, setTeesSelected] = useRecoilState(state.teesSelectedState);
@@ -37,7 +38,7 @@ export default function GamesTable({ratings, slopes, pars}) {
   }, [])
 
   let displayNumber = getGameTableDisplayNumber(course, game, games, hasGoogleSheet);
-  if (hasGoogleSheet === 'true') fetchGamesGHIN();
+  if (hasGoogleSheet === 'true') fetchGamesGHIN(dataMode);
   
   
   

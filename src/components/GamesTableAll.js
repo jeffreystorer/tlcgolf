@@ -23,17 +23,21 @@ export default function GamesTableAll({
     <>
     <GamesTableDropDowns table="Games" />
     <br/><br/>
-      <table id='games-table'>
     <div id='games-table-div'>
-        <caption>{game} at {course.toUpperCase()}</caption>
+      <table id='games-table'>
         <thead>
+        <tr className= 'center'>
+          <th colSpan={get('teesSelected').length + 1}>
+            {game} at {course.toUpperCase()}
+          </th>
+        </tr>
           <GamesTableHeader />
         </thead>
         <tbody>
           <GamesTableBody ratings={ratings} slopes={slopes} pars={pars}/>
         </tbody>
-    </div>
       </table>
+    </div>
           <br></br>
           <br></br>
           <br></br>

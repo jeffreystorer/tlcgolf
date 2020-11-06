@@ -10,6 +10,7 @@ import preval from 'preval.macro';
 function LoginPage() {
   const build = "Build: " + preval`module.exports = new Date().toLocaleString();`
 
+
   let ghinNumber, lastName, showTips, showLocalNumbers;
   ghinNumber = get('ghinNumber') ? get('ghinNumber') : "GHIN Number";
   lastName = get('lastName') ? get("lastName") : "Last Name";
@@ -45,6 +46,7 @@ function LoginPage() {
   }, [showLocalNumbers]);
 
   function handleClick(e){
+    set("dataMode", "ghin");
     set('ghinNumber', ghinNumber);
     set('lastName', lastName);
     setIsLoggedIn(ghinNumber, lastName);

@@ -19,10 +19,8 @@ import LoginPage from './LoginPage';
 import SelectTeesPage from './SelectTeesPage';
 import LineupPage from './LineupPage';
 import HelpPage from './HelpPage';
-//import LineupsList from './LineupsList';
 
 export default function App() {
-
   return (
     <RecoilRoot>
       <Router>

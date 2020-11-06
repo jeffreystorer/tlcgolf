@@ -1,5 +1,10 @@
 import { atom, selector } from "recoil";
 
+export const dataModeState = atom({
+  key: 'dataModeState',
+  default: "ghin"
+})
+
 export const ghinNumberState = atom({
   key: "ghinNumberState",
   default: 0,

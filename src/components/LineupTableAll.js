@@ -534,8 +534,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     <input type='checkbox' id='randomTeams'onChange={handleRandomTeamsChange} defaultChecked={randomTeams}></input>
     <label htmlFor='randomTeams'>Random Teams</label>
     <br></br><br></br>
-  <table id="lineup-table">
   <div id='lineup-table-div'>
+  <table id="lineup-table">
     <thead className='lineup-table-head'>
       <tr>
         <td>
@@ -565,8 +565,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         </td>
       </tr>
     </tfoot>
-  </div>
   </table>
+  </div>
     {showTips && 
     <div>
         <table className='table-tip'>

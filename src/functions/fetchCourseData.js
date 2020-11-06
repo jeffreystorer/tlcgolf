@@ -1,6 +1,6 @@
 function fetchCourseData() {
-  const sheetId = "1GEP9S0xt1JBPLs3m0DoEOaQdwxwD8CEPFOXyxlxIKkg";
-  const apiKey = "AIzaSyCWOTHZxzxvJS7990cNcvF8pSWEoEf_cbg";
+  const sheetId = process.env.REACT_APP_GOOGLE_SHEETS_ID;
+  const apiKey = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY;
   const sheet = 'Course_Data';
   const sheetValues = 'https://sheets.googleapis.com/v4/spreadsheets/' +
     sheetId +
