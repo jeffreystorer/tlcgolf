@@ -23,8 +23,8 @@ export default function GamesTableAll({
     <>
     <GamesTableDropDowns table="Games" />
     <br/><br/>
-    <div id='games-table-div'>
       <table id='games-table'>
+      <div id='games-table-div'>
         <thead>
         <tr className= 'center'>
           <th colSpan={get('teesSelected').length + 1}>
@@ -36,8 +36,8 @@ export default function GamesTableAll({
         <tbody>
           <GamesTableBody ratings={ratings} slopes={slopes} pars={pars}/>
         </tbody>
+      </div>
       </table>
-    </div>
           <br></br>
           <br></br>
           <br></br>
