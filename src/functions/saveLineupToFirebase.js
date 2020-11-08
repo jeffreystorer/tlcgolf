@@ -1,5 +1,5 @@
 import LineupDataService from "../services/LineupService";
-
+import { get } from '../functions/localStorage';
 export default function saveLineupToFirebase (
   players,
   game, 
@@ -11,7 +11,8 @@ export default function saveLineupToFirebase (
   progAdj, 
   teamTables,
   textAreaValue,){
-
+  
+  const firebaseRef = get('firebaseRef');
  
 
   const saveLineup = () => {
@@ -30,6 +31,8 @@ export default function saveLineupToFirebase (
         textAreaValue: textAreaValue,
       }
     };
+
+    if (firebaseRef === 'mondaylineup') LineupDataService.removeAll()
 
     LineupDataService.create(data)
       .then(() => { 

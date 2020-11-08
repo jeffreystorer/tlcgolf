@@ -16,6 +16,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
+  //eslint-disable-next-line
+  const ghinNumber = useRecoilValue(state.ghinNumberState);
+  localStorage.setItem('firebaseRef', ghinNumber);
+  let isMe = false;
+  console.log(ghinNumber);
+  if (ghinNumber === "585871") isMe = true;
+  console.log("isMe: " + isMe)
   const [randomTeams, setRandomTeams] = useState(false);
   const [showTips, setShowTips] = useState(get('showTips'));
   const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState)
@@ -179,6 +186,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }
 
   function handleSaveLineupClick(){
+    localStorage.setItem('firebaseRef', ghinNumber)
     saveLineupToFirebase(
       players,
       game, 
@@ -199,6 +207,32 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       draggable: true,
       progress: undefined,
       });
+  }
+  
+
+  function handlePublishLineupClick(){
+    localStorage.setItem('firebaseRef', "mondaylineup");
+    saveLineupToFirebase(
+      players,
+      game, 
+      course, 
+      playingDate, 
+      teeTimeCount, 
+      linkTime, 
+      progs069,
+      progAdj, 
+      teamTables,
+      textAreaValue);
+    toast("Lineup Published",{
+      position: "bottom-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
+      set('firebaseRef', ghinNumber);
   }
 
   function handleLoadDeleteSavedLineupClick(){
@@ -615,6 +649,13 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     <button className='center' onClick={handleSaveLineupClick}>
       Save Lineup
     </button>
+    {isMe &&
+    <div>
+      <br></br>
+      <button className='center' onClick={handlePublishLineupClick}>
+        Publish Lineup
+      </button>
+    </div>}
     <ToastContainer
       position="bottom-center"
       autoClose={2000}

@@ -1,6 +1,6 @@
 import firebase from "../firebase";
-let ghinNumber = localStorage.getItem("ghinNumber");
-const db = firebase.ref("/" + ghinNumber);
+let firebaseRef = localStorage.getItem("firebaseRef");
+const db = firebase.ref("/" + firebaseRef);
 
 const getAll = () => {
   return db;
