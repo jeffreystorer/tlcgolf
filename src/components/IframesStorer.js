@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-export default function Iframes(){
+export default function IframesStorer(){
   let iframe;
   const [none, setNone] = useState(true);
   const [mon, setMon] = useState(false);

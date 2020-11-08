@@ -5,7 +5,8 @@ import GamesAndLineupTableCreate from './GamesAndLineupTableCreate';
 import GamesTableDropDowns from './GamesAndLineupTableDropDowns';
 import getGameTableDisplayNumber from '../functions/getGamesAndLineupTableDisplayNumber';
 import LinkButton from './LinkButton';
-import Iframes from './Iframes';
+import IframesStorer from './IframesStorer';
+import IframesCasey from './IframesCasey';
 import fetchGamesGHIN from '../functions/fetchGamesGHIN';
 import {get} from '../functions/localStorage';
 import {useRecoilValue, useRecoilState} from 'recoil';
@@ -19,8 +20,26 @@ export default function GamesTable({ratings, slopes, pars}) {
   const [teesSelected, setTeesSelected] = useRecoilState(state.teesSelectedState);
   //eslint-disable-next-line
   const [ghinNumber, setGHINNumber] = useRecoilState(state.ghinNumberState);
-  let isMe = false;
-  if (ghinNumber === '585871') isMe = true
+  let isMe = false, isCasey = false;
+  switch (ghinNumber) {
+    case "585871":
+      isMe = true;
+      break;
+    case "2898327":
+      isCasey = true;
+      break;
+    case "2145248":
+      isMe = true;
+      break;
+    case "8482980":
+      isMe = true;
+        break;
+    case "8625458":
+      isMe = true;
+        break;
+    default:
+        break;
+  }
   const course = useRecoilValue(state.courseState);
   const game = useRecoilValue(state.gameState);
   const hasGoogleSheet = get('hasGoogleSheet');
@@ -63,7 +82,9 @@ export default function GamesTable({ratings, slopes, pars}) {
         <br></br><br></br>
         <div className='center'>
         {isMe &&
-        <Iframes />}
+        <IframesStorer />}
+        {isCasey &&
+        <IframesCasey />}
         </div>
       </>
     )
@@ -80,7 +101,9 @@ export default function GamesTable({ratings, slopes, pars}) {
         <br></br><br></br>
         <div className='center'>
         {isMe &&
-        <Iframes />}
+        <IframesStorer />}
+        {isCasey &&
+        <IframesCasey />}
         </div>
       </>
     )
