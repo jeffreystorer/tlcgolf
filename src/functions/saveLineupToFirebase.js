@@ -1,5 +1,4 @@
 import LineupDataService from "../services/LineupService";
-import { get } from '../functions/localStorage';
 export default function saveLineupToFirebase (
   players,
   game, 
