@@ -6,14 +6,14 @@ import {useRecoilState} from 'recoil';
 import * as state from '../state';
 import '../styles/App.css';
 
-const LineupsList = ({loadLineupFromFirebase}) => {
+const LineupsList = ({loadLineupFromFirebase, firebaseRef}) => {
   //eslint-disable-next-line
   const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState);
   const [currentLineup, setCurrentLineup] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
 
   /* use react-firebase-hooks */
-  const [Lineups, loading, error] = useList(LineupDataService.getAll());
+  const [Lineups, loading, error] = useList(LineupDataService.getAll(firebaseRef));
   const refreshList = () => {
     setCurrentLineup(null);
     setCurrentIndex(-1);
@@ -31,7 +31,7 @@ const LineupsList = ({loadLineupFromFirebase}) => {
   };
 
   const removeAllLineups = () => {
-    LineupDataService.removeAll()
+    LineupDataService.removeAll(firebaseRef)
       .then(() => {
         //refreshList();
         setLoadDeleteSavedLineup(false);
@@ -82,7 +82,8 @@ const LineupsList = ({loadLineupFromFirebase}) => {
             lineupCount={Lineups.length}
             Lineup={currentLineup}
             refreshList={refreshList}
-            loadLineupFromFirebase={loadLineupFromFirebase} />
+            loadLineupFromFirebase={loadLineupFromFirebase}
+            firebaseRef={firebaseRef} />
             </div>
         ) : (<div className='center'>
               <br></br>

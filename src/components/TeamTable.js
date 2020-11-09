@@ -27,7 +27,12 @@ const TeamTable = ({
   let rows = teamMembers;
   let rowsTD = [];
   let teeCount = teesSelected.length;
-  let playerCount = teamMembers.length;
+  let playerCount;
+  if (teamMembers) {
+    playerCount = teamMembers.length;
+  }else{
+    playerCount = 0
+  }
 
   function generateRows(){
     for (let i =0; i < playerCount; i++){

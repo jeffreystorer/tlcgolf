@@ -10,11 +10,9 @@ export default function saveLineupToFirebase (
   progs069,
   progAdj, 
   teamTables,
-  textAreaValue,){
-  
-  const firebaseRef = get('firebaseRef');
+  textAreaValue,
+  firebaseRef){
  
-
   const saveLineup = () => {
     var data = {
       title: game + ", " + playingDate + " at " + linkTime + " at " + course.toUpperCase(),
@@ -32,9 +30,9 @@ export default function saveLineupToFirebase (
       }
     };
 
-    if (firebaseRef === 'mondaylineup') LineupDataService.removeAll()
+    if (firebaseRef === 'mondaylineup') LineupDataService.removeAll(firebaseRef)
 
-    LineupDataService.create(data)
+    LineupDataService.create(data, firebaseRef)
       .then(() => { 
       })
       .catch(e => {

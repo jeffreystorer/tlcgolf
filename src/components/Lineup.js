@@ -34,7 +34,7 @@ const Lineup = (props) => {
     setCurrentLineup(Lineup);
     setMessage("");
   }
-  const [value, loading, error] = useObject(LineupDataService.getLineup(Lineup.key));
+  const [value, loading, error] = useObject(LineupDataService.getLineup(Lineup.key, props.firebaseRef));
   const LoadLineup = () => {
     if(!loading && !error) setMessage("Lineup has been loaded.");
     let lineupObj = value.val();
@@ -44,7 +44,7 @@ const Lineup = (props) => {
   };
 
   const deleteLineup = () => {
-    LineupDataService.remove(currentLineup.key)
+    LineupDataService.remove(currentLineup.key, props.firebaseRef)
       .then(() => {
         if (props.lineupCount > 1) props.refreshList();
         setLoadDeleteSavedLineup(false);

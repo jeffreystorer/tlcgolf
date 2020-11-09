@@ -18,11 +18,11 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function LineupTableAll({ratings, slopes, pars}) {
   //eslint-disable-next-line
   const ghinNumber = useRecoilValue(state.ghinNumberState);
-  localStorage.setItem('firebaseRef', ghinNumber);
+  console.log(ghinNumber)
+  let firebaseRef = '"' + ghinNumber.toString() + '"';
   let isMe = false;
-  console.log(ghinNumber);
   if (ghinNumber === "585871") isMe = true;
-  console.log("isMe: " + isMe)
+  console.log(ghinNumber, isMe);
   const [randomTeams, setRandomTeams] = useState(false);
   const [showTips, setShowTips] = useState(get('showTips'));
   const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState)
@@ -118,6 +118,14 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     if (droppedTimesCount > 0) restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount, droppedTimesCount)
     setTeeTimeCount(event.target.value);
     setTeeTimes(linkTime, event.target.value);
+    console.table(teamTables);
+    for (let i = oldCount; i < newCount; i++){
+      let newTeam = "team" + i;
+      setTeamTables(teamTables => ({
+        ...teamTables, [newTeam]:[]
+      }))
+    }
+    console.table(teamTables);
   }
 
   const handleProgs069Change = (event) => {
@@ -186,7 +194,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }
 
   function handleSaveLineupClick(){
-    localStorage.setItem('firebaseRef', ghinNumber)
+    firebaseRef = '"' + ghinNumber.toString() + '"';
     saveLineupToFirebase(
       players,
       game, 
@@ -197,7 +205,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       progs069,
       progAdj, 
       teamTables,
-      textAreaValue);
+      textAreaValue,
+      firebaseRef);
     toast("Lineup Saved",{
       position: "bottom-center",
       autoClose: 2000,
@@ -211,7 +220,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   
 
   function handlePublishLineupClick(){
-    localStorage.setItem('firebaseRef', "mondaylineup");
+    firebaseRef = 'mondaylineup'
     saveLineupToFirebase(
       players,
       game, 
@@ -222,7 +231,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       progs069,
       progAdj, 
       teamTables,
-      textAreaValue);
+      textAreaValue,
+      firebaseRef);
     toast("Lineup Published",{
       position: "bottom-center",
       autoClose: 2000,
@@ -232,7 +242,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       draggable: true,
       progress: undefined,
       });
-      set('firebaseRef', ghinNumber);
   }
 
   function handleLoadDeleteSavedLineupClick(){
@@ -243,6 +252,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     let teamMembers = teamTables[teamName];
     let aTeamHcp = 0;
     let aTeamProgs = 0;
+    try {
+      
     let playerCount = teamMembers.length;
     teamMembers.forEach(computeHcpAndProgs);
     switch (Number(progAdj)) {
@@ -309,6 +320,9 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     teamHcpAndProgs[teamName][0] = aTeamHcp;
     teamHcpAndProgs[teamName][1] = aTeamProgs;
     //set('savedTeamHcpAndProgs', teamHcpAndProgs);
+    } catch (error) {
+      console.log("error setting TeamHcpAndProgs")
+    }
 
     function computeHcpAndProgs(item){
       let teeChoice = item.teeChoice;
@@ -344,18 +358,23 @@ export default function LineupTableAll({ratings, slopes, pars}) {
 
   function setManualCHCourseHandicaps(teamMembers){
     //iterate through teamMembers
-    for (let i = 0; i < teamMembers.length; i++){
-      let aTeeChoice = teamMembers[i].teeChoice;
-      let aManualCH = teamMembers[i].manualCH;
-      if (aManualCH !== "Auto") {
-        let teesSelectedArray = teesSelected.map(a => a.value);
-        let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice);
-        for (let j = 0; j < teesSelectedArray.length; j++){
-          teamMembers[i].courseHandicaps[j]="*"
+    try {
+      for (let i = 0; i < teamMembers.length; i++){
+        let aTeeChoice = teamMembers[i].teeChoice;
+        let aManualCH = teamMembers[i].manualCH;
+        if (aManualCH !== "Auto") {
+          let teesSelectedArray = teesSelected.map(a => a.value);
+          let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice);
+          for (let j = 0; j < teesSelectedArray.length; j++){
+            teamMembers[i].courseHandicaps[j]="*"
+          }
+          teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH;
+          teamMembers[i].playerName = teamMembers[i].playerName + "*"
         }
-        teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH;
-        teamMembers[i].playerName = teamMembers[i].playerName + "*";
       }
+
+    } catch (error) {
+          console.log("error setting ManualCourseHandicaps")
     }
   }
 
@@ -491,7 +510,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         setTextAreaValue(textAreaValue);
     }
     
-  const [Lineups] = useList(LineupDataService.getAll());
+  firebaseRef = '"' + ghinNumber.toString() + '"';
+  const [Lineups] = useList(LineupDataService.getAll(firebaseRef));
   const savedLineupCount = () => {
     return Lineups.length
   }
@@ -518,7 +538,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
           </div>}
           <br></br>
         <button onClick={handleLoadDeleteSavedLineupClick}>Saved Lineups</button>
-        {loadDeleteSavedLineup && <LineupsList loadLineupFromFirebase={loadLineupFromFirebase} />}
+        {loadDeleteSavedLineup && <LineupsList loadLineupFromFirebase={loadLineupFromFirebase} firebaseRef={firebaseRef} />}
       </div>}
   <br></br>
   <LineupTableDropDowns

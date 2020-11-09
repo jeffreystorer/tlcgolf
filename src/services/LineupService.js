@@ -1,28 +1,32 @@
 import firebase from "../firebase";
-let firebaseRef = localStorage.getItem("firebaseRef");
-const db = firebase.ref("/" + firebaseRef);
 
-const getAll = () => {
+const getAll = (firebaseRef) => {
+  const db = firebase.ref("/" + firebaseRef);
   return db;
 };
 
-const getLineup = (key) => {
+const getLineup = (key, firebaseRef) => {
+  const db = firebase.ref("/" + firebaseRef);
   return db.child(key);
 };
 
-const create = (data) => {
+const create = (data, firebaseRef) => {
+  const db = firebase.ref("/" + firebaseRef);
   return db.push(data);
 };
 
-const update = (key, data) => {
+const update = (key, data, firebaseRef) => {
+  const db = firebase.ref("/" + firebaseRef);
   return db.child(key).update(data);
 };
 
-const remove = (key) => {
+const remove = (key, firebaseRef) => {
+  const db = firebase.ref("/" + firebaseRef);
   return db.child(key).remove();
 };
 
-const removeAll = () => {
+const removeAll = (firebaseRef) => {
+  const db = firebase.ref("/" + firebaseRef);
   return db.remove();
 };
 
