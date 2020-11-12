@@ -194,6 +194,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }
 
   function handleSaveLineupClick(){
+    setRandomTeams(false);
     firebaseRef = '"' + ghinNumber.toString() + '"';
     saveLineupToFirebase(
       players,
@@ -217,11 +218,11 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       draggable: true,
       progress: undefined,
       });
-      setRandomTeams(false);
   }
   
 
   function handlePublishLineupClick(){
+    setRandomTeams(false);
     firebaseRef = 'mondaylineup'
     saveLineupToFirebase(
       players,
@@ -596,8 +597,11 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     <thead className='lineup-table-head'>
       <tr>
         <td>
-          {"Lineup for " + game + ", " + playingDate + " at " + linkTime + " at " + course.toUpperCase()}
+          {"Lineup for " + game + ", " + playingDate + " at " + course.toUpperCase()}
         </td>
+      </tr>
+      <tr>
+        <td></td>
       </tr>
     </thead>
     <tbody>
