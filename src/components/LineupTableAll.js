@@ -217,6 +217,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       draggable: true,
       progress: undefined,
       });
+      setRandomTeams(false);
   }
   
 
