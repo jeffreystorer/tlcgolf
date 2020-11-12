@@ -47,7 +47,6 @@ const Lineup = (props) => {
     LineupDataService.remove(currentLineup.key, props.firebaseRef)
       .then(() => {
         if (props.lineupCount > 1) props.refreshList();
-        setLoadDeleteSavedLineup(false);
       })
       .catch((e) => {
         console.log(e);
