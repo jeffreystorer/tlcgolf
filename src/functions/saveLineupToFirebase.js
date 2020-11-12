@@ -10,6 +10,7 @@ export default function saveLineupToFirebase (
   progAdj, 
   teamTables,
   textAreaValue,
+  teesSelected,
   firebaseRef){
  
   const saveLineup = () => {
@@ -26,6 +27,7 @@ export default function saveLineupToFirebase (
         progAdj: progAdj, 
         teamTables: teamTables,
         textAreaValue: textAreaValue,
+        teesSelected: teesSelected
       }
     };
 

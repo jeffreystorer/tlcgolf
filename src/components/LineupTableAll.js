@@ -206,6 +206,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       progAdj, 
       teamTables,
       textAreaValue,
+      teesSelected,
       firebaseRef);
     toast("Lineup Saved",{
       position: "bottom-center",
@@ -232,6 +233,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       progAdj, 
       teamTables,
       textAreaValue,
+      teesSelected,
       firebaseRef);
     toast("Lineup Published",{
       position: "bottom-center",
