@@ -237,15 +237,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       textAreaValue,
       teesSelected,
       firebaseRef);
-    toast("Lineup Published",{
-      position: "bottom-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      });
+    document.location="https://tlcmondaygolf.web.app"
   }
 
   function handleLoadDeleteSavedLineupClick(){
