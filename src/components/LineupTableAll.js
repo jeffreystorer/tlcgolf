@@ -223,7 +223,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
 
   function handlePublishLineupClick(){
     setRandomTeams(false);
-    firebaseRef = 'mondaylineup'
+    firebaseRef = 'lineup'
     saveLineupToFirebase(
       players,
       game, 
@@ -237,7 +237,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       textAreaValue,
       teesSelected,
       firebaseRef);
-    document.location="https://tlcmondaygolf.web.app"
+    document.location="https://tlcgolflineup.web.app"
   }
 
   function handleLoadDeleteSavedLineupClick(){

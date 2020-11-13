@@ -31,7 +31,7 @@ export default function saveLineupToFirebase (
       }
     };
 
-    if (firebaseRef === 'mondaylineup') LineupDataService.removeAll(firebaseRef)
+    if (firebaseRef === 'lineup') LineupDataService.removeAll(firebaseRef)
 
     LineupDataService.create(data, firebaseRef)
       .then(() => { 
