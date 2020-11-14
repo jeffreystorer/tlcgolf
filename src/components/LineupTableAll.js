@@ -204,6 +204,9 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       teamTables,
       textAreaValue,
       teesSelected,
+      ratings,
+      slopes,
+      pars,
       firebaseRef);
     toast("Lineup Saved",{
       position: "bottom-center",
