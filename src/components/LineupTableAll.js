@@ -18,11 +18,9 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function LineupTableAll({ratings, slopes, pars}) {
   //eslint-disable-next-line
   const ghinNumber = useRecoilValue(state.ghinNumberState);
-  console.log(ghinNumber)
   let firebaseRef = '"' + ghinNumber.toString() + '"';
   let isMe = false;
   if (ghinNumber === "585871") isMe = true;
-  console.log(ghinNumber, isMe);
   const [randomTeams, setRandomTeams] = useState(false);
   const [showTips, setShowTips] = useState(get('showTips'));
   const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState)
@@ -118,14 +116,12 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     if (droppedTimesCount > 0) restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount, droppedTimesCount)
     setTeeTimeCount(event.target.value);
     setTeeTimes(linkTime, event.target.value);
-    console.table(teamTables);
     for (let i = oldCount; i < newCount; i++){
       let newTeam = "team" + i;
       setTeamTables(teamTables => ({
         ...teamTables, [newTeam]:[]
       }))
     }
-    console.table(teamTables);
   }
 
   const handleProgs069Change = (event) => {
@@ -223,6 +219,20 @@ export default function LineupTableAll({ratings, slopes, pars}) {
 
   function handlePublishLineupClick(){
     setRandomTeams(false);
+    firebaseRef = '"' + ghinNumber.toString() + '"';
+    saveLineupToFirebase(
+      players,
+      game, 
+      course, 
+      playingDate, 
+      teeTimeCount, 
+      linkTime, 
+      progs069,
+      progAdj, 
+      teamTables,
+      textAreaValue,
+      teesSelected,
+      firebaseRef);
     firebaseRef = 'lineup'
     saveLineupToFirebase(
       players,

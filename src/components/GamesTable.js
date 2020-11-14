@@ -12,8 +12,10 @@ import {get} from '../functions/localStorage';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
 import useVisibilityChange from 'use-visibility-change';
+import saveHandicapsToFirebase from '../functions/saveHandicapsToFirebase';
 
 export default function GamesTable({ratings, slopes, pars}) {
+  const players = get('players');
   const dataMode = get('dataMode');
   const [games, setGames] = useRecoilState(state.gamesState)
   //eslint-disable-next-line
@@ -62,7 +64,19 @@ export default function GamesTable({ratings, slopes, pars}) {
   let displayNumber = getGameTableDisplayNumber(course, game, games, hasGoogleSheet);
   if (hasGoogleSheet === 'true') fetchGamesGHIN(dataMode);
   
-  
+  function handlePublishHandicapsClick(){
+    let firebaseRef= "handicaps";
+    saveHandicapsToFirebase(
+      players,
+      game, 
+      course,
+      games,
+      teesSelected,
+      ratings,
+      slopes,
+      pars,
+      firebaseRef)
+  }
   
   switch (displayNumber) {
   case 0:
@@ -97,7 +111,14 @@ export default function GamesTable({ratings, slopes, pars}) {
           pars={pars} 
           game={game} 
           course={course}
-            />
+            /><br></br>
+        {isMe &&
+            <div className='center'>
+              <br></br>
+              <button className='center' onClick={handlePublishHandicapsClick}>
+                Publish Handicaps
+              </button>
+            </div>}
         <br></br><br></br>
         <div className='center'>
         {isMe &&
