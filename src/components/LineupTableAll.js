@@ -235,6 +235,9 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       teamTables,
       textAreaValue,
       teesSelected,
+      ratings,
+      slopes,
+      pars,
       firebaseRef);
     firebaseRef = 'lineup'
     saveLineupToFirebase(
@@ -249,6 +252,9 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       teamTables,
       textAreaValue,
       teesSelected,
+      ratings,
+      slopes,
+      pars,
       firebaseRef);
     document.location="https://tlcgolflineup.web.app"
   }
