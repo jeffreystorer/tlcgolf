@@ -2,7 +2,8 @@ import LineupDataService from "../services/LineupService";
 export default function saveLineupToFirebase (
   allPlayers,
   players,
-  game, 
+  game,
+  games,
   course, 
   playingDate, 
   teeTimeCount, 
@@ -24,6 +25,7 @@ export default function saveLineupToFirebase (
         allPlayers: allPlayers,
         players: players,
         game: game,
+        games: games,
         course: course,
         playingDate: playingDate,
         teeTimeCount: teeTimeCount,

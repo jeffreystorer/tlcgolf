@@ -196,7 +196,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     saveLineupToFirebase(
       allPlayers,
       players,
-      game, 
+      game,
+      games, 
       course, 
       playingDate, 
       teeTimeCount, 
@@ -229,7 +230,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     saveLineupToFirebase(
       allPlayers,
       players,
-      game, 
+      game,
+      games,
       course, 
       playingDate, 
       teeTimeCount, 
@@ -247,7 +249,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     saveLineupToFirebase(
       allPlayers,
       players,
-      game, 
+      game,
+      games,
       course, 
       playingDate, 
       teeTimeCount, 
