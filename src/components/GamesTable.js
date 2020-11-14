@@ -75,7 +75,8 @@ export default function GamesTable({ratings, slopes, pars}) {
       ratings,
       slopes,
       pars,
-      firebaseRef)
+      firebaseRef);
+      document.location="https://tlcgolfhandicaps.web.app"
   }
   
   switch (displayNumber) {
