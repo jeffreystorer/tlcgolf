@@ -1,5 +1,6 @@
 import LineupDataService from "../services/LineupService";
 export default function saveLineupToFirebase (
+  allPlayers,
   players,
   game, 
   course, 
@@ -20,6 +21,7 @@ export default function saveLineupToFirebase (
     var data = {
       title: game + ", " + playingDate + " at " + linkTime + " at " + course.toUpperCase(),
       lineup: {
+        allPlayers: allPlayers,
         players: players,
         game: game,
         course: course,
