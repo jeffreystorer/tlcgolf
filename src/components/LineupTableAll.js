@@ -14,6 +14,7 @@ import LineupDataService from "../services/LineupService";
 import ButtonDownloadScreenShot from './ButtonDownloadScreenshot';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SelectPlayers from './SelectPlayers';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
   //eslint-disable-next-line
@@ -551,7 +552,53 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       </div>}
       <br></br>
   <GamesAndLineupTableDropDowns table="Lineup"/>
-  <br></br>
+  <br></br> 
+  {showTips && 
+      <div>
+      <br></br>
+        <table className='table-tip'>
+          <thead>
+            <tr>
+              <th>
+                To select players
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className='table-tip-td'>
+              Please select the players in your lineup,
+              then click "Next", or, just click "Next"
+              to accept the players already selected.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>}
+  <SelectPlayers playersArray={playersArray} /><br></br>
+   
+  {showTips && 
+      <div>
+      <br></br>
+        <table className='table-tip'>
+          <thead>
+            <tr>
+              <th>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className='table-tip-td'>
+              On a desktop or laptop computer,
+              hold down the Ctrl (Windows) or
+              Command (Mac) button to select
+              multiple players.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>}
     {savedLineupCount() > 0 &&
       <div>
         {showTips &&
