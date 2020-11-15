@@ -4,7 +4,8 @@ import setRatingSlopePar from './setRatingSlopePar';
 import shuffleArray from '../functions/shuffleArray';
 
 
-export default function createLineupTablePlayersArrray (course, 
+export default function createLineupTablePlayersArrray (
+  course, 
   game, 
   games, 
   teesSelected, 
