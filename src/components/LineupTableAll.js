@@ -14,8 +14,6 @@ import LineupDataService from "../services/LineupService";
 import ButtonDownloadScreenShot from './ButtonDownloadScreenshot';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import SelectPlayers from './SelectPlayers';
-
 export default function LineupTableAll({ratings, slopes, pars}) {
   //eslint-disable-next-line
   const ghinNumber = useRecoilValue(state.ghinNumberState);
@@ -77,7 +75,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }, )
 
   
-  let playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount, randomTeams);
+  let playersArray = createLineupTablePlayersArray("lineup", course, game, games, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount, randomTeams);
   //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray);
 
@@ -182,12 +180,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   function handleShowTipsChange(){
     set('showTips', !showTips);
     setShowTips(!showTips);
-  }
-
-  function handleRandomTeamsChange(){
-    playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount, !randomTeams);
-    setPlayers(playersArray);
-    setRandomTeams(!randomTeams);
   }
 
   function handleSaveLineupClick(){
@@ -552,53 +544,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       </div>}
       <br></br>
   <GamesAndLineupTableDropDowns table="Lineup"/>
-  <br></br> 
-  {showTips && 
-      <div>
-      <br></br>
-        <table className='table-tip'>
-          <thead>
-            <tr>
-              <th>
-                To select players
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className='table-tip-td'>
-              Please select the players in your lineup,
-              then click "Next", or, just click "Next"
-              to accept the players already selected.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>}
-  <SelectPlayers playersArray={playersArray} /><br></br>
-   
-  {showTips && 
-      <div>
-      <br></br>
-        <table className='table-tip'>
-          <thead>
-            <tr>
-              <th>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className='table-tip-td'>
-              On a desktop or laptop computer,
-              hold down the Ctrl (Windows) or
-              Command (Mac) button to select
-              multiple players.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>}
+  <br></br>
     {savedLineupCount() > 0 &&
       <div>
         {showTips &&
@@ -626,37 +572,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     progAdj={progAdj}
     handleProgAdjChange={handleProgAdjChange}
   />
-    <br></br><br></br>
-    {showTips && 
-      <div>
-      <br></br>
-        <table className='table-tip'>
-          <thead>
-            <tr>
-              <th>
-                To randomize the list of players:
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className='table-tip-td'>
-              Check the "Random Teams" box.  
-              This will randomize the list of players 
-              in your game that appears in the teetime 
-              dropdowns.  You can go back to alphabetical
-              order by unchecking the box.  If you check it 
-              again, you will get a different randomized
-              list.  The random list with which you make 
-              a game will be saved with the game and 
-              restored when you load the saved game.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>}
-    <input type='checkbox' id='randomTeams'onChange={handleRandomTeamsChange} defaultChecked={randomTeams}></input>
-    <label htmlFor='randomTeams'>Random Teams</label>
     <br></br><br></br>
   <table id="lineup-table">
   <div id='lineup-table-div'>

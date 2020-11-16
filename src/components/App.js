@@ -18,6 +18,7 @@ import GamesPage from './GamesPage';
 import LoginPage from './LoginPage';
 import SelectTeesPage from './SelectTeesPage';
 import LineupPage from './LineupPage';
+import SelectPlayersPage from './SelectPlayersPage'
 import HelpPage from './HelpPage';
 
 export default function App() {
@@ -29,12 +30,16 @@ export default function App() {
       <nav>
         <NavLink exact to="/" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Individual</NavLink>
         <NavLink exact to="/games" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Games</NavLink>
+        <NavLink exact to="/players" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Players</NavLink>
         <NavLink exact to="/lineup" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Lineup</NavLink>
         <NavLink exact to="/settings" className='navitem-last' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Settings</NavLink>
       </nav>
       <Switch>
         <Route path="/games">
           <Games />
+        </Route>
+        <Route path="/players">
+          <Players />
         </Route>
         <Route path="/lineup">
           <Lineup />
@@ -120,8 +125,15 @@ function Settings () {
     )
   }
 
+  function  Players() {
+    return (
+      <>
+        <SelectPlayersPage />
+      </>
+    )
+  }
   
-    
+
   function  Lineup() {
     return (
       <>
@@ -129,4 +141,3 @@ function Settings () {
       </>
     )
   }
-

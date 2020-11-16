@@ -5,6 +5,7 @@ import shuffleArray from '../functions/shuffleArray';
 
 
 export default function createLineupTablePlayersArrray (
+  type,
   course, 
   game, 
   games, 
@@ -15,7 +16,12 @@ export default function createLineupTablePlayersArrray (
   teamTables,
   teeTimeCount,
   randomTeams) {
-  const players = get('players');
+  let players;
+  if (type === "all") {
+    players = get('players');
+  } else {
+    players = get('playersInLineup')
+  }
 
   //declare some variables
   var playersArray = [];
@@ -114,7 +120,7 @@ export default function createLineupTablePlayersArrray (
     }
   }
   players.forEach(addRow);
-  updateTeamTables();
+  if (type === 'lineup') updateTeamTables();
   if (randomTeams === true) shuffleArray(playersArray);
   return playersArray;
 }
