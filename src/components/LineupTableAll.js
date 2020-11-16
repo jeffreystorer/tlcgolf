@@ -5,7 +5,6 @@ import TeamTable from './TeamTable';
 import { v4 as uuidv4 } from 'uuid';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
-import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
 import saveLineupToFirebase from '../functions/saveLineupToFirebase';
 import LineupsList from './LineupsList';
 import { get, set } from '../functions/localStorage';
@@ -20,7 +19,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   let firebaseRef = '"' + ghinNumber.toString() + '"';
   let isMe = false;
   if (ghinNumber === "585871") isMe = true;
-  const [randomTeams, setRandomTeams] = useState(false);
   const [showTips, setShowTips] = useState(get('showTips'));
   const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState)
   const [course, setCourse] = useRecoilState(state.courseState);
