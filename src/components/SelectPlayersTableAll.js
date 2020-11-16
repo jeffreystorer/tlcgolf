@@ -28,7 +28,7 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
     for (var i = 0, len = alloptions.length; i < len; i++){
       if (alloptions[i].selected) {options = [...options, alloptions[i]]};
     }
-    Array.from(options).forEach(function (element){playersInLineup = [...playersInLineup, element.value]});
+    Array.from(options).forEach(function (element){playersInLineup = [element.value]});
     set('playersInLineup', playersInLineup);
     document.location = '/lineup';
   };
