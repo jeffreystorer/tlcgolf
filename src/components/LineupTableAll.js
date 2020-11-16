@@ -181,7 +181,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }
 
   function handleSaveLineupClick(){
-    setRandomTeams(false);
     let allPlayers = get('players');
     firebaseRef = '"' + ghinNumber.toString() + '"';
     saveLineupToFirebase(
@@ -215,7 +214,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   
 
   function handlePublishLineupClick(){
-    setRandomTeams(false);
     let allPlayers = get('players');
     firebaseRef = '"' + ghinNumber.toString() + '"';
     saveLineupToFirebase(
