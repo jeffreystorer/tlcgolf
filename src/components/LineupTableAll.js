@@ -75,7 +75,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }, )
 
   
-  let playersArray = createLineupTablePlayersArray("lineup", course, game, games, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount, randomTeams);
+  let playersArray = get("playersInLineup");
   //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray);
 

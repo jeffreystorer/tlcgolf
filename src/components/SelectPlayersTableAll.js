@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { get } from '../functions/localStorage';
+import { get, set } from '../functions/localStorage';
 import '../styles/App.css';
 import { v4 as uuidv4 } from 'uuid';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
@@ -15,20 +15,10 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
   const games = useRecoilValue(state.gamesState);
   const teesSelected = useRecoilValue(state.teesSelectedState);
   
-  let type = "all"
-  let teamTables = [];
-  let teeTimeCount;
-  let playersArray = createLineupTablePlayersArray(type, course, game, games, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount, randomTeams);
-  //const [players, setPlayers] = useState(playersArray);
-  
+  let playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, randomTeams);
   let playersInLineup = playersArray;
-  let defaultValue = playersArray;
-  let playersSelectedArray = playersInLineup.map(a => a.playerName);
-  if (get('playersInLineup')) {
-    playersInLineup = get('playersInLineup');
-    playersSelectedArray = playersInLineup.map(a => a.playerName);
-    defaultValue = playersSelectedArray;
-    }
+  if (get('playersInLineup')) playersInLineup = get('playersInLineup');
+  let defaultValue = playersInLineup;
 
   function handleSubmit(e){
     e.preventDefault();
@@ -39,18 +29,17 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
       if (alloptions[i].selected) {options = [...options, alloptions[i]]};
     }
     Array.from(options).forEach(function (element){playersInLineup = [...playersInLineup, element.value]});
-    localStorage.setItem('playersInLineup', playersInLineup);
+    set('playersInLineup', playersInLineup);
     document.location = '/lineup';
   };
+
   function handleRandomTeamsChange(){
-    let type = "all"
-    playersArray = createLineupTablePlayersArray(type, course, game, games, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount, !randomTeams);
+    playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, !randomTeams);
     setRandomTeams(!randomTeams);
   }
     
-  let playersInLineupOptions = playersSelectedArray.map((player) =>
-      <option key={uuidv4()} value={player}>{player}</option>);
-
+  let playersInLineupOptions = playersInLineup.map((player) =>
+      <option key={uuidv4()} value={player}>{player.playerName}</option>);
 
   return (
   <div align="center">

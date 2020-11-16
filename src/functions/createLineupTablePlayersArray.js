@@ -2,28 +2,16 @@ import {tees, courses} from '../data';
 import {get} from './localStorage';
 import setRatingSlopePar from './setRatingSlopePar';
 import shuffleArray from '../functions/shuffleArray';
-
-
 export default function createLineupTablePlayersArrray (
-  type,
   course, 
   game, 
   games, 
   teesSelected, 
   ratings, 
   slopes, 
-  pars, 
-  teamTables,
-  teeTimeCount,
+  pars,
   randomTeams) {
-  let players;
-  if (type === "all") {
-    players = get('players');
-  } else {
-    players = get('playersInLineup')
-  }
-
-  //declare some variables
+  let players = get('players');
   var playersArray = [];
   let strHcpIndex;
   let hcpIndex;
@@ -100,27 +88,7 @@ export default function createLineupTablePlayersArrray (
     playersArray.push(newRow);
   }
 
-  function updateTeamTables(){
-    for (let i = 0; i < teeTimeCount; i++) {
-      let aTeamName = "team" + i;
-      try {
-      let aPlayerCount = teamTables[aTeamName].length;
-      for (let j = 0; j < aPlayerCount; j++){
-        let aTeamMemberId = teamTables[aTeamName][j].id;
-        let aPlayerObj = playersArray.find(obj => 
-          obj.id === aTeamMemberId
-        )
-        teamTables[aTeamName][j].playerName = aPlayerObj.playerName;
-        teamTables[aTeamName][j].courseHandicaps = aPlayerObj.courseHandicaps;
-      }
-      } catch (error) {
-        console.log("error updating Team Tables");
-      }
-
-    }
-  }
   players.forEach(addRow);
-  if (type === 'lineup') updateTeamTables();
   if (randomTeams === true) shuffleArray(playersArray);
   return playersArray;
 }
