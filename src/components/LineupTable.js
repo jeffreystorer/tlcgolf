@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import '../styles/App.css';
 import LineupTableAll from './LineupTableAll';
 import GamesAndLineupTableCreate from './GamesAndLineupTableCreate';
-import getGamesAndLineupTableDisplayNumber from '../functions/getGamesAndLineupTableDisplayNumber';
+import getLineupTableDisplayNumber from '../functions/getLineupTableDisplayNumber';
 import {get} from '../functions/localStorage'
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
@@ -29,10 +29,8 @@ export default function LineupTable({ratings, slopes, pars}) {
   //eslint-disable-next-line
   }, [])
 
-  let displayNumber = getGamesAndLineupTableDisplayNumber(course, game, games, 'true');
+  let displayNumber = getLineupTableDisplayNumber(course, game, games, 'true');
   //if (hasGoogleSheet === 'true') fetchGamesGHIN();
-  
-
   
   switch (displayNumber) {
   case 0:

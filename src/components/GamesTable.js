@@ -3,7 +3,7 @@ import '../styles/App.css';
 import GamesTableAll from './GamesTableAll';
 import GamesAndLineupTableCreate from './GamesAndLineupTableCreate';
 import GamesTableDropDowns from './GamesAndLineupTableDropDowns';
-import getGameTableDisplayNumber from '../functions/getGamesAndLineupTableDisplayNumber';
+import getGamesAndSelectPlayersTableDisplayNumber from '../functions/getGamesAndSelectPlayersTableDisplayNumber';
 import LinkButton from './LinkButton';
 import IframesStorer from './IframesStorer';
 import IframesCasey from './IframesCasey';
@@ -60,8 +60,8 @@ export default function GamesTable({ratings, slopes, pars}) {
     }
   //eslint-disable-next-line
   }, [])
-
-  let displayNumber = getGameTableDisplayNumber(course, game, games, hasGoogleSheet);
+  
+  let displayNumber = getGamesAndSelectPlayersTableDisplayNumber(course, game, games, hasGoogleSheet);
   if (hasGoogleSheet === 'true') fetchGamesGHIN(dataMode);
   
   function handlePublishHandicapsClick(){

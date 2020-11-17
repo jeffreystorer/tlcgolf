@@ -17,26 +17,8 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
   const [showTips, setShowTips] = useState(get('showTips'));
   
   let playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, randomTeams);
-  let allPlayers = [];
-  let defaultValue = ["Fred Laist (11.4)","Donald Lieb (14.7)","Paul Lieberman (6.5)","Doug Pajak (12.4)","John Pohl (11.9)","Sam Poore (12.8)","Jeffrey Storer (9.6)","Marc Tate (10.8)","Mike Werneke (8.3)"];
-  let playersInLineup = defaultValue;
-  if (get('playersInLineup')) {
-    playersInLineup = get('playersInLineup');
-    //defaultValue = playersInLineup;
-  } else {
-    for (let i = 0; i < playersArray.length; i++){
-      let aPlayerObj = playersArray[i];
-      allPlayers.push(aPlayerObj.playerName);
-      //defaultValue=allPlayers;
-    }
 
-  }
-  console.log("allPlayers");
-  console.table(allPlayers);
-  console.log("playersInLineup");
-  console.table(playersInLineup);
-  console.log('defaultValue');
-  console.table(defaultValue);
+
 
   function handleSubmit(e){
     e.preventDefault();
@@ -46,10 +28,10 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
     for (var i = 0, len = alloptions.length; i < len; i++){
       if (alloptions[i].selected) {options = [...options, alloptions[i]]};
     }
-    playersInLineup = [];
+    let playersInLineup = [];
     Array.from(options).forEach(function (element){playersInLineup = [...playersInLineup, element.value]});
     set('playersInLineup', playersInLineup);
-    //document.location = '/lineup';
+    document.location = '/lineup';
   };
 
   function handleRandomTeamsChange(){
@@ -62,8 +44,9 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
       setShowTips(!showTips);
     }
     
-  let playersInLineupOptions = allPlayers.map((player) =>
-      <option key={uuidv4()} value={player.playerName}>{player}</option>);
+  let playersInLineupOptions = playersArray.map((player) =>
+      <option key={uuidv4()} value={player.id}>{player.playerName}</option>);
+
   return (
   <div align="center">
   <br></br>
@@ -126,7 +109,7 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
  <h4>Select Players for Lineup</h4>
  <form onSubmit={handleSubmit}>
    <label>
-     <select defaultValue={defaultValue} id='playerSelector' name='playersInLineup' multiple={true} size={20}>
+     <select id='playerSelector' name='playersInLineup' multiple={true} size={20}>
      {playersInLineupOptions}
      </select>
    </label>

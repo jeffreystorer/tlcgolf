@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import '../styles/App.css';
 import SelectPlayersTableAll from './SelectPlayersTableAll';
 import GamesAndLineupTableCreate from './GamesAndLineupTableCreate';
-import getGamesAndLineupTableDisplayNumber from '../functions/getGamesAndLineupTableDisplayNumber';
+import getGamesAndSelectPlayersTableDisplayNumber from '../functions/getGamesAndSelectPlayersTableDisplayNumber';
 import {get} from '../functions/localStorage'
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
@@ -29,7 +29,7 @@ export default function SelectPlayersTable({ratings, slopes, pars}) {
   //eslint-disable-next-line
   }, [])
 
-  let displayNumber = getGamesAndLineupTableDisplayNumber(course, game, games, 'true');
+  let displayNumber = getGamesAndSelectPlayersTableDisplayNumber(course, game, games, 'true');
   //if (hasGoogleSheet === 'true') fetchGamesGHIN();
   
 

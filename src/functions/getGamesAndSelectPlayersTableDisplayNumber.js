@@ -1,7 +1,7 @@
 import * as courseData from '../data';
 
-export default function getGameTableDisplayNumber(course, game, games, hasGoogleSheet) {
-
+export default function getGameAndSelectPlayersTableDisplayNumber(course, game, games, hasGoogleSheet) {
+alert( course, game, games)
 //We are only going to display this table if the golfer is logged in
 //and has selected at least one set of tees and has set up his games.
 
@@ -21,7 +21,7 @@ export default function getGameTableDisplayNumber(course, game, games, hasGoogle
     //Now decide whether to dispay just the game and course
     //selectors or the entire table
     if (
-      (games.includes(game)) &
+      (games.includes(game)) &&
       (courseData.courses.includes(course))
       ) {
         //we can display everything        

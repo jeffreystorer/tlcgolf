@@ -13,6 +13,7 @@ import LineupDataService from "../services/LineupService";
 import ButtonDownloadScreenShot from './ButtonDownloadScreenshot';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import loadLineupTablePlayersArray from '../functions/loadLineupTablePlayersArray';
 export default function LineupTableAll({ratings, slopes, pars}) {
   //eslint-disable-next-line
   const ghinNumber = useRecoilValue(state.ghinNumberState);
@@ -72,9 +73,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     }
   }, )
 
-  
-  let playersArray = get("playersInLineup");
-  //eslint-disable-next-line
+  let playersArray = loadLineupTablePlayersArray(course, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount);
+   //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray);
 
   const handleAddTeamMember = (event) => {
