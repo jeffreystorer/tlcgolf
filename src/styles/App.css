@@ -265,7 +265,7 @@ nav {
 }
 
 .navitem {
-  padding: 1px 15px;
+  padding: 1px 5px;
     text-decoration: none;
     color:black;
   border-right: 1px solid #ccc;
@@ -275,7 +275,7 @@ nav {
 
 
 .navitem-last {
-  padding: 1px 15px;
+  padding: 1px 5px;
     text-decoration: none;
     color:black;
   border-right: 1px solid #fff;

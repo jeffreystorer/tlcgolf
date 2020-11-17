@@ -2,7 +2,7 @@ import React from 'react';
 import { get } from '../functions/localStorage';
 import '../styles/App.css';
 
-const SelectTeesPage = ({playersArray}) => {
+const SelectTeesPage = () => {
   let tees = [];
   let defaultValue = ["C","C/M", "M"];
   let teesSelected = defaultValue;

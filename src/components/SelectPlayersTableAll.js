@@ -3,7 +3,7 @@ import { get, set } from '../functions/localStorage';
 import '../styles/App.css';
 import { v4 as uuidv4 } from 'uuid';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
-import {useRecoilValue, useRecoilState} from 'recoil';
+import {useRecoilValue, useRecoilState, } from 'recoil';
 import * as state from '../state';
 
 const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
@@ -14,23 +14,42 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
   const [game, setGame] = useRecoilState(state.gameState);
   const games = useRecoilValue(state.gamesState);
   const teesSelected = useRecoilValue(state.teesSelectedState);
+  const [showTips, setShowTips] = useState(get('showTips'));
   
   let playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, randomTeams);
-  let playersInLineup = playersArray;
-  if (get('playersInLineup')) playersInLineup = get('playersInLineup');
-  let defaultValue = playersInLineup;
+  let allPlayers = [];
+  let defaultValue = ["Fred Laist (11.4)","Donald Lieb (14.7)","Paul Lieberman (6.5)","Doug Pajak (12.4)","John Pohl (11.9)","Sam Poore (12.8)","Jeffrey Storer (9.6)","Marc Tate (10.8)","Mike Werneke (8.3)"];
+  let playersInLineup = defaultValue;
+  if (get('playersInLineup')) {
+    playersInLineup = get('playersInLineup');
+    //defaultValue = playersInLineup;
+  } else {
+    for (let i = 0; i < playersArray.length; i++){
+      let aPlayerObj = playersArray[i];
+      allPlayers.push(aPlayerObj.playerName);
+      //defaultValue=allPlayers;
+    }
+
+  }
+  console.log("allPlayers");
+  console.table(allPlayers);
+  console.log("playersInLineup");
+  console.table(playersInLineup);
+  console.log('defaultValue');
+  console.table(defaultValue);
 
   function handleSubmit(e){
     e.preventDefault();
     var sel = document.getElementById('playerSelector');
     var alloptions = sel.options;
-    var options = [];
+    let options = [];
     for (var i = 0, len = alloptions.length; i < len; i++){
       if (alloptions[i].selected) {options = [...options, alloptions[i]]};
     }
-    Array.from(options).forEach(function (element){playersInLineup = [element.value]});
+    playersInLineup = [];
+    Array.from(options).forEach(function (element){playersInLineup = [...playersInLineup, element.value]});
     set('playersInLineup', playersInLineup);
-    document.location = '/lineup';
+    //document.location = '/lineup';
   };
 
   function handleRandomTeamsChange(){
@@ -38,39 +57,18 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
     setRandomTeams(!randomTeams);
   }
     
-  let playersInLineupOptions = playersInLineup.map((player) =>
-      <option key={uuidv4()} value={player}>{player.playerName}</option>);
-
+  function handleShowTipsChange(){
+      set('showTips', !showTips);
+      setShowTips(!showTips);
+    }
+    
+  let playersInLineupOptions = allPlayers.map((player) =>
+      <option key={uuidv4()} value={player.playerName}>{player}</option>);
   return (
   <div align="center">
   <br></br>
-    <table className='table-tip'>
-      <thead>
-        <tr>
-          <th>
-            To select players
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td className='table-tip-td'>
-          Please select the players in your lineup,
-          then click "Next", or, just click "Next"
-          to accept the players already selected.
-          </td>
-        </tr>
-      </tbody>
-    </table>
- 
- <h4>Select Players</h4>
- <form onSubmit={handleSubmit}>
-   <label>
-     <select defaultValue={defaultValue} id='playerSelector' name='playersInLineup' multiple={true} size={20}>
-     {playersInLineupOptions}
-     </select>
-   </label>
-   <br></br><br></br>    
+   {showTips &&
+    <div>
         <table className='table-tip'>
           <thead>
             <tr>
@@ -95,22 +93,27 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
             </tr>
           </tbody>
         </table>
+        </div>}
+    <h4>Randomize?</h4>
     <input type='checkbox' id='randomTeams'onChange={handleRandomTeamsChange} defaultChecked={false}></input>
     <label htmlFor='randomTeams'>Random Teams</label>
-    <br></br><br></br>
-   <input id='next' type='submit' value ="Next" />
- </form>
-
+    <br></br>
+  {showTips &&
+  <div>
     <table className='table-tip'>
       <thead>
         <tr>
           <th>
+            To select players
           </th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td className='table-tip-td'>
+          Please select the players in your lineup,
+          then click "Next", or, just click "Next"
+          to accept the players already selected.  
           On a desktop or laptop computer,
           hold down the Ctrl (Windows) or
           Command (Mac) button to select
@@ -119,7 +122,20 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
         </tr>
       </tbody>
     </table>
-    
+    </div>} 
+ <h4>Select Players for Lineup</h4>
+ <form onSubmit={handleSubmit}>
+   <label>
+     <select defaultValue={defaultValue} id='playerSelector' name='playersInLineup' multiple={true} size={20}>
+     {playersInLineupOptions}
+     </select>
+   </label>
+   <br></br><br></br>
+   <input id='next' type='submit' value ="Next" />
+ </form>
+  <br></br>
+  <input type='checkbox' id='showTips'onChange={handleShowTipsChange} defaultChecked={showTips}></input>
+  <label htmlFor='showTips'>Show Tips</label>
   </div>
     );
 }
