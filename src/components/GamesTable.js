@@ -54,10 +54,6 @@ export default function GamesTable({ratings, slopes, pars}) {
     setGHINNumber(get('ghinNumber'));
     setGames(get('games'));
     setTeesSelected(get('teesSelected'));
-    
-    return () => {
-      //cleanup
-    }
   //eslint-disable-next-line
   }, [])
   
