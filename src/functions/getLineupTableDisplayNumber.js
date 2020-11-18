@@ -1,19 +1,22 @@
 import * as courseData from '../data';
 import {get} from '../functions/localStorage';
 
-export default function getLineupTableDisplayNumber() {
+export default function getLineupTableDisplayNumber(course, game, games, hasGoogleSheet) {
   let playersInLineup = get('playersInLineup');
-  let game = get('game');
-  let games = get('games');
-  let course = get('course');
-  let displayNumber;  
+  let savedGame = get('game');
+let displayNumber;
+if (hasGoogleSheet === 'true') {
   displayNumber = 1;
   if ((playersInLineup) &&
-      (games.includes(game)) &&
-      (courseData.courses.includes(course))
-      ) 
-    {
-      displayNumber = 2;
-    }
+  (games.includes(game)) &&
+  (courseData.courses.includes(course)) &&
+  (game === savedGame)
+  ) 
+  {
+    displayNumber = 2;
+  }else {
+      displayNumber = 0;
+  }
+}
 return displayNumber;
 }
