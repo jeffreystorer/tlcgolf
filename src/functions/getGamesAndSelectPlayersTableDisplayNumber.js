@@ -1,7 +1,6 @@
 import * as courseData from '../data';
 
 export default function getGameAndSelectPlayersTableDisplayNumber(course, game, games, hasGoogleSheet) {
-alert( course, game, games)
 //We are only going to display this table if the golfer is logged in
 //and has selected at least one set of tees and has set up his games.
 
