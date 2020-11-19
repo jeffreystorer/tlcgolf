@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import * as state from '../state';
+import {set} from '../functions/localStorage';
 
 export default function GamesAndLineupTableDropDowns(props) {
   const [course, setCourse] = useRecoilState(state.courseState);
@@ -19,10 +20,12 @@ export default function GamesAndLineupTableDropDowns(props) {
 
   function handleCourseChange(e){
     setCourse(e.target.value);
+    set('course', e.target.value)
     }
   
   function handleGameChange(e){
   setGame(e.target.value);
+  set('game', e.target.value)
   localStorage.removeItem('playersInLineup');
 
   }

@@ -1,13 +1,14 @@
 import React, {useEffect} from 'react';
 import '../styles/App.css';
+import {get} from '../functions/localStorage';
 import SelectPlayersTableAll from './SelectPlayersTableAll';
 import GamesAndLineupTableCreate from './GamesAndLineupTableCreate';
 import getGamesAndSelectPlayersTableDisplayNumber from '../functions/getGamesAndSelectPlayersTableDisplayNumber';
-import {get} from '../functions/localStorage'
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
 
-export default function SelectPlayersTable({ratings, slopes, pars}) { 
+export default function SelectPlayersTable({ratings, slopes, pars}) {
+  //eslint-disable-next-line
   const [games, setGames] = useRecoilState(state.gamesState)
   //eslint-disable-next-line
   const [teesSelected, setTeesSelected] = useRecoilState(state.teesSelectedState);
@@ -23,9 +24,7 @@ export default function SelectPlayersTable({ratings, slopes, pars}) {
     setGames(get('games'));
     setTeesSelected(get('teesSelected'));
     
-    return () => {
-      //cleanup
-    }
+    
   //eslint-disable-next-line
   }, [])
 

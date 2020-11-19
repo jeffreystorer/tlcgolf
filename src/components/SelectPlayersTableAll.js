@@ -16,6 +16,7 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
   const teesSelected = useRecoilValue(state.teesSelectedState);
   const [showTips, setShowTips] = useState(get('showTips'));
   set('game', game);
+  console.log(course, game, games)
   
   let playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, randomTeams);
 

@@ -28,9 +28,11 @@ export default function loadLineupTablePlayersArrray (
 
   //construct the row
   function compute(anId, index) {
-    let aPlayer = players.find(obj => 
-      obj.id === anId
-    )
+    let id = anId.toString();
+    console.log(id)
+    let playerIndex = players.findIndex(id);
+    let aPlayer = players[playerIndex];
+    console.table(aPlayer);
     strHcpIndex = aPlayer[3];
     hcpIndex = parseFloat(strHcpIndex);
     let firstName = aPlayer[2];
