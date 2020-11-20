@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
 import {useRecoilValue, useRecoilState, } from 'recoil';
 import * as state from '../state';
+import * as c from '../functions/consoleLogTable';
 
 const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
   const [randomTeams, setRandomTeams] = useState(false);
@@ -16,7 +17,9 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
   const teesSelected = useRecoilValue(state.teesSelectedState);
   const [showTips, setShowTips] = useState(get('showTips'));
   set('game', game);
-  console.log(course, game, games)
+  console.log("SelectPlayersTableAll")
+  c.l([course,game, showTips]);
+  c.t([games, teesSelected])
   
   let playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, randomTeams);
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect} from 'react';
 import LineupTableDropDowns from './LineupTableDropDowns';
-import GamesAndLineupTableDropDowns from './GamesAndLineupTableDropDowns';
 import TeamTable from './TeamTable';
 import { v4 as uuidv4 } from 'uuid';
 import {useRecoilValue, useRecoilState} from 'recoil';
@@ -14,17 +13,19 @@ import ButtonDownloadScreenShot from './ButtonDownloadScreenshot';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import loadLineupTablePlayersArray from '../functions/loadLineupTablePlayersArray';
-export default function LineupTableAll({ratings, slopes, pars}) {
+import * as c from '../functions/consoleLogTable';
+export default function LineupTableAll({course, game, games, ratings, slopes, pars}) {
+  console.log("LineupTableAll")
+  c.l([course, game]);
+  c.t([games, ratings, slopes, pars]);
+
   //eslint-disable-next-line
   const ghinNumber = useRecoilValue(state.ghinNumberState);
   let firebaseRef = '"' + ghinNumber.toString() + '"';
   let isMe = false;
   if (ghinNumber === "585871") isMe = true;
   const [showTips, setShowTips] = useState(get('showTips'));
-  const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState)
-  const [course, setCourse] = useRecoilState(state.courseState);
-  const [game, setGame] = useRecoilState(state.gameState);
-  const games = useRecoilValue(state.gamesState);
+  const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState);
   const teesSelected = useRecoilValue(state.teesSelectedState);
   const teamTablesObj = {
     times: [],
@@ -496,8 +497,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }
   function loadLineupFromFirebase({
     players,
-    course, 
-    game, 
+    savedCourse, 
+    savedGame, 
     linkTime, 
     playingDate, 
     progs069, 
@@ -507,8 +508,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     textAreaValue
     }){
         setPlayers(players);
-        setCourse(course);
-        setGame(game);
+        course = savedCourse;
+        game = savedGame;
         setLinkTime(linkTime);
         setPlayingDate(playingDate);
         setProgs069(progs069);
@@ -531,15 +532,6 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   return (
   <>
   <div id='lineup-page' className='center'>
-    {showTips && 
-      <div>
-        <p><span style={{fontWeight: "bold"}} >To change the game:</span><br></br>
-        Go to the Games page.<br></br></p>        
-        <p><span style={{fontWeight: "bold"}} >To change the course:</span><br></br>
-        Click on the dropdown below:</p>
-      </div>}
-      <br></br>
-  <GamesAndLineupTableDropDowns table="Lineup"/>
   <br></br>
     {savedLineupCount() > 0 &&
       <div>
