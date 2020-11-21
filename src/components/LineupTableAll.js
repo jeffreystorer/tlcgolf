@@ -802,7 +802,7 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
         </table>
         </div>
     }<br></br>
-    <button id='auto-populate' onClick={handleAutoPopulateClick}>Auto-Populate</button>
+    <button id='auto-populate' onClick={handleAutoPopulateClick}>Auto-Populate ({players.length} players)</button>
     <br></br><br></br>
   <table id="lineup-table">
   <div id='lineup-table-div'>
