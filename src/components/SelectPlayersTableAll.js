@@ -88,6 +88,7 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
     <br></br>
   {showTips &&
   <div>
+  <br></br>
     <table className='table-tip'>
       <thead>
         <tr>
