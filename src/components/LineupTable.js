@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import '../styles/App.css';
 import LineupTableAll from './LineupTableAll';
-import GamesAndLineupTableCreate from './GamesAndLineupTableCreate';
 import getLineupTableDisplayNumber from '../functions/getLineupTableDisplayNumber';
 import {get} from '../functions/localStorage'
 import {useRecoilState} from 'recoil';
@@ -42,7 +41,11 @@ export default function LineupTable({ratings, slopes, pars}) {
   case 0:
       return(
         <>
-        <GamesAndLineupTableCreate />
+        <p className='center'>Before you can display this table,<br></br>
+                            you must select a game and course<br></br>
+                            on the Games Page and then select<br></br>
+                            your players on the Players Page.
+                            </p>
         </>
       )
   case 1:

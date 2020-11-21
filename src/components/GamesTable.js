@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import '../styles/App.css';
 import GamesTableAll from './GamesTableAll';
-import GamesAndLineupTableCreate from './GamesAndLineupTableCreate';
+import GamesTableCreate from './GamesTableCreate';
 import GamesTableDropDowns from './GamesAndLineupTableDropDowns';
 import getGamesAndSelectPlayersTableDisplayNumber from '../functions/getGamesAndSelectPlayersTableDisplayNumber';
 import LinkButton from './LinkButton';
@@ -80,7 +80,7 @@ export default function GamesTable({ratings, slopes, pars}) {
   case 0:
       return(
         <>
-        <GamesAndLineupTableCreate />
+        <GamesTableCreate />
         </>
       )
   case 1:

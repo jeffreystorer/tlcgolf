@@ -73,6 +73,7 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
     setEachTeamsHcpAndProgs();
     }
   }, )
+  
 
   let playersArray = loadLineupTablePlayersArray(course, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount);
    //eslint-disable-next-line
@@ -114,6 +115,7 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
     if (droppedTimesCount > 0) restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount, droppedTimesCount)
     setTeeTimeCount(event.target.value);
     setTeeTimes(linkTime, event.target.value);
+    set('teeTimeCount', event.target.value);
     for (let i = oldCount; i < newCount; i++){
       let newTeam = "team" + i;
       setTeamTables(teamTables => ({
@@ -260,44 +262,52 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
   function handleLoadDeleteSavedLineupClick(){
     setLoadDeleteSavedLineup(true);
   }
-
+  
   function handleAutoPopulateClick(){
-    let autopop = [];
-    let activePlayerCount = get('playersInLineup').length
-    switch (teeTimeCount) {
+    let savedTimes = teamTables.times;
+    setTeamTables(teamTablesObj);
+        setTeamTables(teamTables => ({
+      ...teamTables, times: savedTimes
+    }))
+    teamTables.times = savedTimes;
+    let teeTimes = get('teeTimeCount');
+    teeTimes = Number(teeTimes);
+    let playerCount = players.length;
+    let autoPop = [];
+    switch (teeTimes) {
       case 0:
         break;
       case 1:
-        autopop = [[0,1,2,3]]
+        autoPop = [[0,1,2,3]]
         break;
       case 2:
-        switch (activePlayerCount) {
+        switch (playerCount) {
           case 5:
-            autopop = [[0,1],[2,3,4]]  
+            autoPop = [[0,1],[2,3,4]]  
             break;
           case 7:
-            autopop = [[0,1,2], [3,4,5,6]]
+            autoPop = [[0,1,2], [3,4,5,6]]
             break;
           case 8:
-            autopop = [[0,1,3,4],[5,6,7,8]]
+            autoPop = [[0,1,3,4],[5,6,7,8]]
           break;
           default:
             break;
         }
         break;
       case 3:
-        switch (activePlayerCount) {
+        switch (playerCount) {
           case 9:
-            autopop = [[0,1,2],[3,4,5],[6,7,8]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8]]
             break;
           case 10:
-            autopop = [[0,1,2],[3,4,5],[6,7,8,9]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8,9]]
             break;
           case 11:
-            autopop = [[0,1,2],[3,4,5,6],[7,8,9,10]]
+            autoPop = [[0,1,2],[3,4,5,6],[7,8,9,10]]
           break;
           case 12: 
-            autopop = [[0,1,2,3],[4,5,6,7],[8,9,10,11]]
+            autoPop = [[0,1,2,3],[4,5,6,7],[8,9,10,11]]
             break;
           default:
             break;
@@ -305,126 +315,147 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
         break;
 
       case 4:
-        switch (activePlayerCount) {
+        switch (playerCount) {
+          case 12:
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11]]
+            break;
           case 13:
-            autopop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12]]
             break;
           case 14:
-            autopop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13]]
             break;
           case 15:
-            autopop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14]]
+            autoPop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14]]
           break;
           case 16: 
-            autopop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15]]
+            autoPop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15]]
             break;
           default:
             break;
         }      
         break;
       case 5:
-        switch (activePlayerCount) {
+        switch (playerCount) {
+          case 15:
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11],[12,13,14]]
+            break;
           case 17:
-            autopop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12],[13,14,15,16]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12],[13,14,15,16]]
             break;
           case 18:
-            autopop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17]]
             break;
           case 19:
-            autopop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14],[14,16,17,18]]
+            autoPop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14],[14,16,17,18]]
           break;
           case 20: 
-            autopop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19]]
+            autoPop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19]]
             break;
           default:
             break;
         }        
         break;
       case 6:
-        switch (activePlayerCount) {
+        switch (playerCount) {
+          case 18:
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11],[12,13,14],[15,16,17]]
+            break;
           case 21:
-            autopop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12],[13,14,15,16],[17,18,19,20]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12],[13,14,15,16],[17,18,19,20]]
             break;
           case 22:
-            autopop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17],[18,19,20,21]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17],[18,19,20,21]]
             break;
           case 23:
-            autopop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14],[14,16,17,18],[19,20,21,22]]
+            autoPop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14],[14,16,17,18],[19,20,21,22]]
           break;
           case 24: 
-            autopop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]
+            autoPop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]
             break;
           default:
             break;
         }      
         break;
       case 7:
-        switch (activePlayerCount) {
+        switch (playerCount) {
+          case 21:
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11],[12,13,14],[15,16,17],[18,19,20]]
+            break;
           case 25:
-            autopop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12],[13,14,15,16],[17,18,19,20],[21,22,23,24]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12],[13,14,15,16],[17,18,19,20],[21,22,23,24]]
             break;
           case 26:
-            autopop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17],[18,19,20,21],[22,23,24,25]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17],[18,19,20,21],[22,23,24,25]]
             break;
           case 27:
-            autopop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14],[14,16,17,18],[19,20,21,22],[23,24,25,26]]
+            autoPop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14],[14,16,17,18],[19,20,21,22],[23,24,25,26]]
           break;
           case 28: 
-            autopop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23],[24,25,26,27]]
+            autoPop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23],[24,25,26,27]]
             break;
           default:
             break;
         }
         break;
       case 8:
-        switch (activePlayerCount) {
+        switch (playerCount) {
+          case 24:
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11],[12,13,14],[15,16,17],[18,19,20],[21,22,23]]
+            break;
           case 29:
-            autopop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12],[13,14,15,16],[17,18,19,20],[21,22,23,24],[25,26,27,28]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12],[13,14,15,16],[17,18,19,20],[21,22,23,24],[25,26,27,28]]
             break;
           case 30:
-            autopop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17],[18,19,20,21],[22,23,24,25],[26,27,28,29]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17],[18,19,20,21],[22,23,24,25],[26,27,28,29]]
             break;
           case 31:
-            autopop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14],[14,16,17,18],[19,20,21,22],[23,24,25,26],[27,28,29,30]]
+            autoPop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14],[14,16,17,18],[19,20,21,22],[23,24,25,26],[27,28,29,30]]
           break;
           case 32: 
-            autopop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23],[24,25,26,27],[28,29,30,31]]
+            autoPop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23],[24,25,26,27],[28,29,30,31]]
             break;
           default:
             break;
         }
         break;
       case 9:
-        switch (activePlayerCount) {
+        switch (playerCount) {
+          case 27:
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11],[12,13,14],[15,16,17],[18,19,20],[21,22,23],[24,25,26]]
+            break;
           case 33:
-            autopop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12],[13,14,15,16],[17,18,19,20],[21,22,23,24],[25,26,27,28],[29,30,31,32]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12],[13,14,15,16],[17,18,19,20],[21,22,23,24],[25,26,27,28],[29,30,31,32]]
             break;
           case 34:
-            autopop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17],[18,19,20,21],[22,23,24,25],[26,27,28,29],[30,31,32,33]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17],[18,19,20,21],[22,23,24,25],[26,27,28,29],[30,31,32,33]]
             break;
           case 35:
-            autopop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14],[14,16,17,18],[19,20,21,22],[23,24,25,26],[27,28,29,30],[31,32,33,34]]
+            autoPop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14],[14,16,17,18],[19,20,21,22],[23,24,25,26],[27,28,29,30],[31,32,33,34]]
           break;
           case 36: 
-            autopop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23],[24,25,26,27],[28,29,30,31],[32,33,34,35]]
+            autoPop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23],[24,25,26,27],[28,29,30,31],[32,33,34,35]]
             break;
           default:
             break;
         }
         break;
       case 10:
-        switch (activePlayerCount) {
+        switch (playerCount) {
+          case 30:
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11],[12,13,14],[15,16,17],[18,19,20],[21,22,23],[24,25,26],[27,28,29]]
+            break;
           case 37:
-            autopop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12],[13,14,15,16],[17,18,19,20],[21,22,23,24],[25,26,27,28],[29,30,31,32],[33,34,35,36]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8],[9,10,11,12],[13,14,15,16],[17,18,19,20],[21,22,23,24],[25,26,27,28],[29,30,31,32],[33,34,35,36]]
             break;
           case 38:
-            autopop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17],[18,19,20,21],[22,23,24,25],[26,27,28,29],[30,31,32,33],[34,35,36,37]]
+            autoPop = [[0,1,2],[3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17],[18,19,20,21],[22,23,24,25],[26,27,28,29],[30,31,32,33],[34,35,36,37]]
             break;
           case 39:
-            autopop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14],[14,16,17,18],[19,20,21,22],[23,24,25,26],[27,28,29,30],[31,32,33,34],[35,36,37,38]]
+            autoPop = [[0,1,2],[3,4,5,6],[7,8,9,10],[11,12,13,14],[14,16,17,18],[19,20,21,22],[23,24,25,26],[27,28,29,30],[31,32,33,34],[35,36,37,38]]
           break;
           case 40: 
-            autopop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23],[24,25,26,27],[28,29,30,31],[32,33,34,35],[36,37,38,39]]
+            autoPop = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23],[24,25,26,27],[28,29,30,31],[32,33,34,35],[36,37,38,39]]
             break;
           default:
             break;
@@ -433,25 +464,21 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
       default:
         break;
     }
-    autopop.forEach(createTeam())
+    createTeam(autoPop)
     setEachTeamsHcpAndProgs();
   }
 
-  function createTeam(item,index){
-    let times = autopop.length;
-    let activePlayers = get('playersInGame');
-    activePlayers.forEach(addToTeam())
-
-    const newPlayerObj = players.find(player => player.id === Number());
-    setTeamTables(prevTeamTables => ({
-        ...prevTeamTables,
-        [name]: prevTeamTables[name].concat(newPlayerObj),
-    }));
-
-  }
-
-  function addToTeam(){
-
+  function createTeam(autoPop){
+    for (let i = 0; i < autoPop.length; i++){
+      for (let j = 0; j < autoPop[i].length; j++){
+        let newPlayerObj = players[autoPop[i][j]];
+        let name = "team" + i;
+        setTeamTables(prevTeamTables => ({
+          ...prevTeamTables,
+          [name]: prevTeamTables[name].concat(newPlayerObj),
+      })); 
+      }
+    }
   }
 
   function setTeamHcpAndProgs(teamName){    

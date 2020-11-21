@@ -3,7 +3,7 @@ import LinkButton from './LinkButton';
 import {useRecoilValue} from 'recoil';
 import * as state from '../state'
 
-export default function GamesAndLineupTableCreate() {
+export default function GamesTableCreate() {
   const ghinNumber = useRecoilValue(state.ghinNumberState)
   return(
     <>

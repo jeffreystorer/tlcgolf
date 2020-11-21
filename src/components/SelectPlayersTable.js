@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import '../styles/App.css';
 import {get} from '../functions/localStorage';
 import SelectPlayersTableAll from './SelectPlayersTableAll';
-import GamesAndLineupTableCreate from './GamesAndLineupTableCreate';
+import GamesTableCreate from './GamesTableCreate';
 import getGamesAndSelectPlayersTableDisplayNumber from '../functions/getGamesAndSelectPlayersTableDisplayNumber';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
@@ -37,7 +37,7 @@ export default function SelectPlayersTable({ratings, slopes, pars}) {
   case 0:
       return(
         <>
-        <GamesAndLineupTableCreate />
+        <GamesTableCreate />
         </>
       )
   case 1:
