@@ -6,7 +6,7 @@ import getLineupTableDisplayNumber from '../functions/getLineupTableDisplayNumbe
 import {get} from '../functions/localStorage'
 import {useRecoilState} from 'recoil';
 import * as state from '../state';
-import * as c from '../functions/consoleLogTable';
+//import * as c from '../functions/consoleLogTable';
 
 export default function LineupTable({ratings, slopes, pars}) { 
   const [games, setGames] = useRecoilState(state.gamesState)
@@ -18,9 +18,9 @@ export default function LineupTable({ratings, slopes, pars}) {
   const [course, setCourse] = useRecoilState(state.courseState);
   //eslint-disable-next-line
   const [game, setGame] = useRecoilState(state.gameState);
-  console.log("LineupTable")
+/*   console.log("LineupTable")
   c.l([course, game]);
-  c.t([games, ratings, slopes, pars]);
+  c.t([games, ratings, slopes, pars]); */
 
   useEffect(() => {
     setGHINNumber(get('ghinNumber'));

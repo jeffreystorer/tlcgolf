@@ -13,11 +13,11 @@ import ButtonDownloadScreenShot from './ButtonDownloadScreenshot';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import loadLineupTablePlayersArray from '../functions/loadLineupTablePlayersArray';
-import * as c from '../functions/consoleLogTable';
+//import * as c from '../functions/consoleLogTable';
 export default function LineupTableAll({course, game, games, ratings, slopes, pars}) {
-  console.log("LineupTableAll")
+/*   console.log("LineupTableAll")
   c.l([course, game]);
-  c.t([games, ratings, slopes, pars]);
+  c.t([games, ratings, slopes, pars]); */
 
   //eslint-disable-next-line
   const ghinNumber = useRecoilValue(state.ghinNumberState);
@@ -259,6 +259,83 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
 
   function handleLoadDeleteSavedLineupClick(){
     setLoadDeleteSavedLineup(true);
+  }
+
+  function handleAutoPopulateClick(){
+    let autopop = [];
+    let activePlayerCount = get('playersInLineup').length
+    switch (teeTimeCount) {
+      case 0:
+        break;
+      case 1:
+        autopop = [[0,1,2,3]]
+        break;
+      case 2:
+        switch (activePlayerCount) {
+          case 5:
+            autopop = [[0,1],[2,3,4]]  
+            break;
+          case 7:
+            autopop = [[0,1,2], [3,4,5,6]]
+            break;
+          case 8:
+            autopop = [[0,1,3,4],[5,6,7,8]]
+          break;
+          default:
+            break;
+        }
+        break;
+      case 3:
+        switch (activePlayerCount) {
+          case 9:
+            autopop = [[0,1,3],[2,3,4],[4,5,6]]  
+            break;
+          case 10:
+            autopop = [[0,1,2], [3,4,5,6]]
+            break;
+          case 11:
+            autopop = [[0,1,3,4],[5,6,7,8]]
+          break;
+          case 12:
+            autopop =
+          default:
+            break;
+        }
+        break;
+        
+        break;
+
+      case 4:
+      
+        break;
+      case 5:
+        
+        break;
+      case 6:
+      
+        break;
+      case 7:
+        
+        break;
+      case 8:
+
+        break;
+      case 9:
+
+        break;
+      case 10:
+
+        break;
+  
+      default:
+        break;
+    }
+    const newPlayerObj = players.find(player => player.id === Number(value));
+    setTeamTables(prevTeamTables => ({
+        ...prevTeamTables,
+        [name]: prevTeamTables[name].concat(newPlayerObj),
+    }));
+    setEachTeamsHcpAndProgs();
   }
 
   function setTeamHcpAndProgs(teamName){    
@@ -540,7 +617,6 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
             <p><span style={{fontWeight: "bold"}} >To load or delete a saved lineup:</span><br></br>
             Click on the "Saved Lineups" button.</p>
           </div>}
-          <br></br>
         <button onClick={handleLoadDeleteSavedLineupClick}>Saved Lineups</button>
         {loadDeleteSavedLineup && <LineupsList loadLineupFromFirebase={loadLineupFromFirebase} firebaseRef={firebaseRef} />}
       </div>}
@@ -560,6 +636,30 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
     progAdj={progAdj}
     handleProgAdjChange={handleProgAdjChange}
   />
+    <br></br>
+        {showTips && 
+    <div>
+    <br></br>
+        <table className='table-tip'>
+          <thead>
+            <tr>
+              <th>
+              To automatically populate the tee times:
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className='table-tip-td'>
+              Click on "Auto-Populate" and the selected players will 
+              be added automatically to the tee times.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+    }<br></br>
+    <button id='auto-populate' onClick={handleAutoPopulateClick}>Auto-Populate</button>
     <br></br><br></br>
   <table id="lineup-table">
   <div id='lineup-table-div'>

@@ -13,6 +13,7 @@ import {useRecoilValue, useRecoilState} from 'recoil';
 import * as state from '../state';
 import useVisibilityChange from 'use-visibility-change';
 import saveHandicapsToFirebase from '../functions/saveHandicapsToFirebase';
+//import * as c from '../functions/consoleLogTable';
 
 export default function GamesTable({ratings, slopes, pars}) {
   const players = get('players');

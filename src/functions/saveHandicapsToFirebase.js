@@ -1,4 +1,5 @@
 import LineupDataService from "../services/LineupService";
+
 export default function saveHandicapsToFirebase (
   players,
   game, 
@@ -9,7 +10,6 @@ export default function saveHandicapsToFirebase (
   slopes,
   pars,
   firebaseRef){
- 
   const saveHandicaps = () => {
     var data = {
       title: game +  " at " + course.toUpperCase(),
@@ -26,9 +26,8 @@ export default function saveHandicapsToFirebase (
     };
 
     if (firebaseRef === 'handicaps') LineupDataService.removeAll(firebaseRef)
-
     LineupDataService.create(data, firebaseRef)
-      .then(() => { 
+      .then(() => {
       })
       .catch(e => {
         console.log(e);
