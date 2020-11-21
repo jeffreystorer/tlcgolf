@@ -75,8 +75,8 @@ const SelectPlayersTableAll = ({ratings,slopes,pars}) => {
               order by unchecking the box.  If you check it 
               again, you will get a different randomized
               list.  The random list with which you make 
-              a game will be saved with the game and 
-              restored when you load the saved game.
+              a lineup will be saved with the lineup and 
+              restored when you load the saved lineup.
               </td>
             </tr>
           </tbody>
