@@ -288,21 +288,20 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
       case 3:
         switch (activePlayerCount) {
           case 9:
-            autopop = [[0,1,3],[2,3,4],[4,5,6]]  
+            autopop = [[0,1,2],[3,4,5],[6,7,8]]
             break;
           case 10:
-            autopop = [[0,1,2], [3,4,5,6]]
+            autopop = [[0,1,2],[3,4,5],[6,7,8,9]]
             break;
           case 11:
-            autopop = [[0,1,3,4],[5,6,7,8]]
+            autopop = [[0,1,2],[3,4,5,6],[7,8,9,10]]
           break;
-          case 12:
-            autopop =
+          case 12: 
+            autopop = [[0,1,2,3],[4,5,6,7],[8,9,10,11]]
+            break;
           default:
             break;
         }
-        break;
-        
         break;
 
       case 4:
