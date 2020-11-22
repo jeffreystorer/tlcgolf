@@ -25,8 +25,8 @@ export default function GamesAndLineupTableDropDowns(props) {
   
   function handleGameChange(e){
   setGame(e.target.value);
-  set('game', e.target.value)
-  localStorage.removeItem('playersInLineup');
+  set('game', e.target.value);
+  //localStorage.removeItem('playersInLineup');
 
   }
   try {
