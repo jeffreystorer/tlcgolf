@@ -25,10 +25,8 @@ export default function HelpPage(){
                     each user of this app, named with the user's GHIN Number.  On most devices, clicking the
                     "Edit Table" button will take you directly to your own sheet.  On an iPad, you will have to
                     find your sheet among the tabs shown at the bottom and click on it.  When you finish creating
-                    or edit your table, use the browser's back button to return to the app.  When you
-                    edit your table, you will be required to login again.  You will also lose your saved lineup
-                    (see below).
-
+                    or editing your table, use the browser's back button to return to the app.  After you
+                    edit your table, you will be required to login again.
                   </td>
                 </tr>
                 <br></br>
@@ -54,7 +52,6 @@ export default function HelpPage(){
                   it can include any player with a GHIN number.  If you don't know the guest's GHIN number, 
                   then add the player at the bottom of your list, using the dummy value 9999990 as the player's 
                   GHIN number and the player's full name in the "Last_Name" column. 
-                  See the sheet for user 585871 for an example.  
                   If you want to add more than one guest, use the next consecutive dummy value (e.g.,
                   9999991) and so on.  For a guest whose GHIN number you don't know, you will simply specify a manual 
                   course handicap from a chosen tee in your lineup (see below).  
@@ -78,7 +75,7 @@ export default function HelpPage(){
                     Randomizing Your List
                   </td>
                   <td>
-                    After you select a game and course on the Games page,
+                    After you select a game and course on the Games page, if you wish to create a lineup,
                     go the Players page to select your players.  If you wish
                     to have a random list, check the "Random Teams" box.  
                     This will randomize the list of players 
@@ -123,7 +120,7 @@ export default function HelpPage(){
                   <td>
                     Go to the Games page and select your game and course, and then to the 
                       Players page to select your players.
-                      Then go the Lineup page.  Use the first row of dropdowns to choose your playing
+                      Then click "Next" to go the Lineup page.  Use the first row of dropdowns to choose your playing
                       date, number of tee times, and link time.  If you are going to play progs, 
                       make a choice under the "Progs Y/N?" dropdown.  If you wish to require threesomes 
                       to make three more points per eighteen holes, make a choice under the "Progs Adj?" dropdown.
@@ -204,6 +201,28 @@ export default function HelpPage(){
                     Also, if you make a lineup one day and come back to it the
                     next, the course handicaps will be automatically updated using the players'
                     current indexes.
+                  </td>
+                </tr>
+                <br></br>
+                <tr>
+                  <td className='help-topic'>
+                    Retrieving a Saved Lineup
+                  </td>
+                  <td>
+                  Once you have created and saved one or more lineups, you can go directly to the
+                  Lineup page, without selecting players on the Players page, if you want to retrieve a saved lineup.  
+                  Note that after you login, your saved players list is deleted, so you will have to 
+                  select players before you can use the Lineup page.  If you just want to use a saved lineup,
+                  you can select any player and then click "Next" to take you to the Lineup page.
+                  </td>
+                </tr>
+                <br></br>
+                <tr>
+                  <td className='help-topic'>
+                  
+                  </td>
+                  <td>
+                  You retrieve a saved lineup by clicking on the "Saved Lineups" button and selecting a saved lineup to load.
                   </td>
                 </tr>
                 <br></br>
