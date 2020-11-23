@@ -628,7 +628,7 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
   const playingDates = () => {
       let playingDates = [];
       const now = new Date();
-      for (let i = 0; i <  7; i++){
+      for (let i = 0; i <  8; i++){
       let month = now.getMonth() + 1;
       let day = now.getDate();
       let year = now.getFullYear();
