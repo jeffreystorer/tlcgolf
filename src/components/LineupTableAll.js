@@ -184,10 +184,10 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
   }
 
   function handleSaveLineupClick(){
-    let allPlayers = get('players');
+    let playersInLineup = get('playersInLineup');
     firebaseRef = '"' + ghinNumber.toString() + '"';
     saveLineupToFirebase(
-      allPlayers,
+      playersInLineup,
       players,
       game,
       games, 
@@ -217,10 +217,10 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
   
 
   function handlePublishLineupClick(){
-    let allPlayers = get('players');
+    let playersInLineup = get('playersInLineup')
     firebaseRef = '"' + ghinNumber.toString() + '"';
     saveLineupToFirebase(
-      allPlayers,
+      playersInLineup,
       players,
       game,
       games,
@@ -239,7 +239,7 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
       firebaseRef);
     firebaseRef = 'lineup'
     saveLineupToFirebase(
-      allPlayers,
+      playersInLineup,
       players,
       game,
       games,
@@ -715,6 +715,7 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
     }
     return TeamTables;
   }
+
   function loadLineupFromFirebase({
     players,
     savedCourse, 
