@@ -717,6 +717,7 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
   }
 
   function loadLineupFromFirebase({
+    playersInLineup,
     players,
     savedCourse, 
     savedGame, 
@@ -728,6 +729,7 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
     teeTimeCount, 
     textAreaValue
     }){
+        set('playersInLineup', playersInLineup)
         setPlayers(players);
         course = savedCourse;
         game = savedGame;
