@@ -14,6 +14,9 @@ const Lineup = (props) => {
     key: null,
     title: "",
     lineup: {
+      allPlayers: "",
+      playersInLineup: "",
+      players: "",
       game: "",
       course: "",
       playingDate: "",
