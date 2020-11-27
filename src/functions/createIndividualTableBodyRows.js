@@ -55,12 +55,7 @@ export default function createIndividualTableBodyRows (table, rawIndex, gender, 
   }
   //build array of tees
   function buildTeeArray() {
-    let teesSelectedArray;
-    try {
-      teesSelectedArray = teesSelected.map(a => a.value);
-    } catch (error) {
-      document.location = "/";
-    }
+    let teesSelectedArray = teesSelected.map(a => a.value);
     return teesSelectedArray;
   }
 
