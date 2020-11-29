@@ -75,7 +75,7 @@ export default function LineupTableAll({course, game, games, ratings, slopes, pa
   }, )
   
 
-  let playersArray = loadLineupTablePlayersArray(course, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount);
+  let playersArray = loadLineupTablePlayersArray(firebaseRef, course, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount);
    //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray);
 

@@ -1,8 +1,10 @@
 import {tees, courses} from '../data';
 import {get} from './localStorage';
 import setRatingSlopePar from './setRatingSlopePar';
+import LineupDataService from "../services/LineupService";
 
 export default function loadLineupTablePlayersArrray (
+  firebaseRef,
   course,
   teesSelected, 
   ratings, 
@@ -29,12 +31,20 @@ export default function loadLineupTablePlayersArrray (
   const indexOfPlayer = (id) =>{
       var i = 0;
       var playerFound = false;
-      do{
-          playerFound = players[i].includes(id);
-          i++;
-      }
-      while (!playerFound);
+      try{
+        do{
+            playerFound = players[i].includes(id);
+            i++;
+        }
+        while (!playerFound);
       return i-1;
+      } catch (error) {
+        alert("One of the players you selected when you made this lineup\n"
+        +"(GHIN Number: " +id+") is no longer in your table.\n"
+        +"Your saved lineups have been deleted.");
+        LineupDataService.removeAll(firebaseRef);
+        document.location = "/games";
+      }
   }
 
   //construct the row
