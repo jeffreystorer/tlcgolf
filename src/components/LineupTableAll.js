@@ -687,8 +687,8 @@ export default function LineupTableAll({
         </button>
         <br></br>
         <br></br>
-        <table id="lineup-table">
-          <div id="lineup-table-div">
+        <table id="lineup-table" className="background-white">
+          <div id="lineup-table-div" className="background-white">
             <thead className="lineup-table-head">
               <tr>
                 <td>
@@ -706,7 +706,7 @@ export default function LineupTableAll({
             </thead>
             <tbody>
               <tr>
-                <td>{generateTeamTables()}</td>
+                <td className="background-white">{generateTeamTables()}</td>
               </tr>
             </tbody>
             <tfoot>
@@ -820,11 +820,12 @@ export default function LineupTableAll({
         )}
         <br></br>
         <br></br>
+        <br></br>
         <ButtonDownloadScreenShot
           game={game}
           course={course}
           element="lineup-table-div"
-          format="PNG"
+          format="JPEG"
           page="Lineup"
         />
         <br></br>

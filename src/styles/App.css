@@ -146,7 +146,14 @@ td.game-other-row-cell {
 } */
 
 #lineup-table {
+  background-color: white;
   width: fit-content;
+}
+
+table.lineup-table,
+.textareacell,
+.lineup-table-div {
+  background-color: white;
 }
 
 #help-table {
@@ -154,6 +161,7 @@ td.game-other-row-cell {
 }
 
 table.team-table {
+  background-color: white;
   width: 100%;
 }
 
@@ -400,6 +408,7 @@ li:hover {
 } */
 
 .lineup-table-head {
+  background-color: white;
   text-align: left;
   font: 16px sans-serif;
   font-weight: bold;
@@ -422,4 +431,8 @@ textarea {
 
 p {
   font: 16px sans-serif;
+}
+
+.background-white {
+  background-color: white;
 }
