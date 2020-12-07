@@ -5,7 +5,27 @@ export default function setAutoPop(teeTimes, playerCount) {
     case 0:
       break
     case 1:
-      autoPop = [[0, 1, 2, 3]]
+      switch(playerCount) {
+        case 1:
+          break
+        case 2:
+          autoPop = [
+            [0, 1]
+          ]
+          break
+        case 3:
+          autoPop = [
+            [0, 1, 2]
+          ]
+          break
+        case 4: 
+          autoPop = [
+            [0, 1, 2, 3]
+          ]
+          break
+        default:
+          break
+      }
       break
     case 2:
       switch (playerCount) {
@@ -13,6 +33,12 @@ export default function setAutoPop(teeTimes, playerCount) {
           autoPop = [
             [0, 1],
             [2, 3, 4],
+          ]
+          break
+        case 6:
+          autoPop = [
+            [0, 1, 2],
+            [3, 4, 5],
           ]
           break
         case 7:
@@ -147,7 +173,7 @@ export default function setAutoPop(teeTimes, playerCount) {
             [3, 4, 5, 6],
             [7, 8, 9, 10],
             [11, 12, 13, 14],
-            [14, 16, 17, 18],
+            [15, 16, 17, 18],
           ]
           break
         case 20:
@@ -201,7 +227,7 @@ export default function setAutoPop(teeTimes, playerCount) {
             [3, 4, 5, 6],
             [7, 8, 9, 10],
             [11, 12, 13, 14],
-            [14, 16, 17, 18],
+            [15, 16, 17, 18],
             [19, 20, 21, 22],
           ]
           break
@@ -260,7 +286,7 @@ export default function setAutoPop(teeTimes, playerCount) {
             [3, 4, 5, 6],
             [7, 8, 9, 10],
             [11, 12, 13, 14],
-            [14, 16, 17, 18],
+            [15, 16, 17, 18],
             [19, 20, 21, 22],
             [23, 24, 25, 26],
           ]
@@ -324,7 +350,7 @@ export default function setAutoPop(teeTimes, playerCount) {
             [3, 4, 5, 6],
             [7, 8, 9, 10],
             [11, 12, 13, 14],
-            [14, 16, 17, 18],
+            [15, 16, 17, 18],
             [19, 20, 21, 22],
             [23, 24, 25, 26],
             [27, 28, 29, 30],
@@ -393,7 +419,7 @@ export default function setAutoPop(teeTimes, playerCount) {
             [3, 4, 5, 6],
             [7, 8, 9, 10],
             [11, 12, 13, 14],
-            [14, 16, 17, 18],
+            [15, 16, 17, 18],
             [19, 20, 21, 22],
             [23, 24, 25, 26],
             [27, 28, 29, 30],
