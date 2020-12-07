@@ -803,15 +803,13 @@ export default function LineupTableAll({
               <tbody>
                 <tr>
                   <td className="table-tip-td">
-                    Click the "Download Screenshot" button. On a computer, this
-                    will download a screenshot of the lineup to your download
-                    folder. You can then insert it into an email to your
-                    players. On an iPad or iPhone, this should open up a popup
-                    with the image. A long press on the image will let you save
-                    the image or copy it to the clipboard. You can then paste it
-                    into an e-mail to your players. On an Android device, the
-                    downloaded file does not display properly, so you will need
-                    to take a screenshot manually.
+                    Click the "Download Screenshot" button. On a computer and an
+                    Android device, this will download a screenshot of the
+                    lineup to your download folder. You can then insert it into
+                    an email to your players. On an iPad or iPhone, this should
+                    open up a popup with the image. A long press on the image
+                    will let you save the image or copy it to the clipboard. You
+                    can then paste it into an e-mail to your players.
                   </td>
                 </tr>
               </tbody>
