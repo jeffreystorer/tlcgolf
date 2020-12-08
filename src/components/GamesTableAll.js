@@ -46,6 +46,14 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
           game={game}
           course={course}
           element="games-table-div"
+          format="PNG"
+          page="Games"
+        />
+        <br></br>
+        <ButtonDownloadScreenShot
+          game={game}
+          course={course}
+          element="games-table-div"
           format="JPEG"
           page="Games"
         />

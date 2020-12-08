@@ -28,7 +28,7 @@ const ButtonDownLoadScreenshot = ({ game, course, element, format, page }) => {
   }
   return (
     <button className="center" onClick={handleClick}>
-      Download Screenshot
+      Download Screenshot ({format.toLowerCase()})
     </button>
   )
 }

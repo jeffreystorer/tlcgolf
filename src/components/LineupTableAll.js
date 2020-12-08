@@ -803,16 +803,14 @@ export default function LineupTableAll({
               <tbody>
                 <tr>
                   <td className="table-tip-td">
-                    Click the "Download Screenshot" button. On a computer and 
-                    an Android device, this will download a screenshot 
-                    of the lineup to your download folder.  You can then open it 
-                    using an image editor, such as Paint, and copy it 
-                    for use in an email to your players. 
-                    On an iPad or iPhone, this should open up a popup 
-                    with the image.  A long press on the image 
-                    will let you save the image or copy it 
-                    to the clipboard.  You can insert this  
-                    into an e-mail to your players.
+                    Click the "Download Screenshot" button. On a computer and an
+                    Android device, this will download a screenshot of the
+                    lineup to your download folder. You can then open it using
+                    an image editor, such as Paint, and copy it for use in an
+                    email to your players. On an iPad or iPhone, this should
+                    open up a popup with the image. A long press on the image
+                    will let you save the image or copy it to the clipboard. You
+                    can insert this into an e-mail to your players.
                   </td>
                 </tr>
               </tbody>
@@ -821,6 +819,14 @@ export default function LineupTableAll({
         )}
         <br></br>
         <br></br>
+        <br></br>
+        <ButtonDownloadScreenShot
+          game={game}
+          course={course}
+          element="lineup-table-div"
+          format="PNG"
+          page="Lineup"
+        />
         <br></br>
         <ButtonDownloadScreenShot
           game={game}
