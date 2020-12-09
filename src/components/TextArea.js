@@ -1,31 +1,27 @@
 import React, { useState } from "react"
-import { set } from "../functions/localStorage"
+import { set, get } from "../functions/localStorage"
 
-export default function TextArea(value) {
-  const [textAreaValue, setTextAreaValue] = useState(value)
+export default function TextArea() {
+  const [textAreaValue, setTextAreaValue] = useState(get("textAreaValue"))
 
-  const handleChange = (event) => {
-    setTextAreaValue(event.target.value)
+  function handleOnBlur() {
+    set("textAreaValue", textAreaValue)
   }
 
-  const handleSubmit = (event) => {
-    set("savedTextAreaValue", event.target.value)
-    event.preventDefault()
+  function handleValueChange(event) {
+    setTextAreaValue(event.target.value)
   }
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <textarea
-          id="lineup-textarea"
-          rows="8"
-          cols="39"
-          value={textAreaValue}
-          onChange={handleChange}
-        />
-        <br></br>
-        <input type="submit" value="Submit" />
-      </form>
+      <textarea
+        id="lineup-textarea"
+        rows="8"
+        cols="39"
+        value={textAreaValue}
+        onBlur={handleOnBlur}
+        onChange={handleValueChange}
+      ></textarea>
     </>
   )
 }

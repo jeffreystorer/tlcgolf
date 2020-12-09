@@ -14,6 +14,7 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import loadLineupTablePlayersArray from "../functions/loadLineupTablePlayersArray"
 import setAutoPop from "../functions/setAutoPop"
+import AddPlayersToSavedLineup from "./AddPlayersToSavedLineup"
 //import * as c from '../functions/consoleLogTable';
 export default function LineupTableAll({
   course,
@@ -33,6 +34,8 @@ export default function LineupTableAll({
   let isMe = false
   if (ghinNumber === "585871") isMe = true
   const [showTips, setShowTips] = useState(get("showTips"))
+  const [showTeamHcp, setShowTeamHcp] = useState(get("showTeamHcp"))
+  const [showAddPlayers, setShowAddPlayers] = useState(false)
   const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(
     state.loadDeleteSaveLineupsState
   )
@@ -132,11 +135,7 @@ export default function LineupTableAll({
     const newCount = event.target.value
     const droppedTimesCount = oldCount - newCount
     if (droppedTimesCount > 0)
-      restoreDroppedTeeTimePlayersToPlayersList(
-        oldCount,
-        newCount,
-        droppedTimesCount
-      )
+      restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount)
     setTeeTimeCount(event.target.value)
     setTeeTimes(linkTime, event.target.value)
     set("teeTimeCount", event.target.value)
@@ -161,11 +160,7 @@ export default function LineupTableAll({
     setEachTeamsHcpAndProgs()
   }
 
-  function restoreDroppedTeeTimePlayersToPlayersList(
-    oldCount,
-    newCount,
-    droppedTimesCount
-  ) {
+  function restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount) {
     for (let i = newCount; i < oldCount; i++) {
       let teamName = "team" + i
       teamTables[teamName] = []
@@ -208,6 +203,10 @@ export default function LineupTableAll({
   function handleShowTipsChange() {
     set("showTips", !showTips)
     setShowTips(!showTips)
+  }
+  function handleShowTeamHcpChange() {
+    set("showTeamHcp", !showTeamHcp)
+    setShowTeamHcp(!showTeamHcp)
   }
 
   function handleSaveLineupClick() {
@@ -311,6 +310,14 @@ export default function LineupTableAll({
     let autoPop = setAutoPop(teeTimes, playerCount)
     createTeam(autoPop)
     setEachTeamsHcpAndProgs()
+  }
+
+  function handleShowAddPlayersClick() {
+    setShowAddPlayers(true)
+  }
+
+  function handleAddPlayersClick() {
+    setShowAddPlayers(false)
   }
 
   function createTeam(autoPop) {
@@ -574,6 +581,7 @@ export default function LineupTableAll({
           handleTeeChoiceChange={handleTeeChoiceChange}
           handleOverrideCHChange={handleOverrideCHChange}
           manualCHOptionItems={manualCHOptionItems}
+          showTeamHcp={showTeamHcp}
         />
       )
     }
@@ -685,6 +693,25 @@ export default function LineupTableAll({
         <button id="auto-populate" onClick={handleAutoPopulateClick}>
           Auto-Populate ({players.length} players)
         </button>
+        <br></br>
+        <br></br>
+        <button id="add-players" onClick={handleShowAddPlayersClick}>
+          Add players to saved lineup
+        </button>
+        <br></br>
+        <br></br>
+        {showAddPlayers && (
+          <AddPlayersToSavedLineup
+            handleAddPlayersClick={handleAddPlayersClick}
+          />
+        )}
+        <input
+          type="checkbox"
+          id="showTeamHcp"
+          onChange={handleShowTeamHcpChange}
+          defaultChecked={showTeamHcp}
+        ></input>
+        <label htmlFor="showTeamHcp">Show Team Hcp</label>
         <br></br>
         <br></br>
         <table id="lineup-table" className="background-white">
