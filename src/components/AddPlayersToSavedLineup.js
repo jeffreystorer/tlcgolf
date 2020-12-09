@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function AddPlayersToSaveLineup({ handleAddPlayersClick }) {
+export default function AddPlayersToSavedLineup({ handleAddPlayersClick }) {
   return (
     <>
       <p>Under construction</p>
