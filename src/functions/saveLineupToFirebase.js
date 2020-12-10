@@ -1,27 +1,34 @@
-import LineupDataService from "../services/LineupService";
-export default function saveLineupToFirebase (
+import LineupDataService from "../services/LineupService"
+export default function saveLineupToFirebase(
   allPlayers,
   playersInLineup,
   players,
   game,
   games,
-  course, 
-  playingDate, 
-  teeTimeCount, 
-  linkTime, 
+  course,
+  playingDate,
+  teeTimeCount,
+  linkTime,
   progs069,
-  progAdj, 
+  progAdj,
   teamTables,
   textAreaValue,
   teesSelected,
   ratings,
   slopes,
   pars,
-  firebaseRef){
- 
+  firebaseRef
+) {
   const saveLineup = () => {
     var data = {
-      title: game + ", " + playingDate + " at " + linkTime + " at " + course.toUpperCase(),
+      title:
+        game +
+        ", " +
+        playingDate +
+        " at " +
+        linkTime +
+        " at " +
+        course.toUpperCase(),
       lineup: {
         allPlayers: allPlayers,
         playersInLineup: playersInLineup,
@@ -33,26 +40,24 @@ export default function saveLineupToFirebase (
         teeTimeCount: teeTimeCount,
         linkTime: linkTime,
         progs069: progs069,
-        progAdj: progAdj, 
+        progAdj: progAdj,
         teamTables: teamTables,
         textAreaValue: textAreaValue,
         teesSelected: teesSelected,
         ratings: ratings,
         slopes: slopes,
         pars: pars,
-      }
-    };
+      },
+    }
 
-    if (firebaseRef === 'lineup') LineupDataService.removeAll(firebaseRef)
+    if (firebaseRef === "lineup") LineupDataService.removeAll(firebaseRef)
 
     LineupDataService.create(data, firebaseRef)
-      .then(() => { 
+      .then(() => {})
+      .catch((e) => {
+        console.log(e)
       })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  }
 
-  saveLineup();
+  saveLineup()
 }
-
