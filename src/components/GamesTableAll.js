@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import GamesTableDropDowns from "./GamesAndLineupTableDropDowns"
+import GamesTableDropDowns from "./GamesTableDropDowns"
 import GamesTableHeader from "./GamesTableHeader"
 import GamesTableBody from "./GamesTableBody"
 import LinkButton from "./LinkButton"
@@ -17,7 +17,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   }
   return (
     <>
-      <GamesTableDropDowns table="Games" />
+      <GamesTableDropDowns />
       <br />
       <br />
       <table id="games-table" className="background-white">

@@ -15,19 +15,11 @@ import "react-toastify/dist/ReactToastify.css"
 import loadLineupTablePlayersArray from "../functions/loadLineupTablePlayersArray"
 import setAutoPop from "../functions/setAutoPop"
 import AddPlayersToSavedLineup from "./AddPlayersToSavedLineup"
-//import * as c from '../functions/consoleLogTable';
-export default function LineupTableAll({
-  course,
-  game,
-  games,
-  ratings,
-  slopes,
-  pars,
-}) {
-  /*   console.log("LineupTableAll")
-  c.l([course, game]);
-  c.t([games, ratings, slopes, pars]); */
 
+//import * as c from '../functions/consoleLogTable';
+export default function LineupTableAll({ games, ratings, slopes, pars }) {
+  const [course, setCourse] = useRecoilState(state.courseState)
+  const [game, setGame] = useRecoilState(state.gameState)
   //eslint-disable-next-line
   const ghinNumber = useRecoilValue(state.ghinNumberState)
   let firebaseRef = '"' + ghinNumber.toString() + '"'
@@ -318,6 +310,17 @@ export default function LineupTableAll({
 
   function handleAddPlayersClick() {
     setShowAddPlayers(false)
+    playersArray = loadLineupTablePlayersArray(
+      firebaseRef,
+      course,
+      teesSelected,
+      ratings,
+      slopes,
+      pars,
+      teamTables,
+      teeTimeCount
+    )
+    setPlayers(playersArray)
   }
 
   function createTeam(autoPop) {
@@ -591,8 +594,8 @@ export default function LineupTableAll({
   function loadLineupFromFirebase({
     playersInLineup,
     players,
-    savedCourse,
-    savedGame,
+    course,
+    game,
     linkTime,
     playingDate,
     progs069,
@@ -603,8 +606,8 @@ export default function LineupTableAll({
   }) {
     set("playersInLineup", playersInLineup)
     setPlayers(players)
-    course = savedCourse
-    game = savedGame
+    setCourse(course)
+    setGame(game)
     setLinkTime(linkTime)
     setPlayingDate(playingDate)
     setProgs069(progs069)
@@ -702,6 +705,11 @@ export default function LineupTableAll({
         <br></br>
         {showAddPlayers && (
           <AddPlayersToSavedLineup
+            course={course}
+            game={game}
+            ratings={ratings}
+            slopes={slopes}
+            pars={pars}
             handleAddPlayersClick={handleAddPlayersClick}
           />
         )}
