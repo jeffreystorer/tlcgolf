@@ -444,8 +444,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       aChosenTeeIndex
     ] = aManualCH
     teamTables[teamName][playerIndex].manualCH = aManualCH
-
-    //set('savedTeamTables', teamTables);
   }
 
   function setManualCHCourseHandicaps(teamMembers) {
@@ -547,6 +545,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       {linkTime}
     </option>
   ))
+
+  //manual handicap dropdown items
   let manualCHList = []
   manualCHList.push("*")
   manualCHList.push("Auto")
