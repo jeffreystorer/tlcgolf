@@ -64,26 +64,28 @@ const TeamTable = ({
     let aChosenTeeIndex = rows[i].courseHandicaps.indexOf(rows[i].teeChoice)
     let manualCH = rows[i].courseHandicaps[aChosenTeeIndex]
 
-    tds.push(
-      <TeeChoiceDropDown
-        key={uuidv4()}
-        handleTeeChoiceChange={handleTeeChoiceChange}
-        teeChoiceOptionItems={teeChoiceOptionItems}
-        baseTee={rows[i].teeChoice}
-        playerId={rows[i].id}
-        teamNumber={teamNumber}
-      />
-    )
-    tds.push(
-      <OverrideCHDropDown
-        key={uuidv4()}
-        manualCH={manualCH}
-        handleOverrideCHChange={handleOverrideCHChange}
-        manualCHOptionItems={manualCHOptionItems}
-        playerId={rows[i].id}
-        teamNumber={teamNumber}
-      />
-    )
+    if (showTeamHcp) {
+      tds.push(
+        <TeeChoiceDropDown
+          key={uuidv4()}
+          handleTeeChoiceChange={handleTeeChoiceChange}
+          teeChoiceOptionItems={teeChoiceOptionItems}
+          baseTee={rows[i].teeChoice}
+          playerId={rows[i].id}
+          teamNumber={teamNumber}
+        />
+      )
+      tds.push(
+        <OverrideCHDropDown
+          key={uuidv4()}
+          manualCH={manualCH}
+          handleOverrideCHChange={handleOverrideCHChange}
+          manualCHOptionItems={manualCHOptionItems}
+          playerId={rows[i].id}
+          teamNumber={teamNumber}
+        />
+      )
+    }
     return tds
   }
   let teesSelectedArray = teesSelected.map((a) => a.value)
