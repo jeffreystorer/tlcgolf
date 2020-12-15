@@ -713,13 +713,17 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             handleAddPlayersClick={handleAddPlayersClick}
           />
         )}
-        <input
-          type="checkbox"
-          id="showTeamHcp"
-          onChange={handleShowTeamHcpChange}
-          defaultChecked={showTeamHcp}
-        ></input>
-        <label htmlFor="showTeamHcp">Show Team Hcp</label>
+        {progs069 < 1 && (
+          <>
+            <input
+              type="checkbox"
+              id="showTeamHcp"
+              onChange={handleShowTeamHcpChange}
+              defaultChecked={showTeamHcp}
+            ></input>
+            <label htmlFor="showTeamHcp">Show Team Hcp</label>
+          </>
+        )}
         <br></br>
         <br></br>
         <table id="lineup-table" className="background-white">

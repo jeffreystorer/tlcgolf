@@ -64,7 +64,7 @@ const TeamTable = ({
     let aChosenTeeIndex = rows[i].courseHandicaps.indexOf(rows[i].teeChoice)
     let manualCH = rows[i].courseHandicaps[aChosenTeeIndex]
 
-    if (showTeamHcp) {
+    if (showTeamHcp || progs069 > 0) {
       tds.push(
         <TeeChoiceDropDown
           key={uuidv4()}
@@ -111,7 +111,11 @@ const TeamTable = ({
       <tfoot className="team-table-footer">
         <tr>
           <td colSpan={teeCount + 2}>
-            {showTeamHcp ? <span>Team Hcp: {teamHcp}</span> : <></>}
+            {showTeamHcp || progs069 > 0 ? (
+              <span>Team Hcp: {teamHcp}</span>
+            ) : (
+              <></>
+            )}
             {progs069 > 0 ? (
               <span>
                 &nbsp;&nbsp;Team progs per {progs069}: {teamProgs}
