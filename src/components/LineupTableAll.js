@@ -547,15 +547,29 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   ))
 
   //manual handicap dropdown items
-  let manualCHList = []
-  manualCHList.push("*")
-  manualCHList.push("Auto")
-  for (let i = -10; i < 61; i++) manualCHList.push(i)
-  const manualCHOptionItems = manualCHList.map((manualCH) => (
+  let manualCHList1 = []
+  let manualCHList2 = []
+  let manualCHList3 = []
+  manualCHList1.push("*")
+  manualCHList1.push("Auto")
+  const items1 = manualCHList1.map((manualCH) => (
     <option key={uuidv4()} value={manualCH}>
       {manualCH}
     </option>
   ))
+  for (let i = -10; i < 0; i++) manualCHList2.push(i)
+  const items2 = manualCHList2.map((manualCH) => (
+    <option key={uuidv4()} value={manualCH}>
+      {"+" + Math.abs(manualCH)}
+    </option>
+  ))
+  for (let i = 0; i < 61; i++) manualCHList3.push(i)
+  const items3 = manualCHList3.map((manualCH) => (
+    <option key={uuidv4()} value={manualCH}>
+      {manualCH}
+    </option>
+  ))
+  const manualCHOptionItems = items1.concat(items2, items3)
 
   const playerNameList = getPlayersNotInTeeTime(players, teamTables)
   let TeamTables = []
