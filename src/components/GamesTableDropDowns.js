@@ -52,7 +52,7 @@ export default function GamesTableDropDowns() {
             <option value="dc">Deer Creek</option>
             <option value="mg">Magnolia</option>
             <option value="mw">Marshwood</option>
-            <option value="ok">Oakridge</option>
+            <option value="or">Oakridge</option>
             <option value="pa">Palmetto</option>
             <option value="tp">Terrapin Point</option>
           </select>
