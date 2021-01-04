@@ -10,23 +10,12 @@ function LoginPage() {
   const build =
     "Build: " + preval`module.exports = new Date().toLocaleString();`
 
-  const [dataModeGHIN, setDataModeGHIN] = useState(true)
-
   let ghinNumber, lastName, showTips, showLocalNumbers
   ghinNumber = get("ghinNumber") ? get("ghinNumber") : "GHIN Number"
   lastName = get("lastName") ? get("lastName") : "Last Name"
   showTips = get("showTips")
   showLocalNumbers = get("showLocalNumbers")
   let teesSelected = get("teesSelected")
-
-  let isMe = false
-  switch (ghinNumber) {
-    case "585871":
-      isMe = true
-      break
-    default:
-      break
-  }
 
   useEffect(() => {
     localStorage.clear()
@@ -55,11 +44,6 @@ function LoginPage() {
   }, [showLocalNumbers])
 
   function handleClick(e) {
-    if (dataModeGHIN === true) {
-      set("dataMode", "ghin")
-    } else {
-      set("dataMode", "roster")
-    }
     set("ghinNumber", ghinNumber)
     set("lastName", lastName)
     setIsLoggedIn(ghinNumber, lastName)
@@ -70,11 +54,8 @@ function LoginPage() {
     set("showTips", showTips)
     set("showLocalNumbers", showLocalNumbers)
     set("teesSelected", teesSelected)
+    set("datamode", "roster")
     document.location = "/settings/selecttees"
-  }
-
-  function handleDataModeChange() {
-    setDataModeGHIN(!dataModeGHIN)
   }
 
   return (
@@ -122,21 +103,6 @@ function LoginPage() {
         </div>
         <br />
         <br />
-        <div className="center">
-          {isMe && (
-            <>
-              <input
-                type="checkbox"
-                id="dataModeGHIN"
-                onChange={handleDataModeChange}
-                defaultChecked={dataModeGHIN}
-              ></input>
-              <label htmlFor="dataModeGHIN">Fetch Data from GHIN</label>
-            </>
-          )}
-        </div>
-        <br></br>
-        <br></br>
         <div>
           <button onClick={handleClick}>Next</button>
         </div>
