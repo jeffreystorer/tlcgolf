@@ -59,9 +59,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const [linkTime, setLinkTime] = useState("Time")
   const [teeTimeCount, setTeeTimeCount] = useState("")
   const [playingDate, setPlayingDate] = useState("Date")
-  const [textAreaValue, setTextAreaValue] = useState(
-    "[Bets, Entry, Prize, Rules]"
-  )
+  const [textAreaValue, setTextAreaValue] = useState("")
   const [progs069, setProgs069] = useState("0")
   const [progAdj, setProgAdj] = useState("0")
   //trick the component into rerendering with tee choice changes
