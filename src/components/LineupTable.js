@@ -49,7 +49,7 @@ export default function LineupTable({ratings, slopes, pars}) {
         </>
       )
   case 1:
-    document.location = '/games'
+    document.location = '/'
     return(
       <>
       </>

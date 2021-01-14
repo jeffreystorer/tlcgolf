@@ -1,7 +1,5 @@
-import React from 'react';
-import {
-  RecoilRoot
-} from 'recoil';
+import React from "react"
+import { RecoilRoot } from "recoil"
 
 import {
   BrowserRouter as Router,
@@ -9,135 +7,184 @@ import {
   Route,
   NavLink,
   useParams,
-  useRouteMatch
-} from "react-router-dom";
-import '../styles/App.css';
-import Header from './Header';
-import IndividualPage from './IndividualPage';
-import GamesPage from './GamesPage';
-import LoginPage from './LoginPage';
-import SelectTeesPage from './SelectTeesPage';
-import LineupPage from './LineupPage';
-import SelectPlayersPage from './SelectPlayersPage'
-import HelpPage from './HelpPage';
+  useRouteMatch,
+} from "react-router-dom"
+import "../styles/App.css"
+import Header from "./Header"
+import IndividualPage from "./IndividualPage"
+import GamesPage from "./GamesPage"
+import LoginPage from "./LoginPage"
+import SelectTeesPage from "./SelectTeesPage"
+import LineupPage from "./LineupPage"
+import SelectPlayersPage from "./SelectPlayersPage"
+import HelpPage from "./HelpPage"
 
 export default function App() {
   return (
     <RecoilRoot>
       <Router>
-      <Header />
-      <br/>
-      <nav>
-        <NavLink exact to="/" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Individual</NavLink>
-        <NavLink exact to="/games" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Games</NavLink>
-        <NavLink exact to="/players" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Players</NavLink>
-        <NavLink exact to="/lineup" className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Lineup</NavLink>
-        <NavLink exact to="/settings" className='navitem-last' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Settings</NavLink>
-      </nav>
-      <Switch>
-        <Route path="/games">
-          <Games />
-        </Route>
-        <Route path="/players">
-          <Players />
-        </Route>
-        <Route path="/lineup">
-          <Lineup />
-        </Route>
-        <Route path="/settings" >
-          <Settings />
-        </Route>
-        <Route path="/">
-          <Individual />
-        </Route>
-      </Switch>
-    </Router>
+        <Header />
+        <br />
+        <nav>
+          <NavLink
+            exact
+            to="/individual"
+            className="navitem"
+            activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+          >
+            Individual
+          </NavLink>
+          <NavLink
+            exact
+            to="/"
+            className="navitem"
+            activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+          >
+            Games
+          </NavLink>
+          <NavLink
+            exact
+            to="/players"
+            className="navitem"
+            activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+          >
+            Players
+          </NavLink>
+          <NavLink
+            exact
+            to="/lineup"
+            className="navitem"
+            activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+          >
+            Lineup
+          </NavLink>
+          <NavLink
+            exact
+            to="/settings"
+            className="navitem-last"
+            activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+          >
+            Settings
+          </NavLink>
+        </nav>
+        <Switch>
+          <Route path="/individual">
+            <Individual />
+          </Route>
+          <Route path="/players">
+            <Players />
+          </Route>
+          <Route path="/lineup">
+            <Lineup />
+          </Route>
+          <Route path="/settings">
+            <Settings />
+          </Route>
+          <Route path="/">
+            <Games />
+          </Route>
+        </Switch>
+      </Router>
     </RecoilRoot>
-  );
+  )
+}
 
-
-  }
-
-function Setting () {
-  let {settingId } = useParams();
-  let aSetting = settingId;
+function Setting() {
+  let { settingId } = useParams()
+  let aSetting = settingId
   switch (aSetting) {
     case "selecttees":
       return (
         <>
-        <SelectTeesPage />
+          <SelectTeesPage />
         </>
       )
-    case 'help':
+    case "help":
       return (
         <>
-        <HelpPage />
+          <HelpPage />
         </>
       )
-  
+
     default:
       return (
         <>
           <LoginPage />
         </>
-        )
+      )
   }
-
 }
 
-function Settings () {
-  let {path, url} = useRouteMatch();
+function Settings() {
+  let { path, url } = useRouteMatch()
   return (
     <>
-    <br></br>
-    <nav >
-      <NavLink exact to={`${url}/login`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Login</NavLink>
-      <NavLink exact to={`${url}/selecttees`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Select Tees</NavLink>
-      <NavLink exact to={`${url}/help`} className='navitem' activeStyle={{color:'#3378ac', fontWeight: 'bold'}}>Help</NavLink>
-    </nav>
+      <br></br>
+      <nav>
+        <NavLink
+          exact
+          to={`${url}/login`}
+          className="navitem"
+          activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+        >
+          Login
+        </NavLink>
+        <NavLink
+          exact
+          to={`${url}/selecttees`}
+          className="navitem"
+          activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+        >
+          Select Tees
+        </NavLink>
+        <NavLink
+          exact
+          to={`${url}/help`}
+          className="navitem"
+          activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+        >
+          Help
+        </NavLink>
+      </nav>
       <Switch>
         <Route path={`${path}/:settingId`}>
           <Setting />
         </Route>
       </Switch>
     </>
-  );
+  )
 }
 
-
-
-
-  function  Games() {
+function Games() {
   return (
     <>
-    <br></br>
+      <br></br>
       <GamesPage />
     </>
   )
-  }
-    
-  function  Individual() {
-    return (
-      <>
+}
+
+function Individual() {
+  return (
+    <>
       <br></br>
-        <IndividualPage />
-      </>
-    )
-  }
+      <IndividualPage />
+    </>
+  )
+}
 
-  function  Players() {
-    return (
-      <>
-        <SelectPlayersPage />
-      </>
-    )
-  }
-  
+function Players() {
+  return (
+    <>
+      <SelectPlayersPage />
+    </>
+  )
+}
 
-  function  Lineup() {
-    return (
-      <>
-        <LineupPage />
-      </>
-    )
-  }
+function Lineup() {
+  return (
+    <>
+      <LineupPage />
+    </>
+  )
+}

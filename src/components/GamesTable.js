@@ -9,7 +9,7 @@ import IframesStorer from "./IframesStorer"
 import IframesCasey from "./IframesCasey"
 import fetchGamesGHIN from "../functions/fetchGamesGHIN"
 import { get } from "../functions/localStorage"
-import { useRecoilValue, useRecoilState } from "recoil"
+import { useRecoilState } from "recoil"
 import * as state from "../state"
 import useVisibilityChange from "use-visibility-change"
 import saveHandicapsToFirebase from "../functions/saveHandicapsToFirebase"
@@ -46,8 +46,10 @@ export default function GamesTable({ ratings, slopes, pars }) {
     default:
       break
   }
-  const course = useRecoilValue(state.courseState)
-  const game = useRecoilValue(state.gameState)
+  const [course, setCourse] = useRecoilState(state.courseState)
+  const [game, setGame] = useRecoilState(state.gameState)
+  let savedCourse = get("course")
+  let savedGame = get("game")
   const hasGoogleSheet = get("hasGoogleSheet")
   const onShow = () => {
     window.location.reload()
@@ -55,6 +57,8 @@ export default function GamesTable({ ratings, slopes, pars }) {
   useVisibilityChange({ onShow })
 
   useEffect(() => {
+    setCourse(savedCourse)
+    setGame(savedGame)
     setGHINNumber(get("ghinNumber"))
     setGames(get("games"))
     setTeesSelected(get("teesSelected"))
@@ -99,7 +103,7 @@ export default function GamesTable({ ratings, slopes, pars }) {
             Click on the dropdown boxes below<br></br>to select a game and a
             course.
           </p>
-          <GamesTableDropDowns table="Games" />
+          <GamesTableDropDowns />
           <br></br>
           <br></br>
           <br></br>

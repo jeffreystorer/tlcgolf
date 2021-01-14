@@ -28,9 +28,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const [showTips, setShowTips] = useState(get("showTips"))
   const [showTeamHcp, setShowTeamHcp] = useState(get("showTeamHcp"))
   const [showAddPlayers, setShowAddPlayers] = useState(false)
-  const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(
-    state.loadDeleteSaveLineupsState
-  )
   const teesSelected = useRecoilValue(state.teesSelectedState)
   const teamTablesObj = {
     times: [],
@@ -284,10 +281,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     document.location = "https://tlcgolflineup.web.app"
   }
 
-  function handleLoadDeleteSavedLineupClick() {
-    setLoadDeleteSavedLineup(true)
-  }
-
   function handleAutoPopulateClick() {
     let savedTimes = teamTables.times
     setTeamTables(teamTablesObj)
@@ -335,7 +328,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       }
     }
   }
-
+  let progAdjMessage = ""
   function setTeamHcpAndProgs(teamName) {
     let teamMembers = teamTables[teamName]
     let aTeamHcp = 0
@@ -345,6 +338,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       teamMembers.forEach(computeHcpAndProgs)
       switch (Number(progAdj)) {
         case 0:
+          progAdjMessage = "**No threesome/foursome prog adjustment**"
           switch (Number(progs069)) {
             case 6:
               aTeamProgs = aTeamProgs / 3
@@ -354,14 +348,12 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               break
             default:
               aTeamProgs = 0
-              break
           }
-          break
-        default:
           break
         case 3:
           switch (Number(progs069)) {
             case 6:
+              progAdjMessage = "**Threesome progs include +1 per 6**"
               if (playerCount === 3) {
                 aTeamProgs = aTeamProgs / 3 + 1
               } else {
@@ -369,6 +361,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               }
               break
             case 9:
+              progAdjMessage = "**Threesome progs include +1.5 per 9**"
               if (playerCount === 3) {
                 aTeamProgs = aTeamProgs / 2 + 1.5
               } else {
@@ -377,12 +370,12 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               break
             default:
               aTeamProgs = 0
-              break
           }
           break
         case 4:
           switch (Number(progs069)) {
             case 6:
+              progAdjMessage = "**Foursome progs include -1 per 6**"
               if (playerCount === 4) {
                 aTeamProgs = aTeamProgs / 3 - 1
               } else {
@@ -390,6 +383,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               }
               break
             case 9:
+              progAdjMessage = "**Foursome progs include -1.5 per 9**"
               if (playerCount === 4) {
                 aTeamProgs = aTeamProgs / 2 - 1.5
               } else {
@@ -398,15 +392,14 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               break
             default:
               aTeamProgs = 0
-              break
           }
           break
+        default:
       }
       let teamProgs = aTeamProgs.toFixed(1)
       aTeamProgs = teamProgs
       teamHcpAndProgs[teamName][0] = aTeamHcp
       teamHcpAndProgs[teamName][1] = aTeamProgs
-      //set('savedTeamHcpAndProgs', teamHcpAndProgs);
     } catch (error) {
       console.log("error setting TeamHcpAndProgs")
     }
@@ -647,21 +640,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         <br></br>
         {savedLineupCount() > 0 && (
           <div>
-            {showTips && (
-              <div>
-                <p>
-                  <span style={{ fontWeight: "bold" }}>
-                    To load or delete a saved lineup:
-                  </span>
-                  <br></br>
-                  Click on the "Saved Lineups" button.
-                </p>
-              </div>
-            )}
-            <button onClick={handleLoadDeleteSavedLineupClick}>
-              Saved Lineups
-            </button>
-            {loadDeleteSavedLineup && (
+            {savedLineupCount() > 0 && (
               <LineupsList
                 loadLineupFromFirebase={loadLineupFromFirebase}
                 firebaseRef={firebaseRef}
@@ -744,13 +723,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           <div id="lineup-table-div" className="background-white">
             <thead className="lineup-table-head">
               <tr>
-                <td>
-                  {"Lineup for " +
-                    game +
-                    ", " +
-                    playingDate +
-                    " at " +
-                    course.toUpperCase()}
+                <td className="center">
+                  {game + ", " + playingDate + " at " + course.toUpperCase()}
                 </td>
               </tr>
               <tr>
@@ -763,6 +737,16 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               </tr>
             </tbody>
             <tfoot>
+              {progs069 > 0 && (
+                <>
+                  <tr>
+                    <td className="team-table-footer"></td>
+                  </tr>
+                  <tr>
+                    <td className="team-table-footer">{progAdjMessage}</td>
+                  </tr>
+                </>
+              )}
               <tr>
                 <td className="center text-area-cell">
                   <textarea

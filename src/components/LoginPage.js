@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import "../styles/App.css"
 import setSheetURL from "../functions/setSheetURL"
 import { get, set } from "../functions/localStorage"
