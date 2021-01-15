@@ -638,12 +638,10 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         <br></br>
         {savedLineupCount() > 0 && (
           <div>
-            {savedLineupCount() > 0 && (
-              <LineupsList
-                loadLineupFromFirebase={loadLineupFromFirebase}
-                firebaseRef={firebaseRef}
-              />
-            )}
+            <LineupsList
+              loadLineupFromFirebase={loadLineupFromFirebase}
+              firebaseRef={firebaseRef}
+            />
           </div>
         )}
         <br></br>
