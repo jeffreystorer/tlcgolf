@@ -1,34 +1,47 @@
+//node modules
 import React, { useState, useEffect } from "react"
-import LineupTableDropDowns from "./LineupTableDropDowns"
-import TeamTable from "./TeamTable"
-import { v4 as uuidv4 } from "uuid"
-import { useRecoilValue, useRecoilState } from "recoil"
-import * as state from "../state"
-import saveLineupToFirebase from "../functions/saveLineupToFirebase"
-import LineupsList from "./LineupsList"
-import { get, set } from "../functions/localStorage"
 import { useList } from "react-firebase-hooks/database"
-import LineupDataService from "../services/LineupService"
-import ButtonDownloadScreenShot from "./ButtonDownloadScreenshot"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import loadLineupTablePlayersArray from "../functions/loadLineupTablePlayersArray"
-import setAutoPop from "../functions/setAutoPop"
-import AddPlayersToSavedLineup from "./AddPlayersToSavedLineup"
+import { v4 as uuidv4 } from "uuid"
+import { useRecoilValue, useRecoilState } from "recoil"
 
-//import * as c from '../functions/consoleLogTable';
+//components
+import AddPlayersToSavedLineup from "./AddPlayersToSavedLineup"
+import ButtonDownloadScreenShot from "./ButtonDownloadScreenshot"
+import LineupTableDropDowns from "./LineupTableDropDowns"
+import LineupsList from "./LineupsList"
+import TeamTable from "./TeamTable"
+
+//functions
+import { get, set } from "../functions/localStorage"
+import getPlayersNotInTeeTime from "../functions/getPlayersNotInTeeTime"
+import loadLineupTablePlayersArray from "../functions/loadLineupTablePlayersArray"
+import saveLineupToFirebase from "../functions/saveLineupToFirebase"
+import setAutoPop from "../functions/setAutoPop"
+
+//option items
+import * as options from "../optionitems"
+
+//services
+import LineupDataService from "../services/LineupService"
+
+//state
+import * as state from "../state"
+
 export default function LineupTableAll({ games, ratings, slopes, pars }) {
+  //constants
+
+  //recoil state
   const [course, setCourse] = useRecoilState(state.courseState)
   const [game, setGame] = useRecoilState(state.gameState)
-  //eslint-disable-next-line
   const ghinNumber = useRecoilValue(state.ghinNumberState)
-  let firebaseRef = '"' + ghinNumber.toString() + '"'
-  let isMe = false
-  if (ghinNumber === "585871") isMe = true
+  const teesSelected = useRecoilValue(state.teesSelectedState)
+
+  //react state
   const [showTips, setShowTips] = useState(get("showTips"))
   const [showTeamHcp, setShowTeamHcp] = useState(get("showTeamHcp"))
   const [showAddPlayers, setShowAddPlayers] = useState(false)
-  const teesSelected = useRecoilValue(state.teesSelectedState)
   const teamTablesObj = {
     times: [],
     team0: [],
@@ -42,19 +55,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     team8: [],
     team9: [],
   }
-  let teamHcpAndProgs = {
-    team0: [0, 0],
-    team1: [0, 0],
-    team2: [0, 0],
-    team3: [0, 0],
-    team4: [0, 0],
-    team5: [0, 0],
-    team6: [0, 0],
-    team7: [0, 0],
-    team8: [0, 0],
-    team9: [0, 0],
-  }
-  let teamMembers = []
   const [teamTables, setTeamTables] = useState(teamTablesObj)
   const [linkTime, setLinkTime] = useState("Time")
   const [teeTimeCount, setTeeTimeCount] = useState("")
@@ -62,19 +62,12 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const [textAreaValue, setTextAreaValue] = useState("")
   const [progs069, setProgs069] = useState("0")
   const [progAdj, setProgAdj] = useState("0")
-  //trick the component into rerendering with tee choice changes
+  //trick the component into rerendering with certain changes
   //eslint-disable-next-line
   const [teeChoiceChangedId, setTeeChoiceChangedId] = useState(0)
   //eslint-disable-next-line
   const [overrideCHChoiceChangedId, setOverrideCHChoiceChangedId] = useState(0)
-
-  useEffect(() => {
-    setEachTeamsHcpAndProgs()
-    return () => {
-      setEachTeamsHcpAndProgs()
-    }
-  })
-
+  const firebaseRef = '"' + ghinNumber.toString() + '"'
   let playersArray = loadLineupTablePlayersArray(
     firebaseRef,
     course,
@@ -88,513 +81,40 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray)
 
-  const handleAddTeamMember = (event) => {
-    const { name, value } = event.target
-    const newPlayerObj = players.find((player) => player.id === Number(value))
-    setTeamTables((prevTeamTables) => ({
-      ...prevTeamTables,
-      [name]: prevTeamTables[name].concat(newPlayerObj),
-    }))
-    setEachTeamsHcpAndProgs()
+  //other constants
+  const [Lineups] = useList(LineupDataService.getAll(firebaseRef))
+  const savedLineupCount = () => {
+    return Lineups.length
   }
-
-  const handleDeleteTeamMember = (teamName, id) => (event) => {
-    setTeamTables((prevTeamTables) => ({
-      ...prevTeamTables,
-      [teamName]: prevTeamTables[teamName].filter((player) => player.id !== id),
-    }))
-    setEachTeamsHcpAndProgs()
+  let isMe = false
+  if (ghinNumber === "585871") isMe = true
+  let teamHcpAndProgs = {
+    team0: [0, 0],
+    team1: [0, 0],
+    team2: [0, 0],
+    team3: [0, 0],
+    team4: [0, 0],
+    team5: [0, 0],
+    team6: [0, 0],
+    team7: [0, 0],
+    team8: [0, 0],
+    team9: [0, 0],
   }
-
-  const handleLinkTimeChange = (event) => {
-    setLinkTime(event.target.value)
-    setTeeTimes(event.target.value, teeTimeCount)
-    //set('savedLinkTime', event.target.value);
-  }
-
-  const handlePlayingDateChange = (event) => {
-    setPlayingDate(event.target.value)
-    //set('savedPlayingDate', event.target.value)
-  }
-
-  const handleTeeTimeCountChange = (event) => {
-    const oldCount = teeTimeCount
-    const newCount = event.target.value
-    const droppedTimesCount = oldCount - newCount
-    if (droppedTimesCount > 0)
-      restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount)
-    setTeeTimeCount(event.target.value)
-    setTeeTimes(linkTime, event.target.value)
-    set("teeTimeCount", event.target.value)
-    for (let i = oldCount; i < newCount; i++) {
-      let newTeam = "team" + i
-      setTeamTables((teamTables) => ({
-        ...teamTables,
-        [newTeam]: [],
-      }))
-    }
-  }
-
-  const handleProgs069Change = (event) => {
-    setProgs069(event.target.value)
-    //set('savedProgs069', event.target.value);
-    setEachTeamsHcpAndProgs()
-  }
-
-  const handleProgAdjChange = (event) => {
-    setProgAdj(event.target.value)
-    //set('savedProgAdj', event.target.value);
-    setEachTeamsHcpAndProgs()
-  }
-
-  function restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount) {
-    for (let i = newCount; i < oldCount; i++) {
-      let teamName = "team" + i
-      teamTables[teamName] = []
-    }
-  }
-  function setEachTeamsHcpAndProgs() {
-    for (let i = 0; i < teeTimeCount; i++) {
-      let teamName = "team" + i
-      setTeamHcpAndProgs(teamName)
-    }
-  }
-  const handleTeeChoiceChange = (event) => {
-    setTeeChoiceChangedId(uuidv4())
-    //first, update the teeChoice for the player
-    let aTeeChoice = event.target.value
-    let anId = event.target.name
-    let aTeamNumber = event.target.id
-    setTeeChoice(aTeamNumber, anId, aTeeChoice)
-    setEachTeamsHcpAndProgs()
-  }
-
-  const handleOverrideCHChange = (event) => {
-    setOverrideCHChoiceChangedId(uuidv4())
-    let aManualCH = event.target.value
-    let anId = event.target.name
-    let aTeamNumber = event.target.id
-    setManualCH(aTeamNumber, anId, aManualCH)
-    setEachTeamsHcpAndProgs()
-  }
-
-  const handleTextAreaOnBlur = (event) => {
-    setTextAreaValue(event.target.value)
-    //set('savedTextAreaValue', event.target.value);
-  }
-
-  const handleTextAreaValueChange = (event) => {
-    setTextAreaValue(event.target.value)
-  }
-
-  function handleShowTipsChange() {
-    set("showTips", !showTips)
-    setShowTips(!showTips)
-  }
-  function handleShowTeamHcpChange() {
-    set("showTeamHcp", !showTeamHcp)
-    setShowTeamHcp(!showTeamHcp)
-  }
-
-  function handleSaveLineupClick() {
-    let allPlayers = get("players")
-    let playersInLineup = get("playersInLineup")
-    firebaseRef = '"' + ghinNumber.toString() + '"'
-    saveLineupToFirebase(
-      allPlayers,
-      playersInLineup,
-      players,
-      game,
-      games,
-      course,
-      playingDate,
-      teeTimeCount,
-      linkTime,
-      progs069,
-      progAdj,
-      teamTables,
-      textAreaValue,
-      teesSelected,
-      ratings,
-      slopes,
-      pars,
-      firebaseRef
-    )
-    toast("Lineup Saved", {
-      position: "bottom-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-  }
-
-  function handlePublishLineupClick() {
-    let allPlayers = get("players")
-    let playersInLineup = get("playersInLineup")
-    firebaseRef = '"' + ghinNumber.toString() + '"'
-    saveLineupToFirebase(
-      allPlayers,
-      playersInLineup,
-      players,
-      game,
-      games,
-      course,
-      playingDate,
-      teeTimeCount,
-      linkTime,
-      progs069,
-      progAdj,
-      teamTables,
-      textAreaValue,
-      teesSelected,
-      ratings,
-      slopes,
-      pars,
-      firebaseRef
-    )
-    firebaseRef = "lineup"
-    saveLineupToFirebase(
-      allPlayers,
-      playersInLineup,
-      players,
-      game,
-      games,
-      course,
-      playingDate,
-      teeTimeCount,
-      linkTime,
-      progs069,
-      progAdj,
-      teamTables,
-      textAreaValue,
-      teesSelected,
-      ratings,
-      slopes,
-      pars,
-      firebaseRef
-    )
-    document.location = "https://tlcgolflineup.web.app"
-  }
-
-  function handleAutoPopulateClick() {
-    let savedTimes = teamTables.times
-    setTeamTables(teamTablesObj)
-    setTeamTables((teamTables) => ({
-      ...teamTables,
-      times: savedTimes,
-    }))
-    teamTables.times = savedTimes
-    let teeTimes = get("teeTimeCount")
-    teeTimes = Number(teeTimes)
-    let playerCount = players.length
-    let autoPop = setAutoPop(teeTimes, playerCount)
-    createTeam(autoPop)
-    setEachTeamsHcpAndProgs()
-  }
-
-  function handleShowAddPlayersClick() {
-    setShowAddPlayers(true)
-  }
-
-  function handleAddPlayersClick() {
-    setShowAddPlayers(false)
-    playersArray = loadLineupTablePlayersArray(
-      firebaseRef,
-      course,
-      teesSelected,
-      ratings,
-      slopes,
-      pars,
-      teamTables,
-      teeTimeCount
-    )
-    setPlayers(playersArray)
-  }
-
-  function createTeam(autoPop) {
-    for (let i = 0; i < autoPop.length; i++) {
-      for (let j = 0; j < autoPop[i].length; j++) {
-        let newPlayerObj = players[autoPop[i][j]]
-        let name = "team" + i
-        setTeamTables((prevTeamTables) => ({
-          ...prevTeamTables,
-          [name]: prevTeamTables[name].concat(newPlayerObj),
-        }))
-      }
-    }
-  }
-  let progAdjMessage = ""
-  function setTeamHcpAndProgs(teamName) {
-    let teamMembers = teamTables[teamName]
-    let aTeamHcp = 0
-    let aTeamProgs = 0
-    try {
-      let playerCount = teamMembers.length
-      teamMembers.forEach(computeHcpAndProgs)
-      switch (Number(progAdj)) {
-        case 0:
-          progAdjMessage = "**No threesome/foursome prog adjustment**"
-          switch (Number(progs069)) {
-            case 6:
-              aTeamProgs = aTeamProgs / 3
-              break
-            case 9:
-              aTeamProgs = aTeamProgs / 2
-              break
-            default:
-              aTeamProgs = 0
-          }
-          break
-        case 3:
-          switch (Number(progs069)) {
-            case 6:
-              progAdjMessage = "**Threesome progs include +1 per 6**"
-              if (playerCount === 3) {
-                aTeamProgs = aTeamProgs / 3 + 1
-              } else {
-                aTeamProgs = aTeamProgs / 3
-              }
-              break
-            case 9:
-              progAdjMessage = "**Threesome progs include +1.5 per 9**"
-              if (playerCount === 3) {
-                aTeamProgs = aTeamProgs / 2 + 1.5
-              } else {
-                aTeamProgs = aTeamProgs / 2
-              }
-              break
-            default:
-              aTeamProgs = 0
-          }
-          break
-        case 4:
-          switch (Number(progs069)) {
-            case 6:
-              progAdjMessage = "**Foursome progs include -1 per 6**"
-              if (playerCount === 4) {
-                aTeamProgs = aTeamProgs / 3 - 1
-              } else {
-                aTeamProgs = aTeamProgs / 3
-              }
-              break
-            case 9:
-              progAdjMessage = "**Foursome progs include -1.5 per 9**"
-              if (playerCount === 4) {
-                aTeamProgs = aTeamProgs / 2 - 1.5
-              } else {
-                aTeamProgs = aTeamProgs / 2
-              }
-              break
-            default:
-              aTeamProgs = 0
-          }
-          break
-        default:
-      }
-      let teamProgs = aTeamProgs.toFixed(1)
-      aTeamProgs = teamProgs
-      teamHcpAndProgs[teamName][0] = aTeamHcp
-      teamHcpAndProgs[teamName][1] = aTeamProgs
-    } catch (error) {
-      console.log("error setting TeamHcpAndProgs")
-    }
-
-    function computeHcpAndProgs(item) {
-      let teeChoice = item.teeChoice
-      let teesSelectedArray = teesSelected.map((a) => a.value)
-      let teeNo = teesSelectedArray.indexOf(teeChoice)
-      aTeamHcp = aTeamHcp + Number(item.courseHandicaps[teeNo])
-      aTeamProgs = aTeamProgs + (36 - Number(item.courseHandicaps[teeNo]))
-    }
-  }
-
-  function setTeeChoice(aTeamNumber, anId, aTeeChoice) {
-    let teamName = "team" + aTeamNumber
-    const playerIndex = teamTables[teamName].findIndex(
-      (player) => player.id === Number(anId)
-    )
-    teamTables[teamName][playerIndex].teeChoice = aTeeChoice
-    //set('savedTeamTables', teamTables);
-  }
-
-  function setManualCH(aTeamNumber, anId, aManualCH) {
-    let teamName = "team" + aTeamNumber
-    const playerIndex = teamTables[teamName].findIndex(
-      (player) => player.id === Number(anId)
-    )
-    let aTeeChoice = teamTables[teamName][playerIndex].teeChoice
-    let teesSelectedArray = teesSelected.map((a) => a.value)
-    let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice)
-    for (let i = 0; i < teesSelectedArray.length; i++) {
-      teamTables[teamName][playerIndex].courseHandicaps[i] = "*"
-    }
-    teamTables[teamName][playerIndex].courseHandicaps[
-      aChosenTeeIndex
-    ] = aManualCH
-    teamTables[teamName][playerIndex].manualCH = aManualCH
-  }
-
-  function setManualCHCourseHandicaps(teamMembers) {
-    //iterate through teamMembers
-    try {
-      for (let i = 0; i < teamMembers.length; i++) {
-        let aTeeChoice = teamMembers[i].teeChoice
-        let aManualCH = teamMembers[i].manualCH
-        if (aManualCH !== "Auto") {
-          let teesSelectedArray = teesSelected.map((a) => a.value)
-          let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice)
-          for (let j = 0; j < teesSelectedArray.length; j++) {
-            teamMembers[i].courseHandicaps[j] = "*"
-          }
-          teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH
-          teamMembers[i].playerName = teamMembers[i].playerName + "*"
-        }
-      }
-    } catch (error) {
-      console.log("error setting ManualCourseHandicaps")
-    }
-  }
-
-  function setTeeTimes(aLinkTime, aTeeTimeCount) {
-    let firstRegularTimeIndex = linkTimes().indexOf("8:02")
-    let linkTimeIndex = linkTimes().indexOf(aLinkTime)
-    if (linkTimeIndex < firstRegularTimeIndex) {
-      for (let i = 0; i < aTeeTimeCount; i++) {
-        teamTables.times[i] = aLinkTime
-      }
-    } else {
-      for (let i = 0; i < aTeeTimeCount; i++) {
-        teamTables.times[i] = linkTimes()[linkTimeIndex + i]
-      }
-    }
-  }
-
-  const playingDates = () => {
-    let playingDates = []
-    const now = new Date()
-    for (let i = 0; i < 8; i++) {
-      let month = now.getMonth() + 1
-      let day = now.getDate()
-      let year = now.getFullYear()
-      let playingDate = month + "/" + day + "/" + year
-      playingDates[i] = playingDate
-      now.setDate(now.getDate() + 1)
-    }
-    return playingDates
-  }
-
-  const playingDateOptionItems = playingDates().map((playingDate) => (
-    <option key={uuidv4()}>{playingDate}</option>
-  ))
-  const teeTimeCounts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-  const teeTimeCountOptionItems = teeTimeCounts.map((count) => (
-    <option key={uuidv4()} value={count}>
-      {count + "  tee times"}
-    </option>
-  ))
-  const linkTimes = () => {
-    let linkTimes = []
-    linkTimes.push(
-      "9:00 Shotgun",
-      "9:30 Shotgun",
-      "1:00 Shotgun",
-      "1:30 Shotgun"
-    )
-    let now = new Date()
-    let year = now.getFullYear()
-    let month = now.getMonth() + 1
-    let date = now.getDate()
-    let firstLinkTime = new Date(year, month, date, 8, 2, 0, 0)
-    let hour = firstLinkTime.getHours()
-    let minute = firstLinkTime.getMinutes()
-
-    function setLinkTime() {
-      let aLinkTime
-      if (minute < 10) {
-        aLinkTime = hour + ":0" + minute
-      } else {
-        aLinkTime = hour + ":" + minute
-      }
-      return aLinkTime
-    }
-
-    linkTimes.push(setLinkTime())
-    for (let i = 1; i < 75; i++) {
-      firstLinkTime.setMinutes(firstLinkTime.getMinutes() + 8)
-      hour = firstLinkTime.getHours()
-      minute = firstLinkTime.getMinutes()
-      linkTimes.push(setLinkTime())
-    }
-    return linkTimes
-  }
-  const linkTimeOptionItems = linkTimes().map((linkTime) => (
-    <option key={uuidv4()} value={linkTime}>
-      {linkTime}
-    </option>
-  ))
-
-  //manual handicap dropdown items
-  let manualCHList1 = []
-  let manualCHList2 = []
-  let manualCHList3 = []
-  manualCHList1.push("*")
-  manualCHList1.push("Auto")
-  const items1 = manualCHList1.map((manualCH) => (
-    <option key={uuidv4()} value={manualCH}>
-      {manualCH}
-    </option>
-  ))
-  for (let i = -10; i < 0; i++) manualCHList2.push(i)
-  const items2 = manualCHList2.map((manualCH) => (
-    <option key={uuidv4()} value={manualCH}>
-      {"+" + Math.abs(manualCH)}
-    </option>
-  ))
-  for (let i = 0; i < 61; i++) manualCHList3.push(i)
-  const items3 = manualCHList3.map((manualCH) => (
-    <option key={uuidv4()} value={manualCH}>
-      {manualCH}
-    </option>
-  ))
-  const manualCHOptionItems = items1.concat(items2, items3)
-
-  const playerNameList = getPlayersNotInTeeTime(players, teamTables)
   let TeamTables = []
-  function generateTeamTables() {
-    for (var i = 0; i < teeTimeCount; i++) {
-      let teamName = "team" + i
-      teamMembers = teamTables[teamName]
-      setManualCHCourseHandicaps(teamMembers)
+  let teamMembers = []
+  let playerNameList = getPlayersNotInTeeTime(players, teamTables)
+  let progAdjMessage = ""
+
+  //useEffects
+
+  useEffect(() => {
+    setEachTeamsHcpAndProgs()
+    return () => {
       setEachTeamsHcpAndProgs()
-      //teamHcpAndProgs = get('savedTeamHcpAndProgs');
-      let teamHcp = teamHcpAndProgs[teamName][0]
-      let teamProgs = teamHcpAndProgs[teamName][1]
-      TeamTables[i] = (
-        <TeamTable
-          key={uuidv4()}
-          teamNumber={i}
-          teamName={teamName}
-          teamTables={teamTables}
-          teamMembers={teamMembers}
-          playerNameList={playerNameList}
-          handleAddTeamMember={handleAddTeamMember}
-          handleDeleteTeamMember={handleDeleteTeamMember}
-          progs069={progs069}
-          teamHcp={teamHcp}
-          teamProgs={teamProgs}
-          handleTeeChoiceChange={handleTeeChoiceChange}
-          handleOverrideCHChange={handleOverrideCHChange}
-          manualCHOptionItems={manualCHOptionItems}
-          showTeamHcp={showTeamHcp}
-        />
-      )
     }
-    return TeamTables
-  }
+  })
+
+  //Saved Lineups List
 
   function loadLineupFromFirebase({
     playersInLineup,
@@ -626,10 +146,409 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     setTextAreaValue(textAreaValue)
   }
 
-  firebaseRef = '"' + ghinNumber.toString() + '"'
-  const [Lineups] = useList(LineupDataService.getAll(firebaseRef))
-  const savedLineupCount = () => {
-    return Lineups.length
+  //LineupTableDropDowns event handlers
+
+  const handlePlayingDateChange = (event) => {
+    setPlayingDate(event.target.value)
+  }
+
+  const handleTeeTimeCountChange = (event) => {
+    const oldCount = teeTimeCount
+    const newCount = event.target.value
+    const droppedTimesCount = oldCount - newCount
+    if (droppedTimesCount > 0)
+      restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount)
+    setTeeTimeCount(event.target.value)
+    setTeeTimes(linkTime, event.target.value)
+    set("teeTimeCount", event.target.value)
+    for (let i = oldCount; i < newCount; i++) {
+      let newTeam = "team" + i
+      setTeamTables((teamTables) => ({
+        ...teamTables,
+        [newTeam]: [],
+      }))
+    }
+
+    function restoreDroppedTeeTimePlayersToPlayersList(oldCount, newCount) {
+      for (let i = newCount; i < oldCount; i++) {
+        let teamName = "team" + i
+        teamTables[teamName] = []
+      }
+    }
+  }
+  /*Used by handleTeeTimeCountChange and handleLinkTimeChange  */
+  function setTeeTimes(aLinkTime, aTeeTimeCount) {
+    let firstRegularTimeIndex = options.linkTimes().indexOf("8:02")
+    let linkTimeIndex = options.linkTimes().indexOf(aLinkTime)
+    if (linkTimeIndex < firstRegularTimeIndex) {
+      for (let i = 0; i < aTeeTimeCount; i++) {
+        teamTables.times[i] = aLinkTime
+      }
+    } else {
+      for (let i = 0; i < aTeeTimeCount; i++) {
+        teamTables.times[i] = options.linkTimes()[linkTimeIndex + i]
+      }
+    }
+  }
+
+  const handleLinkTimeChange = (event) => {
+    setLinkTime(event.target.value)
+    setTeeTimes(event.target.value, teeTimeCount)
+  }
+
+  const handleProgs069Change = (event) => {
+    setProgs069(event.target.value)
+    setEachTeamsHcpAndProgs()
+  }
+
+  const handleProgAdjChange = (event) => {
+    setProgAdj(event.target.value)
+    setEachTeamsHcpAndProgs()
+  }
+
+  //autopop handler
+
+  function handleAutoPopulateClick() {
+    let savedTimes = teamTables.times
+    setTeamTables(teamTablesObj)
+    setTeamTables((teamTables) => ({
+      ...teamTables,
+      times: savedTimes,
+    }))
+    teamTables.times = savedTimes
+    let teeTimes = get("teeTimeCount")
+    teeTimes = Number(teeTimes)
+    let playerCount = players.length
+    let autoPop = setAutoPop(teeTimes, playerCount)
+    createTeam(autoPop)
+    setEachTeamsHcpAndProgs()
+
+    function createTeam(autoPop) {
+      for (let i = 0; i < autoPop.length; i++) {
+        for (let j = 0; j < autoPop[i].length; j++) {
+          let newPlayerObj = players[autoPop[i][j]]
+          let name = "team" + i
+          setTeamTables((prevTeamTables) => ({
+            ...prevTeamTables,
+            [name]: prevTeamTables[name].concat(newPlayerObj),
+          }))
+        }
+      }
+    }
+  }
+
+  //add players to saved lineup handler
+
+  function handleShowAddPlayersClick() {
+    setShowAddPlayers(true)
+  }
+
+  function handleAddPlayersClick() {
+    setShowAddPlayers(false)
+    playersArray = loadLineupTablePlayersArray(
+      firebaseRef,
+      course,
+      teesSelected,
+      ratings,
+      slopes,
+      pars,
+      teamTables,
+      teeTimeCount
+    )
+    setPlayers(playersArray)
+  }
+
+  //handle Show Team Hcp
+
+  function handleShowTeamHcpChange() {
+    set("showTeamHcp", !showTeamHcp)
+    setShowTeamHcp(!showTeamHcp)
+  }
+
+  //compute handicaps and progs
+  function setEachTeamsHcpAndProgs() {
+    for (let i = 0; i < teeTimeCount; i++) {
+      let teamName = "team" + i
+      setTeamHcpAndProgs(teamName)
+    }
+    function setTeamHcpAndProgs(teamName) {
+      let teamMembers = teamTables[teamName]
+      let aTeamHcp = 0
+      let aTeamProgs = 0
+      try {
+        let playerCount = teamMembers.length
+        teamMembers.forEach(computeHcpAndProgs)
+        switch (Number(progAdj)) {
+          case 0:
+            progAdjMessage = "**No threesome/foursome prog adjustment**"
+            switch (Number(progs069)) {
+              case 6:
+                aTeamProgs = aTeamProgs / 3
+                break
+              case 9:
+                aTeamProgs = aTeamProgs / 2
+                break
+              default:
+                aTeamProgs = 0
+            }
+            break
+          case 3:
+            switch (Number(progs069)) {
+              case 6:
+                progAdjMessage = "**Threesome progs include +1 per 6**"
+                if (playerCount === 3) {
+                  aTeamProgs = aTeamProgs / 3 + 1
+                } else {
+                  aTeamProgs = aTeamProgs / 3
+                }
+                break
+              case 9:
+                progAdjMessage = "**Threesome progs include +1.5 per 9**"
+                if (playerCount === 3) {
+                  aTeamProgs = aTeamProgs / 2 + 1.5
+                } else {
+                  aTeamProgs = aTeamProgs / 2
+                }
+                break
+              default:
+                aTeamProgs = 0
+            }
+            break
+          case 4:
+            switch (Number(progs069)) {
+              case 6:
+                progAdjMessage = "**Foursome progs include -1 per 6**"
+                if (playerCount === 4) {
+                  aTeamProgs = aTeamProgs / 3 - 1
+                } else {
+                  aTeamProgs = aTeamProgs / 3
+                }
+                break
+              case 9:
+                progAdjMessage = "**Foursome progs include -1.5 per 9**"
+                if (playerCount === 4) {
+                  aTeamProgs = aTeamProgs / 2 - 1.5
+                } else {
+                  aTeamProgs = aTeamProgs / 2
+                }
+                break
+              default:
+                aTeamProgs = 0
+            }
+            break
+          default:
+        }
+        let teamProgs = aTeamProgs.toFixed(1)
+        aTeamProgs = teamProgs
+        teamHcpAndProgs[teamName][0] = aTeamHcp
+        teamHcpAndProgs[teamName][1] = aTeamProgs
+      } catch (error) {
+        console.log("error setting TeamHcpAndProgs")
+      }
+
+      function computeHcpAndProgs(item) {
+        let teeChoice = item.teeChoice
+        let teesSelectedArray = teesSelected.map((a) => a.value)
+        let teeNo = teesSelectedArray.indexOf(teeChoice)
+        aTeamHcp = aTeamHcp + Number(item.courseHandicaps[teeNo])
+        aTeamProgs = aTeamProgs + (36 - Number(item.courseHandicaps[teeNo]))
+      }
+    }
+  }
+
+  //team tables
+
+  function generateTeamTables() {
+    for (var i = 0; i < teeTimeCount; i++) {
+      let teamName = "team" + i
+      teamMembers = teamTables[teamName]
+      setManualCHCourseHandicaps(teamMembers)
+      setEachTeamsHcpAndProgs()
+      let teamHcp = teamHcpAndProgs[teamName][0]
+      let teamProgs = teamHcpAndProgs[teamName][1]
+      TeamTables[i] = (
+        <TeamTable
+          key={uuidv4()}
+          teamNumber={i}
+          teamName={teamName}
+          teamTables={teamTables}
+          teamMembers={teamMembers}
+          playerNameList={playerNameList}
+          handleAddTeamMember={handleAddTeamMember}
+          handleDeleteTeamMember={handleDeleteTeamMember}
+          progs069={progs069}
+          teamHcp={teamHcp}
+          teamProgs={teamProgs}
+          handleTeeChoiceChange={handleTeeChoiceChange}
+          handleOverrideCHChange={handleOverrideCHChange}
+          manualCHOptionItems={options.manualCHOptionItems}
+          showTeamHcp={showTeamHcp}
+        />
+      )
+      function setManualCHCourseHandicaps(teamMembers) {
+        //iterate through teamMembers
+        try {
+          for (let i = 0; i < teamMembers.length; i++) {
+            let aTeeChoice = teamMembers[i].teeChoice
+            let aManualCH = teamMembers[i].manualCH
+            if (aManualCH !== "Auto") {
+              let teesSelectedArray = teesSelected.map((a) => a.value)
+              let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice)
+              for (let j = 0; j < teesSelectedArray.length; j++) {
+                teamMembers[i].courseHandicaps[j] = "*"
+              }
+              teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH
+              teamMembers[i].playerName = teamMembers[i].playerName + "*"
+            }
+          }
+        } catch (error) {
+          console.log("error setting ManualCourseHandicaps")
+        }
+      }
+    }
+    return TeamTables
+  }
+
+  const handleAddTeamMember = (event) => {
+    const { name, value } = event.target
+    const newPlayerObj = players.find((player) => player.id === Number(value))
+    setTeamTables((prevTeamTables) => ({
+      ...prevTeamTables,
+      [name]: prevTeamTables[name].concat(newPlayerObj),
+    }))
+    setEachTeamsHcpAndProgs()
+  }
+
+  const handleDeleteTeamMember = (teamName, id) => (event) => {
+    setTeamTables((prevTeamTables) => ({
+      ...prevTeamTables,
+      [teamName]: prevTeamTables[teamName].filter((player) => player.id !== id),
+    }))
+    setEachTeamsHcpAndProgs()
+  }
+
+  const handleTeeChoiceChange = (event) => {
+    setTeeChoiceChangedId(uuidv4())
+    //first, update the teeChoice for the player
+    let aTeeChoice = event.target.value
+    let anId = event.target.name
+    let aTeamNumber = event.target.id
+    setTeeChoice(aTeamNumber, anId, aTeeChoice)
+    setEachTeamsHcpAndProgs()
+    function setTeeChoice(aTeamNumber, anId, aTeeChoice) {
+      let teamName = "team" + aTeamNumber
+      const playerIndex = teamTables[teamName].findIndex(
+        (player) => player.id === Number(anId)
+      )
+      teamTables[teamName][playerIndex].teeChoice = aTeeChoice
+    }
+  }
+
+  const handleOverrideCHChange = (event) => {
+    setOverrideCHChoiceChangedId(uuidv4())
+    let aManualCH = event.target.value
+    let anId = event.target.name
+    let aTeamNumber = event.target.id
+    setManualCH(aTeamNumber, anId, aManualCH)
+    setEachTeamsHcpAndProgs()
+    function setManualCH(aTeamNumber, anId, aManualCH) {
+      let teamName = "team" + aTeamNumber
+      const playerIndex = teamTables[teamName].findIndex(
+        (player) => player.id === Number(anId)
+      )
+      let aTeeChoice = teamTables[teamName][playerIndex].teeChoice
+      let teesSelectedArray = teesSelected.map((a) => a.value)
+      let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice)
+      for (let i = 0; i < teesSelectedArray.length; i++) {
+        teamTables[teamName][playerIndex].courseHandicaps[i] = "*"
+      }
+      teamTables[teamName][playerIndex].courseHandicaps[
+        aChosenTeeIndex
+      ] = aManualCH
+      teamTables[teamName][playerIndex].manualCH = aManualCH
+    }
+  }
+
+  //text area
+  const handleTextAreaOnBlur = (event) => {
+    setTextAreaValue(event.target.value)
+    //set('savedTextAreaValue', event.target.value);
+  }
+
+  const handleTextAreaValueChange = (event) => {
+    setTextAreaValue(event.target.value)
+  }
+
+  //handle Save Lineup
+
+  function handleSaveLineupClick() {
+    let allPlayers = get("players")
+    let playersInLineup = get("playersInLineup")
+    saveLineupToFirebase(
+      allPlayers,
+      playersInLineup,
+      players,
+      game,
+      games,
+      course,
+      playingDate,
+      teeTimeCount,
+      linkTime,
+      progs069,
+      progAdj,
+      teamTables,
+      textAreaValue,
+      teesSelected,
+      ratings,
+      slopes,
+      pars,
+      firebaseRef
+    )
+    toast("Lineup Saved", {
+      position: "bottom-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+  }
+
+  //handle Publish Lineup
+
+  function handlePublishLineupClick() {
+    let allPlayers = get("players")
+    let playersInLineup = get("playersInLineup")
+    let lineupRef = "lineup"
+    saveLineupToFirebase(
+      allPlayers,
+      playersInLineup,
+      players,
+      game,
+      games,
+      course,
+      playingDate,
+      teeTimeCount,
+      linkTime,
+      progs069,
+      progAdj,
+      teamTables,
+      textAreaValue,
+      teesSelected,
+      ratings,
+      slopes,
+      pars,
+      lineupRef
+    )
+    document.location = "https://tlcgolflineup.web.app"
+  }
+
+  //handle Show Tips
+
+  function handleShowTipsChange() {
+    set("showTips", !showTips)
+    setShowTips(!showTips)
   }
 
   return (
@@ -646,13 +565,13 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         )}
         <br></br>
         <LineupTableDropDowns
-          playingDateOptionItems={playingDateOptionItems}
+          playingDateOptionItems={options.playingDateOptionItems}
           linkTime={linkTime}
-          linkTimeOptionItems={linkTimeOptionItems}
+          linkTimeOptionItems={options.linkTimeOptionItems}
           handleLinkTimeChange={handleLinkTimeChange}
           teeTimeCount={teeTimeCount}
           playingDate={playingDate}
-          teeTimeCountOptionItems={teeTimeCountOptionItems}
+          teeTimeCountOptionItems={options.teeTimeCountOptionItems}
           handlePlayingDateChange={handlePlayingDateChange}
           handleTeeTimeCountChange={handleTeeTimeCountChange}
           progs069={progs069}
@@ -880,33 +799,4 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       </div>
     </>
   )
-}
-
-export const getPlayersNotInTeeTime = (playersList, teamTables) => {
-  const {
-    team0 = [],
-    team1 = [],
-    team2 = [],
-    team3 = [],
-    team4 = [],
-    team5 = [],
-    team6 = [],
-    team7 = [],
-    team8 = [],
-    team9 = [],
-  } = teamTables
-  return playersList.filter((player) => {
-    return !(
-      team0.find((p) => p.id === player.id) ||
-      team1.find((p) => p.id === player.id) ||
-      team2.find((p) => p.id === player.id) ||
-      team3.find((p) => p.id === player.id) ||
-      team4.find((p) => p.id === player.id) ||
-      team5.find((p) => p.id === player.id) ||
-      team6.find((p) => p.id === player.id) ||
-      team7.find((p) => p.id === player.id) ||
-      team8.find((p) => p.id === player.id) ||
-      team9.find((p) => p.id === player.id)
-    )
-  })
 }
