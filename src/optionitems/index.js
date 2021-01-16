@@ -66,15 +66,16 @@ export const linkTimeOptionItems = linkTimes().map((linkTime) => (
 
 function manualCHList() {
   let manualCHList = []
-  manualCHList.push("*")
-  manualCHList.push("Auto")
-  for (let i = -10; i < 0; i++) manualCHList.push("+" + Math.abs(i))
-  for (let i = 0; i < 61; i++) manualCHList.push(i)
+  manualCHList.push({ value: "*", text: "*" })
+  manualCHList.push({ value: "Auto", text: "Auto" })
+  for (let i = -10; i < 0; i++)
+    manualCHList.push({ value: i, text: "+" + Math.abs(i) })
+  for (let i = 0; i < 61; i++) manualCHList.push({ value: i, text: i })
   return manualCHList
 }
 
 export const manualCHOptionItems = manualCHList().map((manualCH) => (
-  <option key={uuidv4()} value={manualCH}>
-    {manualCH}
+  <option key={uuidv4()} value={manualCH.value}>
+    {manualCH.text}
   </option>
 ))
