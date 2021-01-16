@@ -104,6 +104,29 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   let teamMembers = []
   let playerNameList = getPlayersNotInTeeTime(players, teamTables)
   let progAdjMessage = ""
+  let courseName
+  switch (course) {
+    case "dc":
+      courseName = "Deer Creek"
+      break
+    case "mg":
+      courseName = "Magnolia"
+      break
+    case "mw":
+      courseName = "Marshwood"
+      break
+    case "or":
+      courseName = "Oakridge"
+      break
+    case "pa":
+      courseName = "Palmetto"
+      break
+    case "tp":
+      courseName = "Terrapin Point"
+      break
+    default:
+      break
+  }
 
   //useEffects
 
@@ -491,6 +514,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       game,
       games,
       course,
+      courseName,
       playingDate,
       teeTimeCount,
       linkTime,
@@ -528,6 +552,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       game,
       games,
       course,
+      courseName,
       playingDate,
       teeTimeCount,
       linkTime,
@@ -638,9 +663,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           <div id="lineup-table-div" className="background-white">
             <thead className="lineup-table-head">
               <tr>
-                <td className="center">
-                  {game + ", " + playingDate + " at " + course.toUpperCase()}
-                </td>
+                <td className="center">{playingDate + " at " + courseName}</td>
               </tr>
               <tr>
                 <td></td>

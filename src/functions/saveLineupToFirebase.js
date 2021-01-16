@@ -6,6 +6,7 @@ export default function saveLineupToFirebase(
   game,
   games,
   course,
+  courseName,
   playingDate,
   teeTimeCount,
   linkTime,
@@ -21,14 +22,7 @@ export default function saveLineupToFirebase(
 ) {
   const saveLineup = () => {
     var data = {
-      title:
-        game +
-        ", " +
-        playingDate +
-        " at " +
-        linkTime +
-        " at " +
-        course.toUpperCase(),
+      title: playingDate + " at " + linkTime + " at " + courseName,
       lineup: {
         allPlayers: allPlayers,
         playersInLineup: playersInLineup,

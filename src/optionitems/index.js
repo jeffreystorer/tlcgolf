@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid"
 
 //date and time dropdowns option items
 
-const playingDates = () => {
+/* const playingDates = () => {
   let playingDates = []
   const now = new Date()
   for (let i = 0; i < 8; i++) {
@@ -13,6 +13,41 @@ const playingDates = () => {
     let playingDate = month + "/" + day + "/" + year
     playingDates[i] = playingDate
     now.setDate(now.getDate() + 1)
+  }
+  return playingDates
+} */
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+]
+const months = [
+  "Jan.",
+  "Feb.",
+  "Mar.",
+  "Apr.",
+  "May",
+  "Jun.",
+  "Jul.",
+  "Aug.",
+  "Sep.",
+  "Oct.",
+  "Nov.",
+  "Dec.",
+]
+const playingDates = () => {
+  let playingDates = []
+  const today = new Date()
+  for (let i = 0; i < 8; i++) {
+    let dayName = days[today.getDay()]
+    let monthName = months[today.getMonth()]
+    let playingDate = dayName + ", " + monthName + " " + today.getDate()
+    playingDates[i] = playingDate
+    today.setDate(today.getDate() + 1)
   }
   return playingDates
 }
