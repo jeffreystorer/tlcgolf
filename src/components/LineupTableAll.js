@@ -15,6 +15,7 @@ import TeamTable from "./TeamTable"
 
 //functions
 import { get, set } from "../functions/localStorage"
+import getCourseName from "../functions/getCourseName"
 import getPlayersNotInTeeTime from "../functions/getPlayersNotInTeeTime"
 import loadLineupTablePlayersArray from "../functions/loadLineupTablePlayersArray"
 import saveLineupToFirebase from "../functions/saveLineupToFirebase"
@@ -104,29 +105,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   let teamMembers = []
   let playerNameList = getPlayersNotInTeeTime(players, teamTables)
   let progAdjMessage = ""
-  let courseName
-  switch (course) {
-    case "dc":
-      courseName = "Deer Creek"
-      break
-    case "mg":
-      courseName = "Magnolia"
-      break
-    case "mw":
-      courseName = "Marshwood"
-      break
-    case "or":
-      courseName = "Oakridge"
-      break
-    case "pa":
-      courseName = "Palmetto"
-      break
-    case "tp":
-      courseName = "Terrapin Point"
-      break
-    default:
-      break
-  }
+  let courseName = getCourseName(course)
 
   //useEffects
 
