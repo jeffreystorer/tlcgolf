@@ -16,7 +16,7 @@ import GamesPage from "./GamesPage"
 import LoginPage from "./LoginPage"
 import SelectTeesPage from "./SelectTeesPage"
 import LineupPage from "./LineupPage"
-import SelectPlayersPage from "./SelectPlayersPage"
+import PlayersPage from "./PlayersPage"
 import HelpPage from "./HelpPage"
 
 export default function App() {
@@ -176,7 +176,7 @@ function Individual() {
 function Players() {
   return (
     <>
-      <SelectPlayersPage />
+      <PlayersPage />
     </>
   )
 }
