@@ -1,6 +1,5 @@
 //node modules
 import React, { useState, useEffect } from "react"
-import { useList } from "react-firebase-hooks/database"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { v4 as uuidv4 } from "uuid"
@@ -9,6 +8,7 @@ import { useRecoilValue, useRecoilState } from "recoil"
 //components
 import AddPlayersToSavedLineup from "./AddPlayersToSavedLineup"
 import ButtonDownloadScreenShot from "./ButtonDownloadScreenshot"
+import SavedLineupCount from "./SavedLineupCount"
 import LineupTableDropDowns from "./LineupTableDropDowns"
 import LineupsList from "./LineupsList"
 import TeamTable from "./TeamTable"
@@ -23,9 +23,6 @@ import setAutoPop from "../functions/setAutoPop"
 
 //option items
 import * as options from "../optionitems"
-
-//services
-import LineupDataService from "../services/LineupService"
 
 //state
 import * as state from "../state"
@@ -83,10 +80,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const [players, setPlayers] = useState(playersArray)
 
   //other constants
-  const [Lineups] = useList(LineupDataService.getAll(firebaseRef))
-  const savedLineupCount = () => {
-    return Lineups.length
-  }
+  //const savedLineupCount = SavedLineupCount(firebaseRef)
   let isMe = false
   if (ghinNumber === "585871") isMe = true
   let teamHcpAndProgs = {
@@ -559,7 +553,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     <>
       <div id="lineup-page" className="center">
         <br></br>
-        {savedLineupCount() > 0 && (
+        {SavedLineupCount(firebaseRef) > 0 && (
           <div>
             <LineupsList
               loadLineupFromFirebase={loadLineupFromFirebase}

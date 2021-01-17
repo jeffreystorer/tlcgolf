@@ -1,15 +1,10 @@
-import React, { useState } from "react";
-import LineupDataService from "../services/LineupService";
-import { useObject } from 'react-firebase-hooks/database';
-import {useRecoilState} from 'recoil';
-import * as state from '../state';
-import '../styles/App.css';
+import React, { useState } from "react"
+import LineupDataService from "../services/LineupService"
+import { useObject } from "react-firebase-hooks/database"
+import "../styles/App.css"
 
 const Lineup = (props) => {
-
-  //eslint-disable-next-line
-  const [loadDeleteSavedLineup, setLoadDeleteSavedLineup] = useRecoilState(state.loadDeleteSaveLineupsState);
-
+  console.log("😊😊 props", props)
   const initialLineupState = {
     key: null,
     title: "",
@@ -28,65 +23,61 @@ const Lineup = (props) => {
       teamHcpAndProgs: {},
       textAreaValue: "",
     },
-  };
-  const [currentLineup, setCurrentLineup] = useState(initialLineupState);
-  const [message, setMessage] = useState("");
-
-  const { Lineup } = props;
-  if (currentLineup.key !== Lineup.key) {
-    setCurrentLineup(Lineup);
-    setMessage("");
   }
-  const [value, loading, error] = useObject(LineupDataService.getLineup(Lineup.key, props.firebaseRef));
+  const [currentLineup, setCurrentLineup] = useState(initialLineupState)
+  const [message, setMessage] = useState("")
+
+  const { Lineup } = props
+  if (currentLineup.key !== Lineup.key) {
+    setCurrentLineup(Lineup)
+    setMessage("")
+  }
+  const [value, loading, error] = useObject(
+    LineupDataService.getLineup(Lineup.key, props.firebaseRef)
+  )
   const LoadLineup = () => {
-    if(!loading && !error) setMessage("Lineup has been loaded.");
-    let lineupObj = value.val();
-    let savedLineup = lineupObj.lineup;
-    props.loadLineupFromFirebase(savedLineup);
-    setLoadDeleteSavedLineup(false);
-  };
+    if (!loading && !error) setMessage("Lineup has been loaded.")
+    let lineupObj = value.val()
+    let savedLineup = lineupObj.lineup
+    props.loadLineupFromFirebase(savedLineup)
+  }
 
   const deleteLineup = () => {
     LineupDataService.remove(currentLineup.key, props.firebaseRef)
       .then(() => {
-        if (props.lineupCount > 1) props.refreshList();
+        if (props.lineupCount > 1) props.refreshList()
       })
       .catch((e) => {
-        console.log(e);
-      });
-  };
+        console.log(e)
+      })
+  }
 
   return (
-    <div className='center list-lineup'>
+    <div className="center list-lineup">
       {currentLineup ? (
-        <div className='center'>
+        <div className="center">
           <h4>Lineup</h4>
           <form>
-            <div className='center'>
+            <div className="center">
               <p>{currentLineup.title}</p>
             </div>
           </form>
-        
-          <button
-            type="submit"
-            onClick={LoadLineup}
-          >
+
+          <button type="submit" onClick={LoadLineup}>
             Load
           </button>
 
-          <button onClick={deleteLineup}>
-            Delete
-          </button>
+          <button onClick={deleteLineup}>Delete</button>
           <p>{message}</p>
         </div>
       ) : (
-        <div className='center'>
+        <div className="center">
           <br />
           <p>Please click on a Lineup...</p>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Lineup;
+export default Lineup

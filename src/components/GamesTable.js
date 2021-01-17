@@ -3,7 +3,7 @@ import "../styles/App.css"
 import GamesTableAll from "./GamesTableAll"
 import GamesTableCreate from "./GamesTableCreate"
 import GamesTableDropDowns from "./GamesTableDropDowns"
-import getGamesAndSelectPlayersTableDisplayNumber from "../functions/getGamesAndSelectPlayersTableDisplayNumber"
+import getGamesAndPlayersTableDisplayNumber from "../functions/getGamesAndPlayersTableDisplayNumber"
 import LinkButton from "./LinkButton"
 import IframesStorer from "./IframesStorer"
 import IframesCasey from "./IframesCasey"
@@ -65,7 +65,7 @@ export default function GamesTable({ ratings, slopes, pars }) {
     //eslint-disable-next-line
   }, [])
 
-  let displayNumber = getGamesAndSelectPlayersTableDisplayNumber(
+  let displayNumber = getGamesAndPlayersTableDisplayNumber(
     course,
     game,
     games,
