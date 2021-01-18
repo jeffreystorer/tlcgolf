@@ -14,8 +14,7 @@ export default function getLineupTableDisplayNumber(
     if (
       playersInLineup &&
       games.includes(game) &&
-      courseData.courses.includes(course) /* &&
-  (game === savedGame) */
+      courseData.courses.includes(course)
     ) {
       displayNumber = 2
     } else {
