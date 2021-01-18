@@ -16,6 +16,7 @@ import TeamTable from "./TeamTable"
 //functions
 import { get, set } from "../functions/localStorage"
 import getCourseName from "../functions/getCourseName"
+import getPlayersNotInSavedLineupCount from "../functions/getPlayersNotInSavedLineupCount"
 import getPlayersNotInTeeTime from "../functions/getPlayersNotInTeeTime"
 import loadLineupTablePlayersArray from "../functions/loadLineupTablePlayersArray"
 import saveLineupToFirebase from "../functions/saveLineupToFirebase"
@@ -80,7 +81,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const [players, setPlayers] = useState(playersArray)
 
   //other constants
-  //const savedLineupCount = SavedLineupCount(firebaseRef)
   let isMe = false
   if (ghinNumber === "585871") isMe = true
   let teamHcpAndProgs = {
@@ -97,6 +97,15 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   }
   let TeamTables = []
   let teamMembers = []
+  let playersNotInSavedLineupCount = getPlayersNotInSavedLineupCount(
+    course,
+    game,
+    games,
+    teesSelected,
+    ratings,
+    slopes,
+    pars
+  )
   let playerNameList = getPlayersNotInTeeTime(players, teamTables)
   let progAdjMessage = ""
   let courseName = getCourseName(course)
@@ -604,20 +613,28 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         </button>
         <br></br>
         <br></br>
-        <button id="add-players" onClick={handleShowAddPlayersClick}>
-          Add players to saved lineup
-        </button>
-        <br></br>
-        <br></br>
+        {playersNotInSavedLineupCount > 0 && (
+          <>
+            <button id="add-players" onClick={handleShowAddPlayersClick}>
+              Add players to saved lineup
+            </button>
+            <br></br>
+            <br></br>
+          </>
+        )}
         {showAddPlayers && (
-          <AddPlayersToSavedLineup
-            course={course}
-            game={game}
-            ratings={ratings}
-            slopes={slopes}
-            pars={pars}
-            handleAddPlayersClick={handleAddPlayersClick}
-          />
+          <>
+            <AddPlayersToSavedLineup
+              course={course}
+              game={game}
+              ratings={ratings}
+              slopes={slopes}
+              pars={pars}
+              handleAddPlayersClick={handleAddPlayersClick}
+            />
+            <br></br>
+            <br></br>
+          </>
         )}
         {progs069 < 1 && (
           <>
