@@ -19,23 +19,9 @@ function LoginPage() {
   showLocalNumbers = get("showLocalNumbers")
   let teesSelected = get("teesSelected")
 
-  /*   let isMe = false
-  switch (ghinNumber) {
-    case "585871":
-      isMe = true
-      break
-    default:
-      break
-  } */
-
   useEffect(() => {
     localStorage.clear()
     set("isLoggedIn", "false")
-    /*  //eslint-disable-next-line
-    ghinNumber = "";
-    //eslint-disable-next-line
-    lastName = ""; */
-    ////eslint-disable-next-line
   }, [])
 
   useEffect(() => {

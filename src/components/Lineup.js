@@ -4,7 +4,6 @@ import { useObject } from "react-firebase-hooks/database"
 import "../styles/App.css"
 
 const Lineup = (props) => {
-  console.log("😊😊 props", props)
   const initialLineupState = {
     key: null,
     title: "",
