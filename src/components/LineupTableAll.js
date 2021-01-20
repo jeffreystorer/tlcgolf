@@ -16,6 +16,7 @@ import TeamTable from "./TeamTable"
 //functions
 import { get, set } from "../functions/localStorage"
 import getCourseName from "../functions/getCourseName"
+//import getPlayersInTeeTime from "../functions/getPlayersInTeeTime"
 import getPlayersNotInSavedLineupCount from "../functions/getPlayersNotInSavedLineupCount"
 import getPlayersNotInTeeTime from "../functions/getPlayersNotInTeeTime"
 import loadLineupTablePlayersArray from "../functions/loadLineupTablePlayersArray"
@@ -40,6 +41,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   //react state
   const [showTips, setShowTips] = useState(get("showTips"))
   const [showTeamHcp, setShowTeamHcp] = useState(get("showTeamHcp"))
+  const [shotsOff, setShotsOff] = useState(false)
   const [showAddPlayers, setShowAddPlayers] = useState(false)
   const teamTablesObj = {
     times: [],
@@ -107,6 +109,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     pars
   )
   let playerNameList = getPlayersNotInTeeTime(players, teamTables)
+  //let playersInTeeTime = getPlayersInTeeTime(players, teamTables)
   let progAdjMessage = ""
   let courseName = getCourseName(course)
 
@@ -183,6 +186,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   }
   /*Used by handleTeeTimeCountChange and handleLinkTimeChange  */
   function setTeeTimes(aLinkTime, aTeeTimeCount) {
+    teamTables.times = []
     let firstRegularTimeIndex = options.linkTimes().indexOf("8:02")
     let linkTimeIndex = options.linkTimes().indexOf(aLinkTime)
     if (linkTimeIndex < firstRegularTimeIndex) {
@@ -268,6 +272,49 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   function handleShowTeamHcpChange() {
     set("showTeamHcp", !showTeamHcp)
     setShowTeamHcp(!showTeamHcp)
+  }
+
+  //handle Shots Off
+
+  function handleShotsOffChange() {
+    set("shotsOff", !shotsOff)
+    setShotsOff(!shotsOff)
+    let shotAreOff = get("shotsOff")
+    if (shotAreOff) setShots()
+    function setShots() {
+      //loop through teamTables and find the low CH
+      let teesSelectedArray = teesSelected.map((a) => a.value)
+      let lowCH = 54
+      let i
+      for (i = 0; i < teeTimeCount; i++) {
+        let teamName = "team" + i
+        let teamPlayerCount = teamTables[teamName].length
+        let j
+        for (j = 0; j < teamPlayerCount; j++) {
+          let aTeeChoice = teamTables[teamName][j].teeChoice
+          let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice)
+          let aCH = teamTables[teamName][j].courseHandicaps[aChosenTeeIndex]
+          if (aCH < lowCH) lowCH = aCH
+        }
+      }
+
+      //loop through teamTables and set the SO
+
+      for (i = 0; i < teeTimeCount; i++) {
+        let teamName = "team" + i
+        let teamPlayerCount = teamTables[teamName].length
+        let j
+        for (j = 0; j < teamPlayerCount; j++) {
+          let aTeeChoice = teamTables[teamName][j].teeChoice
+          let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice)
+          let aCH = teamTables[teamName][j].courseHandicaps[aChosenTeeIndex]
+          let so = aCH - lowCH
+          let aPlayerName =
+            teamTables[teamName][j].playerName + "  [Shots: " + so + "]"
+          teamTables[teamName][j].playerName = aPlayerName
+        }
+      }
+    }
   }
 
   //compute handicaps and progs
@@ -558,6 +605,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     setShowTips(!showTips)
   }
 
+  console.table(teamTables)
+
   return (
     <>
       <div id="lineup-page" className="center">
@@ -647,6 +696,19 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             <label htmlFor="showTeamHcp">Show Team Hcp</label>
           </>
         )}
+        {isMe && (
+          <>
+            <br></br>
+            <br></br>
+            <input
+              type="checkbox"
+              id="shotsOff"
+              onChange={handleShotsOffChange}
+              defaultChecked={shotsOff}
+            ></input>
+            <label htmlFor="shotsOff">Shots Off</label>
+          </>
+        )}
         <br></br>
         <br></br>
         <table id="lineup-table" className="background-white">
@@ -672,6 +734,18 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
                   </tr>
                   <tr>
                     <td className="team-table-footer">{progAdjMessage}</td>
+                  </tr>
+                </>
+              )}
+              {shotsOff && (
+                <>
+                  <tr>
+                    <td className="team-table-footer"></td>
+                  </tr>
+                  <tr>
+                    <td className="team-table-footer">
+                      **[Shots: ] = shots off low player**
+                    </td>
                   </tr>
                 </>
               )}
