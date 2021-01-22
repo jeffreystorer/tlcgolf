@@ -4,19 +4,19 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { v4 as uuidv4 } from "uuid"
 import { useRecoilValue, useRecoilState } from "recoil"
+import { useListKeys } from "react-firebase-hooks/database"
 
 //components
 import AddPlayersToSavedLineup from "./AddPlayersToSavedLineup"
 import ButtonDownloadScreenShot from "./ButtonDownloadScreenshot"
-import SavedLineupCount from "./SavedLineupCount"
 import LineupTableDropDowns from "./LineupTableDropDowns"
 import LineupsList from "./LineupsList"
+import SavedLineupCount from "./SavedLineupCount"
 import TeamTable from "./TeamTable"
 
 //functions
 import { get, set } from "../functions/localStorage"
 import getCourseName from "../functions/getCourseName"
-//import getPlayersInTeeTime from "../functions/getPlayersInTeeTime"
 import getPlayersNotInSavedLineupCount from "../functions/getPlayersNotInSavedLineupCount"
 import getPlayersNotInTeeTime from "../functions/getPlayersNotInTeeTime"
 import loadLineupTablePlayersArray from "../functions/loadLineupTablePlayersArray"
@@ -25,6 +25,9 @@ import setAutoPop from "../functions/setAutoPop"
 
 //option items
 import * as options from "../optionitems"
+
+//services
+import LineupDataService from "../services/LineupService"
 
 //state
 import * as state from "../state"
@@ -68,6 +71,10 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   //eslint-disable-next-line
   const [overrideCHChoiceChangedId, setOverrideCHChoiceChangedId] = useState(0)
   const firebaseRef = '"' + ghinNumber.toString() + '"'
+  const [keys] = useListKeys(LineupDataService.getAll(firebaseRef))
+  set("keys", keys)
+  let savedKeys = keys
+  let lastKeyIndex = savedKeys.length - 1
   let playersArray = loadLineupTablePlayersArray(
     firebaseRef,
     course,
@@ -111,6 +118,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   //let playersInTeeTime = getPlayersInTeeTime(players, teamTables)
   let progAdjMessage = ""
   let courseName = getCourseName(course)
+  //console.log("key", LastSavedLineupKey(firebaseRef))
 
   //useEffects
 
@@ -563,8 +571,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     setShowTips(!showTips)
   }
 
-  console.table(teamTables)
-
   return (
     <>
       <div id="lineup-page" className="center">
@@ -574,6 +580,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             <LineupsList
               loadLineupFromFirebase={loadLineupFromFirebase}
               firebaseRef={firebaseRef}
+              lastKeyIndex={lastKeyIndex}
             />
           </div>
         )}

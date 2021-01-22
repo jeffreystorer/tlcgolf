@@ -38,3 +38,29 @@ export const useStateWithLocalStorage = (localStorageKey) => {
 
   return [value, setValue]
 }
+
+export const pushKey = (key) => {
+  try {
+    let keys = get("keys")
+    if (!keys) keys = []
+    keys.push(key)
+    set("keys", keys)
+  } catch (error) {
+    console.log("error: " + error + " pushing key: " + key)
+  }
+}
+
+export const popKey = () => {
+  try {
+    let keys = get("keys")
+    if (!keys || keys.length === 0) {
+      return "empty"
+    } else {
+      let lastKey = keys.pop()
+      set("keys", keys)
+      return lastKey
+    }
+  } catch (error) {
+    console.log("error: " + error + " popping key")
+  }
+}

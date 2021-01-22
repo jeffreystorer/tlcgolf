@@ -1,10 +1,12 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useList } from "react-firebase-hooks/database"
 import LineupDataService from "../services/LineupService"
 import Lineup from "./Lineup"
+//import LineupLoadSaved from "./LineupLoadSaved"
 import "../styles/App.css"
 
-const LineupsList = ({ loadLineupFromFirebase, firebaseRef }) => {
+const LineupsList = ({ loadLineupFromFirebase, firebaseRef, lastKeyIndex }) => {
+  const [key, setKey] = useState("notSet")
   const [currentLineup, setCurrentLineup] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(-1)
 
@@ -12,6 +14,7 @@ const LineupsList = ({ loadLineupFromFirebase, firebaseRef }) => {
   const [Lineups, loading, error] = useList(
     LineupDataService.getAll(firebaseRef)
   )
+
   const refreshList = () => {
     setCurrentLineup(null)
     setCurrentIndex(-1)
@@ -26,6 +29,7 @@ const LineupsList = ({ loadLineupFromFirebase, firebaseRef }) => {
     })
 
     setCurrentIndex(index)
+    console.log("😊😊 index", index)
   }
 
   const removeAllLineups = () => {
@@ -33,6 +37,28 @@ const LineupsList = ({ loadLineupFromFirebase, firebaseRef }) => {
       console.log(e)
     })
   }
+
+  useEffect(() => {
+    //eslint-disable-next-line
+    let savedLineups = []
+    if (lastKeyIndex > -1) {
+      console.log("😊😊 lastKeyIndex", lastKeyIndex)
+      savedLineups = Lineups.map(myFunction)
+      function myFunction(Lineup, index) {
+        let aLineup = {
+          key: Lineup.key,
+          title: Lineup.val().title,
+        }
+        setKey(aLineup.key)
+        setCurrentLineup({
+          key: aLineup.key,
+          title: aLineup.title,
+        })
+        setCurrentIndex(index)
+        return aLineup
+      }
+    }
+  }, [Lineups, lastKeyIndex, key, loadLineupFromFirebase, firebaseRef])
 
   return (
     <div className="center list-lineups">
