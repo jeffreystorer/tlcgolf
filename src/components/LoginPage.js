@@ -20,7 +20,7 @@ function LoginPage() {
   let teesSelected = get("teesSelected")
 
   useEffect(() => {
-    localStorage.removeItem("course")
+    //localStorage.removeItem("course")
     //localStorage.removeItem("playersInLineup")
     //localStorage.clear()
     set("isLoggedIn", "false")

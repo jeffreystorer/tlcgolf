@@ -197,13 +197,12 @@ export default function HelpPage() {
                     <td>
                       At the bottom of the Lineup page, there is a "Save Lineup"
                       button. Click this and your lineup will be saved to
-                      storage in the cloud. You can load a saved lineup by
-                      clicking the "Saved Lineups" button near the top of the
-                      Lineup page. Your saved lineups are available on any
-                      device where you run the app, not just the one on which
-                      you created the lineup. Also, if you make a lineup one day
-                      and come back to it the next, the course handicaps will be
-                      automatically updated using the players' current indexes.
+                      storage in the cloud. Your saved lineups are available on
+                      any device where you run the app, not just the one on
+                      which you created the lineup. Also, if you make a lineup
+                      one day and come back to it the next, the course handicaps
+                      will be automatically updated using the players' current
+                      indexes.
                     </td>
                   </tr>
                   <br></br>
@@ -213,18 +212,7 @@ export default function HelpPage() {
                       Once you have created and saved one or more lineups, you
                       will be taken directly to the Lineup page when you start
                       the app and your last saved lineup will be selected for
-                      you, so that you can just click on "Load". Note that after
-                      you login, your current course is deleted, so you will
-                      have to select a course before you can use the Lineup page
-                      to load a saved new lineup.
-                    </td>
-                  </tr>
-                  <br></br>
-                  <tr>
-                    <td className="help-topic"></td>
-                    <td>
-                      You retrieve a saved lineup by clicking on the "Saved
-                      Lineups" button and selecting a saved lineup to load.
+                      you, so that you can just click on "Load".
                     </td>
                   </tr>
                   <br></br>

@@ -8,6 +8,7 @@ export default function LineupTableCourseDropDown() {
 
   useEffect(() => {
     setCourse(course)
+    set("course", course)
   }, [course, setCourse])
 
   function handleCourseChange(e) {
