@@ -7,7 +7,7 @@ import getGamesAndPlayersTableDisplayNumber from "../functions/getGamesAndPlayer
 import { useRecoilValue, useRecoilState } from "recoil"
 import * as state from "../state"
 
-export default function SelectPlayersTable({ ratings, slopes, pars }) {
+export default function PlayersTable({ ratings, slopes, pars }) {
   //eslint-disable-next-line
   const [games, setGames] = useRecoilState(state.gamesState)
   //eslint-disable-next-line
@@ -34,7 +34,6 @@ export default function SelectPlayersTable({ ratings, slopes, pars }) {
     games,
     "true"
   )
-  //if (hasGoogleSheet === 'true') fetchGamesGHIN();
 
   switch (displayNumber) {
     case 0:

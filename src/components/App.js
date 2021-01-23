@@ -1,6 +1,5 @@
 import React from "react"
 import { RecoilRoot } from "recoil"
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -36,7 +35,7 @@ export default function App() {
           </NavLink>
           <NavLink
             exact
-            to="/"
+            to="/games"
             className="navitem"
             activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
           >
@@ -52,7 +51,7 @@ export default function App() {
           </NavLink>
           <NavLink
             exact
-            to="/lineup"
+            to="/"
             className="navitem"
             activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
           >
@@ -71,17 +70,17 @@ export default function App() {
           <Route path="/individual">
             <Individual />
           </Route>
+          <Route path="/games">
+            <Games />
+          </Route>
           <Route path="/players">
             <Players />
-          </Route>
-          <Route path="/lineup">
-            <Lineup />
           </Route>
           <Route path="/settings">
             <Settings />
           </Route>
           <Route path="/">
-            <Games />
+            <Lineup />
           </Route>
         </Switch>
       </Router>

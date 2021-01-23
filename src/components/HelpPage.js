@@ -211,13 +211,12 @@ export default function HelpPage() {
                     <td className="help-topic">Retrieving a Saved Lineup</td>
                     <td>
                       Once you have created and saved one or more lineups, you
-                      can go directly to the Lineup page, without selecting
-                      players on the Players page, if you want to retrieve a
-                      saved lineup. Note that after you login, your saved
-                      players list is deleted, so you will have to select
-                      players before you can use the Lineup page. If you just
-                      want to use a saved lineup, you can select any player and
-                      then click "Next" to take you to the Lineup page.
+                      will be taken directly to the Lineup page when you start
+                      the app and your last saved lineup will be selected for
+                      you, so that you can just click on "Load". Note that after
+                      you login, your current course is deleted, so you will
+                      have to select a course before you can use the Lineup page
+                      to load a saved new lineup.
                     </td>
                   </tr>
                   <br></br>

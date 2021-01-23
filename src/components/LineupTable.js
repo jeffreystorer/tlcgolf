@@ -36,7 +36,7 @@ export default function LineupTable({ ratings, slopes, pars }) {
       return (
         <>
           <p className="center">
-            Before you can display this table,<br></br>
+            Before you can display this page,<br></br>
             you must select a game and course<br></br>
             on the Games Page and then select<br></br>
             your players on the Players Page.
@@ -44,8 +44,15 @@ export default function LineupTable({ ratings, slopes, pars }) {
         </>
       )
     case 1:
-      document.location = "/"
-      return <></>
+      return (
+        <>
+          <p className="center">
+            Before you can display this page,<br></br>
+            you must select your players<br></br>
+            on the Players Page.
+          </p>
+        </>
+      )
     case 2:
       return (
         <>
@@ -57,6 +64,16 @@ export default function LineupTable({ ratings, slopes, pars }) {
             slopes={slopes}
             pars={pars}
           />
+        </>
+      )
+    case 3:
+      return (
+        <>
+          <p className="center">
+            Before you can display this page,<br></br>
+            you must select a course<br></br>
+            on the Games Page.
+          </p>
         </>
       )
     default:

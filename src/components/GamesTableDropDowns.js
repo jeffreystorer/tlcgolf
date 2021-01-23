@@ -25,7 +25,7 @@ export default function GamesTableDropDowns() {
   function handleGameChange(e) {
     setGame(e.target.value)
     set("game", e.target.value)
-    //localStorage.removeItem('playersInLineup');
+    localStorage.removeItem("playersInLineup")
   }
   try {
     optionItems = games.map((game) => (

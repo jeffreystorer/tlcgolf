@@ -29,7 +29,6 @@ const LineupsList = ({ loadLineupFromFirebase, firebaseRef, lastKeyIndex }) => {
     })
 
     setCurrentIndex(index)
-    console.log("😊😊 index", index)
   }
 
   const removeAllLineups = () => {
@@ -42,7 +41,6 @@ const LineupsList = ({ loadLineupFromFirebase, firebaseRef, lastKeyIndex }) => {
     //eslint-disable-next-line
     let savedLineups = []
     if (lastKeyIndex > -1) {
-      console.log("😊😊 lastKeyIndex", lastKeyIndex)
       savedLineups = Lineups.map(myFunction)
       function myFunction(Lineup, index) {
         let aLineup = {

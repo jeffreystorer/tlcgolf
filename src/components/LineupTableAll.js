@@ -278,7 +278,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
 
   function handleShowTeamHcpChange() {
     set("showTeamHcp", !showTeamHcp)
-    setShowTeamHcp(!showTeamHcp)
+    setShowTeamHcp((prevState) => !prevState)
   }
 
   //compute handicaps and progs
@@ -568,7 +568,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
 
   function handleShowTipsChange() {
     set("showTips", !showTips)
-    setShowTips(!showTips)
+    setShowTips((prevState) => !prevState)
   }
 
   return (

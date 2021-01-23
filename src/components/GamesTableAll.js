@@ -13,7 +13,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
 
   function handleShowLocalNumbersChange() {
     set("showLocalNumbers", !showLocalNumbers)
-    setShowLocalNumbers(!showLocalNumbers)
+    setShowLocalNumbers((prevState) => !prevState)
   }
   return (
     <>

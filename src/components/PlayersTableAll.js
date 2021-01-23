@@ -61,12 +61,12 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
       pars,
       !randomTeams
     )
-    setRandomTeams(!randomTeams)
+    setRandomTeams((prevState) => !prevState)
   }
 
   function handleShowTipsChange() {
     set("showTips", !showTips)
-    setShowTips(!showTips)
+    setShowTips((prevState) => !prevState)
   }
 
   let playersInLineupOptions = playersArray.map((player) => (

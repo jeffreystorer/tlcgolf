@@ -18,7 +18,7 @@ export default function GamesPage() {
     )
   } else {
     return (
-      <Route exact path="/">
+      <Route exact path="/games">
         <Redirect to="/settings/login" />
       </Route>
     )
