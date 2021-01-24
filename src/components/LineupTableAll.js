@@ -832,6 +832,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         <br></br>
         <br></br>
         <ButtonDownloadScreenShot
+          title={lineupTitle}
           game={game}
           course={course}
           element="lineup-table-div"
@@ -840,6 +841,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         />
         <br></br>
         <ButtonDownloadScreenShot
+          title={lineupTitle}
           game={game}
           course={course}
           element="lineup-table-div"

@@ -2,11 +2,18 @@ import React from "react"
 import domtoimage from "dom-to-image"
 import { saveAs } from "../functions/fileSaver.js"
 
-const ButtonDownLoadScreenshot = ({ game, course, element, format, page }) => {
+const ButtonDownLoadScreenshot = ({
+  title,
+  game,
+  course,
+  element,
+  format,
+  page,
+}) => {
   function handleClick() {
     let fileName
     if (page === "Lineup") {
-      fileName = "Lineup for " + game + " at " + course.toUpperCase()
+      fileName = title
     } else {
       fileName = "Course Handicaps for " + game + " at " + course.toUpperCase()
     }
