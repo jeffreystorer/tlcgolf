@@ -62,6 +62,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const [linkTime, setLinkTime] = useState("Time")
   const [teeTimeCount, setTeeTimeCount] = useState("")
   const [playingDate, setPlayingDate] = useState("Date")
+  let courseName = getCourseName(course)
+  const [lineupTitle, setLineupTitle] = useState(game + " Game")
   const [textAreaValue, setTextAreaValue] = useState("")
   const [progs069, setProgs069] = useState("0")
   const [progAdj, setProgAdj] = useState("0")
@@ -115,10 +117,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     pars
   )
   let playerNameList = getPlayersNotInTeeTime(players, teamTables)
-  //let playersInTeeTime = getPlayersInTeeTime(players, teamTables)
   let progAdjMessage = ""
-  let courseName = getCourseName(course)
-  //console.log("key", LastSavedLineupKey(firebaseRef))
 
   //useEffects
 
@@ -132,6 +131,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   //Saved Lineups List
 
   function loadLineupFromFirebase({
+    title,
     playersInLineup,
     players,
     course,
@@ -144,6 +144,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     teeTimeCount,
     textAreaValue,
   }) {
+    setLineupTitle(title)
     set("playersInLineup", playersInLineup)
     setPlayers(players)
     setCourse(course)
@@ -492,7 +493,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   //text area
   const handleTextAreaOnBlur = (event) => {
     setTextAreaValue(event.target.value)
-    //set('savedTextAreaValue', event.target.value);
   }
 
   const handleTextAreaValueChange = (event) => {
@@ -501,10 +501,13 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
 
   //handle Save Lineup
 
-  function handleSaveLineupClick() {
+  function handleSaveLineupClick(event) {
+    event.preventDefault()
+    let title = lineupTitle
     let allPlayers = get("players")
     let playersInLineup = get("playersInLineup")
     saveLineupToFirebase(
+      title,
       allPlayers,
       playersInLineup,
       players,
@@ -534,6 +537,14 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       draggable: true,
       progress: undefined,
     })
+  }
+
+  function handleLineUpTitleChange(event) {
+    setLineupTitle(event.target.value)
+  }
+
+  function resetLineupTitle() {
+    setLineupTitle(game + " Game ")
   }
 
   //handle Publish Lineup
@@ -580,13 +591,14 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         {SavedLineupCount(firebaseRef) > 0 && (
           <div>
             <LineupsList
+              resetLineupTitle={resetLineupTitle}
               loadLineupFromFirebase={loadLineupFromFirebase}
               firebaseRef={firebaseRef}
               lastKeyIndex={lastKeyIndex}
             />
           </div>
         )}
-        <br></br>
+        <p className="current-lineup-title">Current Lineup: {lineupTitle}</p>
         <LineupTableDropDowns
           playingDateOptionItems={options.playingDateOptionItems}
           linkTime={linkTime}
@@ -750,9 +762,25 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           </div>
         )}
         <br></br>
-        <button className="center" onClick={handleSaveLineupClick}>
-          Save Lineup
-        </button>
+        <div className="center">
+          <form onSubmit={handleSaveLineupClick}>
+            <label>
+              Lineup Title:
+              <br></br>
+              <input
+                type="text"
+                id="lineuptitle"
+                name="lineuptitle"
+                value={lineupTitle}
+                onChange={handleLineUpTitleChange}
+                size="36"
+              />
+              <br></br>
+              <br></br>
+            </label>
+            <input id="savelineup" type="submit" value="Save Lineup" />
+          </form>
+        </div>
         {isMe && (
           <div>
             <br></br>

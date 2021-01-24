@@ -59,6 +59,10 @@
   text-align: center;
 }
 
+.current-lineup-title {
+  text-decoration: underline;
+}
+
 input :not(#next) {
   border: 1px solid black;
   width: 150px;
@@ -319,8 +323,16 @@ nav {
   border-color: #3378ac;
 }
 
+input#lineuptitle {
+  height: 23px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+}
+
 button,
-#next {
+#next,
+input#savelineup {
   background-color: #3378ac;
   padding: 1px 15px;
   text-decoration: none;
@@ -338,6 +350,7 @@ button,
   border-radius: 0;
 }
 button:hover,
+input#savelineup:hover,
 #next:hover {
   -webkit-appearance: none;
   border-radius: 0;

@@ -5,7 +5,12 @@ import Lineup from "./Lineup"
 //import LineupLoadSaved from "./LineupLoadSaved"
 import "../styles/App.css"
 
-const LineupsList = ({ loadLineupFromFirebase, firebaseRef, lastKeyIndex }) => {
+const LineupsList = ({
+  resetLineupTitle,
+  loadLineupFromFirebase,
+  firebaseRef,
+  lastKeyIndex,
+}) => {
   const [key, setKey] = useState("notSet")
   const [currentLineup, setCurrentLineup] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(-1)
@@ -64,7 +69,7 @@ const LineupsList = ({ loadLineupFromFirebase, firebaseRef, lastKeyIndex }) => {
 
       {error && <strong>Error: {error}</strong>}
       {loading && <span>Loading...</span>}
-      <ul>
+      <ul className="text-align-left">
         {!loading &&
           Lineups &&
           Lineups.map((Lineup, index) => (
@@ -86,6 +91,7 @@ const LineupsList = ({ loadLineupFromFirebase, firebaseRef, lastKeyIndex }) => {
             lineupCount={Lineups.length}
             Lineup={currentLineup}
             refreshList={refreshList}
+            resetLineupTitle={resetLineupTitle}
             loadLineupFromFirebase={loadLineupFromFirebase}
             firebaseRef={firebaseRef}
           />

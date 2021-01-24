@@ -1,5 +1,6 @@
 import LineupDataService from "../services/LineupService"
 export default function saveLineupToFirebase(
+  title,
   allPlayers,
   playersInLineup,
   players,
@@ -22,7 +23,7 @@ export default function saveLineupToFirebase(
 ) {
   const saveLineup = () => {
     var data = {
-      title: playingDate + " at " + linkTime + " at " + courseName,
+      title: title,
       lineup: {
         allPlayers: allPlayers,
         playersInLineup: playersInLineup,

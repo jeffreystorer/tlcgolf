@@ -24,20 +24,19 @@ const Lineup = (props) => {
     },
   }
   const [currentLineup, setCurrentLineup] = useState(initialLineupState)
-  const [message, setMessage] = useState("")
 
   const { Lineup } = props
   if (currentLineup.key !== Lineup.key) {
     setCurrentLineup(Lineup)
-    setMessage("")
   }
-  const [value, loading, error] = useObject(
+  const [value] = useObject(
     LineupDataService.getLineup(Lineup.key, props.firebaseRef)
   )
   const LoadLineup = () => {
-    if (!loading && !error) setMessage("Lineup has been loaded.")
     let lineupObj = value.val()
+    let title = lineupObj.title
     let savedLineup = lineupObj.lineup
+    savedLineup.title = title
     props.loadLineupFromFirebase(savedLineup)
   }
 
@@ -45,6 +44,7 @@ const Lineup = (props) => {
     LineupDataService.remove(currentLineup.key, props.firebaseRef)
       .then(() => {
         if (props.lineupCount > 1) props.refreshList()
+        props.resetLineupTitle()
       })
       .catch((e) => {
         console.log(e)
@@ -67,7 +67,6 @@ const Lineup = (props) => {
           </button>
 
           <button onClick={deleteLineup}>Delete</button>
-          <p>{message}</p>
         </div>
       ) : (
         <div className="center">
@@ -75,6 +74,7 @@ const Lineup = (props) => {
           <p>Please click on a Lineup...</p>
         </div>
       )}
+      <br></br>
     </div>
   )
 }
