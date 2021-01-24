@@ -550,10 +550,12 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   //handle Publish Lineup
 
   function handlePublishLineupClick() {
+    let title = lineupTitle
     let allPlayers = get("players")
     let playersInLineup = get("playersInLineup")
     let lineupRef = "lineup"
     saveLineupToFirebase(
+      title,
       allPlayers,
       playersInLineup,
       players,
