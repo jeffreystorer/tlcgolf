@@ -503,6 +503,18 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
 
   function handleSaveLineupClick(event) {
     event.preventDefault()
+    if (playingDate === "Date") {
+      toast.warn("📅Please select a Playing Date📅", {
+        position: "bottom-center",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+      return
+    }
     let title = lineupTitle
     let allPlayers = get("players")
     let playersInLineup = get("playersInLineup")

@@ -23,7 +23,7 @@ const LineupTableDropDowns = ({
       <div className="select-dropdown-container">
         <label className="left-selector">
           <select value={playingDate} onChange={handlePlayingDateChange}>
-            <option value="">Playing Date</option>
+            <option value="Date">Playing Date</option>
             {playingDateOptionItems}
           </select>
         </label>
