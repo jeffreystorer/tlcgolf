@@ -8,7 +8,7 @@ import { useListKeys } from "react-firebase-hooks/database"
 
 //components
 import AddPlayersToSavedLineup from "./AddPlayersToSavedLineup"
-import ButtonDownloadScreenShot from "./ButtonDownloadScreenshot"
+//import ButtonDownloadScreenShot from "./ButtonDownloadScreenshot"
 import LineupTableDropDowns from "./LineupTableDropDowns"
 import LineupsList from "./LineupsList"
 import SavedLineupCount from "./SavedLineupCount"
@@ -91,8 +91,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const [players, setPlayers] = useState(playersArray)
 
   //other constants
-  let isMe = false
-  if (ghinNumber === "585871") isMe = true
+  let isMe = true
+  //if (ghinNumber === "585871") isMe = true
   let teamHcpAndProgs = {
     team0: [0, 0],
     team1: [0, 0],
@@ -811,7 +811,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           <div>
             <br></br>
             <button className="center" onClick={handlePublishLineupClick}>
-              Publish Lineup
+              Download Screenshots for emailing and printing
             </button>
           </div>
         )}
@@ -838,20 +838,18 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               <tbody>
                 <tr>
                   <td className="table-tip-td">
-                    Click the "Download Screenshot" button. On a computer and an
-                    Android device, this will download a screenshot of the
-                    lineup to your download folder. You can then open it using
-                    an image editor, such as Paint, and copy it for use in an
-                    email to your players. On an iPad or iPhone, this should
-                    open up a popup with the image. A long press on the image
-                    will let you save the image or copy it to the clipboard. You
-                    can insert this into an e-mail to your players.
+                    Click the "Download Screenshot" button. This will publish
+                    the lineup to a different site: tlcgolflineup.web.app and
+                    take you there. You will have the option of downloading a
+                    screenshot for emailing or a pdf with a 2x2 collage for use
+                    as handouts.
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         )}
+        {/* 
         <br></br>
         <br></br>
         <br></br>
@@ -871,7 +869,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           element="lineup-table-div"
           format="JPEG"
           page="Lineup"
-        />
+        /> */}
         <br></br>
         <br></br>
         <input

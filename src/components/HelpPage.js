@@ -219,15 +219,11 @@ export default function HelpPage() {
                   <tr>
                     <td className="help-topic">Downloading a Screenshot</td>
                     <td>
-                      At the bottom of the Lineup page, there is a "Download
-                      Screenshot" button. Click this and on a computer and an
-                      Android device, this will download a screenshot of the
-                      lineup to your download folder. You can then open it using
-                      an image editor, such as Paint, and copy it for use in an
-                      email to your players. On an iPad or iPhone, this should
-                      open up a popup with the image. A long press on the image
-                      will let you save the image or copy it to the clipboard.
-                      You can insert this into an e-mail to your players.
+                      Click the "Download Screenshot" button. This will publish
+                      the lineup to a different site: tlcgolflineup.web.app and
+                      take you there. You will have the option of downloading a
+                      screenshot for emailing or a pdf with a 2x2 collage for
+                      use as handouts.
                     </td>
                   </tr>
                 </tbody>
