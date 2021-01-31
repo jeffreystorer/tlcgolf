@@ -250,7 +250,7 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
           <div id="lineup-table-div" className="background-white">
             <thead className="lineup-table-head background-white">
               <tr className="lineup-table-head background-white">
-                <td className="lineup-table-head background-white">
+                <td className="center">
                   {lineup.playingDate + " at " + courseName}
                 </td>
               </tr>
