@@ -91,8 +91,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const [players, setPlayers] = useState(playersArray)
 
   //other constants
-  let isMe = true
-  //if (ghinNumber === "585871") isMe = true
+  let isMe = false
+  if (ghinNumber === "585871") isMe = true
   let teamHcpAndProgs = {
     team0: [0, 0],
     team1: [0, 0],
@@ -448,6 +448,18 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     setEachTeamsHcpAndProgs()
   }
 
+  function handleClearPlayersFromTeamsClick() {
+    let i
+    for (i = 0; i < 10; i++) {
+      let teamName = "team" + i
+      setTeamTables((prevTeamTables) => ({
+        ...prevTeamTables,
+        [teamName]: (prevTeamTables[teamName] = []),
+      }))
+      setEachTeamsHcpAndProgs()
+    }
+  }
+
   const handleTeeChoiceChange = (event) => {
     setTeeChoiceChangedId(uuidv4())
     //first, update the teeChoice for the player
@@ -667,15 +679,10 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         </button>
         <br></br>
         <br></br>
-        {playersNotInSavedLineupCount > 0 && (
-          <>
-            <button id="add-players" onClick={handleShowAddPlayersClick}>
-              Add players to saved lineup
-            </button>
-            <br></br>
-            <br></br>
-          </>
-        )}
+        <button id="clear-players" onClick={handleClearPlayersFromTeamsClick}>
+          Clear Players from Teams
+        </button>
+        <br></br>{" "}
         {showAddPlayers && (
           <>
             <AddPlayersToSavedLineup
@@ -690,6 +697,16 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             <br></br>
           </>
         )}
+        <br></br>
+        {playersNotInSavedLineupCount > 0 && (
+          <>
+            <button id="add-players" onClick={handleShowAddPlayersClick}>
+              Add Players to Saved Lineup
+            </button>
+            <br></br>
+            <br></br>
+          </>
+        )}
         {progs069 < 1 && (
           <>
             <input
@@ -699,10 +716,10 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               defaultChecked={showTeamHcp}
             ></input>
             <label htmlFor="showTeamHcp">Show Team Hcp</label>
+            <br></br>
+            <br></br>
           </>
         )}
-        <br></br>
-        <br></br>
         <table id="lineup-table" className="background-white">
           <div id="lineup-table-div" className="background-white">
             <thead className="lineup-table-head">
@@ -811,7 +828,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           <div>
             <br></br>
             <button className="center" onClick={handlePublishLineupClick}>
-              Download Screenshots for emailing and printing
+              Publish Lineup
             </button>
           </div>
         )}
@@ -838,11 +855,11 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               <tbody>
                 <tr>
                   <td className="table-tip-td">
-                    Click the "Download Screenshot" button. This will publish
-                    the lineup to a different site: tlcgolflineup.web.app and
-                    take you there. You will have the option of downloading a
-                    screenshot for emailing or a pdf with a 2x2 collage for use
-                    as handouts.
+                    Click the "Export" button in the Saved Lineups List. This
+                    will publish the lineup to the Exports page and take you
+                    there. You will have the option of downloading a screenshot
+                    for emailing or a pdf with a 2x2 collage for use as
+                    handouts.
                   </td>
                 </tr>
               </tbody>

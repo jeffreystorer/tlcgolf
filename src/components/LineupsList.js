@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { set } from "../functions/localStorage"
 import { useList } from "react-firebase-hooks/database"
 import LineupDataService from "../services/LineupService"
 import Lineup from "./Lineup"
@@ -26,6 +27,7 @@ const LineupsList = ({
   }
 
   const setActiveLineup = (Lineup, index) => {
+    set("currentLineupIndex", index)
     const { title } = Lineup.val() /* Lineup */
 
     setCurrentLineup({
@@ -58,6 +60,7 @@ const LineupsList = ({
           title: aLineup.title,
         })
         setCurrentIndex(index)
+        set("currentLineupIndex", index)
         return aLineup
       }
     }

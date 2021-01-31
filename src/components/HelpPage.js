@@ -212,16 +212,25 @@ export default function HelpPage() {
                       Once you have created and saved one or more lineups, you
                       will be taken directly to the Lineup page when you start
                       the app and your last saved lineup will be selected for
-                      you, so that you can just click on "Load".
+                      you, so that you can just click on "Load". Or select a
+                      different lineup and click on "Load".
+                    </td>
+                  </tr>
+                  <br></br>
+                  <tr>
+                    <td className="help-topic">Clearing the curent lineup</td>
+                    <td>
+                      If you wish to clear the current lineup without changing
+                      your selection of players, simply refresh your browser.
                     </td>
                   </tr>
                   <br></br>
                   <tr>
                     <td className="help-topic">Downloading a Screenshot</td>
                     <td>
-                      Click the "Download Screenshot" button. This will publish
-                      the lineup to a different site: tlcgolflineup.web.app and
-                      take you there. You will have the option of downloading a
+                      Click the "Export" button in the Saved Lineups List. This
+                      will publish the lineup to the Exports page and take you
+                      there. You will have the option of downloading a
                       screenshot for emailing or a pdf with a 2x2 collage for
                       use as handouts.
                     </td>

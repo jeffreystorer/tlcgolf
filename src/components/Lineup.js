@@ -40,6 +40,10 @@ const Lineup = (props) => {
     props.loadLineupFromFirebase(savedLineup)
   }
 
+  const exportLineup = () => {
+    document.location = "/export"
+  }
+
   const deleteLineup = () => {
     LineupDataService.remove(currentLineup.key, props.firebaseRef)
       .then(() => {
@@ -65,6 +69,8 @@ const Lineup = (props) => {
           <button type="submit" onClick={LoadLineup}>
             Load
           </button>
+
+          <button onClick={exportLineup}>Export</button>
 
           <button onClick={deleteLineup}>Delete</button>
         </div>

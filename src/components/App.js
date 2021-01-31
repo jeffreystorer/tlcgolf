@@ -17,6 +17,7 @@ import SelectTeesPage from "./SelectTeesPage"
 import LineupPage from "./LineupPage"
 import PlayersPage from "./PlayersPage"
 import HelpPage from "./HelpPage"
+import ExportPage from "./ExportLineupPage"
 
 export default function App() {
   return (
@@ -59,6 +60,14 @@ export default function App() {
           </NavLink>
           <NavLink
             exact
+            to="/export"
+            className="navitem"
+            activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+          >
+            Export
+          </NavLink>
+          <NavLink
+            exact
             to="/settings"
             className="navitem-last"
             activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
@@ -75,6 +84,9 @@ export default function App() {
           </Route>
           <Route path="/players">
             <Players />
+          </Route>
+          <Route path="/export">
+            <Export />
           </Route>
           <Route path="/settings">
             <Settings />
@@ -184,6 +196,14 @@ function Lineup() {
   return (
     <>
       <LineupPage />
+    </>
+  )
+}
+
+function Export() {
+  return (
+    <>
+      <ExportPage />
     </>
   )
 }
