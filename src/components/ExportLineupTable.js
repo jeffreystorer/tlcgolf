@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from "react"
 import ExportTeamTable from "./ExportTeamTable"
+import ExportTeamsTeamTable from "./ExportTeamsTable"
 import { v4 as uuidv4 } from "uuid"
 import ExportButtonDownloadScreenShot from "./ExportButtonDownloadScreenshot"
 import getCourseName from "../functions/getCourseName"
 import getExportTeesSelectedArray from "../functions/getExportTeesSelectedArray"
 import createExportLineupTablePlayersArray from "../functions/createExportLineupTablePlayersArray"
+import createExportTeamsTablePlayersArray from "../functions/createExportTeamsTablePlayersArray"
 import fetchGamesGHIN from "../functions/fetchGamesGHIN"
 import domtoimage from "dom-to-image"
+import { get, set } from "../functions/localStorage"
 
 export default function ExportLineupTable({ lineupTitle, lineup }) {
   const [screenShotURL, setScreenShotURL] = useState()
   const [showFirstName, setShowFirstName] = useState(false)
+  const [showTeamHcp, setShowTeamHcp] = useState(false)
+  const [showIndividualHandicaps, setShowIndividualHandicaps] = useState(true)
   const [refreshed, setRefreshed] = useState(false)
   let teesSelected = lineup.teesSelected
   let courseName = getCourseName(lineup.course)
-  const [showTeamHcp, setShowTeamHcp] = useState(false)
   const dataMode = "ghin"
   fetchGamesGHIN(dataMode)
 
@@ -32,11 +36,23 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
   })
 
   function handleShowTeamHcpChange() {
+    set("showTeamHcp", !showTeamHcp)
     setShowTeamHcp((prevState) => !prevState)
   }
+
   function handleShowFirstNameChange() {
     setShowFirstName((prevState) => !prevState)
   }
+
+  function handleShowIndividualHandicapsChange() {
+    console.log("😊😊 showIndividualHandicaps", showIndividualHandicaps)
+    if (!showIndividualHandicaps) set("showTeamHcp", false)
+    setShowIndividualHandicaps((prevState) => !prevState)
+  }
+
+  useEffect(() => {
+    if (showIndividualHandicaps) setShowTeamHcp(false)
+  }, [showIndividualHandicaps])
 
   let playersArray = createExportLineupTablePlayersArray(
     showFirstName,
@@ -50,7 +66,15 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
     lineup.teamTables,
     lineup.teeTimeCount
   )
+  let teamsPlayersArray = createExportTeamsTablePlayersArray(
+    showFirstName,
+    lineup.game,
+    lineup.games,
+    lineup.allPlayers
+  )
+
   let teamTables = updateTeamTables()
+  let teamsTeamTables = updateTeamsTeamTables()
   let teamHcpAndProgs = {
     team0: [0, 0],
     team1: [0, 0],
@@ -76,6 +100,25 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
           let aPlayerObj = playersArray.find((obj) => obj.id === aTeamMemberId)
           teamTables[aTeamName][j].playerName = aPlayerObj.playerName
           teamTables[aTeamName][j].courseHandicaps = aPlayerObj.courseHandicaps
+        }
+      } catch (error) {
+        console.log("error updating Team Tables")
+      }
+    }
+    return teamTables
+  }
+  function updateTeamsTeamTables() {
+    let teamTables = lineup.teamTables
+    for (let i = 0; i < lineup.teeTimeCount; i++) {
+      let aTeamName = "team" + i
+      try {
+        let aPlayerCount = teamTables[aTeamName].length
+        for (let j = 0; j < aPlayerCount; j++) {
+          let aTeamMemberId = teamTables[aTeamName][j].id
+          let aPlayerObj = teamsPlayersArray.find(
+            (obj) => obj.id === aTeamMemberId
+          )
+          teamTables[aTeamName][j].playerName = aPlayerObj.playerName
         }
       } catch (error) {
         console.log("error updating Team Tables")
@@ -216,7 +259,24 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
           teamHcp={teamHcp}
           teamProgs={teamProgs}
           teesSelected={lineup.teesSelected}
-          showTeamHcp={showTeamHcp}
+          showTeamHcp={get("showTeamHcp")}
+        />
+      )
+    }
+    return TeamTables
+  }
+
+  let TeamsTeamTables = []
+  function generateExportTeamsTeamTables() {
+    for (var i = 0; i < lineup.teeTimeCount; i++) {
+      let teamName = "team" + i
+      teamMembers = teamsTeamTables[teamName]
+      TeamsTeamTables[i] = (
+        <ExportTeamsTeamTable
+          key={uuidv4()}
+          teamNumber={i}
+          teamTables={teamTables}
+          teamMembers={teamMembers}
         />
       )
     }
@@ -228,7 +288,8 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
       <div id="lineup-page" className="center background-white">
         <h4>
           Check the boxes below if you wish<br></br>
-          to display first names and team handicaps:
+          to display first names, team handicaps,<br></br>
+          and individual handicaps:
         </h4>
         <input
           type="checkbox"
@@ -238,7 +299,7 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
         ></input>
         <label htmlFor="showFirstName">Show First Name</label>
         <br></br>
-        {lineup.progs069 < 1 && (
+        {lineup.progs069 < 1 && showIndividualHandicaps && (
           <>
             <input
               type="checkbox"
@@ -247,53 +308,101 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
               defaultChecked={showTeamHcp}
             ></input>
             <label htmlFor="showTeamHcp">Show Team Hcp</label>
+            <br></br>
           </>
         )}
+        <input
+          type="checkbox"
+          id="showIndividualHandicaps"
+          onChange={handleShowIndividualHandicapsChange}
+          defaultChecked={showIndividualHandicaps}
+        ></input>
+        <label htmlFor="showIndividualHandicaps">
+          Show Individual Handicaps
+        </label>
         <br></br>
-        <table id="lineup-table" className="background-white">
-          <div id="lineup-table-div" className="background-white">
-            <thead className="lineup-table-head background-white">
-              <tr className="lineup-table-head background-white">
-                <td className="center">
-                  {lineup.playingDate + " at " + courseName}
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="background-white">{generateTeamTables()}</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              {lineup.progs069 > 0 && (
-                <>
-                  <tr>
-                    <td className="team-table-footer background-white"></td>
-                  </tr>
-                  <tr>
-                    <td className="team-table-footer background-white">
-                      {progAdjMessage}
-                    </td>
-                  </tr>
-                </>
-              )}
-              <tr>
-                <td className="center text-area-cell background-white">
-                  <textarea
-                    id="lineup-textarea"
-                    // @ts-ignore
-                    rows="8"
-                    cols="39"
-                    value={lineup.textAreaValue}
-                  ></textarea>
-                </td>
-              </tr>
-            </tfoot>
-          </div>
-        </table>
+        {showIndividualHandicaps ? (
+          <table id="lineup-table" className="background-white">
+            <div id="lineup-table-div" className="background-white">
+              <thead className="lineup-table-head background-white">
+                <tr className="lineup-table-head background-white">
+                  <td className="center">
+                    {lineup.playingDate + " at " + courseName}
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="background-white">{generateTeamTables()}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                {lineup.progs069 > 0 && (
+                  <>
+                    <tr>
+                      <td className="team-table-footer background-white"></td>
+                    </tr>
+                    <tr>
+                      <td className="team-table-footer background-white">
+                        {progAdjMessage}
+                      </td>
+                    </tr>
+                  </>
+                )}
+
+                <tr>
+                  <td className="center text-area-cell background-white">
+                    <textarea
+                      id="lineup-textarea"
+                      // @ts-ignore
+                      rows="8"
+                      cols="39"
+                      value={lineup.textAreaValue}
+                    ></textarea>
+                  </td>
+                </tr>
+              </tfoot>
+            </div>
+          </table>
+        ) : (
+          <table id="teams-table" className="background-white">
+            <div id="teams-table-div" className="background-white">
+              <thead className="teams-table-head background-white">
+                <tr className="teams-table-head background-white">
+                  <td className="teams-table-head background-white">
+                    {lineup.playingDate + " at " + courseName}
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="background-white">
+                    {generateExportTeamsTeamTables()}
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td className="center text-area-cell background-white">
+                    <textarea
+                      id="lineup-textarea"
+                      // @ts-ignore
+                      rows="8"
+                      cols="39"
+                      value={lineup.textAreaValue}
+                    ></textarea>
+                  </td>
+                </tr>
+              </tfoot>
+            </div>
+          </table>
+        )}
         <ExportButtonDownloadScreenShot
           title={lineupTitle}
           dataUrl={screenShotURL}

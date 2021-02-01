@@ -2,9 +2,24 @@ import React, { useEffect, useState, useRef } from "react"
 import ExportLineupPDF from "./ExportLineupPDF"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import OperatingSystemName from "./OperatingSystemName"
+import getOperatingSystemName from "../functions/getOperatingSystemName"
 
 const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
+  let OSName = getOperatingSystemName()
+  let showCopyLineupToClipboard = true
+  switch (OSName) {
+    case "Linux":
+      showCopyLineupToClipboard = false
+      break
+    case "UNIX":
+      showCopyLineupToClipboard = false
+      break
+    case "iOS":
+      showCopyLineupToClipboard = false
+      break
+    default:
+      break
+  }
   const [loading, setLoading] = useState(true)
   const jpgImageRef = useRef()
 
@@ -64,13 +79,11 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
     })
   }
 
-  return (
-    <>
-      <OperatingSystemName />
-      <br></br>
-      {loading ? (
-        <p>Loading . . .</p>
-      ) : (
+  const CopyLineupToClipboard = () => {
+    if (loading) {
+      return <p> Loading. . .</p>
+    } else {
+      return (
         <>
           <h4>To paste the lineup into an email:</h4>
           <button name="copy" onClick={handleCopyClick}>
@@ -78,8 +91,21 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
           </button>
           <br></br>
         </>
+      )
+    }
+  }
+
+  return (
+    <>
+      {showCopyLineupToClipboard ? <CopyLineupToClipboard /> : null}
+      {showCopyLineupToClipboard ? (
+        <h4>To attach the lineup to an email:</h4>
+      ) : (
+        <h4>
+          To attach the lineup to an email<br></br>
+          or copy it to the clipboard<br></br>to paste into an email
+        </h4>
       )}
-      <h4>To attach the lineup to an email:</h4>
       <button className="center" onClick={handleClick}>
         Download Screenshot
       </button>

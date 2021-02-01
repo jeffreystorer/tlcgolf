@@ -153,8 +153,10 @@ td.game-other-row-cell {
 }
 
 table.lineup-table,
+table.teams-table,
 .textareacell,
-.lineup-table-div {
+.lineup-table-div,
+.teams-table-div {
   background-color: white;
 }
 
@@ -395,16 +397,6 @@ footer {
   border: 1px solid black;
 }
 
-/*   .list-lineup{
-    padding: 5px;
-    text-align: center;
-    width: fit-content;
-    max-width: 750px;
-  } */
-/*   ul li{
-    border: 1px solid #3378AC;
-  } */
-
 li:hover {
   color: #c00;
   background-color: #fff;
@@ -417,7 +409,8 @@ li:hover {
   padding-left: 11px;
 } */
 
-.lineup-table-head {
+.lineup-table-head,
+.teams-table-head {
   background-color: white;
   text-align: left;
   font: 16px sans-serif;
