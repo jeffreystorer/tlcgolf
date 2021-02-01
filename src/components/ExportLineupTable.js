@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import ExportTeamTable from "./ExportTeamTable"
-import ExportTeamsTeamTable from "./ExportTeamsTable"
+import ExportTeamsTeamTable from "./ExportTeamsTeamTable"
 import { v4 as uuidv4 } from "uuid"
 import ExportButtonDownloadScreenShot from "./ExportButtonDownloadScreenshot"
 import getCourseName from "../functions/getCourseName"

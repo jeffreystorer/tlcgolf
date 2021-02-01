@@ -1,6 +1,6 @@
 import React from "react"
 import "../styles/App.css"
-import TeamTableHeader from "./TeamTableHeader"
+import ExportTeamsTeamTableHeader from "./ExportTeamsTeamTableHeader"
 
 const TeamTable = ({ teamNumber, teamMembers, teamTables }) => {
   let rows = teamMembers
@@ -27,7 +27,7 @@ const TeamTable = ({ teamNumber, teamMembers, teamTables }) => {
   return (
     <table className="team-table">
       <thead>
-        <TeamTableHeader teamTables={teamTables} teamNumber={teamNumber} />
+        <ExportTeamsTeamTableHeader teamTables={teamTables} teamNumber={teamNumber} />
       </thead>
       <tbody>{generateRows()}</tbody>
       <tfoot className="team-table-footer"></tfoot>
