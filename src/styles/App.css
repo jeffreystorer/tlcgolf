@@ -58,11 +58,9 @@
   background-color: #00365f;
   text-align: center;
 }
-
 .current-lineup-title {
   text-decoration: underline;
 }
-
 input :not(#next) {
   border: 1px solid black;
   width: 150px;
@@ -329,7 +327,6 @@ input#lineuptitle {
   text-align: center;
   font-weight: bold;
 }
-
 button,
 #next,
 input#savelineup {
@@ -448,4 +445,8 @@ p {
 
 .background-white {
   background-color: white;
+}
+
+div#lineup-table-div {
+  padding: 15px 40px 15px 40px;
 }
