@@ -56,9 +56,15 @@ const ExportButtonDownLoadPDF = ({ dimensions, title }) => {
       })
   }
   return (
-    <button className="center" onClick={handleClick}>
-      Download PDF (2x2 collage for handouts)
-    </button>
+    <>
+      <h4>
+        To download a pdf for printing<br></br>
+        four lineups per sheet to cut up as handouts
+      </h4>
+      <button className="center" onClick={handleClick}>
+        Download PDF
+      </button>
+    </>
   )
 }
 export default ExportButtonDownLoadPDF

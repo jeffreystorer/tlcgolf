@@ -226,6 +226,10 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
   return (
     <>
       <div id="lineup-page" className="center background-white">
+        <h4>
+          Check the boxes below if you wish<br></br>
+          to display first names and team handicaps:
+        </h4>
         <input
           type="checkbox"
           id="showFirstName"
@@ -290,8 +294,6 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
             </tfoot>
           </div>
         </table>
-        <br></br>
-        <br></br>
         <ExportButtonDownloadScreenShot
           title={lineupTitle}
           dataUrl={screenShotURL}
