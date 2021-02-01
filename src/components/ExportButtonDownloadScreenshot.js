@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import ExportLineupPDF from "./ExportLineupPDF"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import OperatingSystemName from "./OperatingSystemName"
 
 const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
   const [loading, setLoading] = useState(true)
@@ -65,6 +66,8 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
 
   return (
     <>
+      <OperatingSystemName />
+      <br></br>
       {loading ? (
         <p>Loading . . .</p>
       ) : (
