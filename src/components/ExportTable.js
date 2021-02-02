@@ -12,6 +12,8 @@ import domtoimage from "dom-to-image"
 import { get, set } from "../functions/localStorage"
 
 export default function ExportTable({ lineupTitle, lineup }) {
+  console.log("😊😊 lineupTitle", lineupTitle)
+  console.table(lineup)
   const [screenShotURL, setScreenShotURL] = useState()
   const [showFirstName, setShowFirstName] = useState(false)
   const [showTeamHcp, setShowTeamHcp] = useState(false)
@@ -59,6 +61,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
     lineup.course,
     lineup.game,
     lineup.games,
+    lineup.allPlayers,
     lineup.teesSelected,
     lineup.ratings,
     lineup.slopes,
@@ -72,13 +75,10 @@ export default function ExportTable({ lineupTitle, lineup }) {
     lineup.games,
     lineup.allPlayers
   )
-  console.log("lineup players")
-  console.table(lineupPlayersArray)
-  console.log("teams players")
-  console.table(teamsPlayersArray)
 
   let lineupTeamTables = updateLineupTeamTables()
   let teamsTeamTables = updateTeamsTeamTables()
+  console.log("😊😊 lineupTeamTables", lineupTeamTables)
   let teamHcpAndProgs = {
     team0: [0, 0],
     team1: [0, 0],
@@ -95,7 +95,8 @@ export default function ExportTable({ lineupTitle, lineup }) {
   let teamsTeamMembers = []
 
   function updateLineupTeamTables() {
-    let teamTables = lineup.teamTables
+    /*let teamTables =
+      lineup.teamTables  
     for (let i = 0; i < lineup.teeTimeCount; i++) {
       let aTeamName = "team" + i
       try {
@@ -106,16 +107,19 @@ export default function ExportTable({ lineupTitle, lineup }) {
             (obj) => obj.id === aTeamMemberId
           )
           teamTables[aTeamName][j].playerName = aPlayerObj.playerName
+          console.log("💚💚lineupplayerName", aPlayerObj.playerName)
           teamTables[aTeamName][j].courseHandicaps = aPlayerObj.courseHandicaps
+          console.log(
+            "💜💜 lineup: teamTables[aTeamName[j].playerName",
+            teamTables[aTeamName][j].playerName
+          )
         }
       } catch (error) {
         console.log("error updating Lineup Team Tables")
       }
-    }
-    console.log("lineup players and tables")
-    console.table(lineupPlayersArray)
-    console.table(teamTables)
-    return teamTables
+    } */
+    console.log("💛💛 lineup returned teamTables", lineup.teamTables)
+    return lineup.teamTables
   }
   function updateTeamsTeamTables() {
     let teamTables = lineup.teamTables
@@ -134,9 +138,6 @@ export default function ExportTable({ lineupTitle, lineup }) {
         console.log("error updating Teams Team Tables")
       }
     }
-    console.log("teams players and tables")
-    console.table(teamsPlayersArray)
-    console.table(teamTables)
     return teamTables
   }
 

@@ -1,5 +1,4 @@
 import { tees, courses } from "../data"
-import { get } from "./localStorage"
 import setRatingSlopePar from "./setRatingSlopePar"
 
 export default function createExportLineupTablePlayersArrray(
@@ -7,6 +6,7 @@ export default function createExportLineupTablePlayersArrray(
   course,
   game,
   games,
+  players,
   teesSelected,
   ratings,
   slopes,
@@ -14,8 +14,6 @@ export default function createExportLineupTablePlayersArrray(
   teamTables,
   teeTimeCount
 ) {
-  const players = get("players")
-
   //declare some variables
   var playersArray = []
   let strHcpIndex
