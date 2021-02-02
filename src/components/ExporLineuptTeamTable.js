@@ -1,9 +1,9 @@
 import React from "react"
 import "../styles/App.css"
-import ExportTeamTableHeader from "./ExportLineupTeamTableHeader"
+import ExportLineupTeamTableHeader from "./ExportLineupTeamTableHeader"
 import { v4 as uuidv4 } from "uuid"
 
-const TeamTable = ({
+const ExportLineupTeamTable = ({
   teamNumber,
   teamMembers,
   teamTables,
@@ -53,7 +53,7 @@ const TeamTable = ({
   return (
     <table className="team-table">
       <thead>
-        <ExportTeamTableHeader
+        <ExportLineupTeamTableHeader
           teesSelected={teesSelected}
           teamTables={teamTables}
           teamNumber={teamNumber}
@@ -82,4 +82,4 @@ const TeamTable = ({
   )
 }
 
-export default TeamTable
+export default ExportLineupTeamTable

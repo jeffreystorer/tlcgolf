@@ -1,4 +1,4 @@
-export default function createLineupTablePlayersArrray(
+export default function createExportTeamsTablePlayersArrray(
   showFirstName,
   game,
   games,

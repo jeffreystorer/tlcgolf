@@ -72,6 +72,10 @@ export default function ExportTable({ lineupTitle, lineup }) {
     lineup.games,
     lineup.allPlayers
   )
+  console.log("lineup players")
+  console.table(lineupPlayersArray)
+  console.log("teams players")
+  console.table(teamsPlayersArray)
 
   let lineupTeamTables = updateLineupTeamTables()
   let teamsTeamTables = updateTeamsTeamTables()
@@ -95,20 +99,22 @@ export default function ExportTable({ lineupTitle, lineup }) {
     for (let i = 0; i < lineup.teeTimeCount; i++) {
       let aTeamName = "team" + i
       try {
-        let aPlayerCount = lineupTeamTables[aTeamName].length
+        let aPlayerCount = teamTables[aTeamName].length
         for (let j = 0; j < aPlayerCount; j++) {
-          let aTeamMemberId = lineupTeamTables[aTeamName][j].id
+          let aTeamMemberId = teamTables[aTeamName][j].id
           let aPlayerObj = lineupPlayersArray.find(
             (obj) => obj.id === aTeamMemberId
           )
-          lineupTeamTables[aTeamName][j].playerName = aPlayerObj.playerName
-          lineupTeamTables[aTeamName][j].courseHandicaps =
-            aPlayerObj.courseHandicaps
+          teamTables[aTeamName][j].playerName = aPlayerObj.playerName
+          teamTables[aTeamName][j].courseHandicaps = aPlayerObj.courseHandicaps
         }
       } catch (error) {
-        console.log("error updating Team Tables")
+        console.log("error updating Lineup Team Tables")
       }
     }
+    console.log("lineup players and tables")
+    console.table(lineupPlayersArray)
+    console.table(teamTables)
     return teamTables
   }
   function updateTeamsTeamTables() {
@@ -116,18 +122,21 @@ export default function ExportTable({ lineupTitle, lineup }) {
     for (let i = 0; i < lineup.teeTimeCount; i++) {
       let aTeamName = "team" + i
       try {
-        let aPlayerCount = teamsTeamTables[aTeamName].length
+        let aPlayerCount = teamTables[aTeamName].length
         for (let j = 0; j < aPlayerCount; j++) {
-          let aTeamMemberId = teamsTeamTables[aTeamName][j].id
+          let aTeamMemberId = teamTables[aTeamName][j].id
           let aPlayerObj = teamsPlayersArray.find(
             (obj) => obj.id === aTeamMemberId
           )
-          teamsTeamTables[aTeamName][j].playerName = aPlayerObj.playerName
+          teamTables[aTeamName][j].playerName = aPlayerObj.playerName
         }
       } catch (error) {
-        console.log("error updating Team Tables")
+        console.log("error updating Teams Team Tables")
       }
     }
+    console.log("teams players and tables")
+    console.table(teamsPlayersArray)
+    console.table(teamTables)
     return teamTables
   }
 

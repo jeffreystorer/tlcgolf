@@ -2,7 +2,11 @@ import React from "react"
 import createLineupTableHeaderRow from "../functions/createExportTeamTableHeaderRow"
 import { v4 as uuidv4 } from "uuid"
 
-const TeamTableHeader = ({ teesSelected, teamTables, teamNumber }) => {
+const ExportLineupTeamTableHeader = ({
+  teesSelected,
+  teamTables,
+  teamNumber,
+}) => {
   let cols = createLineupTableHeaderRow(teesSelected)
   const getHeader = () => {
     cols.shift()
@@ -30,4 +34,4 @@ const TeamTableHeader = ({ teesSelected, teamTables, teamNumber }) => {
   )
 }
 
-export default TeamTableHeader
+export default ExportLineupTeamTableHeader

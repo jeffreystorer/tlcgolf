@@ -2,7 +2,7 @@ import React from "react"
 import "../styles/App.css"
 import ExportTeamsTeamTableHeader from "./ExportTeamsTeamTableHeader"
 
-const TeamTable = ({ teamNumber, teamMembers, teamTables }) => {
+const ExportTeamsTeamTable = ({ teamNumber, teamMembers, teamTables }) => {
   let rows = teamMembers
   let rowsTD = []
   let playerCount
@@ -35,4 +35,4 @@ const TeamTable = ({ teamNumber, teamMembers, teamTables }) => {
   )
 }
 
-export default TeamTable
+export default ExportTeamsTeamTable

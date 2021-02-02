@@ -2,7 +2,7 @@ import { tees, courses } from "../data"
 import { get } from "./localStorage"
 import setRatingSlopePar from "./setRatingSlopePar"
 
-export default function createLineupTablePlayersArrray(
+export default function createExportLineupTablePlayersArrray(
   showFirstName,
   course,
   game,

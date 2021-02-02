@@ -1,7 +1,7 @@
 import React from "react"
 import { v4 as uuidv4 } from "uuid"
 
-const TeamTableHeader = ({ teamTables, teamNumber }) => {
+const ExportTeamsTeamTableHeader = ({ teamTables, teamNumber }) => {
   let cols = [""]
   const getHeader = () => {
     cols.shift()
@@ -29,4 +29,4 @@ const TeamTableHeader = ({ teamTables, teamNumber }) => {
   )
 }
 
-export default TeamTableHeader
+export default ExportTeamsTeamTableHeader
