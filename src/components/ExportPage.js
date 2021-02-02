@@ -2,9 +2,9 @@ import React from "react"
 import { get } from "../functions/localStorage"
 import { useList } from "react-firebase-hooks/database"
 import LineupDataService from "../services/LineupService"
-import ExportLineupTable from "./ExportLineupTable"
+import ExportTable from "./ExportTable"
 
-export default function ExportLineupPage() {
+export default function ExportPage() {
   let currentLineupIndex = get("currentLineupIndex")
   let ghinNumber = get("ghinNumber")
   const firebaseRef = '"' + ghinNumber.toString() + '"'
@@ -24,7 +24,7 @@ export default function ExportLineupPage() {
   if (!loading && !error) {
     return (
       <>
-        <ExportLineupTable lineupTitle={title} lineup={lineup} />
+        <ExportTable lineupTitle={title} lineup={lineup} />
       </>
     )
   } else {

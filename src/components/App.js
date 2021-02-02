@@ -17,7 +17,7 @@ import SelectTeesPage from "./SelectTeesPage"
 import LineupPage from "./LineupPage"
 import PlayersPage from "./PlayersPage"
 import HelpPage from "./HelpPage"
-import ExportLineupPage from "./ExportLineupPage"
+import ExportPage from "./ExportPage"
 
 export default function App() {
   return (
@@ -203,7 +203,7 @@ function Lineup() {
 function Export() {
   return (
     <>
-      <ExportLineupPage />
+      <ExportPage />
     </>
   )
 }

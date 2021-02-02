@@ -147,7 +147,8 @@ td.game-other-row-cell {
   width: fit-content;
 } */
 
-#lineup-table {
+#lineup-table,
+#teams-table {
   background-color: white;
   width: fit-content;
 }
@@ -440,6 +441,7 @@ p {
   background-color: white;
 }
 
-div#lineup-table-div {
+div#lineup-table-div,
+div#teams-table-div {
   padding: 15px 40px 15px 40px;
 }

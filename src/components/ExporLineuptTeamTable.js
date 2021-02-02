@@ -1,6 +1,6 @@
 import React from "react"
 import "../styles/App.css"
-import ExportTeamTableHeader from "./ExportTeamTableHeader"
+import ExportTeamTableHeader from "./ExportLineupTeamTableHeader"
 import { v4 as uuidv4 } from "uuid"
 
 const TeamTable = ({

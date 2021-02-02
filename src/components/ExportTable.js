@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import ExportTeamTable from "./ExportTeamTable"
+import ExportLineupTeamTable from "./ExporLineuptTeamTable"
 import ExportTeamsTeamTable from "./ExportTeamsTeamTable"
 import { v4 as uuidv4 } from "uuid"
 import ExportButtonDownloadScreenShot from "./ExportButtonDownloadScreenshot"
@@ -11,7 +11,7 @@ import fetchGamesGHIN from "../functions/fetchGamesGHIN"
 import domtoimage from "dom-to-image"
 import { get, set } from "../functions/localStorage"
 
-export default function ExportLineupTable({ lineupTitle, lineup }) {
+export default function ExportTable({ lineupTitle, lineup }) {
   const [screenShotURL, setScreenShotURL] = useState()
   const [showFirstName, setShowFirstName] = useState(false)
   const [showTeamHcp, setShowTeamHcp] = useState(false)
@@ -54,7 +54,7 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
     if (showIndividualHandicaps) setShowTeamHcp(false)
   }, [showIndividualHandicaps])
 
-  let playersArray = createExportLineupTablePlayersArray(
+  let lineupPlayersArray = createExportLineupTablePlayersArray(
     showFirstName,
     lineup.course,
     lineup.game,
@@ -73,7 +73,7 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
     lineup.allPlayers
   )
 
-  let teamTables = updateTeamTables()
+  let lineupTeamTables = updateLineupTeamTables()
   let teamsTeamTables = updateTeamsTeamTables()
   let teamHcpAndProgs = {
     team0: [0, 0],
@@ -87,19 +87,23 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
     team8: [0, 0],
     team9: [0, 0],
   }
-  let teamMembers = []
+  let lineupTeamMembers = []
+  let teamsTeamMembers = []
 
-  function updateTeamTables() {
+  function updateLineupTeamTables() {
     let teamTables = lineup.teamTables
     for (let i = 0; i < lineup.teeTimeCount; i++) {
       let aTeamName = "team" + i
       try {
-        let aPlayerCount = teamTables[aTeamName].length
+        let aPlayerCount = lineupTeamTables[aTeamName].length
         for (let j = 0; j < aPlayerCount; j++) {
-          let aTeamMemberId = teamTables[aTeamName][j].id
-          let aPlayerObj = playersArray.find((obj) => obj.id === aTeamMemberId)
-          teamTables[aTeamName][j].playerName = aPlayerObj.playerName
-          teamTables[aTeamName][j].courseHandicaps = aPlayerObj.courseHandicaps
+          let aTeamMemberId = lineupTeamTables[aTeamName][j].id
+          let aPlayerObj = lineupPlayersArray.find(
+            (obj) => obj.id === aTeamMemberId
+          )
+          lineupTeamTables[aTeamName][j].playerName = aPlayerObj.playerName
+          lineupTeamTables[aTeamName][j].courseHandicaps =
+            aPlayerObj.courseHandicaps
         }
       } catch (error) {
         console.log("error updating Team Tables")
@@ -112,13 +116,13 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
     for (let i = 0; i < lineup.teeTimeCount; i++) {
       let aTeamName = "team" + i
       try {
-        let aPlayerCount = teamTables[aTeamName].length
+        let aPlayerCount = teamsTeamTables[aTeamName].length
         for (let j = 0; j < aPlayerCount; j++) {
-          let aTeamMemberId = teamTables[aTeamName][j].id
+          let aTeamMemberId = teamsTeamTables[aTeamName][j].id
           let aPlayerObj = teamsPlayersArray.find(
             (obj) => obj.id === aTeamMemberId
           )
-          teamTables[aTeamName][j].playerName = aPlayerObj.playerName
+          teamsTeamTables[aTeamName][j].playerName = aPlayerObj.playerName
         }
       } catch (error) {
         console.log("error updating Team Tables")
@@ -136,7 +140,7 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
 
   let progAdjMessage = ""
   function setTeamHcpAndProgs(teamName) {
-    let teamMembers = teamTables[teamName]
+    let teamMembers = lineupTeamTables[teamName]
     let aTeamHcp = 0
     let aTeamProgs = 0
     try {
@@ -240,21 +244,21 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
     }
   }
 
-  let TeamTables = []
-  function generateTeamTables() {
+  let LineupTeamTables = []
+  function generateExportLineupTeamTables() {
     for (var i = 0; i < lineup.teeTimeCount; i++) {
       let teamName = "team" + i
-      teamMembers = teamTables[teamName]
-      setManualCHCourseHandicaps(teamMembers)
+      lineupTeamMembers = lineupTeamTables[teamName]
+      setManualCHCourseHandicaps(lineupTeamMembers)
       setEachTeamsHcpAndProgs()
       let teamHcp = teamHcpAndProgs[teamName][0]
       let teamProgs = teamHcpAndProgs[teamName][1]
-      TeamTables[i] = (
-        <ExportTeamTable
+      LineupTeamTables[i] = (
+        <ExportLineupTeamTable
           key={uuidv4()}
           teamNumber={i}
-          teamTables={teamTables}
-          teamMembers={teamMembers}
+          teamTables={lineupTeamTables}
+          teamMembers={lineupTeamMembers}
           progs069={lineup.progs069}
           teamHcp={teamHcp}
           teamProgs={teamProgs}
@@ -263,24 +267,24 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
         />
       )
     }
-    return TeamTables
+    return LineupTeamTables
   }
 
   let TeamsTeamTables = []
   function generateExportTeamsTeamTables() {
     for (var i = 0; i < lineup.teeTimeCount; i++) {
       let teamName = "team" + i
-      teamMembers = teamsTeamTables[teamName]
+      teamsTeamMembers = teamsTeamTables[teamName]
       TeamsTeamTables[i] = (
         <ExportTeamsTeamTable
           key={uuidv4()}
           teamNumber={i}
-          teamTables={teamTables}
-          teamMembers={teamMembers}
+          teamTables={teamsTeamTables}
+          teamMembers={teamsTeamMembers}
         />
       )
     }
-    return TeamTables
+    return TeamsTeamTables
   }
 
   return (
@@ -336,7 +340,9 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
               </thead>
               <tbody>
                 <tr>
-                  <td className="background-white">{generateTeamTables()}</td>
+                  <td className="background-white">
+                    {generateExportLineupTeamTables()}
+                  </td>
                 </tr>
               </tbody>
               <tfoot>
@@ -372,7 +378,7 @@ export default function ExportLineupTable({ lineupTitle, lineup }) {
             <div id="teams-table-div" className="background-white">
               <thead className="teams-table-head background-white">
                 <tr className="teams-table-head background-white">
-                  <td className="teams-table-head background-white">
+                  <td className="center">
                     {lineup.playingDate + " at " + courseName}
                   </td>
                 </tr>
