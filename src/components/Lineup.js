@@ -32,7 +32,7 @@ const Lineup = (props) => {
   const [value] = useObject(
     LineupDataService.getLineup(Lineup.key, props.firebaseRef)
   )
-  const LoadLineup = () => {
+  const editLineup = () => {
     let lineupObj = value.val()
     let title = lineupObj.title
     let savedLineup = lineupObj.lineup
@@ -66,8 +66,8 @@ const Lineup = (props) => {
             </div>
           </form>
 
-          <button type="submit" onClick={LoadLineup}>
-            Load
+          <button type="submit" onClick={editLineup}>
+            Edit
           </button>
 
           <button onClick={exportLineup}>Export</button>
