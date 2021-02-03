@@ -16,7 +16,6 @@ const ExportTeamsTeamTable = ({ teamNumber, teamMembers, teamTables }) => {
     for (let i = 0; i < playerCount; i++) {
       rowsTD[i] = (
         <tr key={rows[i].id}>
-          <td className="teams-left-row-cell"></td>
           <td className="lineup-left-row-cell">{rows[i].playerName}</td>
         </tr>
       )
@@ -27,7 +26,10 @@ const ExportTeamsTeamTable = ({ teamNumber, teamMembers, teamTables }) => {
   return (
     <table className="team-table">
       <thead>
-        <ExportTeamsTeamTableHeader teamTables={teamTables} teamNumber={teamNumber} />
+        <ExportTeamsTeamTableHeader
+          teamTables={teamTables}
+          teamNumber={teamNumber}
+        />
       </thead>
       <tbody>{generateRows()}</tbody>
       <tfoot className="team-table-footer"></tfoot>

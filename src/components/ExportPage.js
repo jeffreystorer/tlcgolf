@@ -8,7 +8,6 @@ export default function ExportPage() {
   let currentLineupIndex = get("currentLineupIndex")
   let ghinNumber = get("ghinNumber")
   const firebaseRef = '"' + ghinNumber.toString() + '"'
-  console.log("😊😊 firebaseRef", firebaseRef)
 
   const [Lineups, loading, error] = useList(
     LineupDataService.getAll(firebaseRef)

@@ -10,9 +10,10 @@ import createExportTeamsTablePlayersArray from "../functions/createExportTeamsTa
 import fetchGamesGHIN from "../functions/fetchGamesGHIN"
 import domtoimage from "dom-to-image"
 import { get, set } from "../functions/localStorage"
-import _ from "lodash"
 
 export default function ExportTable({ lineupTitle, lineup }) {
+  console.log("😊😊 lineup", lineup)
+  console.table(lineup)
   const [screenShotURL, setScreenShotURL] = useState()
   const [showFirstName, setShowFirstName] = useState(false)
   const [showTeamHcp, setShowTeamHcp] = useState(false)
@@ -28,20 +29,8 @@ export default function ExportTable({ lineupTitle, lineup }) {
   }, [refreshed])
 
   useEffect(() => {
-    let element
-    switch (showIndividualHandicaps) {
-      case true:
-        element = "lineup-table-div"
-        break
-      case false:
-        element = "teams-table-div"
-        break
-
-      default:
-        break
-    }
     domtoimage
-      .toJpeg(document.getElementById(element), { quality: 0.95 })
+      .toJpeg(document.getElementById("lineup-table-div"), { quality: 0.95 })
       .then(function (dataUrl) {
         //eslint-disable-next-line
         setScreenShotURL(dataUrl)
@@ -58,10 +47,14 @@ export default function ExportTable({ lineupTitle, lineup }) {
   }
 
   function handleShowIndividualHandicapsChange() {
-    if (showIndividualHandicaps) set("showTeamHcp", false)
-    setShowTeamHcp(false)
+    console.log("😊😊 showIndividualHandicaps", showIndividualHandicaps)
+    if (!showIndividualHandicaps) set("showTeamHcp", false)
     setShowIndividualHandicaps((prevState) => !prevState)
   }
+
+  useEffect(() => {
+    if (showIndividualHandicaps) setShowTeamHcp(false)
+  }, [showIndividualHandicaps])
 
   let lineupPlayersArray = createExportLineupTablePlayersArray(
     showFirstName,
@@ -85,6 +78,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
 
   let lineupTeamTables = updateLineupTeamTables()
   let teamsTeamTables = updateTeamsTeamTables()
+  console.log("😊😊 lineupTeamTables", lineupTeamTables)
   let teamHcpAndProgs = {
     team0: [0, 0],
     team1: [0, 0],
@@ -101,7 +95,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
   let teamsTeamMembers = []
 
   function updateLineupTeamTables() {
-    let teamTables = _.cloneDeep(lineup.teamTables)
+    let teamTables = lineup.teamTables
     for (let i = 0; i < lineup.teeTimeCount; i++) {
       let aTeamName = "team" + i
       try {
@@ -112,16 +106,22 @@ export default function ExportTable({ lineupTitle, lineup }) {
             (obj) => obj.id === aTeamMemberId
           )
           teamTables[aTeamName][j].playerName = aPlayerObj.playerName
+          console.log("💚💚lineupplayerName", aPlayerObj.playerName)
           teamTables[aTeamName][j].courseHandicaps = aPlayerObj.courseHandicaps
+          console.log(
+            "💜💜 lineup: teamTables[aTeamName[j].playerName",
+            teamTables[aTeamName][j].playerName
+          )
         }
       } catch (error) {
         console.log("error updating Lineup Team Tables")
       }
     }
-    return teamTables
+    console.log("💛💛 lineup returned teamTables", lineup.teamTables)
+    return lineup.teamTables
   }
   function updateTeamsTeamTables() {
-    let teamTables = _.cloneDeep(lineup.teamTables)
+    let teamTables = lineup.teamTables
     for (let i = 0; i < lineup.teeTimeCount; i++) {
       let aTeamName = "team" + i
       try {

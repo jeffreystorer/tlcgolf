@@ -32,7 +32,6 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
   }, [])
 
   function copyImageToClipboard(element) {
-    console.log("😊😊 element.firstChild", element.firstChild)
     const selection = window.getSelection()
     const range = document.createRange()
     const img = element.firstChild
@@ -47,7 +46,6 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
 
     try {
       // Security exception may be thrown by some browsers.
-      console.log("image copied to clipboard")
       return document.execCommand("copy")
     } catch (ex) {
       console.warn("Copy to clipboard failed.", ex)
