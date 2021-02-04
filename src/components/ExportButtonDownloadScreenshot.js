@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import ExportLineupPDF from "./ExportLineupPDF"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import getOperatingSystemName from "../functions/getOperatingSystemName"
+//import getOperatingSystemName from "../functions/getOperatingSystemName"
 
 const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
   let OSName = "Windows" //getOperatingSystemName()
