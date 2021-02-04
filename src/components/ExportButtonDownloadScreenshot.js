@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css"
 import getOperatingSystemName from "../functions/getOperatingSystemName"
 
 const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
-  let OSName = getOperatingSystemName()
+  let OSName = "Windows" //getOperatingSystemName()
   let showCopyLineupToClipboard = true
   switch (OSName) {
     case "Linux":
