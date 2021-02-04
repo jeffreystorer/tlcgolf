@@ -445,3 +445,7 @@ div#lineup-table-div,
 div#teams-table-div {
   padding: 15px 40px 15px 40px;
 }
+
+.red {
+  color: red;
+}

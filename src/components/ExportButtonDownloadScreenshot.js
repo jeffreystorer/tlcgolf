@@ -84,7 +84,10 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
     } else {
       return (
         <>
-          <h4>To paste the lineup into an email:</h4>
+          <h4>
+            To paste the lineup into an email:<br></br>
+            <span className="red">(Do not use on iPad)</span>
+          </h4>
           <button name="copy" onClick={handleCopyClick}>
             Copy Lineup to Clipboard
           </button>
