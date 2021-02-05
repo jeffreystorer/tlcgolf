@@ -9,7 +9,6 @@ import createExportLineupTablePlayersArray from "../functions/createExportLineup
 import createExportTeamsTablePlayersArray from "../functions/createExportTeamsTablePlayersArray"
 import fetchGamesGHIN from "../functions/fetchGamesGHIN"
 import domtoimage from "dom-to-image"
-import { get } from "../functions/localStorage"
 import _ from "lodash"
 
 export default function ExportTable({ lineupTitle, lineup }) {

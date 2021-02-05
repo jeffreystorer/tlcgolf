@@ -24,10 +24,6 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
   const [loading, setLoading] = useState(true)
   const jpgImageRef = useRef()
 
-  let link = document.createElement("a")
-  link.download = "lineup.jpeg"
-  link.href = dataUrl
-
   useEffect(() => {
     setLoading(false)
   }, [])
