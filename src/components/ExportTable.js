@@ -9,13 +9,14 @@ import createExportLineupTablePlayersArray from "../functions/createExportLineup
 import createExportTeamsTablePlayersArray from "../functions/createExportTeamsTablePlayersArray"
 import fetchGamesGHIN from "../functions/fetchGamesGHIN"
 import domtoimage from "dom-to-image"
-import { get, set } from "../functions/localStorage"
+import { get } from "../functions/localStorage"
 import _ from "lodash"
 
 export default function ExportTable({ lineupTitle, lineup }) {
   const [screenShotURL, setScreenShotURL] = useState()
   const [showFirstName, setShowFirstName] = useState(false)
   const [showTeamHcp, setShowTeamHcp] = useState(false)
+  //set("showTeamHcp", false)
   const [showIndividualHandicaps, setShowIndividualHandicaps] = useState(true)
   const [refreshed, setRefreshed] = useState(false)
   let teesSelected = lineup.teesSelected
@@ -49,7 +50,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
   })
 
   function handleShowTeamHcpChange() {
-    set("showTeamHcp", !showTeamHcp)
+    //set("showTeamHcp", !showTeamHcp)
     setShowTeamHcp((prevState) => !prevState)
   }
 
@@ -58,8 +59,8 @@ export default function ExportTable({ lineupTitle, lineup }) {
   }
 
   function handleShowIndividualHandicapsChange() {
-    if (showIndividualHandicaps) set("showTeamHcp", false)
-    setShowTeamHcp(false)
+    //if (showIndividualHandicaps) set("showTeamHcp", false)
+    //setShowTeamHcp(false)
     setShowIndividualHandicaps((prevState) => !prevState)
   }
 
@@ -272,7 +273,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
           teamHcp={teamHcp}
           teamProgs={teamProgs}
           teesSelected={lineup.teesSelected}
-          showTeamHcp={get("showTeamHcp")}
+          showTeamHcp={showTeamHcp}
         />
       )
     }
