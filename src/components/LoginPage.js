@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import "../styles/App.css"
 import setSheetURL from "../functions/setSheetURL"
 import { get, set } from "../functions/localStorage"
+import Header from "./Header"
 import setIsLoggedIn from "../functions/setIsLoggedIn"
 import fetchPlayersAndGames from "../functions/fetchPlayersAndGames"
 import preval from "preval.macro"
@@ -20,9 +21,6 @@ function LoginPage() {
   let teesSelected = get("teesSelected")
 
   useEffect(() => {
-    //localStorage.removeItem("course")
-    //localStorage.removeItem("playersInLineup")
-    //localStorage.clear()
     set("isLoggedIn", "false")
   }, [])
 
@@ -67,8 +65,9 @@ function LoginPage() {
 
   return (
     <>
+      <Header />
       <div className="center" id="change-golfer">
-        <h5>
+        {/*         <h5>
           The first time you use this app on any device or
           <br />
           to change golfers, you must login.
@@ -77,7 +76,9 @@ function LoginPage() {
           <br />
           creating or editing your table of games.
         </h5>
-        <br />
+        <br /> */}
+        <br></br>
+        <br></br>
         <div>
           <label htmlFor="ghinnumber">
             GHIN Number:&nbsp;&nbsp;&nbsp;&nbsp;
@@ -126,7 +127,7 @@ function LoginPage() {
         <br></br>
         <br></br>
         <div>
-          <button onClick={handleClick}>Next</button>
+          <button onClick={handleClick}>Log In</button>
         </div>
         <br></br>
         <br></br>

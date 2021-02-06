@@ -1,5 +1,6 @@
 import React from "react"
 import { RecoilRoot } from "recoil"
+import { get } from "../functions/localStorage"
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,6 +14,7 @@ import Header from "./Header"
 import IndividualPage from "./IndividualPage"
 import GamesPage from "./GamesPage"
 import LoginPage from "./LoginPage"
+import LogoutPage from "./LogoutPage"
 import SelectTeesPage from "./SelectTeesPage"
 import LineupPage from "./LineupPage"
 import PlayersPage from "./PlayersPage"
@@ -20,84 +22,89 @@ import HelpPage from "./HelpPage"
 import ExportPage from "./ExportPage"
 
 export default function App() {
-  return (
-    <RecoilRoot>
-      <Router>
-        <Header />
-        <br />
-        <nav>
-          <NavLink
-            exact
-            to="/individual"
-            className="navitem"
-            activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-          >
-            Individual
-          </NavLink>
-          <NavLink
-            exact
-            to="/games"
-            className="navitem"
-            activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-          >
-            Games
-          </NavLink>
-          <NavLink
-            exact
-            to="/players"
-            className="navitem"
-            activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-          >
-            Players
-          </NavLink>
-          <NavLink
-            exact
-            to="/"
-            className="navitem"
-            activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-          >
-            Lineup
-          </NavLink>
-          <NavLink
-            exact
-            to="/export"
-            className="navitem"
-            activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-          >
-            Export
-          </NavLink>
-          <NavLink
-            exact
-            to="/settings"
-            className="navitem-last"
-            activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-          >
-            Settings
-          </NavLink>
-        </nav>
-        <Switch>
-          <Route path="/individual">
-            <Individual />
-          </Route>
-          <Route path="/games">
-            <Games />
-          </Route>
-          <Route path="/players">
-            <Players />
-          </Route>
-          <Route path="/export">
-            <Export />
-          </Route>
-          <Route path="/settings">
-            <Settings />
-          </Route>
-          <Route path="/">
-            <Lineup />
-          </Route>
-        </Switch>
-      </Router>
-    </RecoilRoot>
-  )
+  let isLoggedIn = get("isLoggedIn")
+  if (isLoggedIn === "true") {
+    return (
+      <RecoilRoot>
+        <Router>
+          <Header />
+          <br />
+          <nav>
+            <NavLink
+              exact
+              to="/individual"
+              className="navitem"
+              activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+            >
+              Individual
+            </NavLink>
+            <NavLink
+              exact
+              to="/games"
+              className="navitem"
+              activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+            >
+              Games
+            </NavLink>
+            <NavLink
+              exact
+              to="/players"
+              className="navitem"
+              activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+            >
+              Players
+            </NavLink>
+            <NavLink
+              exact
+              to="/"
+              className="navitem"
+              activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+            >
+              Lineup
+            </NavLink>
+            <NavLink
+              exact
+              to="/export"
+              className="navitem"
+              activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+            >
+              Export
+            </NavLink>
+            <NavLink
+              exact
+              to="/settings"
+              className="navitem-last"
+              activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+            >
+              Settings
+            </NavLink>
+          </nav>
+          <Switch>
+            <Route path="/individual">
+              <Individual />
+            </Route>
+            <Route path="/games">
+              <Games />
+            </Route>
+            <Route path="/players">
+              <Players />
+            </Route>
+            <Route path="/export">
+              <Export />
+            </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
+            <Route path="/">
+              <Lineup />
+            </Route>
+          </Switch>
+        </Router>
+      </RecoilRoot>
+    )
+  } else {
+    return <LoginPage />
+  }
 }
 
 function Setting() {
@@ -120,7 +127,7 @@ function Setting() {
     default:
       return (
         <>
-          <LoginPage />
+          <LogoutPage />
         </>
       )
   }
@@ -134,11 +141,11 @@ function Settings() {
       <nav>
         <NavLink
           exact
-          to={`${url}/login`}
+          to={`${url}/logout`}
           className="navitem"
           activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
         >
-          Login
+          Log Out
         </NavLink>
         <NavLink
           exact
