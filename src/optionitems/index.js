@@ -3,19 +3,6 @@ import { v4 as uuidv4 } from "uuid"
 
 //date and time dropdowns option items
 
-/* const playingDates = () => {
-  let playingDates = []
-  const now = new Date()
-  for (let i = 0; i < 8; i++) {
-    let month = now.getMonth() + 1
-    let day = now.getDate()
-    let year = now.getFullYear()
-    let playingDate = month + "/" + day + "/" + year
-    playingDates[i] = playingDate
-    now.setDate(now.getDate() + 1)
-  }
-  return playingDates
-} */
 const days = [
   "Sunday",
   "Monday",
@@ -65,7 +52,20 @@ export const teeTimeCountOptionItems = teeTimeCounts.map((count) => (
 
 export const linkTimes = () => {
   let linkTimes = []
-  linkTimes.push("9:00 Shotgun", "9:30 Shotgun", "1:00 Shotgun", "1:30 Shotgun")
+  linkTimes.push(
+    "Shotgun",
+    "8:30 Shotgun",
+    "9:00 Shotgun",
+    "9:30 Shotgun",
+    "10:00 Shotgun",
+    "10:30 Shotgun",
+    "11:00 Shotgun",
+    "11:30 Shotgun",
+    "12:00 Shotgun",
+    "12:30 Shotgun",
+    "1:00 Shotgun",
+    "1:30 Shotgun"
+  )
   let now = new Date()
   let year = now.getFullYear()
   let month = now.getMonth() + 1
