@@ -9,7 +9,6 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router-dom"
-import "../App.css"
 import Header from "../../shared/subcomponents/Header/components/Header"
 import IndividualPage from "../../screens/individual/components/IndividualPage"
 import GamesPage from "../../screens/games/components/GamesPage"
@@ -20,6 +19,12 @@ import LineupPage from "../../screens/lineup/components/LineupPage"
 import PlayersPage from "../../screens/players/components/PlayersPage"
 import HelpPage from "../../screens/help/components/HelpPage"
 import ExportPage from "../../screens/export/components/ExportPage"
+import styled from "styled-components"
+
+const StyledDiv = styled.div`
+  text-align: center;
+  background-color: white;
+`
 
 export default function App() {
   let isLoggedIn = get("isLoggedIn")
@@ -27,78 +32,80 @@ export default function App() {
     return (
       <RecoilRoot>
         <Router>
-          <Header />
-          <br />
-          <nav>
-            <NavLink
-              exact
-              to="/individual"
-              className="navitem"
-              activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-            >
-              Individual
-            </NavLink>
-            <NavLink
-              exact
-              to="/games"
-              className="navitem"
-              activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-            >
-              Games
-            </NavLink>
-            <NavLink
-              exact
-              to="/players"
-              className="navitem"
-              activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-            >
-              Players
-            </NavLink>
-            <NavLink
-              exact
-              to="/"
-              className="navitem"
-              activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-            >
-              Lineup
-            </NavLink>
-            <NavLink
-              exact
-              to="/export"
-              className="navitem"
-              activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-            >
-              Export
-            </NavLink>
-            <NavLink
-              exact
-              to="/settings"
-              className="navitem-last"
-              activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-            >
-              Settings
-            </NavLink>
-          </nav>
-          <Switch>
-            <Route path="/individual">
-              <Individual />
-            </Route>
-            <Route path="/games">
-              <Games />
-            </Route>
-            <Route path="/players">
-              <Players />
-            </Route>
-            <Route path="/export">
-              <Export />
-            </Route>
-            <Route path="/settings">
-              <Settings />
-            </Route>
-            <Route path="/">
-              <Lineup />
-            </Route>
-          </Switch>
+          <StyledDiv>
+            <Header />
+            <br />
+            <nav>
+              <NavLink
+                exact
+                to="/individual"
+                className="navitem"
+                activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+              >
+                Individual
+              </NavLink>
+              <NavLink
+                exact
+                to="/games"
+                className="navitem"
+                activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+              >
+                Games
+              </NavLink>
+              <NavLink
+                exact
+                to="/players"
+                className="navitem"
+                activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+              >
+                Players
+              </NavLink>
+              <NavLink
+                exact
+                to="/"
+                className="navitem"
+                activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+              >
+                Lineup
+              </NavLink>
+              <NavLink
+                exact
+                to="/export"
+                className="navitem"
+                activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+              >
+                Export
+              </NavLink>
+              <NavLink
+                exact
+                to="/settings"
+                className="navitem-last"
+                activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
+              >
+                Settings
+              </NavLink>
+            </nav>
+            <Switch>
+              <Route path="/individual">
+                <Individual />
+              </Route>
+              <Route path="/games">
+                <Games />
+              </Route>
+              <Route path="/players">
+                <Players />
+              </Route>
+              <Route path="/export">
+                <Export />
+              </Route>
+              <Route path="/settings">
+                <Settings />
+              </Route>
+              <Route path="/">
+                <Lineup />
+              </Route>
+            </Switch>
+          </StyledDiv>
         </Router>
       </RecoilRoot>
     )

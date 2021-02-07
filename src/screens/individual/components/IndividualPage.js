@@ -2,10 +2,28 @@ import React from "react"
 import IndividualTableHeader from "../components/IndividualTableHeader"
 import CHTableBody from "../components/CHTableBody"
 import TSTableBody from "../components/TSTableBody"
-import "../Individual.css"
 import { get } from "../../../shared/helpers/localStorage"
 import fetchIndividualGHIN from "../helpers/fetchIndividualGHIN"
 import fetchCourseData from "../../../shared/helpers/fetchCourseData"
+
+import styled from "styled-components"
+
+const StyledDivGolfer = styled.div`
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font: 16px sans-serif;
+  width: 90%;
+`
+const StyledParagraph = styled.p`
+  text-align: center;
+`
+const StyledTable = styled.table`
+  margin-left: auto;
+  margin-right: auto;
+  font: 16px sans-serif;
+  width: 90%;
+`
 
 export default function IndividualPage() {
   const dataMode = get("dataMode")
@@ -16,10 +34,10 @@ export default function IndividualPage() {
 
   return (
     <>
-      <div className="center golfer-center">{golfer}</div>
+      <StyledDivGolfer>{golfer}</StyledDivGolfer>
       <br />
       <div id="individual-table">
-        <table id="ch-table">
+        <StyledTable id="ch-table">
           <thead>
             <IndividualTableHeader tableName="CrsHcp" />
           </thead>
@@ -33,9 +51,9 @@ export default function IndividualPage() {
               pars={pars}
             />
           </tbody>
-        </table>
+        </StyledTable>
         <br />
-        <table id="ts-table">
+        <StyledTable id="ts-table">
           <thead>
             <IndividualTableHeader tableName="Score*" />
           </thead>
@@ -49,12 +67,12 @@ export default function IndividualPage() {
               pars={pars}
             />
           </tbody>
-        </table>
+        </StyledTable>
         <br></br>
-        <p className="center">
+        <StyledParagraph>
           *Score you must average eight out of your<br></br>last twenty rounds
           to maintain your index.
-        </p>
+        </StyledParagraph>
       </div>
     </>
   )
