@@ -8,7 +8,8 @@ import fetchGamesGHIN from "../../../shared/helpers/fetchGamesGHIN"
 export default function LineupPage() {
   const [ratings, slopes, pars] = fetchCourseData()
   let dataMode = get("dataMode")
-  fetchGamesGHIN(dataMode)
+  let hasGoogleSheet = get("hasGoogleSheet")
+  if (hasGoogleSheet === "true") fetchGamesGHIN(dataMode)
   return (
     <>
       <LineupTable ratings={ratings} slopes={slopes} pars={pars} />

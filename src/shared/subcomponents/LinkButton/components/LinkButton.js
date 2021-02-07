@@ -1,6 +1,12 @@
 import React from "react"
-import "../LinkButton.css"
 import { get } from "../../../helpers/localStorage"
+import styled from "styled-components"
+
+const StyledLink = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+`
 
 const LinkButton = ({ title }) => {
   const sheetURL = get("sheetURL")
@@ -13,9 +19,9 @@ const LinkButton = ({ title }) => {
 
   return (
     <>
-      <div className="link-center">
+      <StyledLink>
         <button onClick={handleClick}>{title}</button>
-      </div>
+      </StyledLink>
     </>
   )
 }

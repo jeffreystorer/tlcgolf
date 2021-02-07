@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import "../TextArea.css"
 import { set, get } from "../../../helpers/localStorage"
 
 export default function TextArea() {
