@@ -11,7 +11,7 @@ import AddPlayersToSavedLineup from "./AddPlayersToSavedLineup"
 import ButtonDownloadScreenShot from "../../../shared/subcomponents/ButtonDownloadScreenshot/components/ButtonDownloadScreenshot"
 import LineupTableDropDowns from "../components/LineupTableDropDowns"
 import LineupsList from "../components/LineupsList"
-import useSavedLineupCount from "../hooks/useSavedLineupCountjs"
+import useSavedLineupCount from "../hooks/useSavedLineupCount"
 import TeamTable from "../components/TeamTable"
 
 //functions
@@ -73,7 +73,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   //eslint-disable-next-line
   const [overrideCHChoiceChangedId, setOverrideCHChoiceChangedId] = useState(0)
   const firebaseRef = '"' + ghinNumber.toString() + '"'
-  let SavedLineupCount = useSavedLineupCount(firebaseRef)
+  let savedLineupCount = useSavedLineupCount(firebaseRef)
   const [keys] = useListKeys(LineupDataService.getAll(firebaseRef))
   set("keys", keys)
   let savedKeys = keys
@@ -627,7 +627,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     <>
       <div id="lineup-page" className="center">
         <br></br>
-        {SavedLineupCount(firebaseRef) > 0 && (
+        {savedLineupCount > 0 && (
           <div>
             <LineupsList
               resetLineupTitle={resetLineupTitle}
