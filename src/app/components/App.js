@@ -9,7 +9,7 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router-dom"
-import Header from "../../shared/subcomponents/Header/components/Header"
+import Header from "../../shared/components/Header"
 import IndividualPage from "../../screens/individual/components/IndividualPage"
 import GamesPage from "../../screens/games/components/GamesPage"
 import LoginPage from "../../screens/login/components/LoginPage"
@@ -25,6 +25,55 @@ const StyledDiv = styled.div`
   text-align: center;
   background-color: white;
 `
+const StyledNav = styled.nav`
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+  text-align: center;
+  list-style: none;
+  background-color: #f2f2f2;
+  border-bottom: 0px solid #ccc;
+  border-top: 0px solid #ccc;
+  height: 23px;
+`
+const activeClassName = "nav-item-active"
+
+const StyledLinkNavItem = styled(NavLink).attrs({
+  activeClassName,
+})`
+  &.${activeClassName} {
+    color: #3378ac;
+    font-weight: bold;
+  }
+  &:hover {
+    color: #c00;
+    background-color: #fff;
+  }
+  padding: 1px 5px;
+  text-decoration: none;
+  color: black;
+  border-right: 1px solid #ccc;
+  height: 23px;
+`
+
+const StyledLinkNavItemLast = styled(NavLink).attrs({
+  activeClassName,
+})`
+  &.${activeClassName} {
+    color: #3378ac;
+    font-weight: bold;
+  }
+  &:hover {
+    color: #c00;
+    background-color: #fff;
+  }
+  padding: 1px 5px;
+  text-decoration: none;
+  color: black;
+  border-right: 1px solid #fff;
+  height: 23px;
+`
 
 export default function App() {
   let isLoggedIn = get("isLoggedIn")
@@ -35,56 +84,26 @@ export default function App() {
           <StyledDiv>
             <Header />
             <br />
-            <nav>
-              <NavLink
-                exact
-                to="/individual"
-                className="navitem"
-                activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-              >
+            <StyledNav>
+              <StyledLinkNavItem exact to="/individual">
                 Individual
-              </NavLink>
-              <NavLink
-                exact
-                to="/games"
-                className="navitem"
-                activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-              >
+              </StyledLinkNavItem>
+              <StyledLinkNavItem exact to="/games">
                 Games
-              </NavLink>
-              <NavLink
-                exact
-                to="/players"
-                className="navitem"
-                activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-              >
+              </StyledLinkNavItem>
+              <StyledLinkNavItem exact to="/players">
                 Players
-              </NavLink>
-              <NavLink
-                exact
-                to="/"
-                className="navitem"
-                activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-              >
+              </StyledLinkNavItem>
+              <StyledLinkNavItem exact to="/">
                 Lineup
-              </NavLink>
-              <NavLink
-                exact
-                to="/export"
-                className="navitem"
-                activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-              >
+              </StyledLinkNavItem>
+              <StyledLinkNavItem exact to="/export">
                 Export
-              </NavLink>
-              <NavLink
-                exact
-                to="/settings"
-                className="navitem-last"
-                activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-              >
+              </StyledLinkNavItem>
+              <StyledLinkNavItemLast exact to="/settings">
                 Settings
-              </NavLink>
-            </nav>
+              </StyledLinkNavItemLast>
+            </StyledNav>
             <Switch>
               <Route path="/individual">
                 <Individual />
@@ -145,32 +164,17 @@ function Settings() {
   return (
     <>
       <br></br>
-      <nav>
-        <NavLink
-          exact
-          to={`${url}/logout`}
-          className="navitem"
-          activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-        >
+      <StyledNav>
+        <StyledLinkNavItem exact to={`${url}/logout`}>
           Log Out
-        </NavLink>
-        <NavLink
-          exact
-          to={`${url}/selecttees`}
-          className="navitem"
-          activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-        >
+        </StyledLinkNavItem>
+        <StyledLinkNavItem exact to={`${url}/selecttees`}>
           Select Tees
-        </NavLink>
-        <NavLink
-          exact
-          to={`${url}/help`}
-          className="navitem"
-          activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
-        >
+        </StyledLinkNavItem>
+        <StyledLinkNavItemLast exact to={`${url}/help`}>
           Help
-        </NavLink>
-      </nav>
+        </StyledLinkNavItemLast>
+      </StyledNav>
       <Switch>
         <Route path={`${path}/:settingId`}>
           <Setting />

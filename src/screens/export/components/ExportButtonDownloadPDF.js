@@ -1,6 +1,7 @@
 import React from "react"
 import { jsPDF } from "jspdf"
 import domtoimage from "dom-to-image"
+import { Button } from "../../../shared/components/StyledComponents"
 
 const ExportButtonDownLoadPDF = ({ dimensions, title }) => {
   const PAPER_DIMENSIONS = {
@@ -61,7 +62,7 @@ const ExportButtonDownLoadPDF = ({ dimensions, title }) => {
         To download a pdf for printing<br></br>
         four lineups per sheet to cut up as handouts
       </h4>
-      <button onClick={handleClick}>Download PDF</button>
+      <Button onClick={handleClick}>Download PDF</Button>
     </>
   )
 }

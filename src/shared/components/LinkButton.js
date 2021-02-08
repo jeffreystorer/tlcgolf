@@ -1,6 +1,7 @@
 import React from "react"
-import { get } from "../../../helpers/localStorage"
+import { get } from "../helpers/localStorage"
 import styled from "styled-components"
+import { Button } from "./StyledComponents"
 
 const StyledLink = styled.div`
   margin-left: auto;
@@ -20,7 +21,7 @@ const LinkButton = ({ title }) => {
   return (
     <>
       <StyledLink>
-        <button onClick={handleClick}>{title}</button>
+        <Button onClick={handleClick}>{title}</Button>
       </StyledLink>
     </>
   )

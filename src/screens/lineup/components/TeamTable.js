@@ -4,8 +4,29 @@ import LineupTableHeader from "../components/LineupTableHeader"
 import { useRecoilValue } from "recoil"
 import * as state from "../../../shared/state"
 import { v4 as uuidv4 } from "uuid"
-import TeeChoiceDropDown from "../../../shared/subcomponents/TeeChoiceDropdown/components/TeeChoiceDropDown"
+import TeeChoiceDropDown from "../../../shared/components/TeeChoiceDropDown"
 import OverrideCHDropDown from "../components/OverrideCHDropDown"
+import styled from "styled-components"
+
+const TdLineupLeftRowCell = styled.td`
+  text-align: left;
+  background-color: #ffffff;
+  color: #000000;
+`
+const TcLineupOtherRowCell = styled.td`
+  text-align: center;
+  background-color: #ffffff;
+  color: #000000;
+  width: fit-content;
+`
+const Table = styled.table`
+  background-color: white;
+  width: 100%;
+`
+const Tfoot = styled.tfoot`
+  text-align: center;
+  font-style: italic;
+`
 
 const TeamTable = ({
   teamNumber,
@@ -38,12 +59,11 @@ const TeamTable = ({
     for (let i = 0; i < playerCount; i++) {
       rowsTD[i] = (
         <tr key={rows[i].id}>
-          <td
-            className="lineup-left-row-cell"
+          <TdLineupLeftRowCell
             onClick={handleDeleteTeamMember(teamName, teamMembers[i].id)}
           >
             {rows[i].playerName}
-          </td>
+          </TdLineupLeftRowCell>
           {generateCols(i)}
         </tr>
       )
@@ -55,9 +75,9 @@ const TeamTable = ({
     let tds = []
     for (var j = 0; j < teeCount; j++) {
       tds[j] = (
-        <td className="lineup-other-row-cell" key={uuidv4()}>
+        <TcLineupOtherRowCell key={uuidv4()}>
           {rows[i].courseHandicaps[j]}
-        </td>
+        </TcLineupOtherRowCell>
       )
     }
 
@@ -97,7 +117,7 @@ const TeamTable = ({
   ))
 
   return (
-    <table className="team-table">
+    <Table>
       <thead>
         <LineupTableHeader
           teamNumber={teamNumber}
@@ -108,7 +128,7 @@ const TeamTable = ({
         />
       </thead>
       <tbody>{generateRows()}</tbody>
-      <tfoot className="team-table-footer">
+      <Tfoot>
         <tr>
           <td colSpan={teeCount + 2}>
             {showTeamHcp || progs069 > 0 ? (
@@ -125,8 +145,8 @@ const TeamTable = ({
             )}
           </td>
         </tr>
-      </tfoot>
-    </table>
+      </Tfoot>
+    </Table>
   )
 }
 

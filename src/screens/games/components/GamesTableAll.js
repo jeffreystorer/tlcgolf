@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import GamesTableDropDowns from "../components/GamesTableDropDowns"
 import GamesTableHeader from "../components/GamesTableHeader"
 import GamesTableBody from "../components/GamesTableBody"
-import LinkButton from "../../../shared/subcomponents/LinkButton/components/LinkButton"
-import ButtonDownloadScreenShot from "../../../shared/subcomponents/ButtonDownloadScreenshot/components/ButtonDownloadScreenshot"
+import LinkButton from "../../../shared/components/LinkButton"
+import ButtonDownloadScreenShot from "../../../shared/components/ButtonDownloadScreenshot"
 import { get, set } from "../../../shared/helpers/localStorage"
 
 export default function GamesTableAll({ ratings, slopes, pars, game, course }) {

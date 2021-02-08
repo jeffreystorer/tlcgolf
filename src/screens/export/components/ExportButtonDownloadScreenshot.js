@@ -3,6 +3,15 @@ import ExportLineupPDF from "./ExportLineupPDF"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import getOperatingSystemName from "../helpers/getOperatingSystemName"
+import {
+  Button,
+  DivCentered,
+} from "../../../shared/components/StyledComponents"
+import styled from "styled-components"
+
+const SpanRed = styled.span`
+  color: red;
+`
 
 const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
   let OSName = getOperatingSystemName()
@@ -82,11 +91,11 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
         <>
           <h4>
             To paste the lineup into an email:<br></br>
-            <span className="red">(Do not use on iPad)</span>
+            <SpanRed>(Do not use on iPad)</SpanRed>
           </h4>
-          <button name="copy" onClick={handleCopyClick}>
+          <Button name="copy" onClick={handleCopyClick}>
             Copy Lineup to Clipboard
-          </button>
+          </Button>
           <br></br>
         </>
       )
@@ -104,9 +113,7 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
           or copy it to the clipboard<br></br>to paste into an email
         </h4>
       )}
-      <button className="center" onClick={handleClick}>
-        Download Screenshot
-      </button>
+      <Button onClick={handleClick}>Download Screenshot</Button>
       <ToastContainer
         position="bottom-center"
         autoClose={2000}
@@ -126,15 +133,11 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
       {loading ? (
         <p>Loading Lineup Image . . .</p>
       ) : (
-        <div className="img-container center">
+        <DivCentered>
           <div ref={jpgImageRef} id="lineupToCopy">
-            <img
-              className="img"
-              src={dataUrl}
-              alt="Loading Lineup to Copy . . . "
-            />
+            <img src={dataUrl} alt="Loading Lineup to Copy . . . " />
           </div>
-        </div>
+        </DivCentered>
       )}
     </>
   )

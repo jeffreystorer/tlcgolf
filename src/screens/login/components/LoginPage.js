@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react"
-import "../Login.css"
 import setSheetURL from "../helpers/setSheetURL"
 import { get, set } from "../../../shared/helpers/localStorage"
-import Header from "../../../shared/subcomponents/Header/components/Header"
+import Header from "../../../shared/components/Header"
 import setIsLoggedIn from "../helpers/setIsLoggedIn"
 import fetchPlayersAndGames from "../helpers/fetchPlayersAndGames"
 import preval from "preval.macro"
+import {
+  DivCentered,
+  Button,
+} from "../../../shared/components/StyledComponents"
 
 function LoginPage() {
   const build =
@@ -66,73 +69,45 @@ function LoginPage() {
   return (
     <>
       <Header />
-      <div className="center" id="change-golfer">
-        {/*         <h5>
-          The first time you use this app on any device or
-          <br />
-          to change golfers, you must login.
-          <br />
-          You must also login again after
-          <br />
-          creating or editing your table of games.
-        </h5>
-        <br /> */}
-        <br></br>
-        <br></br>
-        <div>
-          <label htmlFor="ghinnumber">
-            GHIN Number:&nbsp;&nbsp;&nbsp;&nbsp;
-          </label>
-          <input
-            type="text"
-            id="ghinnumber"
-            name="ghinnumber"
-            defaultValue={ghinNumber}
-            onFocus={(event) => (event.target.value = get("ghinNumber"))}
-            onBlur={(event) => (ghinNumber = event.target.value)}
-          />
-        </div>
-
-        <br></br>
-        <br></br>
-
-        <div>
-          <label htmlFor="lastName">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Last Name:&nbsp;&nbsp;&nbsp;&nbsp;
-          </label>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            defaultValue={lastName}
-            onFocus={(event) => (event.target.value = get("lastName"))}
-            onBlur={(event) => (lastName = event.target.value)}
-          />
-        </div>
+      <DivCentered>
         <br />
         <br />
-        <div className="center">
-          {/*           {isMe && ( */}
-          <>
-            <input
-              type="checkbox"
-              id="dataModeGHIN"
-              onChange={handleDataModeChange}
-              defaultChecked={dataModeGHIN}
-            ></input>
-            <label htmlFor="dataModeGHIN">Fetch Data from GHIN</label>
-          </>
-          {/*           )} */}
-        </div>
-        <br></br>
-        <br></br>
-        <div>
-          <button onClick={handleClick}>Log In</button>
-        </div>
-        <br></br>
-        <br></br>
-        <footer align="center">{build}</footer>
-      </div>
+        <label htmlFor="ghinnumber">GHIN Number:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input
+          type="text"
+          id="ghinnumber"
+          name="ghinnumber"
+          defaultValue={ghinNumber}
+          onFocus={(event) => (event.target.value = get("ghinNumber"))}
+          onBlur={(event) => (ghinNumber = event.target.value)}
+        />
+        <br />
+        <br />
+        <label htmlFor="lastName">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Last Name:&nbsp;&nbsp;&nbsp;&nbsp;
+        </label>
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          defaultValue={lastName}
+          onFocus={(event) => (event.target.value = get("lastName"))}
+          onBlur={(event) => (lastName = event.target.value)}
+        />
+        <br />
+        <br />
+        <input
+          type="checkbox"
+          id="dataModeGHIN"
+          onChange={handleDataModeChange}
+          defaultChecked={dataModeGHIN}
+        ></input>
+        <label htmlFor="dataModeGHIN">Fetch Data from GHIN</label>
+        <br />
+        <br />
+        <Button onClick={handleClick}>Log In</Button>
+        <footer>{build}</footer>
+      </DivCentered>
     </>
   )
 }
