@@ -751,7 +751,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
                 <td className="center text-area-cell">
                   <textarea
                     id="lineup-textarea"
-                    rows="8"
+                    rows="10"
                     cols="39"
                     value={textAreaValue}
                     onChange={handleTextAreaValueChange}
