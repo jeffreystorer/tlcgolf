@@ -9,7 +9,6 @@ import { useListKeys } from "react-firebase-hooks/database"
 //components
 import AddPlayersToSavedLineup from "./AddPlayersToSavedLineup"
 import ButtonDownloadScreenShot from "../../../shared/components/ButtonDownloadScreenshot"
-//import LineupAndTeamTables from "../../../shared/components/LineupAndTeamTables"
 import LineupTableDropDowns from "../components/LineupTableDropDowns"
 import LineupsList from "../components/LineupsList"
 import useSavedLineupCount from "../hooks/useSavedLineupCount"
@@ -33,14 +32,6 @@ import LineupDataService from "../../../shared/services/LineupService"
 //state
 import * as state from "../../../shared/state"
 
-import styled from "styled-components"
-
-const Div = styled.div`
-  text-align: center;
-  background-color: white;
-  padding: 10px 10px 10px 10px;
-`
-
 export default function LineupTableAll({ games, ratings, slopes, pars }) {
   //constants
 
@@ -53,7 +44,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   //react state
   const [showTips, setShowTips] = useState(get("showTips"))
   const [showTeamHcp, setShowTeamHcp] = useState(get("showTeamHcp"))
-  let progAdjMessage = ""
   const [showAddPlayers, setShowAddPlayers] = useState(false)
   const teamTablesObj = {
     times: [],
@@ -128,7 +118,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     pars
   )
   let playerNameList = getPlayersNotInTeeTime(players, teamTables)
-  let showIndividualHandicaps = true
+  let progAdjMessage = ""
 
   //useEffects
 
@@ -333,7 +323,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
                 }
                 break
               case 9:
-                //setProgAdjMessage("**Threesome progs include +1.5 per 9**")
+                progAdjMessage = "**Threesome progs include +1.5 per 9**"
                 if (playerCount === 3) {
                   aTeamProgs = aTeamProgs / 2 + 1.5
                 } else {
@@ -731,10 +721,10 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             <br></br>
           </>
         )}
-        <Div id="lineup-table-div">
-          <table id="lineup-table">
+        <table id="lineup-table" className="background-white">
+          <div id="lineup-table-div" className="background-white">
             <thead className="lineup-table-head">
-              <tr className="lineup-table-head">
+              <tr>
                 <td className="center">{playingDate + " at " + courseName}</td>
               </tr>
               <tr>
@@ -743,27 +733,25 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             </thead>
             <tbody>
               <tr>
-                <td>{generateTeamTables()}</td>
+                <td className="background-white">{generateTeamTables()}</td>
               </tr>
             </tbody>
             <tfoot>
-              {progs069 > 0 && showIndividualHandicaps && (
+              {progs069 > 0 && (
                 <>
                   <tr>
-                    <td></td>
+                    <td className="team-table-footer"></td>
                   </tr>
                   <tr>
                     <td className="team-table-footer">{progAdjMessage}</td>
                   </tr>
                 </>
               )}
-
               <tr>
                 <td className="center text-area-cell">
                   <textarea
                     id="lineup-textarea"
-                    // @ts-ignore
-                    rows="8"
+                    rows="10"
                     cols="39"
                     value={textAreaValue}
                     onChange={handleTextAreaValueChange}
@@ -773,8 +761,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
                 </td>
               </tr>
             </tfoot>
-          </table>
-        </Div>
+          </div>
+        </table>
         {showTips && (
           <div>
             <table className="table-tip">
