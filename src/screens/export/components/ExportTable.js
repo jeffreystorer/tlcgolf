@@ -374,7 +374,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
                     <textarea
                       id="lineup-textarea"
                       // @ts-ignore
-                      rows="10"
+                      rows="8"
                       cols="39"
                       value={lineup.textAreaValue}
                     ></textarea>
@@ -409,7 +409,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
                     <textarea
                       id="lineup-textarea"
                       // @ts-ignore
-                      rows="10"
+                      rows="8"
                       cols="39"
                       value={lineup.textAreaValue}
                     ></textarea>
