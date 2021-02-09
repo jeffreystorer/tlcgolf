@@ -10,7 +10,6 @@ import createExportTeamsTablePlayersArray from "../helpers/createExportTeamsTabl
 import fetchGamesGHIN from "../../../shared/helpers/fetchGamesGHIN"
 import domtoimage from "dom-to-image"
 import _ from "lodash"
-import { DivCenteredBackgroundWhite } from "../../../shared/components/StyledComponents"
 
 export default function ExportTable({ lineupTitle, lineup }) {
   const [screenShotURL, setScreenShotURL] = useState()
@@ -299,7 +298,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
 
   return (
     <>
-      <DivCenteredBackgroundWhite id="lineup-page">
+      <div id="lineup-page" className="center background-white">
         <h4>
           Check the boxes below if you wish<br></br>
           to display first names, team handicaps,<br></br>
@@ -423,7 +422,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
           title={lineupTitle}
           dataUrl={screenShotURL}
         />
-      </DivCenteredBackgroundWhite>
+      </div>
     </>
   )
 }

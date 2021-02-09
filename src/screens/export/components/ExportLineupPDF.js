@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { ReactPhotoCollage } from "react-photo-collage"
 import ExportButtonDownloadPDF from "./ExportButtonDownloadPDF"
-import {
-  DivCentered,
-  DivCenteredBackgroundWhite,
-} from "../../../shared/components/StyledComponents"
+import "../Export.css"
 
 const ExportLineupPDF = ({ title, dataUrl }) => {
   const [loading, setLoading] = useState(true)
@@ -43,59 +40,60 @@ const ExportLineupPDF = ({ title, dataUrl }) => {
         <p> Loading . . .</p>
       ) : (
         <>
-          <DivCentered>
-            <br />
+          <div className="center">
+            <br></br>
             <ExportButtonDownloadPDF dimensions={imgDimensions} title={title} />
-          </DivCentered>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <DivCentered>
+          </div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <div className="center">
             <h1>PLEASE IGNORE THE COLLAGE BELOW.</h1>
             <h1>IT IS USED FOR CREATING THE PDF.</h1>
-          </DivCentered>
-          <DivCenteredBackgroundWhite
+          </div>
+          <div
             id="div-collage"
+            className="background-white center"
             style={{
               width: { styleWidth },
               height: { styleHeight },
             }}
           >
             <Collage />
-          </DivCenteredBackgroundWhite>
+          </div>
         </>
       )}
     </>

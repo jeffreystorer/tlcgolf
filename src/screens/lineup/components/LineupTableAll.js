@@ -8,7 +8,7 @@ import { useListKeys } from "react-firebase-hooks/database"
 
 //components
 import AddPlayersToSavedLineup from "./AddPlayersToSavedLineup"
-import ButtonDownloadScreenShot from "../../../shared/components/ButtonDownloadScreenshot"
+import ButtonDownloadScreenShot from "../../../shared/subcomponents/ButtonDownloadScreenshot/components/ButtonDownloadScreenshot"
 import LineupTableDropDowns from "../components/LineupTableDropDowns"
 import LineupsList from "../components/LineupsList"
 import useSavedLineupCount from "../hooks/useSavedLineupCount"

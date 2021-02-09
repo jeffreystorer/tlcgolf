@@ -3,15 +3,6 @@ import ExportLineupPDF from "./ExportLineupPDF"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import getOperatingSystemName from "../helpers/getOperatingSystemName"
-import {
-  Button,
-  DivCentered,
-} from "../../../shared/components/StyledComponents"
-import styled from "styled-components"
-
-const SpanRed = styled.span`
-  color: red;
-`
 
 const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
   let OSName = getOperatingSystemName()
@@ -91,11 +82,11 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
         <>
           <h4>
             To paste the lineup into an email:<br></br>
-            <SpanRed>(Do not use on iPad)</SpanRed>
+            <span className="red">(Do not use on iPad)</span>
           </h4>
-          <Button name="copy" onClick={handleCopyClick}>
+          <button name="copy" onClick={handleCopyClick}>
             Copy Lineup to Clipboard
-          </Button>
+          </button>
           <br></br>
         </>
       )
@@ -113,7 +104,9 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
           or copy it to the clipboard<br></br>to paste into an email
         </h4>
       )}
-      <Button onClick={handleClick}>Download Screenshot</Button>
+      <button className="center" onClick={handleClick}>
+        Download Screenshot
+      </button>
       <ToastContainer
         position="bottom-center"
         autoClose={2000}
@@ -133,11 +126,15 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
       {loading ? (
         <p>Loading Lineup Image . . .</p>
       ) : (
-        <DivCentered>
+        <div className="img-container center">
           <div ref={jpgImageRef} id="lineupToCopy">
-            <img src={dataUrl} alt="Loading Lineup to Copy . . . " />
+            <img
+              className="img"
+              src={dataUrl}
+              alt="Loading Lineup to Copy . . . "
+            />
           </div>
-        </DivCentered>
+        </div>
       )}
     </>
   )

@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { set, get } from "../helpers/localStorage"
+import { set, get } from "../../../helpers/localStorage"
 
 export default function TextArea() {
   const [textAreaValue, setTextAreaValue] = useState(get("textAreaValue"))

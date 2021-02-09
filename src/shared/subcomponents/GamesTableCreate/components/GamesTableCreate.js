@@ -1,14 +1,18 @@
 import React from "react"
-import LinkButton from "./LinkButton"
+import LinkButton from "../../LinkButton/components/LinkButton"
 import { useRecoilValue } from "recoil"
-import * as state from "../state"
-import { PCentered } from "./StyledComponents"
+import * as state from "../../../state"
+import styled from "styled-components"
+
+const StyledParagraph = styled.p`
+  text-align: center;
+`
 
 export default function GamesTableCreate() {
   const ghinNumber = useRecoilValue(state.ghinNumberState)
   return (
     <>
-      <PCentered>
+      <StyledParagraph>
         Before you can display this table,<br></br>
         you must create a table of your players<br></br>
         and games in Google Sheets.<br></br>
@@ -18,11 +22,11 @@ export default function GamesTableCreate() {
         <br></br>
         You may copy another user's table and then edit it.<br></br>
         You may give your games any name you wish (no spaces).
-      </PCentered>
-      <PCentered>
+      </StyledParagraph>
+      <StyledParagraph>
         When you have created your table,<br></br>
         go back to this app with your browser<br></br>and login again.
-      </PCentered>
+      </StyledParagraph>
       <br></br>
       <LinkButton title={"Create Table"} />
     </>

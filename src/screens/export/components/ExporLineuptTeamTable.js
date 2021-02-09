@@ -2,27 +2,6 @@ import React from "react"
 import "../Export.css"
 import ExportLineupTeamTableHeader from "./ExportTeamsTeamTableHeader"
 import { v4 as uuidv4 } from "uuid"
-import styled from "styled-components"
-
-const TdLineupLeftRowCell = styled.td`
-  text-align: left;
-  background-color: #ffffff;
-  color: #000000;
-`
-const TdLineupOtherRowCell = styled.td`
-  text-align: center;
-  background-color: #ffffff;
-  color: #000000;
-  width: fit-content;
-`
-const Table = styled.table`
-  background-color: white;
-  width: 100%;
-`
-const Tfoot = styled.tfoot`
-  text-align: center;
-  font-style: italic;
-`
 
 const ExportLineupTeamTable = ({
   teamNumber,
@@ -48,7 +27,7 @@ const ExportLineupTeamTable = ({
     for (let i = 0; i < playerCount; i++) {
       rowsTD[i] = (
         <tr key={rows[i].id}>
-          <TdLineupLeftRowCell>{rows[i].playerName}</TdLineupLeftRowCell>
+          <td className="lineup-left-row-cell">{rows[i].playerName}</td>
           {generateCols(i)}
         </tr>
       )
@@ -60,9 +39,9 @@ const ExportLineupTeamTable = ({
     let tds = []
     for (var j = 0; j < teeCount; j++) {
       tds[j] = (
-        <TdLineupOtherRowCell key={uuidv4()}>
+        <td className="lineup-other-row-cell" key={uuidv4()}>
           {rows[i].courseHandicaps[j]}
-        </TdLineupOtherRowCell>
+        </td>
       )
     }
 
@@ -72,7 +51,7 @@ const ExportLineupTeamTable = ({
   }
 
   return (
-    <Table>
+    <table className="team-table">
       <thead>
         <ExportLineupTeamTableHeader
           teesSelected={teesSelected}
@@ -81,7 +60,7 @@ const ExportLineupTeamTable = ({
         />
       </thead>
       <tbody>{generateRows()}</tbody>
-      <Tfoot>
+      <tfoot className="team-table-footer">
         <tr>
           <td colSpan={teeCount + 2}>
             {showTeamHcp || progs069 > 0 ? (
@@ -98,8 +77,8 @@ const ExportLineupTeamTable = ({
             )}
           </td>
         </tr>
-      </Tfoot>
-    </Table>
+      </tfoot>
+    </table>
   )
 }
 

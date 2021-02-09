@@ -1,7 +1,6 @@
 import React from "react"
 import domtoimage from "dom-to-image"
-import { saveAs } from "../helpers/fileSaver"
-import { Button } from "./StyledComponents"
+import { saveAs } from "../../../helpers/fileSaver"
 
 const ButtonDownLoadScreenshot = ({
   title,
@@ -35,9 +34,9 @@ const ButtonDownLoadScreenshot = ({
     }
   }
   return (
-    <Button onClick={handleClick}>
+    <button className="center" onClick={handleClick}>
       Download Screenshot ({format.toLowerCase()})
-    </Button>
+    </button>
   )
 }
 export default ButtonDownLoadScreenshot
