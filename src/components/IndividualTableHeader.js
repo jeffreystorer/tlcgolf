@@ -1,23 +1,22 @@
-import React from 'react';
+import React from "react"
 
-function IndividualTableHeader({tableName}) {
-    return (
+function IndividualTableHeader({ tableName }) {
+  let courses = ["DC", "MG", "MW", "OR", "PA", "TP"]
+  return (
     <>
-        <tr className='individual-header-row'>
-            <th
-                scope='col'
-                className='individual-left-header-cell'
-            >
-            <div className='center'>{tableName}</div>  
+      <tr>
+        <th scope="col" className="individual-table-header-row_th-left">
+          <div className="center">{tableName}</div>
+        </th>
+        {courses.map(function (courses) {
+          return (
+            <th className="individual-table-header-row_th-other" scope="col">
+              {courses}
             </th>
-            <th className='individual-other-header-cell' scope='col'>DC</th>
-            <th className='individual-other-header-cell' scope='col'>MG</th>
-            <th className='individual-other-header-cell' scope='col'>MW</th>
-            <th className='individual-other-header-cell' scope='col'>OR</th>
-            <th className='individual-other-header-cell' scope='col'>PA</th>
-            <th className='individual-other-header-cell' scope='col'>TP</th>
-        </tr>
+          )
+        })}
+      </tr>
     </>
-    )
+  )
 }
-export default IndividualTableHeader;
+export default IndividualTableHeader

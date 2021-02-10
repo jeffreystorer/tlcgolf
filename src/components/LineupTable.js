@@ -35,7 +35,7 @@ export default function LineupPage({ ratings, slopes, pars }) {
     case 0:
       return (
         <>
-          <p className="center">
+          <p className="paragraph--center">
             Before you can display this page,<br></br>
             you must select a game and course<br></br>
             on the Games Page and then select<br></br>
@@ -46,7 +46,7 @@ export default function LineupPage({ ratings, slopes, pars }) {
     case 1:
       return (
         <>
-          <p className="center">
+          <p className="paragraph--center">
             Before you can display this page,<br></br>
             you must select your players<br></br>
             on the Players Page.
@@ -69,7 +69,7 @@ export default function LineupPage({ ratings, slopes, pars }) {
     case 3:
       return (
         <>
-          <p className="center">
+          <p className="paragraph--center">
             Before you can display this page,<br></br>
             you must select a course<br></br>
             on the Games Page.

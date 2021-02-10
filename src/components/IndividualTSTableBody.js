@@ -16,13 +16,13 @@ const TSTableBody = (props) => {
       {rows.map(function (row, i) {
         return (
           <tr key={i}>
-            <td className="individual-left-row-cell">{row[0]}</td>
-            <td className="individual-other-row-cell">{row[1]}</td>
-            <td className="individual-other-row-cell">{row[2]}</td>
-            <td className="individual-other-row-cell">{row[3]}</td>
-            <td className="individual-other-row-cell">{row[4]}</td>
-            <td className="individual-other-row-cell">{row[5]}</td>
-            <td className="individual-other-row-cell">{row[6]}</td>
+            <td className="individual-table-body-row_td-left">{row[0]}</td>
+            <td className="individual-table-body-row_td-other">{row[1]}</td>
+            <td className="individual-table-body-row_td-other">{row[2]}</td>
+            <td className="individual-table-body-row_td-other">{row[3]}</td>
+            <td className="individual-table-body-row_td-other">{row[4]}</td>
+            <td className="individual-table-body-row_td-other">{row[5]}</td>
+            <td className="individual-table-body-row_td-other">{row[6]}</td>
           </tr>
         )
       })}

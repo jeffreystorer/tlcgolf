@@ -16,10 +16,10 @@ export default function IndividualPage() {
 
   return (
     <>
-      <div className="center golfer-center">{golfer}</div>
+      <div className="golfer--center">{golfer}</div>
       <br />
-      <div id="individual-table">
-        <table id="ch-table">
+      <div>
+        <table>
           <thead>
             <IndividualTableHeader tableName="CrsHcp" />
           </thead>
@@ -35,7 +35,7 @@ export default function IndividualPage() {
           </tbody>
         </table>
         <br />
-        <table id="ts-table">
+        <table>
           <thead>
             <IndividualTableHeader tableName="Score*" />
           </thead>
@@ -51,7 +51,7 @@ export default function IndividualPage() {
           </tbody>
         </table>
         <br></br>
-        <p className="center">
+        <p className="paragraph--center">
           *Score you must average eight out of your<br></br>last twenty rounds
           to maintain your index.
         </p>

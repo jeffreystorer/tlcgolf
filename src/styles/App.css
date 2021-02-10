@@ -83,10 +83,11 @@
   margin-right: auto;
   width: 60%;
 }
-.golfer-center {
+.golfer--center {
   font: 16px sans-serif;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
   width: 90%;
 }
 .header {
@@ -203,6 +204,10 @@
 .navitem-last:hover {
   background-color: #fff;
   color: #c00;
+}
+
+.paragraph--center {
+  text-align: center;
 }
 .red {
   color: red;
@@ -412,27 +417,25 @@ td.help-topic {
   vertical-align: top;
   width: 20%;
 }
-td.individual-left-row-cell {
+.individual-table-body-row_td-left {
   background-color: #3378ac;
   color: #fff;
+  font-weight: 700;
   text-align: center;
   width: fit-content;
   width: -moz-fit-content;
   width: -webkit-fit-content;
 }
-td.individual-left-row-cell {
-  font-weight: 700;
-}
-td.individual-other-row-cell {
-  width: fit-content;
-  width: -moz-fit-content;
-  width: -webkit-fit-content;
-}
-td.individual-other-row-cell {
+
+.individual-table-body-row_td-other {
   background-color: #fff;
   color: #000;
   text-align: center;
+  width: fit-content;
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
 }
+
 td.lastName-col {
   text-align: left;
 }
@@ -471,12 +474,12 @@ th.game-header-cell {
   width: -moz-fit-content;
   width: -webkit-fit-content;
 }
-th.individual-left-header-cell {
+.individual-table-header-row_th-left {
   background-color: #fff;
   color: #000;
   width: 20%;
 }
-th.individual-other-header-cell {
+.individual-table-header-row_th-other {
   background-color: #3378ac;
   color: #fff;
   text-align: center;
