@@ -1,6 +1,6 @@
 import React from "react"
 import IndividualTableHeader from "./IndividualTableHeader"
-import CHTableBody from "./IndividualCHTableBody""
+import CHTableBody from "./IndividualCHTableBody"
 import TSTableBody from "./IndividualTSTableBody"
 import "../styles/App.css"
 import { get } from "../helpers/localStorage"
