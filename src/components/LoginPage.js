@@ -14,8 +14,8 @@ function LoginPage() {
   const [dataModeGHIN, setDataModeGHIN] = useState(true)
 
   let ghinNumber, lastName, showTips, showLocalNumbers
-  ghinNumber = get("ghinNumber") ? get("ghinNumber") : "GHIN Number"
-  lastName = get("lastName") ? get("lastName") : "Last Name"
+  ghinNumber = get("ghinNumber") ? get("ghinNumber") : ""
+  lastName = get("lastName") ? get("lastName") : ""
   showTips = get("showTips")
   showLocalNumbers = get("showLocalNumbers")
   let teesSelected = get("teesSelected")
@@ -66,72 +66,57 @@ function LoginPage() {
   return (
     <>
       <Header />
-      <div className="center" id="change-golfer">
-        {/*         <h5>
-          The first time you use this app on any device or
-          <br />
-          to change golfers, you must login.
-          <br />
-          You must also login again after
-          <br />
-          creating or editing your table of games.
-        </h5>
-        <br /> */}
-        <br></br>
-        <br></br>
-        <div>
-          <label htmlFor="ghinnumber">
-            GHIN Number:&nbsp;&nbsp;&nbsp;&nbsp;
-          </label>
-          <input
-            type="text"
-            id="ghinnumber"
-            name="ghinnumber"
-            defaultValue={ghinNumber}
-            onFocus={(event) => (event.target.value = get("ghinNumber"))}
-            onBlur={(event) => (ghinNumber = event.target.value)}
-          />
-        </div>
+      <div className="div--center">
+        <br />
+        <br />
+        <label htmlFor="ghinnumber">GHIN Number:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input
+          className="input"
+          type="text"
+          id="ghinnumber"
+          defaultValue={ghinNumber}
+          onFocus={(event) => (event.target.value = get("ghinNumber"))}
+          onBlur={(event) => (ghinNumber = event.target.value)}
+        />
 
         <br></br>
         <br></br>
 
-        <div>
-          <label htmlFor="lastName">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Last Name:&nbsp;&nbsp;&nbsp;&nbsp;
-          </label>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            defaultValue={lastName}
-            onFocus={(event) => (event.target.value = get("lastName"))}
-            onBlur={(event) => (lastName = event.target.value)}
-          />
-        </div>
+        <label htmlFor="lastName">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Last Name:&nbsp;&nbsp;&nbsp;&nbsp;
+        </label>
+        <input
+          className="input"
+          type="text"
+          id="lastName"
+          defaultValue={lastName}
+          onFocus={(event) => (event.target.value = get("lastName"))}
+          onBlur={(event) => (lastName = event.target.value)}
+        />
+
         <br />
         <br />
-        <div className="center">
-          {/*           {isMe && ( */}
-          <>
-            <input
-              type="checkbox"
-              id="dataModeGHIN"
-              onChange={handleDataModeChange}
-              defaultChecked={dataModeGHIN}
-            ></input>
-            <label htmlFor="dataModeGHIN">Fetch Data from GHIN</label>
-          </>
-          {/*           )} */}
-        </div>
-        <br></br>
-        <br></br>
-        <div>
-          <button onClick={handleClick}>Log In</button>
-        </div>
-        <br></br>
-        <br></br>
-        <footer align="center">{build}</footer>
+
+        <input
+          className="input"
+          type="checkbox"
+          id="dataModeGHIN"
+          onChange={handleDataModeChange}
+          defaultChecked={dataModeGHIN}
+        />
+        <label htmlFor="dataModeGHIN">Fetch Data from GHIN</label>
+
+        <br />
+        <br />
+
+        <button className="button" onClick={handleClick}>
+          Log In
+        </button>
+
+        <br />
+        <br />
+
+        <footer className="footer--center">{build}</footer>
       </div>
     </>
   )

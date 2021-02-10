@@ -33,7 +33,7 @@ const SelectTeesPage = () => {
   }
 
   return (
-    <div align="center">
+    <div className="div--center">
       <h5>
         Please select one or more tees,
         <br />
@@ -68,8 +68,8 @@ const SelectTeesPage = () => {
             <option value="SK">Skidaway</option>
           </select>
         </label>
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <input id="next" type="submit" value="Next" />
       </form>
       <p>

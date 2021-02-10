@@ -34,7 +34,7 @@ const ButtonDownLoadScreenshot = ({
     }
   }
   return (
-    <button className="center" onClick={handleClick}>
+    <button className="button" onClick={handleClick}>
       Download Screenshot ({format.toLowerCase()})
     </button>
   )

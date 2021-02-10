@@ -13,8 +13,10 @@ const LinkButton = ({ title }) => {
 
   return (
     <>
-      <div className="link-center">
-        <button onClick={handleClick}>{title}</button>
+      <div className="div--center">
+        <button className="button" onClick={handleClick}>
+          {title}
+        </button>
       </div>
     </>
   )

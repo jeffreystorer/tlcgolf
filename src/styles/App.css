@@ -78,10 +78,24 @@
   margin-right: auto;
   width: 90%;
 }
+
+.div--center {
+  text-align: center;
+}
+
+.div--center-bold {
+  font-family: sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
 .dropdown-center {
   margin-left: auto;
   margin-right: auto;
   width: 60%;
+}
+
+.footer--center {
+  text-align: center;
 }
 .golfer--center {
   font: 16px sans-serif;
@@ -133,11 +147,7 @@
   font-weight: 700;
   text-align: left;
 }
-.link-center {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
+
 .list-lineups {
   border: 1px solid #000;
   margin: auto;
@@ -179,29 +189,25 @@
   border-color: #3378ac;
   color: #fff;
 }
-.navitem {
+.app-navlink {
+  border-right: 1px solid #ccc;
   color: #000;
   height: 23px;
   padding: 1px 5px;
   text-decoration: none;
 }
-.navitem {
-  border-right: 1px solid #ccc;
-}
-.navitem:hover {
+.app-navlink:hover {
   background-color: #fff;
   color: #c00;
 }
-.navitem-last {
+.app-navlink-last {
+  border-right: 1px solid #fff;
   color: #000;
   height: 23px;
   padding: 1px 5px;
   text-decoration: none;
 }
-.navitem-last {
-  border-right: 1px solid #fff;
-}
-.navitem-last:hover {
+.app-navlink-last:hover {
   background-color: #fff;
   color: #c00;
 }
@@ -274,7 +280,7 @@ body {
   -webkit-font-smoothing: antialiased;
   width: 100vw;
 }
-button {
+.button {
   background-color: #3378ac;
   border: 2px solid #3378ac;
   border-radius: 0;
@@ -289,7 +295,7 @@ button {
   text-decoration: none;
   -webkit-appearance: none;
 }
-button:hover {
+.button:hover {
   background-color: #fff;
   border-radius: 0;
   color: #c00;
@@ -318,19 +324,22 @@ footer {
 footer {
   text-align: center;
 }
-input :not(#next) {
+
+.input :not(#next) {
   border: 1px solid #000;
   font-size: 14px;
   padding: 2px;
   width: 150px;
 }
-input#lineuptitle {
+
+.input#lineuptitle {
   font-size: 14px;
   font-weight: 700;
   height: 23px;
   text-align: center;
 }
-input#savelineup {
+
+.input#savelineup {
   background-color: #3378ac;
   border: 2px solid #3378ac;
   border-radius: 0;
@@ -345,41 +354,42 @@ input#savelineup {
   text-decoration: none;
   -webkit-appearance: none;
 }
-input#savelineup:hover {
+.input#savelineup:hover {
   background-color: #fff;
   border-radius: 0;
   color: #c00;
   -webkit-appearance: none;
 }
-input:focus:not(#next) {
+.input:focus:not(#next) {
   background-color: #ccf;
 }
-input:hover :not(#next) {
+
+.input:hover :not(#next) {
   background-color: #eee;
 }
-input:not(:focus) :not(#next) {
+
+.input:not(:focus) :not(#next) {
   text-align: center;
 }
 li:hover {
   background-color: #fff;
   color: #c00;
 }
-nav {
+.app-nav {
   background-color: #f2f2f2;
   border-bottom: 0 solid #ccc;
   border-top: 0 solid #ccc;
   float: none;
   height: 23px;
   list-style: none;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
   width: fit-content;
   width: -moz-fit-content;
   width: -webkit-fit-content;
 }
-nav {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
+
 p {
   font: 16px sans-serif;
 }

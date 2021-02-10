@@ -100,18 +100,19 @@ export default function GamesPage() {
     case 1:
       return (
         <>
-          <p className="center-bold">
-            Click on the dropdown boxes below<br></br>to select a game and a
-            course.
+          <p className="div--center-bold">
+            Click on the dropdown boxes below
+            <br />
+            to select a game and a course.
           </p>
           <GamesTableDropDowns />
-          <br></br>
-          <br></br>
-          <br></br>
+          <br />
+          <br />
+          <br />
           <LinkButton title={"Edit Table"} />
-          <br></br>
-          <br></br>
-          <div className="center">
+          <br />
+          <br />
+          <div className="div--center">
             {isMe && <IframesStorer />}
             {isCasey && <IframesCasey />}
           </div>
@@ -127,18 +128,18 @@ export default function GamesPage() {
             game={game}
             course={course}
           />
-          <br></br>
+          <br />
           {isMe && (
-            <div className="center">
-              <br></br>
-              <button className="center" onClick={handlePublishHandicapsClick}>
+            <div className="div--center">
+              <br />
+              <button className="button" onClick={handlePublishHandicapsClick}>
                 Publish Handicaps
               </button>
             </div>
           )}
-          <br></br>
-          <br></br>
-          <div className="center">
+          <br />
+          <br />
+          <div className="div--center">
             {isMe && <IframesStorer />}
             {isCasey && <IframesCasey />}
           </div>

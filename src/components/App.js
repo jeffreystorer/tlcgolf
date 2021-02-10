@@ -29,11 +29,11 @@ export default function App() {
         <Router>
           <Header />
           <br />
-          <nav>
+          <nav className="app-nav">
             <NavLink
               exact
               to="/individual"
-              className="navitem"
+              className="app-navlink"
               activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
             >
               Individual
@@ -41,7 +41,7 @@ export default function App() {
             <NavLink
               exact
               to="/games"
-              className="navitem"
+              className="app-navlink"
               activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
             >
               Games
@@ -49,7 +49,7 @@ export default function App() {
             <NavLink
               exact
               to="/players"
-              className="navitem"
+              className="app-navlink"
               activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
             >
               Players
@@ -57,7 +57,7 @@ export default function App() {
             <NavLink
               exact
               to="/"
-              className="navitem"
+              className="app-navlink"
               activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
             >
               Lineup
@@ -65,7 +65,7 @@ export default function App() {
             <NavLink
               exact
               to="/export"
-              className="navitem"
+              className="app-navlink"
               activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
             >
               Export
@@ -73,7 +73,7 @@ export default function App() {
             <NavLink
               exact
               to="/settings"
-              className="navitem-last"
+              className="app-navlink-last"
               activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
             >
               Settings
@@ -138,11 +138,11 @@ function Settings() {
   return (
     <>
       <br></br>
-      <nav>
+      <nav className="app-nav">
         <NavLink
           exact
           to={`${url}/logout`}
-          className="navitem"
+          className="app-navlink"
           activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
         >
           Log Out
@@ -150,7 +150,7 @@ function Settings() {
         <NavLink
           exact
           to={`${url}/selecttees`}
-          className="navitem"
+          className="app-navlink"
           activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
         >
           Select Tees
@@ -158,7 +158,7 @@ function Settings() {
         <NavLink
           exact
           to={`${url}/help`}
-          className="navitem"
+          className="app-navlink-last"
           activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
         >
           Help
