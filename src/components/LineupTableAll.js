@@ -7,11 +7,11 @@ import { useRecoilValue, useRecoilState } from "recoil"
 import { useListKeys } from "react-firebase-hooks/database"
 
 //components
-import AddPlayersToSavedLineup from "./AddPlayersToSavedLineup"
-import ButtonDownloadScreenShot from "./ButtonDownloadScreenshot"
+import AddPlayersToSavedLineup from "./LineupAddPlayersToSavedLineup"
+import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
 import LineupTableDropDowns from "./LineupTableDropDowns"
 import LineupsList from "./LineupsList"
-import TeamTable from "./TeamTable"
+import TeamTable from "./LineupTeamTable"
 
 //helpers
 import { get, set } from "../helpers/localStorage"

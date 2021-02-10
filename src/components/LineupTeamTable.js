@@ -4,8 +4,8 @@ import LineupTableHeader from "./LineupTableHeader"
 import { useRecoilValue } from "recoil"
 import * as state from "../state"
 import { v4 as uuidv4 } from "uuid"
-import TeeChoiceDropDown from "./TeeChoiceDropDown"
-import OverrideCHDropDown from "./OverrideCHDropDown"
+import TeeChoiceDropDown from "./LineupTeeChoiceDropDown"
+import OverrideCHDropDown from "./LineupOverrideCHDropDown"
 
 const TeamTable = ({
   teamNumber,
