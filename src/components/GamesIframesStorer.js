@@ -7,7 +7,7 @@ export default function IframesStorer() {
   const [wed, setWed] = useState(false)
   const [fri, setFri] = useState(false)
   const selectIframeContents = (event) => {
-    iframe = event.target.id
+    iframe = event.target.name
     switch (iframe) {
       case "None":
         setNone(true)
@@ -39,13 +39,15 @@ export default function IframesStorer() {
     }
   }
   const ButtonGroup = ({ buttons }) => {
-    const [clickedId, setClickedId] = useState(-1)
-    const handleClick = (event, id) => {
-      setClickedId(id)
+    const [clickedId, setClickedId] = useState(0)
+
+    const handleClick = (event, i) => {
+      setClickedId(i)
       selectIframeContents(event)
     }
     return (
       <>
+        <h1> Active: {clickedId}</h1>
         {buttons.map((buttonLabel, i) => (
           <button
             key={i}
