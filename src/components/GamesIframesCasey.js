@@ -8,8 +8,6 @@ export default function IframesCasey() {
   const [fri, setFri] = useState(false)
   const handleButtonClick = (event) => {
     iframe = event.target.id
-    let key = event.target.key
-    setClickedId(key)
     switch (iframe) {
       case "None":
         setNone(true)

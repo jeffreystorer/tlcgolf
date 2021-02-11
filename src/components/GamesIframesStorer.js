@@ -6,7 +6,7 @@ export default function IframesStorer() {
   const [mon, setMon] = useState(false)
   const [wed, setWed] = useState(false)
   const [fri, setFri] = useState(false)
-  const handleButtonClick = (event) => {
+  const selectIframeContents = (event) => {
     iframe = event.target.id
     switch (iframe) {
       case "None":
@@ -38,21 +38,38 @@ export default function IframesStorer() {
         break
     }
   }
+  const ButtonGroup = ({ buttons }) => {
+    const [clickedId, setClickedId] = useState(-1)
+    const handleClick = (event, id) => {
+      setClickedId(id)
+      selectIframeContents(event)
+    }
+    return (
+      <>
+        {buttons.map((buttonLabel, i) => (
+          <button
+            key={i}
+            name={buttonLabel}
+            onClick={(event) => handleClick(event, i)}
+            className={
+              i === clickedId
+                ? "iframe_button iframe_button--active"
+                : "iframe_button"
+            }
+          >
+            {buttonLabel}
+          </button>
+        ))}
+      </>
+    )
+  }
 
   return (
     <>
-      <button className="button" id="None" onClick={handleButtonClick}>
-        None
-      </button>
-      <button className="button" id="Mon" onClick={handleButtonClick}>
-        Mon
-      </button>
-      <button className="button" id="Wed" onClick={handleButtonClick}>
-        Wed
-      </button>
-      <button className="button" id="Fri" onClick={handleButtonClick}>
-        Fri
-      </button>
+      <ButtonGroup
+        buttons={["None", "Mon", "Wed", "Fri"]}
+        selectIframeContents={selectIframeContents}
+      />
       {none && <div></div>}
       {mon && (
         <div>
