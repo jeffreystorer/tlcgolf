@@ -627,8 +627,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
 
   return (
     <>
-      <div id="lineup-page" className="center">
-        <br></br>
+      <div className="div--center">
+        <br />
         {savedLineupCount > 0 && (
           <div>
             <LineupsList
@@ -655,11 +655,11 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           progAdj={progAdj}
           handleProgAdjChange={handleProgAdjChange}
         />
-        <br></br>
+        <br />
         {showTips && (
           <div>
-            <br></br>
-            <table className="table-tip">
+            <br />
+            <table className="table">
               <thead>
                 <tr>
                   <th>To automatically populate the tee times:</th>
@@ -667,7 +667,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               </thead>
               <tbody>
                 <tr>
-                  <td className="table-tip-td">
+                  <td className="table-tip_td">
                     Click on "Auto-Populate" and the selected players will be
                     added automatically to the tee times.
                   </td>
@@ -676,16 +676,16 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             </table>
           </div>
         )}
-        <br></br>
-        <button id="auto-populate" onClick={handleAutoPopulateClick}>
+        <br />
+        <button className="button" onClick={handleAutoPopulateClick}>
           Auto-Populate ({players.length} players)
         </button>
-        <br></br>
-        <br></br>
-        <button id="clear-players" onClick={handleClearPlayersFromTeamsClick}>
+        <br />
+        <br />
+        <button className="button" onClick={handleClearPlayersFromTeamsClick}>
           Clear Players from Teams
         </button>
-        <br></br>{" "}
+        <br />{" "}
         {showAddPlayers && (
           <>
             <AddPlayersToSavedLineup
@@ -696,18 +696,18 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               pars={pars}
               handleAddPlayersClick={handleAddPlayersClick}
             />
-            <br></br>
-            <br></br>
+            <br />
+            <br />
           </>
         )}
-        <br></br>
+        <br />
         {playersNotInSavedLineupCount > 0 && (
           <>
-            <button id="add-players" onClick={handleShowAddPlayersClick}>
+            <button className="button" onClick={handleShowAddPlayersClick}>
               Add Players to Saved Lineup
             </button>
-            <br></br>
-            <br></br>
+            <br />
+            <br />
           </>
         )}
         {progs069 < 1 && (
@@ -719,15 +719,20 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               defaultChecked={showTeamHcp}
             ></input>
             <label htmlFor="showTeamHcp">Show Team Hcp</label>
-            <br></br>
-            <br></br>
+            <br />
+            <br />
           </>
         )}
-        <table id="lineup-table" className="background-white">
-          <div id="lineup-table-div" className="background-white">
-            <thead className="lineup-table-head">
+        <div
+          id="lineup-table-div"
+          className="table div--center div--background-white lineup-table-div"
+        >
+          <table className="table lineup-table">
+            <thead>
               <tr>
-                <td className="center">{playingDate + " at " + courseName}</td>
+                <td className="lineup-table-head_td">
+                  {playingDate + " at " + courseName}
+                </td>
               </tr>
               <tr>
                 <td></td>
@@ -735,24 +740,24 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             </thead>
             <tbody>
               <tr>
-                <td className="background-white">{generateTeamTables()}</td>
+                <td className="lineup-table-body_tr">{generateTeamTables()}</td>
               </tr>
             </tbody>
             <tfoot>
               {progs069 > 0 && (
                 <>
                   <tr>
-                    <td className="team-table-footer"></td>
+                    <td></td>
                   </tr>
                   <tr>
-                    <td className="team-table-footer">{progAdjMessage}</td>
+                    <td className="lineup-table-footer_td">{progAdjMessage}</td>
                   </tr>
                 </>
               )}
               <tr>
-                <td className="center text-area-cell">
+                <td className="textarea_td">
                   <textarea
-                    id="lineup-textarea"
+                    className="textarea"
                     rows="8"
                     cols="39"
                     value={textAreaValue}
@@ -763,11 +768,11 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
                 </td>
               </tr>
             </tfoot>
-          </div>
-        </table>
+          </table>
+        </div>
         {showTips && (
           <div>
-            <table className="table-tip">
+            <table>
               <thead>
                 <tr>
                   <th>To set a manual handicap:</th>
@@ -783,8 +788,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
                 </tr>
               </tbody>
             </table>
-            <br></br>
-            <table className="table-tip">
+            <br />
+            <table>
               <thead>
                 <tr>
                   <th>To save a lineup:</th>
@@ -807,30 +812,29 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             </table>
           </div>
         )}
-        <br></br>
-        <div className="center">
+        <br />
+        <div className="div--center">
           <form onSubmit={handleSaveLineupClick}>
             <label>
               Lineup Title:
-              <br></br>
+              <br />
               <input
                 type="text"
-                id="lineuptitle"
-                name="lineuptitle"
+                className="lineup_title"
                 value={lineupTitle}
                 onChange={handleLineUpTitleChange}
                 size="36"
               />
-              <br></br>
-              <br></br>
+              <br />
+              <br />
             </label>
-            <input id="savelineup" type="submit" value="Save Lineup" />
+            <input className="button" type="submit" value="Save Lineup" />
           </form>
         </div>
         {isMe && (
           <div>
-            <br></br>
-            <button className="center" onClick={handlePublishLineupClick}>
+            <br />
+            <button className="button" onClick={handlePublishLineupClick}>
               Publish Lineup
             </button>
           </div>
@@ -848,8 +852,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         />
         {showTips && (
           <div>
-            <br></br>
-            <table className="table-tip">
+            <br />
+            <table>
               <thead>
                 <tr>
                   <th>To download a screenshot of the lineup:</th>
@@ -869,9 +873,9 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             </table>
           </div>
         )}
-        <br></br>
-        <br></br>
-        <br></br>
+        <br />
+        <br />
+        <br />
         <ButtonDownloadScreenShot
           title={lineupTitle}
           game={game}
@@ -880,7 +884,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           format="PNG"
           page="Lineup"
         />
-        <br></br>
+        <br />
         <ButtonDownloadScreenShot
           title={lineupTitle}
           game={game}
@@ -889,8 +893,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           format="JPEG"
           page="Lineup"
         />
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <input
           type="checkbox"
           id="showTips"

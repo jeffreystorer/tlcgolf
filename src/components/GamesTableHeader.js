@@ -10,7 +10,7 @@ export default function GamesTableHeader() {
     var keys = cols
     return keys.map((key, index) => {
       return (
-        <th className="game-header-cell" key={index} scope="col">
+        <th className="games-table-header_th" key={index} scope="col">
           {key}
         </th>
       )
@@ -19,7 +19,7 @@ export default function GamesTableHeader() {
 
   return (
     <>
-      <tr className="game-header-row">{getHeader()}</tr>
+      <tr>{getHeader()}</tr>
     </>
   )
 }

@@ -70,7 +70,7 @@ export default function AddPlayersToSavedLineup({
 
   return (
     <>
-      <div align="center">
+      <div className="div--center">
         <br></br>
         <form onSubmit={handleSubmit}>
           <label>
@@ -85,11 +85,7 @@ export default function AddPlayersToSavedLineup({
           </label>
           <br></br>
           <br></br>
-          <input
-            id="add-players-to-Saved-Lineup"
-            type="submit"
-            value="Add Players"
-          />
+          <input className="button" type="submit" value="Add Players" />
         </form>
       </div>
     </>

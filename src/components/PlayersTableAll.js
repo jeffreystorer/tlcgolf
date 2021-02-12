@@ -76,7 +76,7 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
   ))
 
   return (
-    <div align="center">
+    <div className="div--center">
       <br></br>
       {showTips && (
         <div>
@@ -88,7 +88,7 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
             </thead>
             <tbody>
               <tr>
-                <td className="table-tip-td">
+                <td className="table-tip_td">
                   Check the "Random Teams" box. This will randomize the list of
                   players in your game that appears in the teetime dropdowns.
                   You can go back to alphabetical order by unchecking the box.
@@ -104,8 +104,8 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
       )}
       <h4>Randomize?</h4>
       <input
+        className="checkbox"
         type="checkbox"
-        id="randomTeams"
         onChange={handleRandomTeamsChange}
         defaultChecked={false}
       ></input>
@@ -114,7 +114,7 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
       {showTips && (
         <div>
           <br></br>
-          <table className="table-tip">
+          <table className="table">
             <thead>
               <tr>
                 <th>To select players</th>
@@ -122,7 +122,7 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
             </thead>
             <tbody>
               <tr>
-                <td className="table-tip-td">
+                <td className="table-tip_td">
                   Please select the players in your lineup, then click "Next",
                   or, just click "Next" to accept the players already selected.
                   On a desktop or laptop computer, hold down the Ctrl (Windows)
@@ -136,23 +136,18 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
       <h4>Select Players for Lineup</h4>
       <form onSubmit={handleSubmit}>
         <label>
-          <select
-            id="playerSelector"
-            name="playersInLineup"
-            multiple={true}
-            size={20}
-          >
+          <select multiple={true} size={20}>
             {playersInLineupOptions}
           </select>
         </label>
         <br></br>
         <br></br>
-        <input id="next" type="submit" value="Next" />
+        <input className="button" type="submit" value="Next" />
       </form>
       <br></br>
       <input
+        className="checkbox"
         type="checkbox"
-        id="showTips"
         onChange={handleShowTipsChange}
         defaultChecked={showTips}
       ></input>

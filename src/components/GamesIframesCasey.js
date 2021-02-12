@@ -1,13 +1,13 @@
 import React, { useState } from "react"
+import ButtonGroup from "./GamesIframesButtonGroup"
 
 export default function IframesCasey() {
-  let iframe
-  const [clickedId, setClickedId] = useState(-1)
+  let iframe = "None"
   const [none, setNone] = useState(true)
   const [mon, setMon] = useState(false)
   const [fri, setFri] = useState(false)
-  const handleButtonClick = (event) => {
-    iframe = event.target.id
+  const selectIframeContents = (event) => {
+    iframe = event.target.name
     switch (iframe) {
       case "None":
         setNone(true)
@@ -34,34 +34,21 @@ export default function IframesCasey() {
         break
     }
   }
-  const ButtonGroup = ({ buttons }) => {
-    return (
-      <>
-        {buttons.map((buttonLabel, i) => (
-          <button
-            key={i}
-            className="button"
-            onClick={handleButtonClick}
-            name={buttonLabel}
-          >
-            {buttonLabel}
-          </button>
-        ))}
-      </>
-    )
-  }
 
   return (
     <>
-      <h1>Clicked: {clickedId}</h1>
-      <ButtonGroup buttons={["None", "Mon", "Fri"]} />
+      <h3>Schedules</h3>
+      <ButtonGroup
+        buttons={["None", "Mon", "Fri"]}
+        doAfterClick={selectIframeContents}
+      />
       {none && <div></div>}
       {mon && (
         <div>
           <iframe
             src="https://docs.google.com/spreadsheets/d/1JxSAKGRCQcRKJLn0WPodex1Q_T5BrRrDGCpEqxPyDV0/edit#gid=1358320276"
             width="90%"
-            height="600"
+            height="800"
             title="Mon"
           ></iframe>
         </div>

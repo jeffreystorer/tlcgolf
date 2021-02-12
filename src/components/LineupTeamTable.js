@@ -1,6 +1,6 @@
 import React from "react"
 import "../styles/App.css"
-import LineupTableHeader from "./LineupTableHeader"
+import LineupTeamTableHeader from "./LineupTeamTableHeader"
 import { useRecoilValue } from "recoil"
 import * as state from "../state"
 import { v4 as uuidv4 } from "uuid"
@@ -39,7 +39,7 @@ const TeamTable = ({
       rowsTD[i] = (
         <tr key={rows[i].id}>
           <td
-            className="lineup-left-row-cell"
+            className="lineup-table-body_td-left"
             onClick={handleDeleteTeamMember(teamName, teamMembers[i].id)}
           >
             {rows[i].playerName}
@@ -55,7 +55,7 @@ const TeamTable = ({
     let tds = []
     for (var j = 0; j < teeCount; j++) {
       tds[j] = (
-        <td className="lineup-other-row-cell" key={uuidv4()}>
+        <td className="lineup-table-body_td-other" key={uuidv4()}>
           {rows[i].courseHandicaps[j]}
         </td>
       )
@@ -97,9 +97,9 @@ const TeamTable = ({
   ))
 
   return (
-    <table className="team-table">
+    <table>
       <thead>
-        <LineupTableHeader
+        <LineupTeamTableHeader
           teamNumber={teamNumber}
           teamName={teamName}
           teamTables={teamTables}
@@ -108,7 +108,7 @@ const TeamTable = ({
         />
       </thead>
       <tbody>{generateRows()}</tbody>
-      <tfoot className="team-table-footer">
+      <tfoot className="team-table-footer_td">
         <tr>
           <td colSpan={teeCount + 2}>
             {showTeamHcp || progs069 > 0 ? (

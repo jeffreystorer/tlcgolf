@@ -56,31 +56,28 @@ const Lineup = (props) => {
   }
 
   return (
-    <div className="center list-lineup">
+    <div className="div--center">
       {currentLineup ? (
-        <div className="center">
+        <>
           <h4>Lineup</h4>
-          <form>
-            <div className="center">
-              <p>{currentLineup.title}</p>
-            </div>
-          </form>
-
-          <button type="submit" onClick={editLineup}>
+          <p>{currentLineup.title}</p>
+          <button className="button" onClick={editLineup}>
             Edit
           </button>
-
-          <button onClick={exportLineup}>Export</button>
-
-          <button onClick={deleteLineup}>Delete</button>
-        </div>
+          <button className="button" onClick={exportLineup}>
+            Export
+          </button>
+          <button className="button" onClick={deleteLineup}>
+            Delete
+          </button>
+        </>
       ) : (
-        <div className="center">
+        <>
           <br />
           <p>Please click on a Lineup...</p>
-        </div>
+        </>
       )}
-      <br></br>
+      <br />
     </div>
   )
 }

@@ -2,18 +2,20 @@ import React from "react"
 
 export default function HelpPage() {
   return (
-    <div align="center">
+    <div className="div--center">
       <br></br>
-      <table id="help-table">
+      <table className="help-table">
         <tbody>
           <tr>
             <td>
-              <table id="games-table-help">
+              <table className="table">
                 <caption>Games Page</caption>
                 <br></br>
                 <tbody>
                   <tr>
-                    <td className="help-topic">Table of Players and Games</td>
+                    <td className="help-table_topic">
+                      Table of Players and Games
+                    </td>
                     <td>
                       The players in your games are listed in a table in a
                       Google Sheets spreadsheet. You may have had this table
@@ -72,12 +74,12 @@ export default function HelpPage() {
           <br></br>
           <tr>
             <td>
-              <table id="players-table-help">
+              <table className="table">
                 <caption>Players Page</caption>
                 <br></br>
                 <tbody>
                   <tr>
-                    <td className="help-topic">Randomizing Your List</td>
+                    <td className="help-table_topic">Randomizing Your List</td>
                     <td>
                       After you select a game and course on the Games page, if
                       you wish to create a lineup, go the Players page to select
@@ -95,7 +97,7 @@ export default function HelpPage() {
                   <br></br>
 
                   <tr>
-                    <td className="help-topic">Selecting Your Players</td>
+                    <td className="help-table_topic">Selecting Your Players</td>
                     <td>
                       On a mobile device, click on the ... or dropdown arrow in
                       the dropdown box below "Select Players for Lineup", and
@@ -112,12 +114,12 @@ export default function HelpPage() {
           <br></br>
           <tr>
             <td>
-              <table id="lineup-table-help">
+              <table className="table">
                 <caption>Lineup Page</caption>
                 <br></br>
                 <tbody>
                   <tr>
-                    <td className="help-topic">Creating a Lineup</td>
+                    <td className="help-table_topic">Creating a Lineup</td>
                     <td>
                       Go to the Games page and select your game and course, and
                       then to the Players page to select your players. Then
@@ -135,7 +137,9 @@ export default function HelpPage() {
                   </tr>
                   <br></br>
                   <tr>
-                    <td className="help-topic">Auto-Populate Tee Times</td>
+                    <td className="help-table_topic">
+                      Auto-Populate Tee Times
+                    </td>
                     <td>
                       If you wish to automatically assign tees times in the
                       order of your list of players, click the "Auto-Popluate"
@@ -153,7 +157,9 @@ export default function HelpPage() {
                   </tr>
                   <br></br>
                   <tr>
-                    <td className="help-topic">Manually Populate Tee Times</td>
+                    <td className="help-table_topic">
+                      Manually Populate Tee Times
+                    </td>
                     <td>
                       Use the tee time dropdowns to add players to a team. To
                       remove a player from a team, click on the player's name.
@@ -161,7 +167,9 @@ export default function HelpPage() {
                   </tr>
                   <br></br>
                   <tr>
-                    <td className="help-topic">Choose Tees for Each Player</td>
+                    <td className="help-table_topic">
+                      Choose Tees for Each Player
+                    </td>
                     <td>
                       Use the tee choice dropdown to the right of the player's
                       course handicaps to choose the tee the player will play
@@ -171,7 +179,7 @@ export default function HelpPage() {
                   </tr>
                   <br></br>
                   <tr>
-                    <td className="help-topic">
+                    <td className="help-table_topic">
                       To Override a Player's GHIN course handicap
                     </td>
                     <td>
@@ -185,7 +193,7 @@ export default function HelpPage() {
                   </tr>
                   <br></br>
                   <tr>
-                    <td className="help-topic">Setting Your Bets</td>
+                    <td className="help-table_topic">Setting Your Bets</td>
                     <td>
                       Type your bets and other information about the game in the
                       text box at the bottom.
@@ -193,7 +201,7 @@ export default function HelpPage() {
                   </tr>
                   <br></br>
                   <tr>
-                    <td className="help-topic">Saving a Lineup</td>
+                    <td className="help-table_topic">Saving a Lineup</td>
                     <td>
                       At the bottom of the Lineup page, there is a "Save Lineup"
                       button. Click this and your lineup will be saved to
@@ -207,7 +215,9 @@ export default function HelpPage() {
                   </tr>
                   <br></br>
                   <tr>
-                    <td className="help-topic">Retrieving a Saved Lineup</td>
+                    <td className="help-table_topic">
+                      Retrieving a Saved Lineup
+                    </td>
                     <td>
                       Once you have created and saved one or more lineups, you
                       will be taken directly to the Lineup page when you start
@@ -218,7 +228,9 @@ export default function HelpPage() {
                   </tr>
                   <br></br>
                   <tr>
-                    <td className="help-topic">Clearing the curent lineup</td>
+                    <td className="help-table_topic">
+                      Clearing the curent lineup
+                    </td>
                     <td>
                       If you wish to clear the current lineup without changing
                       your selection of players, simply refresh your browser.
@@ -226,7 +238,9 @@ export default function HelpPage() {
                   </tr>
                   <br></br>
                   <tr>
-                    <td className="help-topic">Downloading a Screenshot</td>
+                    <td className="help-table_topic">
+                      Downloading a Screenshot
+                    </td>
                     <td>
                       Click the "Export" button in the Saved Lineups List. This
                       will publish the lineup to the Exports page and take you

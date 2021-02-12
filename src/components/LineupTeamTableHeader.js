@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil"
 import { teesSelectedState } from "../state"
 import { v4 as uuidv4 } from "uuid"
 
-const LineupTableHeader = ({
+const LineupTeamTableHeader = ({
   teamNumber,
   teamName,
   teamTables,
@@ -18,7 +18,7 @@ const LineupTableHeader = ({
     var keys = cols
     return keys.map((key, index) => {
       return (
-        <th className="lineup-other-header-cell" key={uuidv4()}>
+        <th className="lineup-table-header_th-other" key={uuidv4()}>
           {key}
         </th>
       )
@@ -28,7 +28,7 @@ const LineupTableHeader = ({
   return (
     <>
       <tr>
-        <th className="lineup-left-header-cell" key={uuidv4()}>
+        <th className="lineup-table-header_th-left" key={uuidv4()}>
           <select
             className="select-dropdown-container"
             name={teamName}
@@ -49,4 +49,4 @@ const LineupTableHeader = ({
   )
 }
 
-export default LineupTableHeader
+export default LineupTeamTableHeader

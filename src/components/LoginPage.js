@@ -98,7 +98,7 @@ function LoginPage() {
         <br />
 
         <input
-          className="input"
+          className="checkbox"
           type="checkbox"
           id="dataModeGHIN"
           onChange={handleDataModeChange}

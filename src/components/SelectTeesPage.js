@@ -70,7 +70,7 @@ const SelectTeesPage = () => {
         </label>
         <br />
         <br />
-        <input id="next" type="submit" value="Next" />
+        <input className="button" type="submit" value="Next" />
       </form>
       <p>
         On a desktop or laptop computer,

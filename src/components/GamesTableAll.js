@@ -20,10 +20,10 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
       <GamesTableDropDowns />
       <br />
       <br />
-      <table id="games-table" className="background-white">
-        <div id="games-table-div" className="background-white">
+      <table className="table-games">
+        <div id="games-table-div" className="div--background-white">
           <thead>
-            <tr className="center background-white">
+            <tr className="tr--center-background-white">
               <th colSpan={get("teesSelected").length + 1}>
                 {game} at {course.toUpperCase()}
               </th>
@@ -60,6 +60,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
         <br></br>
         <br></br>
         <input
+          className="input"
           type="checkbox"
           id="showLocalNumbers"
           onChange={handleShowLocalNumbersChange}

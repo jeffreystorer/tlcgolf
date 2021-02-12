@@ -67,12 +67,12 @@ const LineupsList = ({
   }, [Lineups, lastKeyIndex, key, loadLineupFromFirebase, firebaseRef])
 
   return (
-    <div className="center list-lineups">
+    <div className="lineups-list">
       <h4>Saved Lineups List</h4>
 
       {error && <strong>Error: {error}</strong>}
       {loading && <span>Loading...</span>}
-      <ul className="text-align-left">
+      <ul className="list--text-align-left">
         {!loading &&
           Lineups &&
           Lineups.map((Lineup, index) => (
@@ -86,10 +86,12 @@ const LineupsList = ({
           ))}
       </ul>
 
-      <button onClick={removeAllLineups}>Delete All</button>
+      <button className="button" onClick={removeAllLineups}>
+        Delete All
+      </button>
 
       {currentLineup ? (
-        <div className="center">
+        <div className="div--center">
           <Lineup
             lineupCount={Lineups.length}
             Lineup={currentLineup}
@@ -100,7 +102,7 @@ const LineupsList = ({
           />
         </div>
       ) : (
-        <div className="center">
+        <div className="div--center">
           <br></br>
           <p>Please click on a Lineup to load or delete it...</p>
         </div>

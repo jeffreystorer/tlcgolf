@@ -7,7 +7,7 @@ export default function GamesTableCreate() {
   const ghinNumber = useRecoilValue(state.ghinNumberState)
   return (
     <>
-      <p className="center">
+      <p className="paragraph--center">
         Before you can display this table,<br></br>
         you must create a table of your players<br></br>
         and games in Google Sheets.<br></br>
@@ -18,7 +18,7 @@ export default function GamesTableCreate() {
         You may copy another user's table and then edit it.<br></br>
         You may give your games any name you wish (no spaces).
       </p>
-      <p className="center">
+      <p className="paragraph--center">
         When you have created your table,<br></br>
         go back to this app with your browser<br></br>and login again.
       </p>

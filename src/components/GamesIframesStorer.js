@@ -1,11 +1,13 @@
 import React, { useState } from "react"
+import ButtonGroup from "./GamesIframesButtonGroup"
 
 export default function IframesStorer() {
-  let iframe
-  const [none, setNone] = useState(true)
+  let iframe = "None"
+  const [noneButton, setNone] = useState(true)
   const [mon, setMon] = useState(false)
   const [wed, setWed] = useState(false)
   const [fri, setFri] = useState(false)
+
   const selectIframeContents = (event) => {
     iframe = event.target.name
     switch (iframe) {
@@ -38,41 +40,15 @@ export default function IframesStorer() {
         break
     }
   }
-  const ButtonGroup = ({ buttons }) => {
-    const [clickedId, setClickedId] = useState(0)
-
-    const handleClick = (event, i) => {
-      setClickedId(i)
-      selectIframeContents(event)
-    }
-    return (
-      <>
-        <h1> Active: {clickedId}</h1>
-        {buttons.map((buttonLabel, i) => (
-          <button
-            key={i}
-            name={buttonLabel}
-            onClick={(event) => handleClick(event, i)}
-            className={
-              i === clickedId
-                ? "iframe_button iframe_button--active"
-                : "iframe_button"
-            }
-          >
-            {buttonLabel}
-          </button>
-        ))}
-      </>
-    )
-  }
 
   return (
     <>
+      <h3>Schedules</h3>
       <ButtonGroup
         buttons={["None", "Mon", "Wed", "Fri"]}
-        selectIframeContents={selectIframeContents}
+        doAfterClick={selectIframeContents}
       />
-      {none && <div></div>}
+      {noneButton && <div></div>}
       {mon && (
         <div>
           <iframe
