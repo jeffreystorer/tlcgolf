@@ -103,12 +103,12 @@ caption {
   width: 90%;
 }
 
-.lineup-table-div {
-  padding: 10px;
+.lineup-table {
+  padding: 10px 10px 10px 10px;
 }
 
-div#teams-table-div {
-  padding: 10px;
+.teams-table {
+  padding: 10px 10px 10px 10px;
 }
 
 div.team-card-col-players {

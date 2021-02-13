@@ -126,7 +126,7 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
       {loading ? (
         <p>Loading Lineup Image . . .</p>
       ) : (
-        <div className="img-container div--center">
+        <div className="img-container">
           <div ref={jpgImageRef} id="lineupToCopy">
             <img
               className="img"

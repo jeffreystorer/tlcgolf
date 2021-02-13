@@ -387,7 +387,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
             id="teams-table-div"
             className="div--center div--background-white"
           >
-            <table className="lineup-table">
+            <table id="teams-table" className="lineup-table">
               <thead>
                 <tr>
                   <td className="lineup-table-head_td">
