@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import ExportLineupTeamTable from "./ExporLineuptTeamTable"
+import ExportLineupTeamTable from "./ExporLineupTeamTable"
 import ExportTeamsTeamTable from "./ExportTeamsTeamTable"
 import { v4 as uuidv4 } from "uuid"
 import ExportButtonDownloadScreenShot from "./ExportButtonDownloadScreenshot"
@@ -298,7 +298,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
 
   return (
     <>
-      <div id="lineup-page" className="center background-white">
+      <div className="div--center">
         <h4>
           Check the boxes below if you wish<br></br>
           to display first names, team handicaps,<br></br>
@@ -335,11 +335,14 @@ export default function ExportTable({ lineupTitle, lineup }) {
         </label>
         <br></br>
         {showIndividualHandicaps ? (
-          <table id="lineup-table" className="background-white">
-            <div id="lineup-table-div" className="background-white">
-              <thead className="lineup-table-head background-white">
-                <tr className="lineup-table-head background-white">
-                  <td className="center">
+          <div
+            id="lineup-table-div"
+            className="div--center div--background-white"
+          >
+            <table className="lineup-table">
+              <thead>
+                <tr>
+                  <td className="lineup-table-head_td">
                     {lineup.playingDate + " at " + courseName}
                   </td>
                 </tr>
@@ -349,7 +352,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
               </thead>
               <tbody>
                 <tr>
-                  <td className="background-white">
+                  <td className="lineup-table-body_tr">
                     {generateExportLineupTeamTables()}
                   </td>
                 </tr>
@@ -358,21 +361,18 @@ export default function ExportTable({ lineupTitle, lineup }) {
                 {lineup.progs069 > 0 && (
                   <>
                     <tr>
-                      <td className="team-table-footer background-white"></td>
+                      <td></td>
                     </tr>
                     <tr>
-                      <td className="team-table-footer background-white">
-                        {progAdjMessage}
-                      </td>
+                      <td className="lineup-table-footer">{progAdjMessage}</td>
                     </tr>
                   </>
                 )}
 
                 <tr>
-                  <td className="center text-area-cell background-white">
+                  <td className="textarea_td">
                     <textarea
-                      id="lineup-textarea"
-                      // @ts-ignore
+                      className="textarea"
                       rows="8"
                       cols="39"
                       value={lineup.textAreaValue}
@@ -380,14 +380,17 @@ export default function ExportTable({ lineupTitle, lineup }) {
                   </td>
                 </tr>
               </tfoot>
-            </div>
-          </table>
+            </table>
+          </div>
         ) : (
-          <table id="teams-table" className="background-white">
-            <div id="teams-table-div" className="background-white">
-              <thead className="teams-table-head background-white">
-                <tr className="teams-table-head background-white">
-                  <td className="center">
+          <div
+            id="teams-table-div"
+            className="div--center div--background-white"
+          >
+            <table className="lineup-table">
+              <thead>
+                <tr>
+                  <td className="lineup-table-head_td">
                     {lineup.playingDate + " at " + courseName}
                   </td>
                 </tr>
@@ -397,17 +400,16 @@ export default function ExportTable({ lineupTitle, lineup }) {
               </thead>
               <tbody>
                 <tr>
-                  <td className="background-white">
+                  <td className="lineup-table-body_tr">
                     {generateExportTeamsTeamTables()}
                   </td>
                 </tr>
               </tbody>
               <tfoot>
                 <tr>
-                  <td className="center text-area-cell background-white">
+                  <td className="textarea_td">
                     <textarea
-                      id="lineup-textarea"
-                      // @ts-ignore
+                      className="textarea"
                       rows="8"
                       cols="39"
                       value={lineup.textAreaValue}
@@ -415,8 +417,8 @@ export default function ExportTable({ lineupTitle, lineup }) {
                   </td>
                 </tr>
               </tfoot>
-            </div>
-          </table>
+            </table>
+          </div>
         )}
         <ExportButtonDownloadScreenShot
           title={lineupTitle}

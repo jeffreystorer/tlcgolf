@@ -27,7 +27,7 @@ const ExportLineupTeamTable = ({
     for (let i = 0; i < playerCount; i++) {
       rowsTD[i] = (
         <tr key={rows[i].id}>
-          <td className="lineup-left-row-cell">{rows[i].playerName}</td>
+          <td className="lineup-table-body_td-left">{rows[i].playerName}</td>
           {generateCols(i)}
         </tr>
       )
@@ -39,7 +39,7 @@ const ExportLineupTeamTable = ({
     let tds = []
     for (var j = 0; j < teeCount; j++) {
       tds[j] = (
-        <td className="lineup-other-row-cell" key={uuidv4()}>
+        <td className="lineup-table-body_td-other" key={uuidv4()}>
           {rows[i].courseHandicaps[j]}
         </td>
       )
@@ -51,7 +51,7 @@ const ExportLineupTeamTable = ({
   }
 
   return (
-    <table className="team-table">
+    <table>
       <thead>
         <ExportLineupTeamTableHeader
           teesSelected={teesSelected}

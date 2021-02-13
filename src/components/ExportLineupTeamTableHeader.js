@@ -13,7 +13,7 @@ const ExportLineupTeamTableHeader = ({
     var keys = cols
     return keys.map((key, index) => {
       return (
-        <th className="lineup-other-header-cell" key={uuidv4()}>
+        <th className="lineup-table-header_th-other" key={uuidv4()}>
           {key}
         </th>
       )
@@ -27,7 +27,7 @@ const ExportLineupTeamTableHeader = ({
   return (
     <>
       <tr>
-        <th className="lineup-left-header-cell">{teeTime}</th>
+        <th className="lineup-table-header_th-left">{teeTime}</th>
         {getHeader()}
       </tr>
     </>

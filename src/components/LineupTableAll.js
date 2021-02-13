@@ -11,7 +11,7 @@ import AddPlayersToSavedLineup from "./LineupAddPlayersToSavedLineup"
 import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
 import LineupTableDropDowns from "./LineupTableDropDowns"
 import LineupsList from "./LineupsList"
-import TeamTable from "./LineupTeamTable"
+import LineupTeamTable from "./LineupTeamTable"
 
 //helpers
 import { get, set } from "../helpers/localStorage"
@@ -389,7 +389,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       let teamHcp = teamHcpAndProgs[teamName][0]
       let teamProgs = teamHcpAndProgs[teamName][1]
       TeamTables[i] = (
-        <TeamTable
+        <LineupTeamTable
           key={uuidv4()}
           teamNumber={i}
           teamName={teamName}
@@ -725,9 +725,9 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         )}
         <div
           id="lineup-table-div"
-          className="table div--center div--background-white lineup-table-div"
+          className="div--center div--background-white"
         >
-          <table className="table lineup-table">
+          <table className="lineup-table">
             <thead>
               <tr>
                 <td className="lineup-table-head_td">
@@ -750,7 +750,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
                     <td></td>
                   </tr>
                   <tr>
-                    <td className="lineup-table-footer_td">{progAdjMessage}</td>
+                    <td className="lineup-table-footer">{progAdjMessage}</td>
                   </tr>
                 </>
               )}

@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid"
 import TeeChoiceDropDown from "./LineupTeeChoiceDropDown"
 import OverrideCHDropDown from "./LineupOverrideCHDropDown"
 
-const TeamTable = ({
+const LineupTeamTable = ({
   teamNumber,
   teamName,
   teamMembers,
@@ -108,7 +108,7 @@ const TeamTable = ({
         />
       </thead>
       <tbody>{generateRows()}</tbody>
-      <tfoot className="team-table-footer_td">
+      <tfoot className="lineup-table-footer">
         <tr>
           <td colSpan={teeCount + 2}>
             {showTeamHcp || progs069 > 0 ? (
@@ -130,4 +130,4 @@ const TeamTable = ({
   )
 }
 
-export default TeamTable
+export default LineupTeamTable

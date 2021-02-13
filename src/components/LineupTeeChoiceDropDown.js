@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react"
 
 const TeeChoiceDropDown = ({
   teeChoice,
@@ -6,17 +6,22 @@ const TeeChoiceDropDown = ({
   teeChoiceOptionItems,
   playerId,
   teamNumber,
-  baseTee
+  baseTee,
 }) => {
-
-  return(
-    <td className='select-dropdown-container'>
-    <label className='embedded-selector'>
-      <select id={teamNumber} name={playerId} defaultValue={baseTee} value={teeChoice} onChange={handleTeeChoiceChange}>
-        {teeChoiceOptionItems}
-      </select>
-    </label>
+  return (
+    <td className="select-dropdown-container">
+      <label>
+        <select
+          id={teamNumber}
+          name={playerId}
+          defaultValue={baseTee}
+          value={teeChoice}
+          onChange={handleTeeChoiceChange}
+        >
+          {teeChoiceOptionItems}
+        </select>
+      </label>
     </td>
   )
 }
-export default TeeChoiceDropDown;
+export default TeeChoiceDropDown

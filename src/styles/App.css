@@ -336,6 +336,12 @@ li:hover {
   width: -moz-fit-content;
   width: -webkit-fit-content;
 }
+
+.lineup-table-body {
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
 .lineup-table-body_tr {
   background-color: white;
 }
@@ -350,6 +356,8 @@ li:hover {
 
 .lineup-table {
   background-color: #fff;
+  margin-left: auto;
+  margin-right: auto;
   width: fit-content;
   width: -moz-fit-content;
   width: -webkit-fit-content;
@@ -500,10 +508,6 @@ p {
 }
 .teams-table {
   background-color: #fff;
-}
-.teams-table,
-#teams-table {
-  background-color: #fff;
   width: fit-content;
   width: -moz-fit-content;
   width: -webkit-fit-content;
@@ -521,11 +525,11 @@ p {
   background-color: #fff;
   width: 100%;
 }
-.team-table-footer_td {
+.team-table-footer {
   font-style: italic;
   text-align: center;
 }
-.lineup-table-footer_td {
+.lineup-table-footer {
   font-style: italic;
   text-align: center;
 }

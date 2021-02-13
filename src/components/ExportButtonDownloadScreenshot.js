@@ -84,7 +84,7 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
             To paste the lineup into an email:<br></br>
             <span className="red">(Do not use on iPad)</span>
           </h4>
-          <button name="copy" onClick={handleCopyClick}>
+          <button className="button" onClick={handleCopyClick}>
             Copy Lineup to Clipboard
           </button>
           <br></br>
@@ -104,7 +104,7 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
           or copy it to the clipboard<br></br>to paste into an email
         </h4>
       )}
-      <button className="center" onClick={handleClick}>
+      <button className="button" onClick={handleClick}>
         Download Screenshot
       </button>
       <ToastContainer
@@ -126,7 +126,7 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
       {loading ? (
         <p>Loading Lineup Image . . .</p>
       ) : (
-        <div className="img-container center">
+        <div className="img-container div--center">
           <div ref={jpgImageRef} id="lineupToCopy">
             <img
               className="img"
