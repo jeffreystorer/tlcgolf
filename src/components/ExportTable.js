@@ -335,11 +335,11 @@ export default function ExportTable({ lineupTitle, lineup }) {
         </label>
         <br></br>
         {showIndividualHandicaps ? (
-          <div
-            id="lineup-table-div"
-            className="div--center div--background-white"
-          >
-            <table className="lineup-table">
+          <table className="lineup-table">
+            <div
+              id="lineup-table-div"
+              className="div--padded10px div--center div--background-white"
+            >
               <thead>
                 <tr>
                   <td className="lineup-table-head_td">
@@ -380,14 +380,14 @@ export default function ExportTable({ lineupTitle, lineup }) {
                   </td>
                 </tr>
               </tfoot>
-            </table>
-          </div>
+            </div>
+          </table>
         ) : (
-          <div
-            id="teams-table-div"
-            className="div--center div--background-white"
-          >
-            <table id="teams-table" className="lineup-table">
+          <table className="lineup-table">
+            <div
+              id="teams-table-div"
+              className="div--padded10px div--center div--background-white"
+            >
               <thead>
                 <tr>
                   <td className="lineup-table-head_td">
@@ -417,8 +417,8 @@ export default function ExportTable({ lineupTitle, lineup }) {
                   </td>
                 </tr>
               </tfoot>
-            </table>
-          </div>
+            </div>
+          </table>
         )}
         <ExportButtonDownloadScreenShot
           title={lineupTitle}

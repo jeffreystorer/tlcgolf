@@ -19,7 +19,7 @@ export default function IndividualPage() {
       <div className="golfer--center">{golfer}</div>
       <br />
       <div>
-        <table>
+        <table className="table">
           <thead>
             <IndividualTableHeader tableName="CrsHcp" />
           </thead>
@@ -35,7 +35,7 @@ export default function IndividualPage() {
           </tbody>
         </table>
         <br />
-        <table>
+        <table className="table">
           <thead>
             <IndividualTableHeader tableName="Score*" />
           </thead>

@@ -80,7 +80,7 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
       <br></br>
       {showTips && (
         <div>
-          <table className="table-tip">
+          <table className="table">
             <thead>
               <tr>
                 <th>To randomize the list of players:</th>
@@ -106,6 +106,7 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
       <input
         className="checkbox"
         type="checkbox"
+        id="randomTeams"
         onChange={handleRandomTeamsChange}
         defaultChecked={false}
       ></input>
@@ -136,7 +137,12 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
       <h4>Select Players for Lineup</h4>
       <form onSubmit={handleSubmit}>
         <label>
-          <select multiple={true} size={20}>
+          <select
+            id="playerSelector"
+            name="playersInLineup"
+            multiple={true}
+            size={20}
+          >
             {playersInLineupOptions}
           </select>
         </label>

@@ -20,7 +20,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
       <GamesTableDropDowns />
       <br />
       <br />
-      <table className="table-games">
+      <table className="table table-games">
         <div id="games-table-div" className="div--background-white">
           <thead>
             <tr className="tr--center-background-white">

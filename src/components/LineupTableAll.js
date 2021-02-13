@@ -723,11 +723,11 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             <br />
           </>
         )}
-        <div
-          id="lineup-table-div"
-          className="div--center div--background-white"
-        >
-          <table className="lineup-table">
+        <table className="lineup-table">
+          <div
+            id="lineup-table-div"
+            className="div--padded10px div--center div--background-white"
+          >
             <thead>
               <tr>
                 <td className="lineup-table-head_td">
@@ -768,8 +768,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
                 </td>
               </tr>
             </tfoot>
-          </table>
-        </div>
+          </div>
+        </table>
         {showTips && (
           <div>
             <table>
@@ -819,8 +819,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               Lineup Title:
               <br />
               <input
+                className="lineup-title"
                 type="text"
-                className="lineup_title"
                 value={lineupTitle}
                 onChange={handleLineUpTitleChange}
                 size="36"

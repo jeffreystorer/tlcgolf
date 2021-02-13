@@ -125,6 +125,10 @@ div.team-card-col-players {
   font-weight: 700;
   text-align: center;
 }
+
+.div--padded10px {
+  padding: 10px 10px 10px 10px;
+}
 .dropdown-center {
   margin-left: auto;
   margin-right: auto;
@@ -368,7 +372,7 @@ li:hover {
   font-weight: 700;
   text-align: center;
 }
-.lineup_title {
+.lineup-title {
   font-size: 14px;
   font-weight: 700;
   height: 23px;
@@ -483,10 +487,15 @@ p {
   -webkit-appearance: none;
 }
 .table {
+  background: white;
   font: 16px sans-serif;
   margin-left: auto;
   margin-right: auto;
   width: 90%;
+}
+
+.table--background-white {
+  background: white;
 }
 .table-games {
   background-color: white;
@@ -526,10 +535,12 @@ p {
   width: 100%;
 }
 .team-table-footer {
+  font: 16px sans-serif;
   font-style: italic;
   text-align: center;
 }
 .lineup-table-footer {
+  font: 16px sans-serif;
   font-style: italic;
   text-align: center;
 }
