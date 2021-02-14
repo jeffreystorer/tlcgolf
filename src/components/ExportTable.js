@@ -308,11 +308,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
   return (
     <>
       <div className="div--center">
-        <h4>
-          Check the boxes below if you wish<br></br>
-          to display first names, team handicaps,<br></br>
-          and individual handicaps:
-        </h4>
+        <br />
         <input
           type="checkbox"
           id="showFirstName"
