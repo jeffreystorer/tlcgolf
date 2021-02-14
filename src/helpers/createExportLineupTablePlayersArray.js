@@ -1,5 +1,6 @@
 import { tees, courses } from "../data"
 import setRatingSlopePar from "./setRatingSlopePar"
+import { get } from "../helpers/localStorage"
 
 export default function createExportLineupTablePlayersArrray(
   showFirstName,
@@ -14,6 +15,7 @@ export default function createExportLineupTablePlayersArrray(
   teamTables,
   teeTimeCount
 ) {
+  const showLocalNumbers = get("showLocalNumbers")
   //declare some variables
   var playersArray = []
   let strHcpIndex
@@ -49,12 +51,19 @@ export default function createExportLineupTablePlayersArrray(
     let firstName = aPlayer[2]
     let lastName = aPlayer[1]
     gender = aPlayer[4]
+    let local = aPlayer[5]
     let player
     if (showFirstName) {
       player = firstName + " " + lastName + " (" + strHcpIndex + ")"
     } else {
       player = lastName + " (" + strHcpIndex + ")"
     }
+    let prefix = ""
+    if ((showLocalNumbers === true) | (showLocalNumbers === "true")) {
+      prefix = local + " "
+    }
+    player = prefix + player
+
     let playerReturn = {
       id: Number(aPlayer[0]),
       playerName: player,

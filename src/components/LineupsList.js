@@ -77,7 +77,7 @@ const LineupsList = ({
           Lineups &&
           Lineups.map((Lineup, index) => (
             <li
-              className={index === currentIndex ? "active" : ""}
+              className={index === currentIndex ? "active li" : "li"}
               onClick={() => setActiveLineup(Lineup, index)}
               key={index}
             >

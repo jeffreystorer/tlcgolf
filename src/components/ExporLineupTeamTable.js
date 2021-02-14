@@ -51,7 +51,7 @@ const ExportLineupTeamTable = ({
   }
 
   return (
-    <table>
+    <table className="table lineup-table-body_td">
       <thead>
         <ExportLineupTeamTableHeader
           teesSelected={teesSelected}

@@ -1,9 +1,12 @@
+import { get } from "../helpers/localStorage"
+
 export default function createExportTeamsTablePlayersArrray(
   showFirstName,
   game,
   games,
   players
 ) {
+  const showLocalNumbers = get("showLocalNumbers")
   //declare some variables
   let playersArray = []
 
@@ -29,11 +32,18 @@ export default function createExportTeamsTablePlayersArrray(
   //construct the row
   function compute(aPlayer, index) {
     let player
+    let local = aPlayer[5]
     if (showFirstName) {
       player = aPlayer[2] + " " + aPlayer[1]
     } else {
       player = aPlayer[1]
     }
+
+    let prefix = ""
+    if ((showLocalNumbers === true) | (showLocalNumbers === "true")) {
+      prefix = local + " "
+    }
+    player = prefix + player
     let playerReturn = {
       id: Number(aPlayer[0]),
       playerName: player,

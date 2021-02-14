@@ -41,7 +41,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
       <LinkButton title={"Edit Table"} />
       <br></br>
       <br></br>
-      <div className="center">
+      <div className="div--center">
         <ButtonDownloadScreenShot
           game={game}
           course={course}
@@ -60,7 +60,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
         <br></br>
         <br></br>
         <input
-          className="input"
+          className="checkbox"
           type="checkbox"
           id="showLocalNumbers"
           onChange={handleShowLocalNumbersChange}

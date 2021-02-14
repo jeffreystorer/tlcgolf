@@ -9,14 +9,14 @@ export default function HelpPage() {
           <tr>
             <td>
               <table className="table">
-                <caption>Games Page</caption>
+                <caption className="caption">Games Page</caption>
                 <br></br>
                 <tbody>
                   <tr>
                     <td className="help-table_topic">
                       Table of Players and Games
                     </td>
-                    <td>
+                    <td className="help-table_text">
                       The players in your games are listed in a table in a
                       Google Sheets spreadsheet. You may have had this table
                       created for you by me before you first used the app. If
@@ -37,7 +37,7 @@ export default function HelpPage() {
                   <br></br>
                   <tr>
                     <td></td>
-                    <td>
+                    <td className="help-table_text">
                       For your convenience in adding players to your table, the
                       TLC-Golf Google Sheets spreadsheet includes a sheet named
                       "GHIN_Numbers", which has GHIN numbers and local numbers
@@ -49,7 +49,7 @@ export default function HelpPage() {
                   <br></br>
                   <tr>
                     <td></td>
-                    <td>
+                    <td className="help-table_text">
                       <span style={{ fontWeight: "bold" }}>To add a guest</span>{" "}
                       to the player's list for a game: if you know the guest's
                       GHIN number, simply add the player to your list. Your list
@@ -75,12 +75,12 @@ export default function HelpPage() {
           <tr>
             <td>
               <table className="table">
-                <caption>Players Page</caption>
+                <caption className="caption">Players Page</caption>
                 <br></br>
                 <tbody>
                   <tr>
                     <td className="help-table_topic">Randomizing Your List</td>
-                    <td>
+                    <td className="help-table_text">
                       After you select a game and course on the Games page, if
                       you wish to create a lineup, go the Players page to select
                       your players. If you wish to have a random list, check the
@@ -98,7 +98,7 @@ export default function HelpPage() {
 
                   <tr>
                     <td className="help-table_topic">Selecting Your Players</td>
-                    <td>
+                    <td className="help-table_text">
                       On a mobile device, click on the ... or dropdown arrow in
                       the dropdown box below "Select Players for Lineup", and
                       check the players you wish to select. On a desktop or
@@ -115,12 +115,12 @@ export default function HelpPage() {
           <tr>
             <td>
               <table className="table">
-                <caption>Lineup Page</caption>
+                <caption className="caption">Lineup Page</caption>
                 <br></br>
                 <tbody>
                   <tr>
                     <td className="help-table_topic">Creating a Lineup</td>
-                    <td>
+                    <td className="help-table_text">
                       Go to the Games page and select your game and course, and
                       then to the Players page to select your players. Then
                       click "Next" to go the Lineup page. Use the first row of
@@ -140,7 +140,7 @@ export default function HelpPage() {
                     <td className="help-table_topic">
                       Auto-Populate Tee Times
                     </td>
-                    <td>
+                    <td className="help-table_text">
                       If you wish to automatically assign tees times in the
                       order of your list of players, click the "Auto-Popluate"
                       button. This is intended to be used with a randomized list
@@ -160,7 +160,7 @@ export default function HelpPage() {
                     <td className="help-table_topic">
                       Manually Populate Tee Times
                     </td>
-                    <td>
+                    <td className="help-table_text">
                       Use the tee time dropdowns to add players to a team. To
                       remove a player from a team, click on the player's name.
                     </td>
@@ -170,7 +170,7 @@ export default function HelpPage() {
                     <td className="help-table_topic">
                       Choose Tees for Each Player
                     </td>
-                    <td>
+                    <td className="help-table_text">
                       Use the tee choice dropdown to the right of the player's
                       course handicaps to choose the tee the player will play
                       from. This choice drives the computation of the Team
@@ -182,7 +182,7 @@ export default function HelpPage() {
                     <td className="help-table_topic">
                       To Override a Player's GHIN course handicap
                     </td>
-                    <td>
+                    <td className="help-table_text">
                       Click the * at the right end of the player's row, which
                       will bring up a dropdown of course handicaps. When you
                       select a manual course handicap, it is assigned to the
@@ -194,7 +194,7 @@ export default function HelpPage() {
                   <br></br>
                   <tr>
                     <td className="help-table_topic">Setting Your Bets</td>
-                    <td>
+                    <td className="help-table_text">
                       Type your bets and other information about the game in the
                       text box at the bottom.
                     </td>
@@ -202,7 +202,7 @@ export default function HelpPage() {
                   <br></br>
                   <tr>
                     <td className="help-table_topic">Saving a Lineup</td>
-                    <td>
+                    <td className="help-table_text">
                       At the bottom of the Lineup page, there is a "Save Lineup"
                       button. Click this and your lineup will be saved to
                       storage in the cloud. Your saved lineups are available on
@@ -218,7 +218,7 @@ export default function HelpPage() {
                     <td className="help-table_topic">
                       Retrieving a Saved Lineup
                     </td>
-                    <td>
+                    <td className="help-table_text">
                       Once you have created and saved one or more lineups, you
                       will be taken directly to the Lineup page when you start
                       the app and your last saved lineup will be selected for
@@ -231,7 +231,7 @@ export default function HelpPage() {
                     <td className="help-table_topic">
                       Clearing the curent lineup
                     </td>
-                    <td>
+                    <td className="help-table_text">
                       If you wish to clear the current lineup without changing
                       your selection of players, simply refresh your browser.
                     </td>
@@ -241,7 +241,7 @@ export default function HelpPage() {
                     <td className="help-table_topic">
                       Downloading a Screenshot
                     </td>
-                    <td>
+                    <td className="help-table_text">
                       Click the "Export" button in the Saved Lineups List. This
                       will publish the lineup to the Exports page and take you
                       there. You will have the option of downloading a

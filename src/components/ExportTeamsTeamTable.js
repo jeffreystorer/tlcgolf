@@ -24,7 +24,7 @@ const ExportTeamsTeamTable = ({ teamNumber, teamMembers, teamTables }) => {
   }
 
   return (
-    <table>
+    <table className="table lineup-table-body_td">
       <thead>
         <ExportTeamsTeamTableHeader
           teamTables={teamTables}

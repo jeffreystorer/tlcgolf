@@ -82,7 +82,7 @@ const ExportButtonDownLoadScreenshot = ({ title, dataUrl }) => {
         <>
           <h4>
             To paste the lineup into an email:<br></br>
-            <span className="red">(Do not use on iPad)</span>
+            <span className="span--red">(Do not use on iPad)</span>
           </h4>
           <button className="button" onClick={handleCopyClick}>
             Copy Lineup to Clipboard

@@ -10,8 +10,12 @@ import createExportTeamsTablePlayersArray from "../helpers/createExportTeamsTabl
 import fetchGamesGHIN from "../helpers/fetchGamesGHIN"
 import domtoimage from "dom-to-image"
 import _ from "lodash"
+import { get, set } from "../helpers/localStorage"
 
 export default function ExportTable({ lineupTitle, lineup }) {
+  const [showLocalNumbers, setShowLocalNumbers] = useState(
+    get("showLocalNumbers")
+  )
   const [screenShotURL, setScreenShotURL] = useState()
   const [showFirstName, setShowFirstName] = useState(false)
   const [showTeamHcp, setShowTeamHcp] = useState(false)
@@ -61,6 +65,11 @@ export default function ExportTable({ lineupTitle, lineup }) {
     //if (showIndividualHandicaps) set("showTeamHcp", false)
     //setShowTeamHcp(false)
     setShowIndividualHandicaps((prevState) => !prevState)
+  }
+
+  function handleShowLocalNumbersChange() {
+    set("showLocalNumbers", !showLocalNumbers)
+    setShowLocalNumbers((prevState) => !prevState)
   }
 
   let lineupPlayersArray = createExportLineupTablePlayersArray(
@@ -333,7 +342,16 @@ export default function ExportTable({ lineupTitle, lineup }) {
         <label htmlFor="showIndividualHandicaps">
           Show Individual Handicaps
         </label>
-        <br></br>
+        <br />
+        <input
+          className="checkbox"
+          type="checkbox"
+          id="showLocalNumbers"
+          onChange={handleShowLocalNumbersChange}
+          defaultChecked={showLocalNumbers}
+        ></input>
+        <label htmlFor="showLocalNumbers">Show Local Numbers</label>
+        <br />
         {showIndividualHandicaps ? (
           <table className="lineup-table">
             <div
@@ -352,12 +370,10 @@ export default function ExportTable({ lineupTitle, lineup }) {
               </thead>
               <tbody>
                 <tr>
-                  <td className="lineup-table-body_tr">
-                    {generateExportLineupTeamTables()}
-                  </td>
+                  <td>{generateExportLineupTeamTables()}</td>
                 </tr>
               </tbody>
-              <tfoot>
+              <tfoot className="tfoot">
                 {lineup.progs069 > 0 && (
                   <>
                     <tr>
@@ -400,12 +416,12 @@ export default function ExportTable({ lineupTitle, lineup }) {
               </thead>
               <tbody>
                 <tr>
-                  <td className="lineup-table-body_tr">
+                  <td className="lineup-table-body_td">
                     {generateExportTeamsTeamTables()}
                   </td>
                 </tr>
               </tbody>
-              <tfoot>
+              <tfoot className="tfoot">
                 <tr>
                   <td className="textarea_td">
                     <textarea

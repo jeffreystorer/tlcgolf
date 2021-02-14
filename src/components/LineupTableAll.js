@@ -740,10 +740,10 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             </thead>
             <tbody>
               <tr>
-                <td className="lineup-table-body_tr">{generateTeamTables()}</td>
+                <td className="lineup-table-body_td">{generateTeamTables()}</td>
               </tr>
             </tbody>
-            <tfoot>
+            <tfoot className="tfoot">
               {progs069 > 0 && (
                 <>
                   <tr>
@@ -772,7 +772,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         </table>
         {showTips && (
           <div>
-            <table>
+            <table className="table">
               <thead>
                 <tr>
                   <th>To set a manual handicap:</th>
@@ -780,7 +780,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               </thead>
               <tbody>
                 <tr>
-                  <td className="table-tip-td">
+                  <td className="table-tip_td">
                     Click <span style={{ fontWeight: "bold" }}>*</span> at the
                     end of a player's row and select the course handicap. Select
                     "Auto" to use GHIN course handicaps again.
@@ -789,7 +789,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               </tbody>
             </table>
             <br />
-            <table>
+            <table className="table">
               <thead>
                 <tr>
                   <th>To save a lineup:</th>
@@ -797,7 +797,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               </thead>
               <tbody>
                 <tr>
-                  <td className="table-tip-td">
+                  <td className="table-tip_td">
                     Click the "Save Lineup" button and your lineup will be saved
                     to storage in the cloud. You can load a saved lineup by
                     clicking the "Saved Lineups" button near the top of this
@@ -853,7 +853,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         {showTips && (
           <div>
             <br />
-            <table>
+            <table className="table">
               <thead>
                 <tr>
                   <th>To download a screenshot of the lineup:</th>
@@ -861,7 +861,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               </thead>
               <tbody>
                 <tr>
-                  <td className="table-tip-td">
+                  <td className="table-tip_td">
                     Click the "Export" button in the Saved Lineups List. This
                     will publish the lineup to the Exports page and take you
                     there. You will have the option of downloading a screenshot
