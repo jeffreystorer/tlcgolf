@@ -429,6 +429,14 @@
   font: 16px sans-serif;
   resize: both;
 }
+
+.textarea--center-no-border {
+  font: 16px sans-serif;
+  text-align: center;
+  border-color: white;
+  resize: none;
+}
+
 .textarea_td {
   background-color: #fff;
 }

@@ -750,16 +750,23 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
                     <td></td>
                   </tr>
                   <tr>
-                    <td className="lineup-table-footer">{progAdjMessage}</td>
+                    <td className="textarea_td">
+                      <textarea
+                        className="textarea--center-no-border"
+                        rows="1"
+                        cols="40"
+                        value={progAdjMessage}
+                      ></textarea>
+                    </td>
                   </tr>
                 </>
               )}
               <tr>
-                <td className="textarea_td">
+                <td>
                   <textarea
                     className="textarea"
                     rows="8"
-                    cols="39"
+                    cols="40"
                     value={textAreaValue}
                     onChange={handleTextAreaValueChange}
                     onFocus={(event) => (event.target.value = textAreaValue)}

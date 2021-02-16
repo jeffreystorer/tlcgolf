@@ -11,6 +11,7 @@ import fetchGamesGHIN from "../helpers/fetchGamesGHIN"
 import domtoimage from "dom-to-image"
 import _ from "lodash"
 import { get, set } from "../helpers/localStorage"
+import Textarea from "./ExportTextarea"
 
 export default function ExportTable({ lineupTitle, lineup }) {
   const [showLocalNumbers, setShowLocalNumbers] = useState(
@@ -22,6 +23,8 @@ export default function ExportTable({ lineupTitle, lineup }) {
   //set("showTeamHcp", false)
   const [showIndividualHandicaps, setShowIndividualHandicaps] = useState(true)
   const [refreshed, setRefreshed] = useState(false)
+  let textAreaRows = 8
+  let textAreaCols = 40
   let teesSelected = lineup.teesSelected
   let courseName = getCourseName(lineup.course)
   const dataMode = "ghin"
@@ -383,12 +386,11 @@ export default function ExportTable({ lineupTitle, lineup }) {
 
                 <tr>
                   <td className="textarea_td">
-                    <textarea
-                      className="textarea"
-                      rows="8"
-                      cols="39"
-                      value={lineup.textAreaValue}
-                    ></textarea>
+                    <Textarea
+                      textAreaValue={lineup.textAreaValue}
+                      rows={textAreaRows}
+                      cols={textAreaCols}
+                    />
                   </td>
                 </tr>
               </tfoot>
@@ -420,12 +422,11 @@ export default function ExportTable({ lineupTitle, lineup }) {
               <tfoot className="tfoot">
                 <tr>
                   <td className="textarea_td">
-                    <textarea
-                      className="textarea"
-                      rows="8"
-                      cols="39"
-                      value={lineup.textAreaValue}
-                    ></textarea>
+                    <Textarea
+                      lineup={lineup.textAreaValue}
+                      rows={textAreaRows}
+                      cols={textAreaCols}
+                    />
                   </td>
                 </tr>
               </tfoot>
