@@ -8,7 +8,7 @@ import { useListKeys } from "react-firebase-hooks/database"
 
 //components
 import AddPlayersToSavedLineup from "./LineupAddPlayersToSavedLineup"
-import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
+//import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
 import LineupTableDropDowns from "./LineupTableDropDowns"
 import LineupsList from "./LineupsList"
 import LineupTeamTable from "./LineupTeamTable"
@@ -873,7 +873,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             </table>
           </div>
         )}
-        <br />
+        {/*        <br />
         <br />
         <br />
         <ButtonDownloadScreenShot
@@ -894,7 +894,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           page="Lineup"
         />
         <br />
-        <br />
+        <br /> */}
         <input
           type="checkbox"
           id="showTips"

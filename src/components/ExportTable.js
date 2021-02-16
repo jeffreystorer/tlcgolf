@@ -352,7 +352,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
           <table className="lineup-table">
             <div
               id="lineup-table-div"
-              className="div--padded10px div--center div--background-white"
+              className="div--padded10px div--center div--background-white div--fit-content"
             >
               <thead>
                 <tr>
@@ -364,7 +364,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
                   <td></td>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="div--fit-content">
                 <tr>
                   <td>{generateExportLineupTeamTables()}</td>
                 </tr>
@@ -410,7 +410,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
                   <td></td>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="div--fit-content">
                 <tr>
                   <td className="lineup-table-body_td">
                     {generateExportTeamsTeamTables()}
