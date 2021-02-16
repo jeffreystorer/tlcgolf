@@ -24,7 +24,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
   const [showIndividualHandicaps, setShowIndividualHandicaps] = useState(true)
   const [refreshed, setRefreshed] = useState(false)
   let textAreaRows = 8
-  let textAreaCols = 41
+  let textAreaCols = 43
   let teesSelected = lineup.teesSelected
   let courseName = getCourseName(lineup.course)
   const dataMode = "ghin"
@@ -379,7 +379,14 @@ export default function ExportTable({ lineupTitle, lineup }) {
                       <td></td>
                     </tr>
                     <tr>
-                      <td className="lineup-table-footer">{progAdjMessage}</td>
+                      <td className="textarea_td">
+                        <textarea
+                          className="textarea--center-no-border"
+                          rows="1"
+                          cols={textAreaCols}
+                          value={progAdjMessage}
+                        ></textarea>
+                      </td>
                     </tr>
                   </>
                 )}

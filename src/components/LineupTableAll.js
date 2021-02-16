@@ -754,7 +754,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
                       <textarea
                         className="textarea--center-no-border"
                         rows="1"
-                        cols="40"
+                        cols="43"
                         value={progAdjMessage}
                       ></textarea>
                     </td>
@@ -762,11 +762,11 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
                 </>
               )}
               <tr>
-                <td>
+                <td className="textarea_td">
                   <textarea
                     className="textarea"
                     rows="8"
-                    cols="41"
+                    cols="43"
                     value={textAreaValue}
                     onChange={handleTextAreaValueChange}
                     onFocus={(event) => (event.target.value = textAreaValue)}

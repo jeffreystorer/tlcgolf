@@ -262,6 +262,7 @@
 }
 .lineup-table {
   background-color: #fff;
+  border-spacing: 0px;
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
@@ -281,10 +282,10 @@
 .lineup-table-body_td {
   background-color: #fff;
   background-color: white;
+  border-spacing: 6px;
   color: #000;
   font: 16px sans-serif;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0px;
   width: fit-content;
   width: -moz-fit-content;
   width: -webkit-fit-content;
@@ -318,12 +319,14 @@
 .lineup-table-footer {
   font: 16px sans-serif;
   font-style: italic;
+  padding: 0px;
   text-align: center;
 }
 .lineup-table-head_td {
   background-color: #fff;
   font: 16px sans-serif;
   font-weight: 700;
+  padding: 0px;
   text-align: center;
   width: fit-content;
   width: -moz-fit-content;
@@ -426,12 +429,26 @@
   width: -webkit-fit-content;
 }
 .textarea {
+  display: block;
   font: 16px sans-serif;
+  margin-left: auto;
+  margin-right: auto;
   resize: both;
 }
 
-.textarea--center-no-border {
+.textarea_export {
+  display: block;
   font: 16px sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  resize: none;
+}
+
+.textarea--center-no-border {
+  display: block;
+  font: 16px sans-serif;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
   border-color: white;
   resize: none;
