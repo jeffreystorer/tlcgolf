@@ -24,7 +24,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
   const [showIndividualHandicaps, setShowIndividualHandicaps] = useState(true)
   const [refreshed, setRefreshed] = useState(false)
   let textAreaRows = 8
-  let textAreaCols = 40
+  let textAreaCols = 41
   let teesSelected = lineup.teesSelected
   let courseName = getCourseName(lineup.course)
   const dataMode = "ghin"
