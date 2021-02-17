@@ -241,10 +241,11 @@
 .input:not(:focus) {
   text-align: center;
 }
-.left-selector {
+.selector_left {
   float: left;
   margin-left: 10px;
   margin-right: auto;
+  width: fit-content;
 }
 .li:hover {
   background-color: #fff;
@@ -363,9 +364,10 @@
 .list--text-align-left {
   text-align: left;
 }
-.middle-selector {
+.selector_middle {
   margin-left: auto;
   margin-right: auto;
+  width: fit-content;
 }
 .p {
   font: 16px sans-serif;
@@ -373,10 +375,11 @@
 .paragraph--center {
   text-align: center;
 }
-.right-selector {
+.selector_right {
   float: right;
   margin-left: auto;
   margin-right: 10px;
+  width: fit-content;
 }
 .select-dropdown-container {
   font: 16px sans-serif;

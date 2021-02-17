@@ -40,13 +40,13 @@ export default function GamesTableDropDowns() {
   return (
     <>
       <div className="select-dropdown-container">
-        <label className="left-selector">
+        <label className="selector_left">
           <select value={game} onChange={handleGameChange}>
             <option value="">Select Game</option>
             {optionItems}
           </select>
         </label>
-        <label className="right-selector">
+        <label className="selector_right">
           <select value={course} onChange={handleCourseChange}>
             <option value="">Select Course</option>
             <option value="dc">Deer Creek</option>

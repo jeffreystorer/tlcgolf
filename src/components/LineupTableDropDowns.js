@@ -21,19 +21,19 @@ const LineupTableDropDowns = ({
       <LineupTableCourseDropDown />
       <br></br>
       <div className="select-dropdown-container">
-        <label className="left-selector">
+        <label className="selector_left">
           <select value={playingDate} onChange={handlePlayingDateChange}>
             <option value="Date">Playing Date</option>
             {playingDateOptionItems}
           </select>
         </label>
-        <label className="middle-selector">
+        <label className="selector_middle">
           <select value={teeTimeCount} onChange={handleTeeTimeCountChange}>
             <option value="0">No. of Tee Times</option>
             {teeTimeCountOptionItems}
           </select>
         </label>
-        <label className="right-selector">
+        <label className="selector_right">
           <select value={linkTime} onChange={handleLinkTimeChange}>
             <option value="">Link Time</option>
             {linkTimeOptionItems}
@@ -42,7 +42,7 @@ const LineupTableDropDowns = ({
       </div>
 
       <div className="select-dropdown-container">
-        <label className="left-selector">
+        <label className="selector_left">
           <select value={progs069} onChange={handleProgs069Change}>
             <option value="">Progs Y/N?</option>
             <option value="0">No Progs</option>
@@ -50,7 +50,7 @@ const LineupTableDropDowns = ({
             <option value="9">Progs 9&9</option>
           </select>
         </label>
-        <label className="right-selector">
+        <label className="selector_right">
           <select value={progAdj} onChange={handleProgAdjChange}>
             <option value="">Prog Adj?</option>
             <option value="0">No Adj</option>
