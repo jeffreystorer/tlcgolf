@@ -41,14 +41,15 @@ export default function loadLineupTablePlayersArrray(
       return i - 1
     } catch (error) {
       alert(
-        "One of the players you selected when you made this lineup\n" +
+        "One of the players you selected when you made your most recent lineup " +
           "(GHIN Number: " +
           id +
           ") is no longer in your table.\n" +
           "Your saved lineups have been deleted."
       )
       LineupDataService.removeAll(firebaseRef)
-      document.location = "/"
+      localStorage.clear()
+      document.location = "/settings/login"
     }
   }
 
