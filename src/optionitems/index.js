@@ -46,7 +46,7 @@ const teeTimeCounts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 export const teeTimeCountOptionItems = teeTimeCounts.map((count) => (
   <option key={uuidv4()} value={count}>
-    {count + "  tee times"}
+    {count}
   </option>
 ))
 
@@ -54,17 +54,17 @@ export const linkTimes = () => {
   let linkTimes = []
   linkTimes.push(
     "Shotgun",
-    "8:30 Shotgun",
-    "9:00 Shotgun",
-    "9:30 Shotgun",
-    "10:00 Shotgun",
-    "10:30 Shotgun",
-    "11:00 Shotgun",
-    "11:30 Shotgun",
-    "12:00 Shotgun",
-    "12:30 Shotgun",
-    "1:00 Shotgun",
-    "1:30 Shotgun"
+    "8:30 SG",
+    "9:00 SG",
+    "9:30 SG",
+    "10:00 SG",
+    "10:30 SG",
+    "11:00 SG",
+    "11:30 SG",
+    "12:00 SG",
+    "12:30 SG",
+    "1:00 SG",
+    "1:30 SG"
   )
   let now = new Date()
   let year = now.getFullYear()

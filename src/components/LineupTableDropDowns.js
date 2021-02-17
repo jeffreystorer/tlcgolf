@@ -29,7 +29,7 @@ const LineupTableDropDowns = ({
         </label>
         <label className="selector_middle">
           <select value={teeTimeCount} onChange={handleTeeTimeCountChange}>
-            <option value="0">No. of Tee Times</option>
+            <option value="0"># of Tee Times</option>
             {teeTimeCountOptionItems}
           </select>
         </label>
