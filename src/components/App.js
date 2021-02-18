@@ -70,6 +70,9 @@ export default function App() {
             >
               Export
             </NavLink>
+          </nav>
+          <br />
+          <nav className="app-nav">
             <NavLink
               exact
               to="/settings"

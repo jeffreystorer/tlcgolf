@@ -95,7 +95,7 @@
   padding: 10px 10px 10px 10px;
 }
 .footer--center {
-  bottom: 0px;
+  bottom: 20px;
   position: fixed;
   text-align: center;
   width: 100%;
@@ -144,6 +144,10 @@
   width: -moz-fit-content;
   width: -webkit-fit-content;
   z-index: 1;
+}
+
+.heading--underlined {
+  text-decoration: underline;
 }
 .help-table {
   font: 16px sans-serif;
@@ -241,12 +245,12 @@
 .input:not(:focus) {
   text-align: center;
 }
-.selector_left {
-  float: left;
-  margin-left: 10px;
-  margin-right: auto;
-  width: fit-content;
+.label_link-time {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
 }
+
 .li:hover {
   background-color: #fff;
   color: #c00;
@@ -413,6 +417,19 @@
   margin-left: auto;
   margin-right: auto;
   width: 90%;
+}
+
+.table_pdfs {
+  background: white;
+  font: 16px sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+}
+.table_pdfs-thead {
+  text-decoration: underline;
 }
 .table--background-white {
   background: white;

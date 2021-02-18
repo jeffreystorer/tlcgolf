@@ -27,19 +27,24 @@ const LineupTableDropDowns = ({
             {playingDateOptionItems}
           </select>
         </label>
-        <label className="selector_middle">
+        <label className="selector_right">
           <select value={teeTimeCount} onChange={handleTeeTimeCountChange}>
             <option value="0"># of Tee Times</option>
             {teeTimeCountOptionItems}
           </select>
         </label>
-        <label className="selector_right">
+      </div>
+      <br />
+      <div className="select-dropdown-container">
+        <label className="label_link-time">Link Time: </label>
+        <label className="selector_lone">
           <select value={linkTime} onChange={handleLinkTimeChange}>
             <option value="">Link Time</option>
             {linkTimeOptionItems}
           </select>
         </label>
       </div>
+      <br />
 
       <div className="select-dropdown-container">
         <label className="selector_left">

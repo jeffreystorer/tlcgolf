@@ -2,7 +2,7 @@ import React from "react"
 import { jsPDF } from "jspdf"
 import domtoimage from "dom-to-image"
 
-const ExportButtonDownLoadPDF = ({ dimensions, title }) => {
+const ExportButtonDownLoadPDFPortrait8 = ({ dimensions, title }) => {
   const PAPER_DIMENSIONS = {
     width: 8.5,
     height: 11,
@@ -43,7 +43,9 @@ const ExportButtonDownLoadPDF = ({ dimensions, title }) => {
 
   function createPDF() {
     domtoimage
-      .toJpeg(document.getElementById("div-collage"), { quality: 1.0 })
+      .toJpeg(document.getElementById("div_collage-portrait8"), {
+        quality: 1.0,
+      })
       .then(function (dataUrl) {
         let x, y, w, h
         x = (PAPER_DIMENSIONS.width - imageDimensions(dimensions).width) / 2
@@ -52,19 +54,15 @@ const ExportButtonDownLoadPDF = ({ dimensions, title }) => {
         h = imageDimensions(dimensions).height
         doc.addImage(dataUrl, "JPEG", x, y, w, h)
         doc.setProperties({ title: title })
-        doc.save(title + ".pdf")
+        doc.save(title + " (portrait, 4 per page).pdf")
       })
   }
   return (
     <>
-      <h4>
-        To download a pdf for printing<br></br>
-        four lineups per sheet to cut up as handouts
-      </h4>
       <button className="button" onClick={handleClick}>
-        Download PDF
+        12 per page
       </button>
     </>
   )
 }
-export default ExportButtonDownLoadPDF
+export default ExportButtonDownLoadPDFPortrait8
