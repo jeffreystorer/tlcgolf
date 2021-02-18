@@ -54,7 +54,7 @@ const ExportButtonDownLoadPDFLandscape8 = ({ dimensions, title }) => {
         h = imageDimensions(dimensions).height
         doc.addImage(dataUrl, "JPEG", x, y, w, h)
         doc.setProperties({ title: title })
-        doc.save(title + " (landscape 8 per page).pdf")
+        doc.save(title + " (landscape, 8 per page).pdf")
       })
   }
   return (
