@@ -73,6 +73,10 @@
 .current-lineup-title {
   text-decoration: underline;
 }
+
+.current-saved-lineup {
+  border: 2px;
+}
 .div--background-white {
   background-color: white;
 }
@@ -93,6 +97,18 @@
 
 .div--padded10px {
   padding: 10px 10px 10px 10px;
+}
+
+.div--padded15px {
+  padding: 15px 15px 15px 15px;
+}
+
+.div--padded20px {
+  padding: 20px 20px 20px 20px;
+}
+
+.div--padded30px {
+  padding: 30px 30px 30px 30px;
 }
 .footer--center {
   bottom: 20px;
@@ -255,16 +271,6 @@
   background-color: #fff;
   color: #c00;
 }
-.lineups-list {
-  border: 1px solid #000;
-  margin: auto;
-  padding-left: 20px;
-  padding-right: 20px;
-  text-align: center;
-  width: fit-content;
-  width: -moz-fit-content;
-  width: -webkit-fit-content;
-}
 .lineup-table {
   background-color: #fff;
   border-spacing: 0px;
@@ -365,6 +371,17 @@
   height: 23px;
   text-align: center;
 }
+
+.lineups-list {
+  border: 1px solid #000;
+  margin: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  width: fit-content;
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+}
 .list--text-align-left {
   text-align: left;
 }
@@ -373,6 +390,10 @@
 }
 .paragraph--center {
   text-align: center;
+}
+.paragraph--center-underline {
+  text-align: center;
+  text-decoration: underline;
 }
 .selector_left {
   float: left;
@@ -408,8 +429,16 @@
   text-overflow: \\\"\\\";
   --webkit-appearance: none;
 }
+
+.span--bold {
+  font-weight: bold;
+}
+
 .span--red {
   color: red;
+}
+.span--underlined {
+  text-decoration: underline;
 }
 .table {
   background: white;

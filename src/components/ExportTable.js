@@ -311,7 +311,15 @@ export default function ExportTable({ lineupTitle, lineup }) {
   return (
     <>
       <div className="div--center">
-        <br />
+        <h4>
+          This page displays the current saved
+          <br />
+          lineup. If you just made a lineup and
+          <br />
+          don't see it below, go back to the
+          <br />
+          Lineup page, do it again and save it.
+        </h4>
         <input
           type="checkbox"
           id="showFirstName"

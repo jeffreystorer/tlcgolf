@@ -8,8 +8,11 @@ import { useListKeys } from "react-firebase-hooks/database"
 
 //components
 import AddPlayersToSavedLineup from "./LineupAddPlayersToSavedLineup"
-//import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
 import LineupTableDropDowns from "./LineupTableDropDowns"
+import LineupTipAutoPop from "./LineupTipAutoPop"
+import LineupTipDownloadScreenshot from "./LineupTipDownloadScreenshot"
+import LineupTipSaveLineup from "./LineupTipSaveLineup"
+import LineupTipSetManualCH from "./LineupTipSetManualCH"
 import LineupsList from "./LineupsList"
 import LineupTeamTable from "./LineupTeamTable"
 
@@ -41,7 +44,9 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const [course, setCourse] = useRecoilState(state.courseState)
   const [game, setGame] = useRecoilState(state.gameState)
   const ghinNumber = useRecoilValue(state.ghinNumberState)
-  const teesSelected = useRecoilValue(state.teesSelectedState)
+  const [teesSelected, setTeesSelected] = useRecoilState(
+    state.teesSelectedState
+  )
 
   //react state
   const [showTips, setShowTips] = useState(get("showTips"))
@@ -61,11 +66,13 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     team9: [],
   }
   const [teamTables, setTeamTables] = useState(teamTablesObj)
-  const [linkTime, setLinkTime] = useState("Time")
+  const [linkTime, setLinkTime] = useState("Set Link Time Above")
   const [teeTimeCount, setTeeTimeCount] = useState("")
   const [playingDate, setPlayingDate] = useState("Date")
   let courseName = getCourseName(course)
-  const [lineupTitle, setLineupTitle] = useState(game + " Game")
+  const [lineupTitle, setLineupTitle] = useState(
+    "New lineup for " + game + " at " + courseName
+  )
   const [textAreaValue, setTextAreaValue] = useState("")
   const [progs069, setProgs069] = useState("0")
   const [progAdj, setProgAdj] = useState("0")
@@ -146,7 +153,9 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     teamTables,
     teeTimeCount,
     textAreaValue,
+    teesSelected,
   }) {
+    setTeesSelected(teesSelected)
     setLineupTitle(title)
     set("playersInLineup", playersInLineup)
     setPlayers(players)
@@ -518,6 +527,18 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
 
   function handleSaveLineupClick(event) {
     event.preventDefault()
+    let showToast = true
+    let goToExport = false
+    saveLineup(showToast, goToExport)
+  }
+  function handleSaveAndExportLineupClick(event) {
+    event.preventDefault()
+    let showToast = false
+    let goToExport = true
+    saveLineup(showToast, goToExport)
+  }
+
+  function saveLineup(showToast, goToExport) {
     if (playingDate === "Date") {
       toast.error("📅Please select a Playing Date📅", {
         position: "bottom-center",
@@ -528,44 +549,48 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         draggable: true,
         progress: undefined,
       })
-      return
+    } else {
+      let title = lineupTitle
+      let allPlayers = get("players")
+      let playersInLineup = get("playersInLineup")
+      saveLineupToFirebase(
+        title,
+        allPlayers,
+        playersInLineup,
+        players,
+        game,
+        games,
+        course,
+        courseName,
+        playingDate,
+        teeTimeCount,
+        linkTime,
+        progs069,
+        progAdj,
+        teamTables,
+        textAreaValue,
+        teesSelected,
+        ratings,
+        slopes,
+        pars,
+        firebaseRef
+      )
+      if (showToast) {
+        toast("Lineup Saved and Available on Export Page", {
+          position: "bottom-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
+      if (goToExport) {
+        document.location = "/export"
+      }
     }
-    let title = lineupTitle
-    let allPlayers = get("players")
-    let playersInLineup = get("playersInLineup")
-    saveLineupToFirebase(
-      title,
-      allPlayers,
-      playersInLineup,
-      players,
-      game,
-      games,
-      course,
-      courseName,
-      playingDate,
-      teeTimeCount,
-      linkTime,
-      progs069,
-      progAdj,
-      teamTables,
-      textAreaValue,
-      teesSelected,
-      ratings,
-      slopes,
-      pars,
-      firebaseRef
-    )
-    toast("Lineup Saved", {
-      position: "bottom-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
   }
-
   function handleLineUpTitleChange(event) {
     setLineupTitle(event.target.value)
   }
@@ -639,7 +664,11 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             />
           </div>
         )}
-        <p className="current-lineup-title">Current Lineup: {lineupTitle}</p>
+        <p>
+          <span className="span--underlined">Lineup Being Edited Below: </span>
+          <br />
+          <span className="span--bold">{lineupTitle}</span>
+        </p>
         <LineupTableDropDowns
           playingDateOptionItems={options.playingDateOptionItems}
           linkTime={linkTime}
@@ -656,26 +685,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           handleProgAdjChange={handleProgAdjChange}
         />
         <br />
-        {showTips && (
-          <div>
-            <br />
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>To automatically populate the tee times:</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="table-tip_td">
-                    Click on "Auto-Populate" and the selected players will be
-                    added automatically to the tee times.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        )}
+        {showTips && <LineupTipAutoPop />}
         <br />
         <button className="button" onClick={handleAutoPopulateClick}>
           Auto-Populate ({players.length} players)
@@ -777,65 +787,37 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             </tfoot>
           </div>
         </table>
-        {showTips && (
-          <div>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>To set a manual handicap:</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="table-tip_td">
-                    Click <span style={{ fontWeight: "bold" }}>*</span> at the
-                    end of a player's row and select the course handicap. Select
-                    "Auto" to use GHIN course handicaps again.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <br />
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>To save a lineup:</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="table-tip_td">
-                    Click the "Save Lineup" button and your lineup will be saved
-                    to storage in the cloud. You can load a saved lineup by
-                    clicking the "Saved Lineups" button near the top of this
-                    page. Your saved lineups are available on any device where
-                    you run the app, not just the one on which you created the
-                    lineup. Also, if you make a lineup one day and come back to
-                    it the next, the course handicaps will be automatically
-                    updated using the players' current indexes.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        )}
+        {showTips && <LineupTipSetManualCH />}
+        <br />
+        {showTips && <LineupTipSaveLineup />}
         <br />
         <div className="div--center">
+          <label htmlFor="lineup-title">
+            You may edit the title below
+            <br />
+            before saving this lineup:
+            <br />
+          </label>
+          <input
+            id="lineup-title"
+            className="lineup-title"
+            type="text"
+            value={lineupTitle}
+            onChange={handleLineUpTitleChange}
+            size="36"
+          />
+          <br />
+          <br />
           <form onSubmit={handleSaveLineupClick}>
-            <label>
-              Lineup Title:
-              <br />
-              <input
-                className="lineup-title"
-                type="text"
-                value={lineupTitle}
-                onChange={handleLineUpTitleChange}
-                size="36"
-              />
-              <br />
-              <br />
-            </label>
             <input className="button" type="submit" value="Save Lineup" />
+          </form>
+          <br />
+          <form onSubmit={handleSaveAndExportLineupClick}>
+            <input
+              className="button"
+              type="submit"
+              value="Save and Export Lineup"
+            />
           </form>
         </div>
         {isMe && (
@@ -856,52 +838,9 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-        />
-        {showTips && (
-          <div>
-            <br />
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>To download a screenshot of the lineup:</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="table-tip_td">
-                    Click the "Export" button in the Saved Lineups List. This
-                    will publish the lineup to the Exports page and take you
-                    there. You will have the option of downloading a screenshot
-                    for emailing or a pdf with a 2x2 collage for use as
-                    handouts.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        )}
-        {/*        <br />
+        />{" "}
+        {showTips && <LineupTipDownloadScreenshot />}
         <br />
-        <br />
-        <ButtonDownloadScreenShot
-          title={lineupTitle}
-          game={game}
-          course={course}
-          element="lineup-table-div"
-          format="PNG"
-          page="Lineup"
-        />
-        <br />
-        <ButtonDownloadScreenShot
-          title={lineupTitle}
-          game={game}
-          course={course}
-          element="lineup-table-div"
-          format="JPEG"
-          page="Lineup"
-        />
-        <br />
-        <br /> */}
         <input
           type="checkbox"
           id="showTips"

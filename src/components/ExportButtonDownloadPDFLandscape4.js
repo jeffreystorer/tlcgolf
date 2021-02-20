@@ -4,8 +4,8 @@ import domtoimage from "dom-to-image"
 
 const ExportButtonDownLoadPDFLandscape4 = ({ dimensions, title }) => {
   const PAPER_DIMENSIONS = {
-    width: 11,
-    height: 8.5,
+    width: 10.56,
+    height: 8.16,
   }
 
   const PAPER_RATIO = PAPER_DIMENSIONS.width / PAPER_DIMENSIONS.height
@@ -35,7 +35,7 @@ const ExportButtonDownLoadPDFLandscape4 = ({ dimensions, title }) => {
   const doc = new jsPDF({
     orientation: "landscape",
     unit: "in",
-    format: [11, 8.5],
+    format: [10.56, 8.16],
   })
   function handleClick() {
     createPDF()

@@ -69,6 +69,9 @@ const LineupsList = ({
   return (
     <div className="lineups-list">
       <h4>Saved Lineups List</h4>
+      <p className="paragraph--center-underline">
+        Click on a lineup to edit, export, or delete
+      </p>
 
       {error && <strong>Error: {error}</strong>}
       {loading && <span>Loading...</span>}
