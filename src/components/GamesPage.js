@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import "../styles/App.css"
 import GamesTableAll from "./GamesTableAll"
 import GamesTableCreate from "./GamesTableCreate"
@@ -16,9 +16,9 @@ import saveHandicapsToFirebase from "../helpers/saveHandicapsToFirebase"
 import fetchCourseData from "../helpers/fetchCourseData"
 
 export default function GamesPage() {
+  const [loading, setLoading] = useState(true)
   const [ratings, slopes, pars] = fetchCourseData()
   const players = get("players")
-  const dataMode = get("dataMode")
   const [games, setGames] = useRecoilState(state.gamesState)
   //eslint-disable-next-line
   const [teesSelected, setTeesSelected] = useRecoilState(
@@ -72,7 +72,9 @@ export default function GamesPage() {
     games,
     hasGoogleSheet
   )
-  if (hasGoogleSheet === "true") fetchGamesGHIN(dataMode)
+  useEffect(() => {
+    if (hasGoogleSheet === "true") fetchGamesGHIN(setLoading)
+  }, [hasGoogleSheet])
 
   function handlePublishHandicapsClick() {
     let firebaseRef = "handicaps"
@@ -89,6 +91,7 @@ export default function GamesPage() {
     )
     document.location = "https://tlcgolfhandicaps.web.app"
   }
+  if (loading) return "Loading . . ."
 
   switch (displayNumber) {
     case 0:

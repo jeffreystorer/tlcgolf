@@ -8,7 +8,8 @@ import {
   aGender,
 } from "../helpers/fetchRoster"
 
-export default function fetchGamesGHIN(dataMode) {
+export default async function fetchGamesGHIN(setLoading) {
+  let dataMode = get("dataMode")
   let players = get("players")
   if (dataMode === "ghin") {
     let requests = []
@@ -24,6 +25,9 @@ export default function fetchGamesGHIN(dataMode) {
         )
       })
       .then((data) => addGHINDataToPlayers(data))
+      .finally(() => {
+        setLoading(false)
+      })
 
     function addGHINDataToPlayers(data) {
       players.forEach(addData)
@@ -74,6 +78,7 @@ export default function fetchGamesGHIN(dataMode) {
     fetchRoster()
     let roster = get("roster")
     players.forEach(addData)
+    setLoading(false)
 
     function addData(item, index) {
       let ghinNumber = item[0]

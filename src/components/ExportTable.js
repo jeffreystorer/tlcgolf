@@ -14,6 +14,7 @@ import { get, set } from "../helpers/localStorage"
 import Textarea from "./ExportTextarea"
 
 export default function ExportTable({ lineupTitle, lineup }) {
+  const [loading, setLoading] = useState(true)
   const [showLocalNumbers, setShowLocalNumbers] = useState(
     get("showLocalNumbers")
   )
@@ -27,12 +28,21 @@ export default function ExportTable({ lineupTitle, lineup }) {
   let textAreaCols = 41
   let teesSelected = lineup.teesSelected
   let courseName = getCourseName(lineup.course)
-  const dataMode = "ghin"
-  fetchGamesGHIN(dataMode)
+
+  useEffect(() => {
+    fetchGamesGHIN(setLoading)
+  }, [])
 
   useEffect(() => {
     if (!refreshed) setRefreshed(true)
   }, [refreshed])
+
+  useEffect(() => {
+    setEachTeamsHcpAndProgs()
+    return () => {
+      setEachTeamsHcpAndProgs()
+    }
+  })
 
   useEffect(() => {
     let element
@@ -307,6 +317,7 @@ export default function ExportTable({ lineupTitle, lineup }) {
     }
     return TeamsTeamTables
   }
+  if (loading) return "Loading . . ."
 
   return (
     <>
