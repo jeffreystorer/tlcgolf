@@ -14,6 +14,8 @@ import * as state from "../state"
 import useVisibilityChange from "use-visibility-change"
 import saveHandicapsToFirebase from "../helpers/saveHandicapsToFirebase"
 import fetchCourseData from "../helpers/fetchCourseData"
+import Loader from "react-loader-spinner"
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 export default function GamesPage() {
   const [loading, setLoading] = useState(true)
@@ -91,7 +93,24 @@ export default function GamesPage() {
     )
     document.location = "https://tlcgolfhandicaps.web.app"
   }
-  if (loading) return "Loading . . ."
+  const style = {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  }
+
+  if (loading) {
+    return (
+      <Loader
+        style={style}
+        type="Circles"
+        color="#3378AC"
+        height={80}
+        width={80}
+      />
+    )
+  }
 
   switch (displayNumber) {
     case 0:

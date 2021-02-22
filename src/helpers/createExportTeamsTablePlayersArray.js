@@ -3,9 +3,9 @@ import { get } from "../helpers/localStorage"
 export default function createExportTeamsTablePlayersArrray(
   showFirstName,
   game,
-  games,
-  players
+  games
 ) {
+  let players = get("players")
   const showLocalNumbers = get("showLocalNumbers")
   //declare some variables
   let playersArray = []

@@ -7,7 +7,6 @@ export default function createExportLineupTablePlayersArrray(
   course,
   game,
   games,
-  players,
   teesSelected,
   ratings,
   slopes,
@@ -15,6 +14,7 @@ export default function createExportLineupTablePlayersArrray(
   teamTables,
   teeTimeCount
 ) {
+  let players = get("players")
   const showLocalNumbers = get("showLocalNumbers")
   //declare some variables
   var playersArray = []

@@ -2,7 +2,7 @@ import React from "react"
 import { get } from "../helpers/localStorage"
 import { useList } from "react-firebase-hooks/database"
 import LineupDataService from "../services/LineupService"
-import ExportTable from "./ExportTable"
+import ExportTable from "./ExportTableAll"
 
 export default function ExportPage() {
   let currentLineupIndex = get("currentLineupIndex")
