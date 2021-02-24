@@ -83,6 +83,17 @@
 .div--center {
   text-align: center;
 }
+
+.div--bordered {
+  border: 1px solid #000;
+  margin: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  width: fit-content;
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+}
 .div--center-bold {
   font-family: sans-serif;
   font-weight: 700;
