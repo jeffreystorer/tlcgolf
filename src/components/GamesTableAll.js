@@ -5,8 +5,11 @@ import GamesTableBody from "./GamesTableBody"
 import LinkButton from "./GamesLinkButton"
 import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
 import { get, set } from "../helpers/localStorage"
+import addGuestToGoogleSheet from "../helpers/addGuestToGoogleSheet"
 
 export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
+  let ghinNumber = get("ghinNumber")
+  let games = get("games")
   const [guestGHINNumber, setGuestGHINNumber] = useState("")
   const [guestLastName, setGuestLastName] = useState("")
   const [showLocalNumbers, setShowLocalNumbers] = useState(
@@ -37,16 +40,16 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   }
 
   function addGuest() {
-    let games = get("games")
-    let ghinNumber = guestGHINNumber
-    if (ghinNumber === "") ghinNumber = randomGHINNumber(0, 9999999).toString()
+    let aGHINNumber = guestGHINNumber
+    if (aGHINNumber === "")
+      aGHINNumber = randomGHINNumber(0, 9999999).toString()
     let lastName = guestLastName
     let firstName = ""
-    let index = "O.O"
+    let index = "0.0"
     let gender = ""
     let localNumber = "00000"
     let players = get("players")
-    let guest = [ghinNumber, lastName, firstName, index, gender, localNumber]
+    let guest = [aGHINNumber, lastName, firstName, index, gender, localNumber]
     let gameNumber = games.indexOf(game)
     let gameCount = games.length
     let i
@@ -62,6 +65,8 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
 
     setGuestGHINNumber("")
     setGuestLastName("")
+    guest.splice(2, 4)
+    addGuestToGoogleSheet(ghinNumber, guest)
     document.location = "/games"
   }
   return (
