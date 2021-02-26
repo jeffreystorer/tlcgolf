@@ -5,11 +5,12 @@ import GamesTableBody from "./GamesTableBody"
 import LinkButton from "./GamesLinkButton"
 import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
 import { get, set } from "../helpers/localStorage"
-import addGuestToGoogleSheet from "../helpers/addGuestToGoogleSheet"
+import AddGuestToGoogleSheet from "../helpers/addGuestToGoogleSheet"
 
 export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   let ghinNumber = get("ghinNumber")
   let games = get("games")
+  let guest
   const [guestGHINNumber, setGuestGHINNumber] = useState("")
   const [guestLastName, setGuestLastName] = useState("")
   const [showLocalNumbers, setShowLocalNumbers] = useState(
@@ -49,7 +50,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
     let gender = ""
     let localNumber = "00000"
     let players = get("players")
-    let guest = [aGHINNumber, lastName, firstName, index, gender, localNumber]
+    guest = [aGHINNumber, lastName, firstName, index, gender, localNumber]
     let gameNumber = games.indexOf(game)
     let gameCount = games.length
     let i
@@ -66,11 +67,12 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
     setGuestGHINNumber("")
     setGuestLastName("")
     guest.splice(2, 4)
-    addGuestToGoogleSheet(ghinNumber, guest)
+    //addGuestToGoogleSheet(ghinNumber, guest)
     document.location = "/games"
   }
   return (
     <>
+      <AddGuestToGoogleSheet ghinNumber={ghinNumber} guest={guest} />
       <GamesTableDropDowns />
       <br />
       <br />
