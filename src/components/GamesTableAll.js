@@ -5,7 +5,8 @@ import GamesTableBody from "./GamesTableBody"
 import LinkButton from "./GamesLinkButton"
 import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
 import { get, set } from "../helpers/localStorage"
-import AddGuestToGoogleSheet from "../helpers/addGuestToGoogleSheet"
+import AddGuestToGoogleSheet from "./AddGuestToGoogleSheet"
+import AddGuest from "./AddGuest"
 
 export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   let ghinNumber = get("ghinNumber")
@@ -72,7 +73,6 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   }
   return (
     <>
-      <AddGuestToGoogleSheet ghinNumber={ghinNumber} guest={guest} />
       <GamesTableDropDowns />
       <br />
       <br />
@@ -91,48 +91,17 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
           </tbody>
         </div>
       </table>
-      <br></br>
-      <br></br>
-      <div className="div--center div--bordered">
-        <h4>Add Guest</h4>
-        <h5>
-          Leave GHIN Number blank
-          <br />
-          if you don't have it.
-        </h5>
-        <h5>
-          If you leave GHIN Number blank,
-          <br />
-          you may enter first and last name
-          <br />
-          in the "Last Name" box.
-        </h5>
-        <form onSubmit={handleSubmitGuest}>
-          <label>
-            GHIN Number:&nbsp;&nbsp;&nbsp;&nbsp;
-            <input
-              type="text"
-              value={guestGHINNumber}
-              onChange={handleChangeGuestGHINNumber}
-            />
-          </label>
-          <br />
-          <label>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Last
-            Name:&nbsp;&nbsp;&nbsp;&nbsp;
-            <input
-              type="text"
-              value={guestLastName}
-              onChange={handleChangeGuestLastName}
-            />
-          </label>
-          <br />
-          <br />
-          <input type="submit" className="button" value="Add Guest" />
-        </form>
-        <br />
-      </div>
-      <br></br>
+      <br />
+      <AddGuest
+        handleSubmitGuest={handleSubmitGuest}
+        guestGHINNumber={guestGHINNumber}
+        handleChangeGuestGHINNumber={handleChangeGuestGHINNumber}
+        guestLastName={guestLastName}
+        handelChangeGuestLastName={handleChangeGuestLastName}
+      />
+      <AddGuestToGoogleSheet ghinNumber={ghinNumber} guest={guest} />
+      <br />
+      <br />
       <div className="div--center">
         <h4>
           Edit your table of players
@@ -140,8 +109,8 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
           in Google Sheets
         </h4>
         <LinkButton title={"Edit Table"} />
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <ButtonDownloadScreenShot
           game={game}
           course={course}
@@ -149,7 +118,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
           format="PNG"
           page="Games"
         />
-        <br></br>
+        <br />
         <ButtonDownloadScreenShot
           game={game}
           course={course}
@@ -157,8 +126,8 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
           format="JPEG"
           page="Games"
         />
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <input
           className="checkbox"
           type="checkbox"

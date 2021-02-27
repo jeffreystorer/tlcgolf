@@ -1,17 +1,22 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+import { gapi, loadAuth2 } from "gapi-script"
 
 const SPREADSHEET_ID = process.env.REACT_APP_GOOGLE_SHEETS_ID
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
-//const API_KEY = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY
-//const SCOPE = "https://www.googleapis.com/auth/spreadsheets"
+const API_KEY = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY
+const SCOPE = "https://www.googleapis.com/auth/spreadsheets"
 
 function AddGuestToGoogleSheet(ghinNumber, guest) {
-  function authenticate() {
-    return window.gapi.auth2
+  useEffect(() => {
+    const auth2 = async () => {
+      const authTwo = await loadAuth2(process.env.REACT_APP_CLIENT_ID, "")
+      console.log("😊😊 auth2", auth2)
+      return authTwo
+    }
+    auth2
       .getAuthInstance()
       .signIn({
-        scope:
-          "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets",
+        scope: SCOPE,
       })
       .then(
         function () {
@@ -21,10 +26,11 @@ function AddGuestToGoogleSheet(ghinNumber, guest) {
           console.error("Error signing in", err)
         }
       )
-  }
+  }, [])
+
   function loadClient() {
-    window.gapi.client.setApiKey("YOUR_API_KEY")
-    return window.gapi.client
+    gapi.client.setApiKey(API_KEY)
+    return gapi.client
       .load("https://sheets.googleapis.com/$discovery/rest?version=v4")
       .then(
         function () {
@@ -37,7 +43,7 @@ function AddGuestToGoogleSheet(ghinNumber, guest) {
   }
   // Make sure the client is loaded and sign-in is complete before calling this method.
   function execute() {
-    return window.gapi.client.sheets.spreadsheets.values
+    return gapi.client.sheets.spreadsheets.values
       .append({
         spreadsheetId: SPREADSHEET_ID,
         range: ghinNumber + "!A1:A3",
@@ -60,16 +66,19 @@ function AddGuestToGoogleSheet(ghinNumber, guest) {
         }
       )
   }
-  window.gapi.load("client:auth2", function () {
-    window.gapi.auth2.init({ client_id: CLIENT_ID })
+
+  gapi.load("client:auth2", function () {
+    gapi.auth2.init({ client_id: CLIENT_ID })
   })
 
   return (
     <>
-      <button onclick={authenticate().then(loadClient)}>
-        authorize and load
+      <button className="button" onClick={loadClient}>
+        Load Client
       </button>
-      <button onclick={execute()}>execute</button>
+      <button className="button" onClick={execute}>
+        Save Guest to Google Sheet
+      </button>
     </>
   )
 }
