@@ -10,6 +10,7 @@ const SelectTeesPage = () => {
     teesSelected = get("teesSelected")
     let teesSelectedArray = teesSelected.map((a) => a.value)
     defaultValue = teesSelectedArray
+    console.log("😊😊 defaultValue", defaultValue)
   }
 
   function handleSubmit(e) {
@@ -31,6 +32,11 @@ const SelectTeesPage = () => {
     localStorage.setItem("teesSelected", "[" + tees + "]")
     document.location = "/"
   }
+
+  localStorage.setItem(
+    "teesSelected",
+    '[{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}]'
+  )
 
   return (
     <div className="div--center">

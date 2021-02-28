@@ -13,6 +13,7 @@ export default function IndividualPage() {
   const [ratings, slopes, pars] = fetchCourseData()
 
   let teesSelected = get("teesSelected")
+  if (teesSelected === undefined) document.location = "/selecttees"
 
   return (
     <>
