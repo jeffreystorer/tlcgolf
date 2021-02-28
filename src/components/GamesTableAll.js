@@ -5,11 +5,10 @@ import GamesTableBody from "./GamesTableBody"
 import LinkButton from "./GamesLinkButton"
 import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
 import { get, set } from "../helpers/localStorage"
-import AddGuestToGoogleSheet from "./AddGuestToGoogleSheet"
+import addGuestToGoogleSheet from "../helpers/addGuestToGoogleSheet"
 import AddGuest from "./AddGuest"
 
 export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
-  let ghinNumber = get("ghinNumber")
   let games = get("games")
   let guest
   const [guestGHINNumber, setGuestGHINNumber] = useState("")
@@ -26,6 +25,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   function handleSubmitGuest(event) {
     event.preventDefault()
     addGuest()
+    addGuestToGoogleSheet()
   }
 
   function handleChangeGuestGHINNumber(event) {
@@ -68,7 +68,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
     setGuestGHINNumber("")
     setGuestLastName("")
     guest.splice(2, 4)
-    //addGuestToGoogleSheet(ghinNumber, guest)
+    set("guest", guest)
     document.location = "/games"
   }
   return (
@@ -97,9 +97,8 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
         guestGHINNumber={guestGHINNumber}
         handleChangeGuestGHINNumber={handleChangeGuestGHINNumber}
         guestLastName={guestLastName}
-        handelChangeGuestLastName={handleChangeGuestLastName}
+        handleChangeGuestLastName={handleChangeGuestLastName}
       />
-      <AddGuestToGoogleSheet ghinNumber={ghinNumber} guest={guest} />
       <br />
       <br />
       <div className="div--center">
