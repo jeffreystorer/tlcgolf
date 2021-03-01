@@ -1,6 +1,7 @@
-import { set } from "./localStorage"
+import { get, set } from "./localStorage"
 
-function fetchPlayersAndGames(ghinNumber) {
+function fetchPlayersAndGames() {
+  let ghinNumber = get("ghinNumber")
   const sheetId = process.env.REACT_APP_GOOGLE_SHEETS_ID
   const apiKey = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY
 
@@ -18,7 +19,6 @@ function fetchPlayersAndGames(ghinNumber) {
 
   if (request.status === 200) {
     const data = JSON.parse(request.response)
-    console.log("data")
     try {
       createPlayersAndGames(data.values)
     } catch (error) {

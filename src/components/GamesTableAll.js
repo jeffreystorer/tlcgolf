@@ -26,6 +26,9 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
     event.preventDefault()
     addGuest()
     addGuestToGoogleSheet()
+    debugger
+    //set("isLoggedIn", "false")
+    //document.location = "/settings/login"
   }
 
   function handleChangeGuestGHINNumber(event) {

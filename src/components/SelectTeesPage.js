@@ -10,7 +10,6 @@ const SelectTeesPage = () => {
     teesSelected = get("teesSelected")
     let teesSelectedArray = teesSelected.map((a) => a.value)
     defaultValue = teesSelectedArray
-    console.log("😊😊 defaultValue", defaultValue)
   }
 
   function handleSubmit(e) {
