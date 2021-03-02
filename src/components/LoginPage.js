@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
 import "../styles/App.css"
+import setSheetURL from "../helpers/setSheetURL"
 import { get, set } from "../helpers/localStorage"
 import Header from "./Header"
 import setIsLoggedIn from "../helpers/setIsLoggedIn"
-import checkForGSheetAndFetchData from "../helpers/setIsLoggedIn"
+import fetchPlayersAndGames from "../helpers/fetchPlayersAndGames"
 import preval from "preval.macro"
 
 function LoginPage() {
@@ -48,7 +49,10 @@ function LoginPage() {
     set("ghinNumber", ghinNumber)
     set("lastName", lastName)
     setIsLoggedIn(ghinNumber, lastName)
-    checkForGSheetAndFetchData()
+    setSheetURL(ghinNumber)
+    if (get("isLoggedIn") === "true") {
+      fetchPlayersAndGames(ghinNumber)
+    }
     set("showTips", showTips)
     set("showLocalNumbers", showLocalNumbers)
     set("teesSelected", teesSelected)

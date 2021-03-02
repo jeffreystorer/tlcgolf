@@ -1,33 +1,37 @@
-import React from "react"
-import { get } from "../helpers/localStorage"
-import { useList } from "react-firebase-hooks/database"
-import LineupDataService from "../services/LineupService"
-import ExportTable from "./ExportTableAll"
+import React, { useState, useEffect } from "react"
+import "../styles/App.css"
+import ExportTable from "./ExportTable"
+import fetchGamesGHIN from "../helpers/fetchGamesGHIN"
+import Loader from "react-loader-spinner"
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
-export default function ExportPage() {
-  let currentLineupIndex = get("currentLineupIndex")
-  let ghinNumber = get("ghinNumber")
-  const firebaseRef = '"' + ghinNumber.toString() + '"'
+export default function ExportPage({ lineupTitle, lineup }) {
+  const [loading, setLoading] = useState(true)
 
-  const [Lineups, loading, error] = useList(
-    LineupDataService.getAll(firebaseRef)
-  )
-  let lineup, title
-
-  if (!loading && !error) {
-    let aLineup = Lineups[currentLineupIndex]
-    let savedLineup = aLineup.val()
-    lineup = savedLineup.lineup
-    title = savedLineup.title
+  useEffect(() => {
+    fetchGamesGHIN(setLoading)
+  }, [])
+  const style = {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
   }
 
-  if (!loading && !error) {
+  if (loading) {
     return (
-      <>
-        <ExportTable lineupTitle={title} lineup={lineup} />
-      </>
+      <Loader
+        style={style}
+        type="Circles"
+        color="#3378AC"
+        height={80}
+        width={80}
+      />
     )
-  } else {
-    return null
   }
+  return (
+    <>
+      <ExportTable />
+    </>
+  )
 }
