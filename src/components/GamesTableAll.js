@@ -5,11 +5,12 @@ import GamesTableBody from "./GamesTableBody"
 import LinkButton from "./GamesLinkButton"
 import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
 import { get, set } from "../helpers/localStorage"
-import addGuestToGoogleSheet from "../helpers/addGuestToGoogleSheet"
+//import AddGuestToGoogleSheet from "./AddGuestToGoogleSheet"
 import AddGuest from "./AddGuest"
 
 export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   let games = get("games")
+  //let ghinNumber = get("ghinNumber")
   let guest
   const [guestGHINNumber, setGuestGHINNumber] = useState("")
   const [guestLastName, setGuestLastName] = useState("")
@@ -25,10 +26,6 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   function handleSubmitGuest(event) {
     event.preventDefault()
     addGuest()
-    addGuestToGoogleSheet()
-    debugger
-    //set("isLoggedIn", "false")
-    //document.location = "/settings/login"
   }
 
   function handleChangeGuestGHINNumber(event) {
@@ -104,6 +101,10 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
       />
       <br />
       <br />
+      {/* 
+      <AddGuestToGoogleSheet ghinNumber={ghinNumber} guest={guest} />
+      <br />
+      <br /> */}
       <div className="div--center">
         <h4>
           Edit your table of players
