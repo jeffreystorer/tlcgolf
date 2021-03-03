@@ -6,6 +6,8 @@ export default function AddGuest({
   handleChangeGuestGHINNumber,
   guestLastName,
   handleChangeGuestLastName,
+  handleAddGuestToAllGamesChange,
+  addGuestToAllGames,
 }) {
   return (
     <>
@@ -46,6 +48,15 @@ export default function AddGuest({
           <br />
           <input type="submit" className="button" value="Add Guest" />
         </form>
+        <br />
+        <input
+          className="checkbox"
+          type="checkbox"
+          id="addGuestToAllGames"
+          onChange={handleAddGuestToAllGamesChange}
+          defaultChecked={addGuestToAllGames}
+        ></input>
+        <label htmlFor="addGuestToAllGames">Add Guest to All My Games</label>
         <br />
         <br />
       </div>

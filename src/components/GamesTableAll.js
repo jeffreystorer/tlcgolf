@@ -5,22 +5,33 @@ import GamesTableBody from "./GamesTableBody"
 import LinkButton from "./GamesLinkButton"
 import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
 import { get, set } from "../helpers/localStorage"
-//import AddGuestToGoogleSheet from "./AddGuestToGoogleSheet"
 import AddGuest from "./AddGuest"
 
 export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   let games = get("games")
   //let ghinNumber = get("ghinNumber")
-  let guest
+  let guest = []
+  let guests = []
+  if (get("guests") === undefined) {
+    set("guests", guests)
+  } else {
+    guests = get("guests")
+  }
   const [guestGHINNumber, setGuestGHINNumber] = useState("")
   const [guestLastName, setGuestLastName] = useState("")
   const [showLocalNumbers, setShowLocalNumbers] = useState(
     get("showLocalNumbers")
   )
+  const [addGuestToAllGames, setAddGuestToAllGames] = useState(true)
 
   function handleShowLocalNumbersChange() {
     set("showLocalNumbers", !showLocalNumbers)
     setShowLocalNumbers((prevState) => !prevState)
+  }
+
+  function handleAddGuestToAllGamesChange() {
+    set("addGuestToAllGames", !addGuestToAllGames)
+    setAddGuestToAllGames((prevState) => !prevState)
   }
 
   function handleSubmitGuest(event) {
@@ -44,7 +55,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   function addGuest() {
     let aGHINNumber = guestGHINNumber
     if (aGHINNumber === "")
-      aGHINNumber = randomGHINNumber(0, 9999999).toString()
+      aGHINNumber = randomGHINNumber(100000000, 200000000).toString()
     let lastName = guestLastName
     let firstName = ""
     let index = "0.0"
@@ -56,10 +67,14 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
     let gameCount = games.length
     let i
     for (i = 1; i < gameCount; i++) {
-      if (i === gameNumber) {
+      if (addGuestToAllGames) {
         guest.push("YES")
       } else {
-        guest.push("NO")
+        if (i === gameNumber) {
+          guest.push("YES")
+        } else {
+          guest.push("NO")
+        }
       }
     }
     players.push(guest)
@@ -68,9 +83,11 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
     setGuestGHINNumber("")
     setGuestLastName("")
     guest.splice(2, 4)
-    set("guest", guest)
+    guests.push(guest)
+    set("guests", guests)
     document.location = "/games"
   }
+
   return (
     <>
       <GamesTableDropDowns />
@@ -98,14 +115,19 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
         handleChangeGuestGHINNumber={handleChangeGuestGHINNumber}
         guestLastName={guestLastName}
         handleChangeGuestLastName={handleChangeGuestLastName}
+        handleAddGuestToAllGamesChange={handleAddGuestToAllGamesChange}
+        addGuestToAllGames={addGuestToAllGames}
       />
       <br />
       <br />
-      {/* 
-      <AddGuestToGoogleSheet ghinNumber={ghinNumber} guest={guest} />
-      <br />
-      <br /> */}
       <div className="div--center">
+        <iframe
+          id="saveguest"
+          title="Save Guest(s)"
+          src="iframe.html"
+          height="130"
+          width="320"
+        />
         <h4>
           Edit your table of players
           <br />

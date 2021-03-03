@@ -1,4 +1,5 @@
 import React from "react"
+import { v4 as uuidv4 } from "uuid"
 
 function IndividualTableHeader({ tableName }) {
   let courses = ["DC", "MG", "MW", "OR", "PA", "TP"]
@@ -10,7 +11,7 @@ function IndividualTableHeader({ tableName }) {
         </th>
         {courses.map(function (courses) {
           return (
-            <th className="individual-table-header-row_th-other" scope="col">
+            <th key={uuidv4()} className="individual-table-header-row_th-other" scope="col">
               {courses}
             </th>
           )

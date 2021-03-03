@@ -1,6 +1,6 @@
 import { get, set } from "./localStorage"
 
-function setSheetURL() {
+export default async function setSheetURL(setSheetURLHasBeenSet) {
   let ghinNumber = get("ghinNumber")
   let sheetURL
   const sheetId = process.env.REACT_APP_GOOGLE_SHEETS_ID
@@ -49,5 +49,3 @@ function setSheetURL() {
     set("sheetURL", sheetURL)
   }
 }
-
-export default setSheetURL

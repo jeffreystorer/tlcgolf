@@ -48,14 +48,14 @@ function LoginPage() {
     }
     set("ghinNumber", ghinNumber)
     set("lastName", lastName)
-    setIsLoggedIn(ghinNumber, lastName)
-    setSheetURL(ghinNumber)
-    if (get("isLoggedIn") === "true") {
-      fetchPlayersAndGames(ghinNumber)
-    }
     set("showTips", showTips)
     set("showLocalNumbers", showLocalNumbers)
     set("teesSelected", teesSelected)
+    setIsLoggedIn(ghinNumber, lastName)
+    setSheetURL()
+    if (get("isLoggedIn") === "true") {
+      fetchPlayersAndGames()
+    }
     document.location = "/settings/selecttees"
   }
 
