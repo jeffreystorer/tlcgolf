@@ -112,15 +112,17 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
         </div>
       </table>
       <br />
-      <AddGuest
-        handleSubmitGuest={handleSubmitGuest}
-        guestGHINNumber={guestGHINNumber}
-        handleChangeGuestGHINNumber={handleChangeGuestGHINNumber}
-        guestLastName={guestLastName}
-        handleChangeGuestLastName={handleChangeGuestLastName}
-        handleAddGuestToAllGamesChange={handleAddGuestToAllGamesChange}
-        addGuestToAllGames={addGuestToAllGames}
-      />
+      {isMe && (
+        <AddGuest
+          handleSubmitGuest={handleSubmitGuest}
+          guestGHINNumber={guestGHINNumber}
+          handleChangeGuestGHINNumber={handleChangeGuestGHINNumber}
+          guestLastName={guestLastName}
+          handleChangeGuestLastName={handleChangeGuestLastName}
+          handleAddGuestToAllGamesChange={handleAddGuestToAllGamesChange}
+          addGuestToAllGames={addGuestToAllGames}
+        />
+      )}
       <div className="div--center">
         {isMe && (
           <>
