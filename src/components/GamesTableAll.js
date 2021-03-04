@@ -8,6 +8,9 @@ import { get, set } from "../helpers/localStorage"
 import AddGuest from "./AddGuest"
 
 export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
+  let ghinNumber = get("ghinNumber")
+  let isMe = false
+  if (ghinNumber === "585871") isMe = true
   let games = get("games")
   //let ghinNumber = get("ghinNumber")
   let guest = []
@@ -118,16 +121,20 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
         handleAddGuestToAllGamesChange={handleAddGuestToAllGamesChange}
         addGuestToAllGames={addGuestToAllGames}
       />
-      <br />
-      <br />
       <div className="div--center">
-        <iframe
-          id="saveguest"
-          title="Save Guest(s)"
-          src="iframe.html"
-          height="130"
-          width="320"
-        />
+        {isMe && (
+          <>
+            <br />
+            <br />
+            <iframe
+              id="saveguest"
+              title="Save Guest(s)"
+              src="iframe.html"
+              height="130"
+              width="320"
+            />
+          </>
+        )}
         <h4>
           Edit your table of players
           <br />

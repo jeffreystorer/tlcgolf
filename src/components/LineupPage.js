@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import "../styles/App.css"
 import LineupTable from "./LineupTable"
 import fetchCourseData from "../helpers/fetchCourseData"
+import fetchPlayersAndGames from "../helpers/fetchPlayersAndGames"
 import fetchGamesGHIN from "../helpers/fetchGamesGHIN"
 import Loader from "react-loader-spinner"
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
@@ -11,6 +12,7 @@ export default function LineupPage() {
   const [ratings, slopes, pars] = fetchCourseData()
 
   useEffect(() => {
+    fetchPlayersAndGames()
     fetchGamesGHIN(setLoading)
   }, [])
   const style = {
