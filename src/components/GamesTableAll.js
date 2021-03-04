@@ -6,6 +6,7 @@ import LinkButton from "./GamesLinkButton"
 import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
 import { get, set } from "../helpers/localStorage"
 import AddGuest from "./AddGuest"
+import AddGuestToGoogleSheet from "./AddGuestToGoogleSheet"
 
 export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   let ghinNumber = get("ghinNumber")
@@ -113,30 +114,21 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
       </table>
       <br />
       {isMe && (
-        <AddGuest
-          handleSubmitGuest={handleSubmitGuest}
-          guestGHINNumber={guestGHINNumber}
-          handleChangeGuestGHINNumber={handleChangeGuestGHINNumber}
-          guestLastName={guestLastName}
-          handleChangeGuestLastName={handleChangeGuestLastName}
-          handleAddGuestToAllGamesChange={handleAddGuestToAllGamesChange}
-          addGuestToAllGames={addGuestToAllGames}
-        />
+        <>
+          <AddGuest
+            handleSubmitGuest={handleSubmitGuest}
+            guestGHINNumber={guestGHINNumber}
+            handleChangeGuestGHINNumber={handleChangeGuestGHINNumber}
+            guestLastName={guestLastName}
+            handleChangeGuestLastName={handleChangeGuestLastName}
+            handleAddGuestToAllGamesChange={handleAddGuestToAllGamesChange}
+            addGuestToAllGames={addGuestToAllGames}
+          />
+          <br />
+          <AddGuestToGoogleSheet />
+        </>
       )}
       <div className="div--center">
-        {isMe && (
-          <>
-            <br />
-            <br />
-            <iframe
-              id="saveguest"
-              title="Save Guest(s)"
-              src="iframe.html"
-              height="130"
-              width="320"
-            />
-          </>
-        )}
         <h4>
           Edit your table of players
           <br />

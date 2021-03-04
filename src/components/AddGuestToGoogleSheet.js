@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { get } from "../helpers/localStorage"
 
 const SPREADSHEET_ID = process.env.REACT_APP_GOOGLE_SHEETS_ID
@@ -7,10 +7,30 @@ const API_KEY = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY
 const SCOPE = "https://www.googleapis.com/auth/spreadsheets"
 
 export default function AddGuestToGoogleSheet() {
+  const [state, setState] = useState({ gapi: null })
   let ghinNumber = get("ghinNumber")
   let guests = get("guests")
+
+  useEffect(() => {
+    require("google-client-api")().then((gapi) => {
+      setState({ gapi: gapi })
+    })
+  }, [state.gapi])
+
+  function handleSignInClick() {
+    if (state.gapi !== null) {
+      authenticate().then(loadClient)
+    }
+  }
+
+  function handleSaveClick() {
+    if (state.gapi !== null) {
+      execute()
+    }
+  }
+
   function authenticate() {
-    return window.gapi.auth2
+    return state.gapi.auth2
       .getAuthInstance()
       .signIn({
         scope: SCOPE,
@@ -25,8 +45,8 @@ export default function AddGuestToGoogleSheet() {
       )
   }
   function loadClient() {
-    window.gapi.client.setApiKey(API_KEY)
-    return window.gapi.client
+    state.gapi.client.setApiKey(API_KEY)
+    return state.gapi.client
       .load("https://sheets.googleapis.com/$discovery/rest?version=v4")
       .then(
         function () {
@@ -37,9 +57,10 @@ export default function AddGuestToGoogleSheet() {
         }
       )
   }
+
   // Make sure the client is loaded and sign-in is complete before calling this method.
   function execute() {
-    return window.gapi.client.sheets.spreadsheets.values
+    return state.gapi.client.sheets.spreadsheets.values
       .append({
         spreadsheetId: SPREADSHEET_ID,
         range: ghinNumber + "!A1:A3",
@@ -54,6 +75,8 @@ export default function AddGuestToGoogleSheet() {
       })
       .then(
         function (response) {
+          localStorage.removeItem("guests")
+          document.location = "/settings/logout"
           // Handle the results here (response.result has the parsed body).
           console.log("Response", response)
         },
@@ -63,21 +86,31 @@ export default function AddGuestToGoogleSheet() {
       )
   }
 
-  window.gapi.load("client:auth2", function () {
-    window.gapi.auth2.init({
-      client_id: CLIENT_ID,
+  if (state.gapi !== null) {
+    state.gapi.load("client:auth2", function () {
+      state.gapi.auth2.init({
+        client_id: CLIENT_ID,
+      })
     })
-  })
+  }
 
   return (
     <>
-      <div className="div--center">
-        <button className="button" onClick={authenticate().then(loadClient)}>
+      <div className="div--center div--bordered">
+        <h4>
+          To save your guest(s) to your table
+          <br />
+          of players in Google Sheets
+        </h4>
+        <button className="button" onClick={handleSignInClick}>
           Sign In
         </button>
-        <button className="button" onClick={execute}>
-          Add Guest
+        <span className="span_then--bold"> then </span>
+        <button className="button" onClick={handleSaveClick}>
+          Save
         </button>
+        <br />
+        <br />
       </div>
     </>
   )

@@ -451,6 +451,13 @@
 .span--underlined {
   text-decoration: underline;
 }
+
+.span_then--bold {
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
 .table {
   background: white;
   font: 16px sans-serif;
