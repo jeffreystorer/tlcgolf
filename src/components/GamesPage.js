@@ -75,7 +75,11 @@ export default function GamesPage() {
     hasGoogleSheet
   )
   useEffect(() => {
-    if (hasGoogleSheet === "true") fetchGamesGHIN(setLoading)
+    if (hasGoogleSheet === "true") {
+      fetchGamesGHIN(setLoading)
+    } else {
+      setLoading(false)
+    }
   }, [hasGoogleSheet])
 
   function handlePublishHandicapsClick() {
@@ -130,11 +134,18 @@ export default function GamesPage() {
           <GamesTableDropDowns />
           <br />
           <br />
-          <br />
-          <LinkButton title={"Edit Table"} />
-          <br />
-          <br />
           <div className="div--center">
+            <div className="div--bordered">
+              <h4>
+                To add or delete players
+                <br />
+                in a game, edit your table
+                <br />
+                of players in Google Sheets:
+              </h4>
+              <LinkButton title={"Edit Table"} />
+              <br />
+            </div>
             {isMe && <IframesStorer />}
             {isCasey && <IframesCasey />}
           </div>

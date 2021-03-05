@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react"
 import "../styles/App.css"
 import ExportTable from "./ExportTable"
+import GamesTableCreate from "./GamesTableCreate"
 import fetchGamesGHIN from "../helpers/fetchGamesGHIN"
 import Loader from "react-loader-spinner"
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import { get } from "../helpers/localStorage"
 
 export default function ExportPage({ lineupTitle, lineup }) {
   const [loading, setLoading] = useState(true)
+  const hasGoogleSheet = get("hasGoogleSheet")
 
   useEffect(() => {
-    fetchGamesGHIN(setLoading)
-  }, [])
+    if (hasGoogleSheet === "true") {
+      fetchGamesGHIN(setLoading)
+    } else {
+      setLoading(false)
+    }
+  }, [hasGoogleSheet])
   const style = {
     position: "fixed",
     top: "50%",
@@ -29,9 +36,17 @@ export default function ExportPage({ lineupTitle, lineup }) {
       />
     )
   }
-  return (
-    <>
-      <ExportTable />
-    </>
-  )
+  if (hasGoogleSheet === "true") {
+    return (
+      <>
+        <ExportTable />
+      </>
+    )
+  } else {
+    return (
+      <>
+        <GamesTableCreate />
+      </>
+    )
+  }
 }

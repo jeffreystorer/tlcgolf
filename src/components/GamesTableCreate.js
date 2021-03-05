@@ -1,14 +1,13 @@
 import React from "react"
 import LinkButton from "./GamesLinkButton"
-import { useRecoilValue } from "recoil"
-import * as state from "../state"
+import { get } from "../helpers/localStorage"
 
 export default function GamesTableCreate() {
-  const ghinNumber = useRecoilValue(state.ghinNumberState)
+  const ghinNumber = get("ghinNumber")
   return (
     <>
       <p className="paragraph--center">
-        Before you can display this table,<br></br>
+        Before you can display this page,<br></br>
         you must create a table of your players<br></br>
         and games in Google Sheets.<br></br>
         <br></br>

@@ -19,13 +19,13 @@ export default function AddGuestToGoogleSheet() {
 
   function handleSignInClick() {
     if (state.gapi !== null) {
-      authenticate().then(loadClient)
+      authenticate()
     }
   }
 
   function handleSaveClick() {
     if (state.gapi !== null) {
-      execute()
+      loadClient().then(execute)
     }
   }
 
@@ -60,30 +60,27 @@ export default function AddGuestToGoogleSheet() {
 
   // Make sure the client is loaded and sign-in is complete before calling this method.
   function execute() {
-    return state.gapi.client.sheets.spreadsheets.values
-      .append({
-        spreadsheetId: SPREADSHEET_ID,
-        range: ghinNumber + "!A1:A3",
-        includeValuesInResponse: true,
-        insertDataOption: "INSERT_ROWS",
-        responseDateTimeRenderOption: "FORMATTED_STRING",
-        responseValueRenderOption: "UNFORMATTED_VALUE",
-        valueInputOption: "RAW",
-        resource: {
-          values: guests,
-        },
-      })
-      .then(
-        function (response) {
-          localStorage.removeItem("guests")
-          document.location = "/settings/logout"
-          // Handle the results here (response.result has the parsed body).
-          console.log("Response", response)
-        },
-        function (err) {
-          console.error("Execute error", err)
-        }
-      )
+    let request = state.gapi.client.sheets.spreadsheets.values.append({
+      spreadsheetId: SPREADSHEET_ID,
+      range: ghinNumber + "!A1:A3",
+      includeValuesInResponse: true,
+      insertDataOption: "INSERT_ROWS",
+      responseDateTimeRenderOption: "FORMATTED_STRING",
+      responseValueRenderOption: "UNFORMATTED_VALUE",
+      valueInputOption: "RAW",
+      resource: {
+        values: guests,
+      },
+    })
+    return request.then(
+      function (response) {
+        localStorage.removeItem("guests")
+        document.location = "/settings/logout"
+      },
+      function (err) {
+        console.error("Execute error", err)
+      }
+    )
   }
 
   if (state.gapi !== null) {
@@ -96,12 +93,8 @@ export default function AddGuestToGoogleSheet() {
 
   return (
     <>
-      <div className="div--center div--bordered">
-        <h4>
-          To save your guest(s) to your table
-          <br />
-          of players in Google Sheets
-        </h4>
+      <div>
+        <br />
         <button className="button" onClick={handleSignInClick}>
           Sign In
         </button>

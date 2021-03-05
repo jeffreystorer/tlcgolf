@@ -6,12 +6,8 @@ import LinkButton from "./GamesLinkButton"
 import ButtonDownloadScreenShot from "./SharedButtonDownloadScreenshot"
 import { get, set } from "../helpers/localStorage"
 import AddGuest from "./AddGuest"
-import AddGuestToGoogleSheet from "./AddGuestToGoogleSheet"
 
 export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
-  let ghinNumber = get("ghinNumber")
-  let isMe = false
-  if (ghinNumber === "585871") isMe = true
   let games = get("games")
   //let ghinNumber = get("ghinNumber")
   let guest = []
@@ -113,45 +109,51 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
         </div>
       </table>
       <br />
-      {isMe && (
-        <>
-          <AddGuest
-            handleSubmitGuest={handleSubmitGuest}
-            guestGHINNumber={guestGHINNumber}
-            handleChangeGuestGHINNumber={handleChangeGuestGHINNumber}
-            guestLastName={guestLastName}
-            handleChangeGuestLastName={handleChangeGuestLastName}
-            handleAddGuestToAllGamesChange={handleAddGuestToAllGamesChange}
-            addGuestToAllGames={addGuestToAllGames}
+      <AddGuest
+        handleSubmitGuest={handleSubmitGuest}
+        guestGHINNumber={guestGHINNumber}
+        handleChangeGuestGHINNumber={handleChangeGuestGHINNumber}
+        guestLastName={guestLastName}
+        handleChangeGuestLastName={handleChangeGuestLastName}
+        handleAddGuestToAllGamesChange={handleAddGuestToAllGamesChange}
+        addGuestToAllGames={addGuestToAllGames}
+      />
+      <br />
+      <div className="div--center">
+        <div className="div--bordered">
+          <h4>
+            To add or delete players
+            <br />
+            in a game, edit your table
+            <br />
+            of players in Google Sheets:
+          </h4>
+          <LinkButton title={"Edit Table"} />
+          <br />
+        </div>
+        <br />
+        <br />
+        <div className="div--bordered">
+          <br />
+          <ButtonDownloadScreenShot
+            game={game}
+            course={course}
+            element="games-table-div"
+            format="PNG"
+            page="Games"
           />
           <br />
-          <AddGuestToGoogleSheet />
-        </>
-      )}
-      <div className="div--center">
-        <h4>
-          Edit your table of players
           <br />
-          in Google Sheets
-        </h4>
-        <LinkButton title={"Edit Table"} />
-        <br />
-        <br />
-        <ButtonDownloadScreenShot
-          game={game}
-          course={course}
-          element="games-table-div"
-          format="PNG"
-          page="Games"
-        />
-        <br />
-        <ButtonDownloadScreenShot
-          game={game}
-          course={course}
-          element="games-table-div"
-          format="JPEG"
-          page="Games"
-        />
+          <ButtonDownloadScreenShot
+            game={game}
+            course={course}
+            element="games-table-div"
+            format="JPEG"
+            page="Games"
+          />
+          <br />
+          <br />
+        </div>
         <br />
         <br />
         <input
