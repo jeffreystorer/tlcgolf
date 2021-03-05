@@ -19,10 +19,9 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
   const [screenShotURL, setScreenShotURL] = useState()
   const [showFirstName, setShowFirstName] = useState(false)
   const [showTeamHcp, setShowTeamHcp] = useState(false)
-  //set("showTeamHcp", false)
   const [showIndividualHandicaps, setShowIndividualHandicaps] = useState(true)
   const [refreshed, setRefreshed] = useState(false)
-  let textAreaRows = 8
+  let textAreaRows = 10
   let textAreaCols = 41
   let teesSelected = lineup.teesSelected
   let courseName = getCourseName(lineup.course)
