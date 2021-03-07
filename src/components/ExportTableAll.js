@@ -21,8 +21,7 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
   const [showTeamHcp, setShowTeamHcp] = useState(false)
   const [showIndividualHandicaps, setShowIndividualHandicaps] = useState(true)
   const [refreshed, setRefreshed] = useState(false)
-  let textAreaRows = 10
-  let textAreaCols = 41
+  let textAreaRowCount = get("textAreaRowCount")
   let teesSelected = lineup.teesSelected
   let courseName = getCourseName(lineup.course)
 
@@ -390,7 +389,7 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
                         <textarea
                           className="textarea--center-no-border"
                           rows="1"
-                          cols={textAreaCols}
+                          cols="41"
                           value={progAdjMessage}
                         ></textarea>
                       </td>
@@ -402,8 +401,8 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
                   <td className="textarea_td">
                     <Textarea
                       textAreaValue={lineup.textAreaValue}
-                      rows={textAreaRows}
-                      cols={textAreaCols}
+                      rows={textAreaRowCount}
+                      cols="41"
                     />
                   </td>
                 </tr>
@@ -438,8 +437,8 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
                   <td className="textarea_td">
                     <Textarea
                       lineup={lineup.textAreaValue}
-                      rows={textAreaRows}
-                      cols={textAreaCols}
+                      rows={textAreaRowCount}
+                      cols="41"
                     />
                   </td>
                 </tr>

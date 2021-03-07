@@ -527,7 +527,14 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
 
   const handleTextAreaRowCountChange = (event) => {
     set("textAreaRowCount", event.target.value)
-    setTextAreaRowCount(event.target.value)
+  }
+
+  const handleMinusPlusClick = (event) => {
+    if (event.target.name === "minus") {
+      setTextAreaRowCount((prevState) => prevState - 1)
+    } else {
+      setTextAreaRowCount((prevState) => prevState + 1)
+    }
   }
 
   //handle Save Lineup
@@ -794,10 +801,11 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             </tfoot>
           </div>
         </table>
-        <div className="div--center">
-          <label htmlFor="rowcount">Text area lines: </label>
+        {/*         <div className="div--center">
+          <label htmlFor="rowcount">Size of text area: </label>
+          <button className="button_dec">-</button>
           <input
-            className="input_rowcount"
+            className="input_textarea-row-count"
             type="number"
             id="rowcount"
             name="rowcount"
@@ -805,6 +813,26 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             min="1"
             onChange={handleTextAreaRowCountChange}
           />
+          <button className="button_inc">+</button>
+        </div> */}
+        <div className="number-input div--center">
+          <form>
+            <label htmlFor="rowcount">Text area lines: </label>
+            <button name="minus" onClick={handleMinusPlusClick}></button>
+            <input
+              min="1"
+              id="rowcount"
+              name="rowcount"
+              value={textAreaRowCount}
+              type="number"
+              onChange={handleTextAreaRowCountChange}
+            />
+            <button
+              name="plus"
+              onClick={handleMinusPlusClick}
+              className="plus"
+            ></button>
+          </form>
         </div>
         {showTips && <LineupTipSetManualCH />}
         <br />
