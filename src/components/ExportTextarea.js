@@ -7,6 +7,7 @@ export default function Textarea({ textAreaValue, rows, cols }) {
       rows={rows}
       cols={cols}
       value={textAreaValue}
+      readonly={true}
     ></textarea>
   )
 }

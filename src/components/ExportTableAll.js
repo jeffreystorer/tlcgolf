@@ -391,6 +391,7 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
                           rows="1"
                           cols="41"
                           value={progAdjMessage}
+                          readonly="true"
                         ></textarea>
                       </td>
                     </tr>

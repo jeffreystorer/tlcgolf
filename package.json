@@ -31,6 +31,7 @@
     "react-dom": "^16.13.1",
     "react-firebase-hooks": "^2.2.0",
     "react-loader-spinner": "^4.0.0",
+    "react-numeric-input": "^2.2.3",
     "react-photo-collage": "^1.0.7",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.4",
@@ -39,6 +40,7 @@
     "react-toastify": "^6.0.9",
     "recoil": "0.0.10",
     "request": "^2.88.2",
+    "save": "^2.4.0",
     "styled-components": "^5.2.1",
     "use-visibility-change": "^0.3.0",
     "uuid": "^8.3.1"

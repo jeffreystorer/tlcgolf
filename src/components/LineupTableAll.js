@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css"
 import { v4 as uuidv4 } from "uuid"
 import { useRecoilValue, useRecoilState } from "recoil"
 import { useListKeys } from "react-firebase-hooks/database"
+import NumericInput from "react-numeric-input"
 
 //components
 import AddPlayersToSavedLineup from "./LineupAddPlayersToSavedLineup"
@@ -525,9 +526,9 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     setTextAreaValue(event.target.value)
   }
 
-  const handleTextAreaRowCountChange = (event) => {
-    set("textAreaRowCount", event.target.value)
-    setTextAreaRowCount(event.target.value)
+  const handleTextAreaRowCountChange = (valueAsNumber) => {
+    set("textAreaRowCount", valueAsNumber)
+    setTextAreaRowCount(valueAsNumber)
   }
 
   //handle Save Lineup
@@ -773,6 +774,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
                         rows="1"
                         cols="41"
                         value={progAdjMessage}
+                        readonly="true"
                       ></textarea>
                     </td>
                   </tr>
@@ -795,15 +797,14 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           </div>
         </table>
         <div className="div--center">
-          <label htmlFor="rowcount">Text area lines: </label>
-          <input
-            className="input_rowcount"
-            type="number"
-            id="rowcount"
+          <label htmlFor="rowcount">Text area height: </label>
+          <NumericInput
+            size="2"
             name="rowcount"
-            value={textAreaRowCount}
             min="1"
+            value={textAreaRowCount}
             onChange={handleTextAreaRowCountChange}
+            mobile="true"
           />
         </div>
         {showTips && <LineupTipSetManualCH />}
