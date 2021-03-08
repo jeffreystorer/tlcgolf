@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { set } from "../helpers/localStorage"
 import { useList } from "react-firebase-hooks/database"
 import LineupDataService from "../services/LineupService"
@@ -12,7 +12,7 @@ const LineupsList = ({
   firebaseRef,
   lastKeyIndex,
 }) => {
-  const [key, setKey] = useState("notSet")
+  //const [key, setKey] = useState("notSet")
   const [currentLineup, setCurrentLineup] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(-1)
 
@@ -28,7 +28,7 @@ const LineupsList = ({
 
   const setActiveLineup = (Lineup, index) => {
     set("currentLineupIndex", index)
-    const { title } = Lineup.val() /* Lineup */
+    const { title } = Lineup.val()
 
     setCurrentLineup({
       key: Lineup.key,
@@ -44,7 +44,7 @@ const LineupsList = ({
     })
   }
 
-  useEffect(() => {
+  /*   useEffect(() => {
     //eslint-disable-next-line
     let savedLineups = []
     if (lastKeyIndex > -1) {
@@ -60,11 +60,10 @@ const LineupsList = ({
           title: aLineup.title,
         })
         setCurrentIndex(index)
-        set("currentLineupIndex", index)
         return aLineup
       }
     }
-  }, [Lineups, lastKeyIndex, key, loadLineupFromFirebase, firebaseRef])
+  }, [Lineups, lastKeyIndex, key, loadLineupFromFirebase, firebaseRef]) */
 
   return (
     <div className="lineups-list">
@@ -105,10 +104,10 @@ const LineupsList = ({
           />
         </div>
       ) : (
-        <div className="div--center">
-          <br></br>
-          <p>Please click on a Lineup to load or delete it...</p>
-        </div>
+        <>
+          <br />
+          <br />
+        </>
       )}
     </div>
   )

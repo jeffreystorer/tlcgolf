@@ -21,6 +21,7 @@ const Lineup = (props) => {
       teamTables: {},
       teamHcpAndProgs: {},
       textAreaValue: "",
+      textAreaRowCount: 0,
     },
   }
   const [currentLineup, setCurrentLineup] = useState(initialLineupState)
@@ -59,7 +60,7 @@ const Lineup = (props) => {
     <>
       <br />
       <div className="div--center lineups-list">
-        {currentLineup ? (
+        {currentLineup && (
           <>
             <h4>Current Saved Lineup</h4>
             <p>{currentLineup.title}</p>
@@ -73,11 +74,6 @@ const Lineup = (props) => {
               Delete
             </button>
             <br />
-          </>
-        ) : (
-          <>
-            <br />
-            <p>Please click on a Lineup...</p>
           </>
         )}
         <br />

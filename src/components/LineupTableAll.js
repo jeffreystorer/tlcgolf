@@ -156,6 +156,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     teamTables,
     teeTimeCount,
     textAreaValue,
+    textAreaRowCount,
     teesSelected,
   }) {
     setTeesSelected(teesSelected)
@@ -177,6 +178,13 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     }
     setTeeTimeCount(teeTimeCount)
     setTextAreaValue(textAreaValue)
+    if (textAreaRowCount > 0) {
+      setTextAreaRowCount(textAreaRowCount)
+      set("textAreaRowCount", textAreaRowCount)
+    } else {
+      setTextAreaRowCount(8)
+      set("textAreaRowCount", 8)
+    }
   }
 
   //LineupTableDropDowns event handlers
@@ -539,12 +547,12 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     let goToExport = false
     saveLineup(showToast, goToExport)
   }
-  function handleSaveAndExportLineupClick(event) {
+  /*  function handleSaveAndExportLineupClick(event) {
     event.preventDefault()
     let showToast = false
     let goToExport = true
     saveLineup(showToast, goToExport)
-  }
+  } */
 
   function saveLineup(showToast, goToExport) {
     if (playingDate === "Date") {
@@ -577,6 +585,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         progAdj,
         teamTables,
         textAreaValue,
+        textAreaRowCount,
         teesSelected,
         ratings,
         slopes,
@@ -642,6 +651,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       progAdj,
       teamTables,
       textAreaValue,
+      textAreaRowCount,
       teesSelected,
       ratings,
       slopes,
@@ -831,14 +841,14 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           <form onSubmit={handleSaveLineupClick}>
             <input className="button" type="submit" value="Save Lineup" />
           </form>
-          <br />
+          {/* <br />
           <form onSubmit={handleSaveAndExportLineupClick}>
             <input
               className="button"
               type="submit"
               value="Save and Export Lineup"
             />
-          </form>
+          </form> */}
         </div>
         {isMe && (
           <div>

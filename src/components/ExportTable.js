@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil"
 import * as state from "../state"
 //import * as c from '../helpers/consoleLogTable';
 
-export default function ExportTable({ lineupTitle, lineup }) {
+export default function ExportTable() {
   const [games, setGames] = useRecoilState(state.gamesState)
   //eslint-disable-next-line
   const [teesSelected, setTeesSelected] = useRecoilState(

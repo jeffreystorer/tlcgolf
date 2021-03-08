@@ -21,7 +21,13 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
   const [showTeamHcp, setShowTeamHcp] = useState(false)
   const [showIndividualHandicaps, setShowIndividualHandicaps] = useState(true)
   const [refreshed, setRefreshed] = useState(false)
-  let textAreaRowCount = get("textAreaRowCount")
+  let textAreaRowCount
+  if (lineup.textAreaRowCount > 0) {
+    textAreaRowCount = lineup.textAreaRowCount
+    set("textAreaRowCount", textAreaRowCount)
+  } else {
+    textAreaRowCount = 8
+  }
   let teesSelected = lineup.teesSelected
   let courseName = getCourseName(lineup.course)
 
