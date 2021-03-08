@@ -3,7 +3,6 @@ import { set } from "../helpers/localStorage"
 import { useList } from "react-firebase-hooks/database"
 import LineupDataService from "../services/LineupService"
 import Lineup from "./Lineup"
-//import LineupLoadSaved from "./LineupLoadSaved"
 import "../styles/App.css"
 
 const LineupsList = ({

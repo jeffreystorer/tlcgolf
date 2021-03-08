@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import LineupDataService from "../services/LineupService"
 import { useObject } from "react-firebase-hooks/database"
+import { set } from "../helpers/localStorage"
 import "../styles/App.css"
 
 const Lineup = (props) => {
@@ -54,6 +55,7 @@ const Lineup = (props) => {
       .catch((e) => {
         console.log(e)
       })
+    set("currentLineupIndex", -1)
   }
 
   return (

@@ -543,9 +543,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
 
   function handleSaveLineupClick(event) {
     event.preventDefault()
-    let showToast = true
-    let goToExport = false
-    saveLineup(showToast, goToExport)
+    saveLineup()
   }
   /*  function handleSaveAndExportLineupClick(event) {
     event.preventDefault()
@@ -554,7 +552,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     saveLineup(showToast, goToExport)
   } */
 
-  function saveLineup(showToast, goToExport) {
+  function saveLineup() {
     if (playingDate === "Date") {
       toast.error("📅Please select a Playing Date📅", {
         position: "bottom-center",
@@ -592,20 +590,17 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         pars,
         firebaseRef
       )
-      if (showToast) {
-        toast("Lineup Saved and Available on Export Page", {
-          position: "bottom-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
-      }
-      if (goToExport) {
-        document.location = "/export"
-      }
+      toast("Lineup Saved", {
+        position: "bottom-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+      set("currentLineupIndex", -1)
+      window.location.reload()
     }
   }
   function handleLineUpTitleChange(event) {
