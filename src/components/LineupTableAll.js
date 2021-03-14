@@ -9,6 +9,7 @@ import NumericInput from "react-numeric-input"
 
 //components
 import AddPlayersToSavedLineup from "./LineupAddPlayersToSavedLineup"
+import DeletePlayersFromSavedLineup from "./LineupDeletePlayersFromSavedLineup"
 import LineupTableDropDowns from "./LineupTableDropDowns"
 import LineupTipAutoPop from "./LineupTipAutoPop"
 import LineupTipDownloadScreenshot from "./LineupTipDownloadScreenshot"
@@ -53,6 +54,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const [showTips, setShowTips] = useState(get("showTips"))
   const [showTeamHcp, setShowTeamHcp] = useState(get("showTeamHcp"))
   const [showAddPlayers, setShowAddPlayers] = useState(false)
+  const [showDeletePlayers, setShowDeletePlayers] = useState(false)
   const teamTablesObj = {
     times: [],
     team0: [],
@@ -129,6 +131,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     slopes,
     pars
   )
+  let playersInSavedLineupCount = get("playersInLineup").length
   let playerNameList = getPlayersNotInTeeTime(players, teamTables)
   let progAdjMessage = ""
 
@@ -287,6 +290,26 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
 
   function handleAddPlayersClick() {
     setShowAddPlayers(false)
+    playersArray = loadLineupTablePlayersArray(
+      firebaseRef,
+      course,
+      teesSelected,
+      ratings,
+      slopes,
+      pars,
+      teamTables,
+      teeTimeCount
+    )
+    setPlayers(playersArray)
+  }
+
+  //delete players from saved lineup handler
+  function handleShowDeletePlayersClick() {
+    setShowDeletePlayers(true)
+  }
+
+  function handleDeletePlayersClick() {
+    setShowDeletePlayers(false)
     playersArray = loadLineupTablePlayersArray(
       firebaseRef,
       course,
@@ -708,31 +731,58 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         <button className="button" onClick={handleClearPlayersFromTeamsClick}>
           Clear Players from Teams
         </button>
-        <br />{" "}
-        {showAddPlayers && (
-          <>
-            <AddPlayersToSavedLineup
-              course={course}
-              game={game}
-              ratings={ratings}
-              slopes={slopes}
-              pars={pars}
-              handleAddPlayersClick={handleAddPlayersClick}
-            />
-            <br />
-            <br />
-          </>
-        )}
         <br />
-        {playersNotInSavedLineupCount > 0 && (
-          <>
-            <button className="button" onClick={handleShowAddPlayersClick}>
-              Add Players to Saved Lineup
-            </button>
-            <br />
-            <br />
-          </>
-        )}
+        <br />
+        <div className="div--bordered">
+          {showAddPlayers && (
+            <>
+              <AddPlayersToSavedLineup
+                course={course}
+                game={game}
+                ratings={ratings}
+                slopes={slopes}
+                pars={pars}
+                handleAddPlayersClick={handleAddPlayersClick}
+              />
+            </>
+          )}
+          <br />
+          {playersNotInSavedLineupCount > 0 && (
+            <>
+              <button className="button" onClick={handleShowAddPlayersClick}>
+                Add Players to Lineup
+              </button>
+              <br />
+              <br />
+            </>
+          )}
+        </div>
+        <br />
+        <div className="div--bordered">
+          {showDeletePlayers && (
+            <>
+              <DeletePlayersFromSavedLineup
+                course={course}
+                game={game}
+                ratings={ratings}
+                slopes={slopes}
+                pars={pars}
+                handleDeletePlayersClick={handleDeletePlayersClick}
+              />
+            </>
+          )}
+          <br />
+          {playersInSavedLineupCount > 0 && (
+            <>
+              <button className="button" onClick={handleShowDeletePlayersClick}>
+                Delete Players from Lineup
+              </button>
+              <br />
+              <br />
+            </>
+          )}
+        </div>
+        <br />
         {progs069 < 1 && (
           <>
             <input
@@ -806,10 +856,10 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           <NumericInput
             size="2"
             name="rowcount"
-            min="1"
+            min={1}
             value={textAreaRowCount}
             onChange={handleTextAreaRowCountChange}
-            mobile="true"
+            mobile={true}
           />
         </div>
         {showTips && <LineupTipSetManualCH />}
@@ -836,14 +886,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           <form onSubmit={handleSaveLineupClick}>
             <input className="button" type="submit" value="Save Lineup" />
           </form>
-          {/* <br />
-          <form onSubmit={handleSaveAndExportLineupClick}>
-            <input
-              className="button"
-              type="submit"
-              value="Save and Export Lineup"
-            />
-          </form> */}
         </div>
         {isMe && (
           <div>

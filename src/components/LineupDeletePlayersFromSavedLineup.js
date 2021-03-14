@@ -6,21 +6,18 @@ import createLineupTablePlayersArray from "../helpers/createLineupTablePlayersAr
 import { useRecoilValue } from "recoil"
 import * as state from "../state"
 
-export default function AddPlayersToSavedLineup({
+export default function DeletePlayersFromSavedLineup({
   course,
   game,
   ratings,
   slopes,
   pars,
-  handleAddPlayersClick,
+  handleDeletePlayersClick,
 }) {
   const games = useRecoilValue(state.gamesState)
   const teesSelected = useRecoilValue(state.teesSelectedState)
   set("game", game)
   let randomTeams = false
-  /*   console.log("SelectPlayersTableAll")
-  c.l([course,game, showTips]);
-  c.t([games, teesSelected]) */
 
   let playersArray = createLineupTablePlayersArray(
     course,
@@ -37,7 +34,7 @@ export default function AddPlayersToSavedLineup({
 
   function handleSubmit(e) {
     e.preventDefault()
-    var sel = document.getElementById("addPlayerSelector")
+    var sel = document.getElementById("DeletePlayerSelector")
     var alloptions = sel.options
     let options = []
     for (var i = 0, len = alloptions.length; i < len; i++) {
@@ -45,22 +42,29 @@ export default function AddPlayersToSavedLineup({
         options = [...options, alloptions[i]]
       }
     }
-    Array.from(options).forEach(function (element) {
-      playersInLineup = [...playersInLineup, element.value]
+    let playersToBeDeleted = []
+    options.forEach((option) => {
+      playersToBeDeleted.push(option.value)
     })
-    set("playersInLineup", playersInLineup)
-    handleAddPlayersClick()
+    let newPlayersInLineup = []
+    playersInLineup.forEach((player) => {
+      if (playersToBeDeleted.includes(player) === false) {
+        newPlayersInLineup.push(player)
+      }
+    })
+    set("playersInLineup", newPlayersInLineup)
+    handleDeletePlayersClick()
   }
 
-  let playersNotInLineupArray = []
+  let playersInLineupArray = []
 
   playersArray.forEach((player) => {
-    if (playersInLineup.includes(player.id.toString()) === false) {
-      playersNotInLineupArray.push(player)
+    if (playersInLineup.includes(player.id.toString()) === true) {
+      playersInLineupArray.push(player)
     }
   })
 
-  let playersInLineupOptions = playersNotInLineupArray.map((player) => (
+  let playersInLineupOptions = playersInLineupArray.map((player) => (
     <option key={uuidv4()} value={player.id}>
       {player.playerName}
     </option>
@@ -73,8 +77,8 @@ export default function AddPlayersToSavedLineup({
         <form onSubmit={handleSubmit}>
           <label>
             <select
-              id="addPlayerSelector"
-              name="playersInLineup"
+              id="DeletePlayerSelector"
+              name="playersInLineupDelete"
               multiple={true}
               size={20}
             >
@@ -83,7 +87,7 @@ export default function AddPlayersToSavedLineup({
           </label>
           <br></br>
           <br></br>
-          <input className="button" type="submit" value="Add Players" />
+          <input className="button" type="submit" value="Delete Players" />
         </form>
       </div>
     </>
