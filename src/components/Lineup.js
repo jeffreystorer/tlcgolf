@@ -21,7 +21,7 @@ const Lineup = (props) => {
       progAdj: "0",
       teamTables: {},
       teamHcpAndProgs: {},
-      textAreaValue: "",
+      textareaValue: "",
       textAreaRowCount: 0,
     },
   }

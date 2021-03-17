@@ -10,7 +10,7 @@ import createExportTeamsTablePlayersArray from "../helpers/createExportTeamsTabl
 import domtoimage from "dom-to-image"
 import _ from "lodash"
 import { get, set } from "../helpers/localStorage"
-import Textarea from "./ExportTextarea"
+import ExportTextarea from "./ExportTextarea"
 
 export default function ExportTableAll({ lineupTitle, lineup }) {
   const [showLocalNumbers, setShowLocalNumbers] = useState(
@@ -406,9 +406,8 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
 
                 <tr>
                   <td className="textarea_td">
-                    <Textarea
-                      textAreaValue={lineup.textAreaValue}
-                      rows={textAreaRowCount}
+                    <ExportTextarea
+                      textareaValue={lineup.textareaValue}
                       cols="41"
                     />
                   </td>
@@ -442,9 +441,8 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
               <tfoot className="tfoot">
                 <tr>
                   <td className="textarea_td">
-                    <Textarea
-                      lineup={lineup.textAreaValue}
-                      rows={textAreaRowCount}
+                    <ExportTextarea
+                      textareaValue={lineup.textareaValue}
                       cols="41"
                     />
                   </td>

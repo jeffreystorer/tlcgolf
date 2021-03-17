@@ -5,11 +5,11 @@ import "react-toastify/dist/ReactToastify.css"
 import { v4 as uuidv4 } from "uuid"
 import { useRecoilValue, useRecoilState } from "recoil"
 import { useListKeys } from "react-firebase-hooks/database"
-import NumericInput from "react-numeric-input"
 
 //components
 import AddPlayersToSavedLineup from "./LineupAddPlayersToSavedLineup"
 import DeletePlayersFromSavedLineup from "./LineupDeletePlayersFromSavedLineup"
+import LineupTextarea from "./LineupTextarea"
 import LineupTableDropDowns from "./LineupTableDropDowns"
 import LineupTipAutoPop from "./LineupTipAutoPop"
 import LineupTipDownloadScreenshot from "./LineupTipDownloadScreenshot"
@@ -76,9 +76,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const [lineupTitle, setLineupTitle] = useState(
     "New lineup for " + game + " at " + courseName
   )
-  const [textAreaValue, setTextAreaValue] = useState("")
-  const [textAreaRowCount, setTextAreaRowCount] = useState(8)
-  set("textAreaRowCount", textAreaRowCount)
+  const [textareaValue, setTextareaValue] = useState("")
   const [progs069, setProgs069] = useState("0")
   const [progAdj, setProgAdj] = useState("0")
   //trick the component into rerendering with certain changes
@@ -158,8 +156,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     progAdj,
     teamTables,
     teeTimeCount,
-    textAreaValue,
-    textAreaRowCount,
+    textareaValue,
     teesSelected,
   }) {
     setTeesSelected(teesSelected)
@@ -180,14 +177,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       setTeamTables(teamTablesObj)
     }
     setTeeTimeCount(teeTimeCount)
-    setTextAreaValue(textAreaValue)
-    if (textAreaRowCount > 0) {
-      setTextAreaRowCount(textAreaRowCount)
-      set("textAreaRowCount", textAreaRowCount)
-    } else {
-      setTextAreaRowCount(8)
-      set("textAreaRowCount", 8)
-    }
+    setTextareaValue(textareaValue)
   }
 
   //LineupTableDropDowns event handlers
@@ -549,17 +539,12 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   }
 
   //text area
-  const handleTextAreaOnBlur = (event) => {
-    setTextAreaValue(event.target.value)
+  const handleTextareaOnBlur = (event) => {
+    setTextareaValue(event.target.value)
   }
 
-  const handleTextAreaValueChange = (event) => {
-    setTextAreaValue(event.target.value)
-  }
-
-  const handleTextAreaRowCountChange = (valueAsNumber) => {
-    set("textAreaRowCount", valueAsNumber)
-    setTextAreaRowCount(valueAsNumber)
+  const handleTextareaValueChange = (event) => {
+    setTextareaValue(event.target.value)
   }
 
   //handle Save Lineup
@@ -568,12 +553,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     event.preventDefault()
     saveLineup()
   }
-  /*  function handleSaveAndExportLineupClick(event) {
-    event.preventDefault()
-    let showToast = false
-    let goToExport = true
-    saveLineup(showToast, goToExport)
-  } */
 
   function saveLineup() {
     if (playingDate === "Date") {
@@ -605,8 +584,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         progs069,
         progAdj,
         teamTables,
-        textAreaValue,
-        textAreaRowCount,
+        textareaValue,
         teesSelected,
         ratings,
         slopes,
@@ -668,8 +646,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       progs069,
       progAdj,
       teamTables,
-      textAreaValue,
-      textAreaRowCount,
+      textareaValue,
       teesSelected,
       ratings,
       slopes,
@@ -837,31 +814,16 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               )}
               <tr>
                 <td className="textarea_td">
-                  <textarea
-                    className="textarea"
-                    rows={textAreaRowCount}
-                    cols="41"
-                    value={textAreaValue}
-                    onChange={handleTextAreaValueChange}
-                    onFocus={(event) => (event.target.value = textAreaValue)}
-                    onBlur={handleTextAreaOnBlur}
-                  ></textarea>
+                  <LineupTextarea
+                    textareaValue={textareaValue}
+                    handleTextareaValueChange={handleTextareaValueChange}
+                    handleTextareaOnBlur={handleTextareaOnBlur}
+                  />
                 </td>
               </tr>
             </tfoot>
           </div>
         </table>
-        <div className="div--center">
-          <label htmlFor="rowcount">Text area height: </label>
-          <NumericInput
-            size="2"
-            name="rowcount"
-            min={1}
-            value={textAreaRowCount}
-            onChange={handleTextAreaRowCountChange}
-            mobile={true}
-          />
-        </div>
         {showTips && <LineupTipSetManualCH />}
         <br />
         {showTips && <LineupTipSaveLineup />}
