@@ -466,13 +466,17 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     return TeamTables
   }
 
-  const handleAddTeamMember = (event) => {
-    const { name, value } = event.target
-    const newPlayerObj = players.find((player) => player.id === Number(value))
-    setTeamTables((prevTeamTables) => ({
-      ...prevTeamTables,
-      [name]: prevTeamTables[name].concat(newPlayerObj),
-    }))
+  const handleAddTeamMember = (name, options) => {
+    console.table(name)
+    console.table(options)
+    options.forEach(addPlayer)
+    function addPlayer(item, index) {
+      let newPlayerObj = players.find((player) => player.id === Number(item))
+      setTeamTables((prevTeamTables) => ({
+        ...prevTeamTables,
+        [name]: prevTeamTables[name].concat(newPlayerObj),
+      }))
+    }
     setEachTeamsHcpAndProgs()
   }
 
