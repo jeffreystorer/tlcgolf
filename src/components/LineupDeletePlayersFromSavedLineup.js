@@ -63,6 +63,7 @@ export default function DeletePlayersFromSavedLineup({
       playersInLineupArray.push(player)
     }
   })
+  let playerCount = playersInLineupArray.length
 
   let playersInLineupOptions = playersInLineupArray.map((player) => (
     <option key={uuidv4()} value={player.id}>
@@ -80,7 +81,7 @@ export default function DeletePlayersFromSavedLineup({
               id="DeletePlayerSelector"
               name="playersInLineupDelete"
               multiple={true}
-              size={20}
+              size={playerCount}
             >
               {playersInLineupOptions}
             </select>

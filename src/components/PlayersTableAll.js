@@ -31,6 +31,7 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
     pars,
     randomTeams
   )
+  let playerCount = playersArray.length
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -141,7 +142,7 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
             id="playerSelector"
             name="playersInLineup"
             multiple={true}
-            size={20}
+            size={playerCount}
           >
             {playersInLineupOptions}
           </select>

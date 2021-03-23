@@ -60,6 +60,8 @@ export default function AddPlayersToSavedLineup({
     }
   })
 
+  let playerCount = playersNotInLineupArray.length
+
   let playersInLineupOptions = playersNotInLineupArray.map((player) => (
     <option key={uuidv4()} value={player.id}>
       {player.playerName}
@@ -76,7 +78,7 @@ export default function AddPlayersToSavedLineup({
               id="addPlayerSelector"
               name="playersInLineup"
               multiple={true}
-              size={20}
+              size={playerCount}
             >
               {playersInLineupOptions}
             </select>

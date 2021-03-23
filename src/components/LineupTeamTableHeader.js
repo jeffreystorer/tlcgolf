@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import createGamesAndLineupTableHeaderRow from "../helpers/createGamesAndLineupTableHeaderRow"
+import getPlayersNotInTeeTime from "../helpers/getPlayersNotInTeeTime"
 import { useRecoilValue } from "recoil"
 import { teesSelectedState } from "../state"
 import { v4 as uuidv4 } from "uuid"
@@ -11,6 +12,9 @@ const LineupTeamTableHeader = ({
   playerNameList,
   handleAddTeamMember,
 }) => {
+  const [playerCount, setPlayerCount] = useState(
+    getPlayersNotInTeeTime(playerNameList, teamTables).length
+  )
   const [showAddTeamMember, setShowAddTeamMember] = useState(false)
   const teesSelected = useRecoilValue(teesSelectedState)
   let cols = createGamesAndLineupTableHeaderRow(teesSelected)
@@ -36,8 +40,7 @@ const LineupTeamTableHeader = ({
         optionValues = [...optionValues, alloptions[i].value]
       }
     }
-    console.table(teamName)
-    console.table(optionValues)
+    setPlayerCount(getPlayersNotInTeeTime(playerNameList, teamTables).length)
     setShowAddTeamMember(false)
     handleAddTeamMember(teamName, optionValues)
   }
@@ -53,7 +56,7 @@ const LineupTeamTableHeader = ({
           className="lineup-table-header_th-left"
           onClick={handleTeeTimeClick}
         >
-          {teamTables.times[teamNumber]}
+          {teamTables.times[teamNumber]}🔽
         </th>
 
         {getHeader()}
@@ -62,21 +65,26 @@ const LineupTeamTableHeader = ({
         <tr>
           <th key={uuidv4()}>
             <form onSubmit={handleSubmit}>
-              <label htmlFor={teamNumber}>
-                <input
-                  className="button"
-                  type="submit"
-                  value="Add Team Member(s)"
-                />
-              </label>
-              <br />
-              <select id={teamName} name={teamNumber} multiple={true} size={20}>
+              <select
+                id={teamName}
+                name={teamNumber}
+                multiple={true}
+                size={playerCount}
+              >
                 {playerNameList.map(({ id, playerName }) => (
                   <option key={uuidv4()} value={id}>
                     {playerName}
                   </option>
                 ))}
               </select>
+              <br />
+              <label htmlFor={teamNumber}>
+                <input
+                  className="button"
+                  type="submit"
+                  value="Add team member(s)"
+                />
+              </label>
             </form>
           </th>
         </tr>
