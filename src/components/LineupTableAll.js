@@ -405,8 +405,10 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         let teeChoice = item.teeChoice
         let teesSelectedArray = teesSelected.map((a) => a.value)
         let teeNo = teesSelectedArray.indexOf(teeChoice)
-        aTeamHcp = aTeamHcp + Number(item.courseHandicaps[teeNo])
-        aTeamProgs = aTeamProgs + (36 - Number(item.courseHandicaps[teeNo]))
+        if (item.courseHandicaps[teeNo] !== "X") {
+          aTeamHcp = aTeamHcp + Number(item.courseHandicaps[teeNo])
+          aTeamProgs = aTeamProgs + (36 - Number(item.courseHandicaps[teeNo]))
+        }
       }
     }
   }
@@ -452,10 +454,14 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
             let teesSelectedArray = teesSelected.map((a) => a.value)
             let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice)
             for (let j = 0; j < teesSelectedArray.length; j++) {
-              teamMembers[i].courseHandicaps[j] = "*"
+              if (aManualCH !== "-") {
+                teamMembers[i].courseHandicaps[j] = "*"
+                teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH
+                teamMembers[i].playerName = teamMembers[i].playerName + "*"
+              } else {
+                teamMembers[i].courseHandicaps[j] = aManualCH + "--X"
+              }
             }
-            teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH
-            teamMembers[i].playerName = teamMembers[i].playerName + "*"
           }
         }
       } catch (error) {

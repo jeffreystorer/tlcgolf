@@ -103,6 +103,7 @@ function manualCHList() {
   let manualCHList = []
   manualCHList.push({ value: "*", text: "*" })
   manualCHList.push({ value: "Auto", text: "Auto" })
+  manualCHList.push({ value: "-", text: "Not in Game" })
   for (let i = -10; i < 0; i++)
     manualCHList.push({ value: i, text: "+" + Math.abs(i) })
   for (let i = 0; i < 61; i++) manualCHList.push({ value: i, text: i })
