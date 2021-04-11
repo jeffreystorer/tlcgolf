@@ -453,14 +453,17 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           if (aManualCH !== "Auto") {
             let teesSelectedArray = teesSelected.map((a) => a.value)
             let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice)
-            for (let j = 0; j < teesSelectedArray.length; j++) {
-              if (aManualCH !== "-") {
+            if (aManualCH !== "-") {
+              for (let j = 0; j < teesSelectedArray.length; j++) {
                 teamMembers[i].courseHandicaps[j] = "*"
-                teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH
-                teamMembers[i].playerName = teamMembers[i].playerName + "*"
-              } else {
-                teamMembers[i].courseHandicaps[j] = aManualCH + "--X"
               }
+              teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH
+              teamMembers[i].playerName = teamMembers[i].playerName + "*"
+            } else {
+              for (let j = 0; j < teesSelectedArray.length; j++) {
+                teamMembers[i].courseHandicaps[j] = "X"
+              }
+              teamMembers[i].playerName = teamMembers[i].playerName + "X"
             }
           }
         }

@@ -238,8 +238,10 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
       let teeChoice = item.teeChoice
       let teesSelectedArray = getExportTeesSelectedArray(lineup.teesSelected)
       let teeNo = teesSelectedArray.indexOf(teeChoice)
-      aTeamHcp = aTeamHcp + Number(item.courseHandicaps[teeNo])
-      aTeamProgs = aTeamProgs + (36 - Number(item.courseHandicaps[teeNo]))
+      if (item.courseHandicaps[teeNo] !== "X") {
+        aTeamHcp = aTeamHcp + Number(item.courseHandicaps[teeNo])
+        aTeamProgs = aTeamProgs + (36 - Number(item.courseHandicaps[teeNo]))
+      }
     }
   }
 
@@ -252,11 +254,18 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
         if (aManualCH !== "Auto") {
           let teesSelectedArray = teesSelected.map((a) => a.value)
           let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice)
-          for (let j = 0; j < teesSelectedArray.length; j++) {
-            teamMembers[i].courseHandicaps[j] = "*"
+          if (aManualCH !== "-") {
+            for (let j = 0; j < teesSelectedArray.length; j++) {
+              teamMembers[i].courseHandicaps[j] = "*"
+            }
+            teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH
+            teamMembers[i].playerName = teamMembers[i].playerName + "*"
+          } else {
+            for (let j = 0; j < teesSelectedArray.length; j++) {
+              teamMembers[i].courseHandicaps[j] = "X"
+            }
+            teamMembers[i].playerName = teamMembers[i].playerName + "X"
           }
-          teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH
-          teamMembers[i].playerName = teamMembers[i].playerName + "*"
         }
       }
     } catch (error) {
