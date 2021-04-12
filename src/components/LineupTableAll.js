@@ -463,7 +463,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
               for (let j = 0; j < teesSelectedArray.length; j++) {
                 teamMembers[i].courseHandicaps[j] = "X"
               }
-              teamMembers[i].playerName = teamMembers[i].playerName + "X"
             }
           }
         }

@@ -30,6 +30,7 @@
     "react-daypicker": "^3.0.10",
     "react-dom": "^16.13.1",
     "react-expanding-textarea": "^2.3.1",
+    "react-feather": "^2.0.9",
     "react-firebase-hooks": "^2.2.0",
     "react-loader-spinner": "^4.0.0",
     "react-numeric-input": "^2.2.3",
