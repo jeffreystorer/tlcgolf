@@ -4,6 +4,7 @@ import getPlayersNotInTeeTime from "../helpers/getPlayersNotInTeeTime"
 import { useRecoilValue } from "recoil"
 import { teesSelectedState } from "../state"
 import { v4 as uuidv4 } from "uuid"
+import { ChevronDown } from "react-feather"
 
 const LineupTeamTableHeader = ({
   teamNumber,
@@ -56,7 +57,11 @@ const LineupTeamTableHeader = ({
           className="lineup-table-header_th-left"
           onClick={handleTeeTimeClick}
         >
-          {teamTables.times[teamNumber]}🔽
+          {teamTables.times[teamNumber]}
+          <span>
+            <ChevronDown size="18" strokeWidth="3px" />
+          </span>
+          {/* 🔽 */}
         </th>
 
         {getHeader()}
