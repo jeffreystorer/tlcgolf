@@ -3,11 +3,21 @@ import { get, set } from "../helpers/localStorage"
 import "../styles/App.css"
 import { v4 as uuidv4 } from "uuid"
 import createLineupTablePlayersArray from "../helpers/createLineupTablePlayersArray"
+import fetchMondaySchedules from "../helpers/fetchMondaySchedules"
 import { useRecoilValue, useRecoilState } from "recoil"
 import * as state from "../state"
 //import * as c from '../helpers/consoleLogTable';
 
 const PlayersTableAll = ({ ratings, slopes, pars }) => {
+  const ghinNumber = get("ghinNumber")
+  let isMe = false
+  switch (ghinNumber) {
+    case "585871":
+      isMe = true
+      break
+    default:
+      break
+  }
   const [randomTeams, setRandomTeams] = useState(false)
   //eslint-disable-next-line
   const [course, setCourse] = useRecoilState(state.courseState)
@@ -69,6 +79,11 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
     set("showTips", !showTips)
     setShowTips((prevState) => !prevState)
   }
+  function handleFetchMondaySchedules(e) {
+    e.preventDefault()
+    fetchMondaySchedules()
+    document.location = "/lineup"
+  }
 
   let playersInLineupOptions = playersArray.map((player) => (
     <option key={uuidv4()} value={player.id}>
@@ -102,6 +117,15 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
             </tbody>
           </table>
         </div>
+      )}
+      {isMe && (
+        <form onSubmit={handleFetchMondaySchedules}>
+          <input
+            type="submit"
+            className="button"
+            value="Fetch Monday Players"
+          />
+        </form>
       )}
       <h4>Randomize?</h4>
       <input
