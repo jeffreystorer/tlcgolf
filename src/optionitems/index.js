@@ -51,7 +51,6 @@ export const teeTimeCountOptionItems = teeTimeCounts.map((count) => (
 ))
 
 const teeAssignments = [
-  "Select Tee",
   "1A",
   "1B",
   "2A",
@@ -139,13 +138,11 @@ export const linkTimeOptionItems = linkTimes().map((linkTime) => (
   </option>
 ))
 
-export const teeAssignmentOptionItems = teeAssignments().map(
-  (teeAssignment) => (
-    <option key={uuidv4()} value={teeAssignment}>
-      {teeAssignment}
-    </option>
-  )
-)
+export const teeAssignmentOptionItems = teeAssignments.map((teeAssignment) => (
+  <option key={uuidv4()} value={teeAssignment}>
+    {teeAssignment}
+  </option>
+))
 
 function manualCHList() {
   let manualCHList = []

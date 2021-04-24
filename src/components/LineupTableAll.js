@@ -56,6 +56,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const [showAddPlayers, setShowAddPlayers] = useState(false)
   const [showDeletePlayers, setShowDeletePlayers] = useState(false)
   const teamTablesObj = {
+    teeAssignments: [],
     times: [],
     team0: [],
     team1: [],

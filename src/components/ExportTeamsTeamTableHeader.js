@@ -17,6 +17,9 @@ const ExportTeamsTeamTableHeader = ({ teamTables, teamNumber }) => {
   let teeTime
   try {
     teeTime = teamTables.times[teamNumber]
+    if (teamTables.times[teamNumber].includes("Shotgun")) {
+      teeTime = teeTime + " (" + teamTables.teeAssignments[teamNumber] + ")"
+    }
   } catch (error) {}
 
   return (

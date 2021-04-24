@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import createGamesAndLineupTableHeaderRow from "../helpers/createGamesAndLineupTableHeaderRow"
 import getPlayersNotInTeeTime from "../helpers/getPlayersNotInTeeTime"
+import * as options from "../optionitems"
 import { useRecoilValue } from "recoil"
 import { teesSelectedState } from "../state"
 import { v4 as uuidv4 } from "uuid"
@@ -49,6 +50,9 @@ const LineupTeamTableHeader = ({
   function handleTeeTimeClick() {
     setShowAddTeamMember(true)
   }
+  function handleTeeAssignmentChange(e) {
+    teamTables.teeAssignments[teamNumber] = e.target.value
+  }
 
   return (
     <>
@@ -61,7 +65,17 @@ const LineupTeamTableHeader = ({
           <span>
             <ChevronDown size="18" strokeWidth="3px" />
           </span>
-          {/* 🔽 */}
+          {teamTables.teeAssignments !== undefined &&
+            teamTables.times[teamNumber].includes("Shotgun") && (
+              <select
+                className="selector_lone select_dropdown_container"
+                name="teeAssignmentDropdown"
+                value={teamTables.teeAssignments[teamNumber]}
+                onChange={handleTeeAssignmentChange}
+              >
+                {options.teeAssignmentOptionItems}
+              </select>
+            )}
         </th>
 
         {getHeader()}
