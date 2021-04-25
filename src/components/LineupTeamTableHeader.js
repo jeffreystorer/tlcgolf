@@ -32,6 +32,10 @@ const LineupTeamTableHeader = ({
     })
   }
 
+  if (!teamTables.times[teamNumber].includes("Shotgun")) {
+    teamTables.teeAssignments[teamNumber] = "1"
+  }
+
   function handleSubmit(e) {
     e.preventDefault()
     var sel = document.getElementById(teamName)
@@ -49,6 +53,9 @@ const LineupTeamTableHeader = ({
 
   function handleTeeTimeClick() {
     setShowAddTeamMember(true)
+    /*     if (!teamTables.times[teamNumber].includes("Shotgun")) {
+      teamTables.teeAssignments[teamNumber] = "1"
+    } */
   }
   function handleTeeAssignmentChange(e) {
     teamTables.teeAssignments[teamNumber] = e.target.value
@@ -65,17 +72,16 @@ const LineupTeamTableHeader = ({
           <span>
             <ChevronDown size="18" strokeWidth="3px" />
           </span>
-          {teamTables.teeAssignments !== undefined &&
-            teamTables.times[teamNumber].includes("Shotgun") && (
-              <select
-                className="selector_lone select_dropdown_container"
-                name="teeAssignmentDropdown"
-                value={teamTables.teeAssignments[teamNumber]}
-                onChange={handleTeeAssignmentChange}
-              >
-                {options.teeAssignmentOptionItems}
-              </select>
-            )}
+          {teamTables.times[teamNumber].includes("Shotgun") && (
+            <select
+              className="selector_lone select_dropdown_container"
+              name="teeAssignmentDropdown"
+              value={teamTables.teeAssignments[teamNumber]}
+              onChange={handleTeeAssignmentChange}
+            >
+              {options.teeAssignmentOptionItems}
+            </select>
+          )}
         </th>
 
         {getHeader()}

@@ -216,6 +216,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     teamTables.times = []
     let firstRegularTimeIndex = options.linkTimes().indexOf("8:02")
     let linkTimeIndex = options.linkTimes().indexOf(aLinkTime)
+    //teamTables.teeAssignments = ["1","1","1","1","1","1","1","1","1","1"]
     if (linkTimeIndex < firstRegularTimeIndex) {
       for (let i = 0; i < aTeeTimeCount; i++) {
         teamTables.times[i] = aLinkTime
@@ -281,17 +282,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
 
   function handleAddPlayersClick() {
     setShowAddPlayers(false)
-    playersArray = loadLineupTablePlayersArray(
-      firebaseRef,
-      course,
-      teesSelected,
-      ratings,
-      slopes,
-      pars,
-      teamTables,
-      teeTimeCount
-    )
-    setPlayers(playersArray)
+    setPlayersArray()
   }
 
   //delete players from saved lineup handler
@@ -301,6 +292,10 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
 
   function handleDeletePlayersClick() {
     setShowDeletePlayers(false)
+    setPlayersArray()
+  }
+
+  function setPlayersArray() {
     playersArray = loadLineupTablePlayersArray(
       firebaseRef,
       course,

@@ -22,6 +22,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   const [showLocalNumbers, setShowLocalNumbers] = useState(
     get("showLocalNumbers")
   )
+  const [showAddGuest, setShowAddGuest] = useState(false)
   const [addGuestToAllGames, setAddGuestToAllGames] = useState(true)
 
   function handleShowLocalNumbersChange() {
@@ -32,6 +33,10 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   function handleAddGuestToAllGamesChange() {
     set("addGuestToAllGames", !addGuestToAllGames)
     setAddGuestToAllGames((prevState) => !prevState)
+  }
+
+  function handleShowAddGuestChange() {
+    setShowAddGuest((prevState) => !prevState)
   }
 
   function handleSubmitGuest(event) {
@@ -109,16 +114,31 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
         </div>
       </table>
       <br />
-      <AddGuest
-        handleSubmitGuest={handleSubmitGuest}
-        guestGHINNumber={guestGHINNumber}
-        handleChangeGuestGHINNumber={handleChangeGuestGHINNumber}
-        guestLastName={guestLastName}
-        handleChangeGuestLastName={handleChangeGuestLastName}
-        handleAddGuestToAllGamesChange={handleAddGuestToAllGamesChange}
-        addGuestToAllGames={addGuestToAllGames}
-      />
+      <div className="div--center">
+        <input
+          className="checkbox"
+          type="checkbox"
+          id="showAddGuest"
+          onChange={handleShowAddGuestChange}
+          defaultChecked={showAddGuest}
+        ></input>
+        <label htmlFor="showAddGuest">Show Add Guest Box</label>
+      </div>
       <br />
+      {showAddGuest && (
+        <>
+          <AddGuest
+            handleSubmitGuest={handleSubmitGuest}
+            guestGHINNumber={guestGHINNumber}
+            handleChangeGuestGHINNumber={handleChangeGuestGHINNumber}
+            guestLastName={guestLastName}
+            handleChangeGuestLastName={handleChangeGuestLastName}
+            handleAddGuestToAllGamesChange={handleAddGuestToAllGamesChange}
+            addGuestToAllGames={addGuestToAllGames}
+          />
+          <br />
+        </>
+      )}
       <div className="div--center">
         <div className="div--bordered">
           <h4>
