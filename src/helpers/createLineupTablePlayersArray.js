@@ -56,6 +56,8 @@ export default function createLineupTablePlayersArrray(
       manualCH: "Auto",
       lastName: aPlayer[1],
       index: hcpIndex,
+      firstName: aPlayer[2],
+      strHcpIndex: aPlayer[3],
     }
     let i
     for (i = 0; i < teesSelectedArray.length; i++) {
@@ -102,16 +104,40 @@ export default function createLineupTablePlayersArrray(
     playersArray.push(newRow)
   }
 
-  function sortByHandicap() {
+  function sortAlphabetical() {
     playersArray.sort((a, b) =>
-      a.index > b.index
+      a.lastName > b.lastName
         ? 1
-        : a.index === b.index
-        ? a.lastName > b.lastName
+        : a.lastName === b.lastName
+        ? a.firstName > b.firstName
           ? 1
           : -1
         : -1
     )
+  }
+
+  function sortByHandicap() {
+    playersArray.sort((a, b) => {
+      let aIndex
+      let bIndex
+      if (a.strHcpIndex === "guest") {
+        aIndex = 50
+      } else {
+        aIndex = a.index
+      }
+      if (b.strHcpIndex === "guest") {
+        bIndex = 50
+      } else {
+        bIndex = b.index
+      }
+      return aIndex > bIndex
+        ? 1
+        : aIndex === bIndex
+        ? a.lastName > b.lastName
+          ? 1
+          : -1
+        : -1
+    })
   }
 
   function sortRandom() {
@@ -120,6 +146,9 @@ export default function createLineupTablePlayersArrray(
 
   players.forEach(addRow)
   switch (sortOrder) {
+    case "alphabetical":
+      sortAlphabetical()
+      break
     case "byHandicap":
       sortByHandicap()
       break

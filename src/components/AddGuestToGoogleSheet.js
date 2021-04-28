@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { get } from "../helpers/localStorage"
+import { get, set } from "../helpers/localStorage"
 
 const SPREADSHEET_ID = process.env.REACT_APP_GOOGLE_SHEETS_ID
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
@@ -24,6 +24,7 @@ export default function AddGuestToGoogleSheet() {
   }
 
   function handleSaveClick() {
+    set("showAddGuest", false)
     if (state.gapi !== null) {
       loadClient().then(execute)
     }

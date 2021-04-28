@@ -26,7 +26,7 @@ export default function AddGuest({
           <h5>
             If you leave GHIN Number blank,
             <br />
-            you may enter first and last name
+            you may enter last name, first name
             <br />
             in the "Last Name" box.
           </h5>

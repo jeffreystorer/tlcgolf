@@ -22,7 +22,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   const [showLocalNumbers, setShowLocalNumbers] = useState(
     get("showLocalNumbers")
   )
-  const [showAddGuest, setShowAddGuest] = useState(false)
+  const [showAddGuest, setShowAddGuest] = useState(get("showAddGuest" ||false))
   const [addGuestToAllGames, setAddGuestToAllGames] = useState(true)
 
   function handleShowLocalNumbersChange() {
@@ -37,11 +37,15 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
 
   function handleShowAddGuestChange() {
     setShowAddGuest((prevState) => !prevState)
+    let currentSetting = get("showAddGuest")
+    set("showAddGuest", !currentSetting)
   }
 
   function handleSubmitGuest(event) {
     event.preventDefault()
     addGuest()
+    set("showAddGuest", true)
+    setShowAddGuest(true)
   }
 
   function handleChangeGuestGHINNumber(event) {
