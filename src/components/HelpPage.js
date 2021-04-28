@@ -83,15 +83,15 @@ export default function HelpPage() {
                     <td className="help-table_text">
                       After you select a game and course on the Games page, if
                       you wish to create a lineup, go the Players page to select
-                      your players. If you wish to have a random list, check the
-                      "Random Teams" box. This will randomize the list of
+                      your players. If you wish to have a random list, select
+                      Sort Order: Random. This will randomize the list of
                       players in your lineup that appears in the teetime
                       dropdowns on the Lineup page. You can go back to
-                      alphabetical order by unchecking the box. If you check it
-                      again, you will get a different randomized list. The
-                      random list with which you make a lineup will be saved
-                      with the lineup and restored when you load the saved
-                      lineup.
+                      alphabetical order by selecting Sort Order: Alphabetical.
+                      If you select Sort Order: Random again, you will get a
+                      different randomized list. The random list with which you
+                      make a lineup will be saved with the lineup and restored
+                      when you load the saved lineup.
                     </td>
                   </tr>
                   <br></br>

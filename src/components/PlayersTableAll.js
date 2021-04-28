@@ -18,7 +18,7 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
     default:
       break
   }
-  const [randomTeams, setRandomTeams] = useState(false)
+  const [sortOrder, setSortOrder] = useState("alphabetical")
   //eslint-disable-next-line
   const [course, setCourse] = useRecoilState(state.courseState)
   //eslint-disable-next-line
@@ -39,7 +39,7 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
     ratings,
     slopes,
     pars,
-    randomTeams
+    sortOrder
   )
   let playerCount = playersArray.length
 
@@ -61,7 +61,9 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
     document.location = "/lineup"
   }
 
-  function handleRandomTeamsChange() {
+  function handleSortOrderChange(event) {
+    setSortOrder(event.target.value)
+    console.log(event.target.value)
     playersArray = createLineupTablePlayersArray(
       course,
       game,
@@ -70,9 +72,8 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
       ratings,
       slopes,
       pars,
-      !randomTeams
+      event.target.value
     )
-    setRandomTeams((prevState) => !prevState)
   }
 
   function handleShowTipsChange() {
@@ -93,49 +94,18 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
 
   return (
     <div className="div--center">
-      <br></br>
-      {showTips && (
-        <div>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>To randomize the list of players:</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="table-tip_td">
-                  Check the "Random Teams" box. This will randomize the list of
-                  players in your game that appears in the teetime dropdowns.
-                  You can go back to alphabetical order by unchecking the box.
-                  If you check it again, you will get a different randomized
-                  list. The random list with which you make a lineup will be
-                  saved with the lineup and restored when you load the saved
-                  lineup.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      {isMe && game === "Monday" && (
+        <>
+          <br />
+          <form onSubmit={handleFetchMondaySchedules}>
+            <input
+              type="submit"
+              className="button"
+              value="Fetch Monday Players"
+            />
+          </form>
+        </>
       )}
-      {isMe && (
-        <form onSubmit={handleFetchMondaySchedules}>
-          <input
-            type="submit"
-            className="button"
-            value="Fetch Monday Players"
-          />
-        </form>
-      )}
-      <h4>Randomize?</h4>
-      <input
-        className="checkbox"
-        type="checkbox"
-        id="randomTeams"
-        onChange={handleRandomTeamsChange}
-        defaultChecked={false}
-      ></input>
-      <label htmlFor="randomTeams">Random Teams</label>
       <br></br>
       {showTips && (
         <div>
@@ -160,6 +130,17 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
         </div>
       )}
       <h4>Select Players for Lineup</h4>
+      <div className="select-dropdown-container">
+        <label className="label_link-time">Sort Order: </label>
+        <label className="selector_lone">
+          <select value={sortOrder} onChange={handleSortOrderChange}>
+            <option value="alphabetical">Alphabetical</option>
+            <option value="byHandicap">By Handicap</option>
+            <option value="random">Random</option>
+          </select>
+        </label>
+      </div>
+      <br />
       <form onSubmit={handleSubmit}>
         <label>
           <select

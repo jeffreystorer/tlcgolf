@@ -10,7 +10,7 @@ export default function createLineupTablePlayersArrray(
   ratings,
   slopes,
   pars,
-  randomTeams
+  sortOrder
 ) {
   let players = get("players")
   var playersArray = []
@@ -54,6 +54,8 @@ export default function createLineupTablePlayersArrray(
       courseHandicaps: [],
       teeChoice: "",
       manualCH: "Auto",
+      lastName: aPlayer[1],
+      index: hcpIndex,
     }
     let i
     for (i = 0; i < teesSelectedArray.length; i++) {
@@ -100,7 +102,32 @@ export default function createLineupTablePlayersArrray(
     playersArray.push(newRow)
   }
 
+  function sortByHandicap() {
+    playersArray.sort((a, b) =>
+      a.index > b.index
+        ? 1
+        : a.index === b.index
+        ? a.lastName > b.lastName
+          ? 1
+          : -1
+        : -1
+    )
+  }
+
+  function sortRandom() {
+    shuffleArray(playersArray)
+  }
+
   players.forEach(addRow)
-  if (randomTeams === true) shuffleArray(playersArray)
+  switch (sortOrder) {
+    case "byHandicap":
+      sortByHandicap()
+      break
+    case "random":
+      sortRandom()
+      break
+    default:
+      break
+  }
   return playersArray
 }
