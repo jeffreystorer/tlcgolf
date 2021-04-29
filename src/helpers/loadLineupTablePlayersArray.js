@@ -1,5 +1,5 @@
 import { tees, courses } from "../data"
-import { get } from "./localStorage"
+import { get, set } from "./localStorage"
 import setRatingSlopePar from "./setRatingSlopePar"
 //the following is used to delete saved lineups
 //if a player is no longer in the table
@@ -48,7 +48,7 @@ export default function loadLineupTablePlayersArrray(
           "Your saved lineups have been deleted."
       )
       LineupDataService.removeAll(firebaseRef)
-      localStorage.clear()
+      set("isLoggedIn", "false")
       document.location = "/settings/login"
     }
   }
