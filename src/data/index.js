@@ -619,3 +619,19 @@ export const tees = [
   "SK",
 ]
 export const courses = ["dc", "mg", "mw", "or", "pa", "tp"]
+
+export const teeArray = [
+  { value: "CH", tee: "Championship (Men only)" },
+  { value: "T", tee: "Tournament (Men only)" },
+  { value: "T/C", tee: "Tournament/Club (Men only)" },
+  { value: "C", tee: "Club" },
+  { value: "C/M", tee: "Club/Medal" },
+  { value: "M", tee: "Medal" },
+  { value: "M/CRS", tee: "Medal/Course" },
+  { value: "LCRS", tee: "Long Course" },
+  { value: "CRS", tee: "Course" },
+  { value: "SCRS", tee: "Short Course (Women only)" },
+  { value: "ISL", tee: "Island" },
+  { value: "CRS/SK", tee: "Course/Skidaway" },
+  { value: "SK", tee: "Skidaway" },
+]

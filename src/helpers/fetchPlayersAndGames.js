@@ -4,7 +4,6 @@ export default function fetchPlayersAndGames() {
   let ghinNumber = get("ghinNumber")
   const sheetId = process.env.REACT_APP_GOOGLE_SHEETS_ID
   const apiKey = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY
-
   const sheetValues =
     "https://sheets.googleapis.com/v4/spreadsheets/" +
     sheetId +
@@ -30,31 +29,32 @@ export default function fetchPlayersAndGames() {
 }
 
 function createPlayersAndGames(values) {
-  function createAndSavePlayerTable() {
-    let rowCount = values.length
-
-    let playerTable = []
-    let i
-    for (i = 0; i < rowCount; i++) {
-      playerTable.push(values[i])
+  let playerTable = []
+  let rowCount = values.length
+  let players = values
+  let i
+  for (i = 0; i < rowCount; i++) {
+    if (players[0][2] !== "Tee") {
+      //deal with legacy table that does not have a tee column
+      players[i].splice(2, 0, "Club")
     }
-    //set('playerTable', JSON.stringify(playerTable));
-    setGamesAndPlayers(playerTable)
+    playerTable.push(players[i])
   }
-  function setGamesAndPlayers(playerTable) {
-    playerTable[0].splice(0, 2)
-    playerTable[0].unshift("All")
-    set("games", playerTable[0])
-    playerTable.splice(0, 1)
-    addFirstNameIndexGenderLocalCols(playerTable)
-    set("players", playerTable)
-  }
+  setGamesAndPlayers(playerTable)
+}
 
-  function addFirstNameIndexGenderLocalCols(playerTable) {
-    let i
-    for (i = 0; i < playerTable.length; i++) {
-      playerTable[i].splice(2, 0, "", "", "", "")
-    }
+function setGamesAndPlayers(playerTable) {
+  playerTable[0].splice(0, 3)
+  playerTable[0].unshift("All")
+  set("games", playerTable[0])
+  playerTable.splice(0, 1)
+  addFirstNameIndexGenderLocalCols(playerTable)
+  set("players", playerTable)
+}
+
+function addFirstNameIndexGenderLocalCols(playerTable) {
+  let i
+  for (i = 0; i < playerTable.length; i++) {
+    playerTable[i].splice(3, 0, "", "", "", "")
   }
-  createAndSavePlayerTable()
 }
