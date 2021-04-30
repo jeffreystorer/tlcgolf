@@ -22,7 +22,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
   const [showLocalNumbers, setShowLocalNumbers] = useState(
     get("showLocalNumbers")
   )
-  const [showAddGuest, setShowAddGuest] = useState(get("showAddGuest" ||false))
+  const [showAddGuest, setShowAddGuest] = useState(get("showAddGuest" || false))
   const [addGuestToAllGames, setAddGuestToAllGames] = useState(true)
 
   function handleShowLocalNumbersChange() {
@@ -66,12 +66,13 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
     if (aGHINNumber === "")
       aGHINNumber = randomGHINNumber(100000000, 200000000).toString()
     let lastName = guestLastName
+    let tee = "Club"
     let firstName = ""
     let index = "0.0"
     let gender = ""
     let localNumber = "00000"
     let players = get("players")
-    guest = [aGHINNumber, lastName, firstName, index, gender, localNumber]
+    guest = [aGHINNumber, lastName, tee, firstName, index, gender, localNumber]
     let gameNumber = games.indexOf(game)
     let gameCount = games.length
     let i

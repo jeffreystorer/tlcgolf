@@ -1,5 +1,6 @@
 import { tees, courses } from "../data"
 import { get, set } from "./localStorage"
+import getTeeValueFromTeeName from "./getTeeValueFromTeeName"
 import setRatingSlopePar from "./setRatingSlopePar"
 //the following is used to delete saved lineups
 //if a player is no longer in the table
@@ -58,7 +59,7 @@ export default function loadLineupTablePlayersArrray(
     let id = anId.toString()
     let playerIndex = indexOfPlayer(id)
     let aPlayer = players[playerIndex]
-    strHcpIndex = aPlayer[3]
+    let teeValue = getTeeValueFromTeeName(aPlayer[2])
     hcpIndex = parseFloat(strHcpIndex)
     let firstName = aPlayer[2]
     let lastName = aPlayer[1]
@@ -68,7 +69,7 @@ export default function loadLineupTablePlayersArrray(
       id: Number(aPlayer[0]),
       playerName: player,
       courseHandicaps: [],
-      teeChoice: "",
+      teeChoice: teeValue,
       manualCH: "Auto",
     }
     let i
@@ -86,7 +87,6 @@ export default function loadLineupTablePlayersArrray(
       )
       playerReturn.courseHandicaps.push(doMath(rating, slope, par))
     }
-    playerReturn.teeChoice = teesSelectedArray[0]
     return playerReturn
   }
 

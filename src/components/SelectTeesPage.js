@@ -6,8 +6,8 @@ const SelectTeesPage = () => {
   let tees = []
   let defaultValue = ["C", "C/M", "M"]
   let teesSelected = defaultValue
-  if (get("individualTeesSelected")) {
-    teesSelected = get("individualTeesSelected")
+  if (get("teesSelected")) {
+    teesSelected = get("teesSelected")
     let teesSelectedArray = teesSelected.map((a) => a.value)
     defaultValue = teesSelectedArray
   }
@@ -28,12 +28,12 @@ const SelectTeesPage = () => {
         JSON.stringify({ label: element.text, value: element.value }),
       ]
     })
-    localStorage.setItem("individualTeesSelected", "[" + tees + "]")
-    document.location = "/individual"
+    localStorage.setItem("teesSelected", "[" + tees + "]")
+    document.location = "/"
   }
 
   localStorage.setItem(
-    "individualTeesSelected",
+    "teesSelected",
     '[{"label":"Club","value":"C"},{"label":"Club/Medal","value":"C/M"},{"label":"Medal","value":"M"}]'
   )
 

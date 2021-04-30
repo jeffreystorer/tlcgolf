@@ -31,7 +31,7 @@ export default function createGamesTableBodyRows(
         doAdd(item, index)
         break
       default:
-        let gameIndex = gameNumber + 5
+        let gameIndex = gameNumber + 6
         if (
           item[gameIndex] === "Yes" ||
           item[gameIndex] === "YES" ||
@@ -44,12 +44,12 @@ export default function createGamesTableBodyRows(
 
   //construct the row
   function compute(aPlayer, index) {
-    strHcpIndex = aPlayer[3]
+    strHcpIndex = aPlayer[4]
     hcpIndex = parseFloat(strHcpIndex)
-    let firstName = aPlayer[2]
+    let firstName = aPlayer[3]
     let lastName = aPlayer[1]
-    gender = aPlayer[4]
-    let local = aPlayer[5]
+    gender = aPlayer[5]
+    let local = aPlayer[6]
     let prefix = ""
     if ((showLocalNumbers === true) | (showLocalNumbers === "true"))
       prefix = local + " "

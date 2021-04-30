@@ -1,4 +1,5 @@
 import { get } from "../helpers/localStorage"
+import getTeeValueFromTeeName from "../helpers/getTeeValueFromTeeName"
 
 export default function createExportTeamsTablePlayersArrray(
   showFirstName,
@@ -18,7 +19,7 @@ export default function createExportTeamsTablePlayersArrray(
         doAdd(item, index)
         break
       default:
-        let gameIndex = gameNumber + 5
+        let gameIndex = gameNumber + 6
         if (
           item[gameIndex] === "Yes" ||
           item[gameIndex] === "YES" ||
@@ -31,10 +32,11 @@ export default function createExportTeamsTablePlayersArrray(
 
   //construct the row
   function compute(aPlayer, index) {
+    let teeValue = getTeeValueFromTeeName(aPlayer[2])
     let player
-    let local = aPlayer[5]
+    let local = aPlayer[6]
     if (showFirstName) {
-      player = aPlayer[2] + " " + aPlayer[1]
+      player = aPlayer[3] + " " + aPlayer[1]
     } else {
       player = aPlayer[1]
     }
@@ -48,7 +50,7 @@ export default function createExportTeamsTablePlayersArrray(
       id: Number(aPlayer[0]),
       playerName: player,
       courseHandicaps: [],
-      teeChoice: "",
+      teeChoice: teeValue,
       manualCH: "Auto",
     }
 

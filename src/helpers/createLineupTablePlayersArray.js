@@ -1,5 +1,6 @@
 import { tees, courses } from "../data"
 import { get } from "./localStorage"
+import getTeeValueFromTeeName from "../helpers/getTeeValueFromTeeName"
 import setRatingSlopePar from "./setRatingSlopePar"
 import shuffleArray from "../helpers/shuffleArray"
 export default function createLineupTablePlayersArrray(
@@ -29,7 +30,7 @@ export default function createLineupTablePlayersArrray(
         doAdd(item, index)
         break
       default:
-        let gameIndex = gameNumber + 5
+        let gameIndex = gameNumber + 6
         if (
           item[gameIndex] === "Yes" ||
           item[gameIndex] === "YES" ||
@@ -42,22 +43,23 @@ export default function createLineupTablePlayersArrray(
 
   //construct the row
   function compute(aPlayer, index) {
-    strHcpIndex = aPlayer[3]
+    let teeValue = getTeeValueFromTeeName(aPlayer[2])
+    strHcpIndex = aPlayer[4]
     hcpIndex = parseFloat(strHcpIndex)
-    let firstName = aPlayer[2]
+    let firstName = aPlayer[3]
     let lastName = aPlayer[1]
-    gender = aPlayer[4]
+    gender = aPlayer[5]
     let player = firstName + " " + lastName + " (" + strHcpIndex + ")"
     let playerReturn = {
       id: Number(aPlayer[0]),
       playerName: player,
       courseHandicaps: [],
-      teeChoice: "",
+      teeChoice: teeValue,
       manualCH: "Auto",
       lastName: aPlayer[1],
       index: hcpIndex,
-      firstName: aPlayer[2],
-      strHcpIndex: aPlayer[3],
+      firstName: aPlayer[3],
+      strHcpIndex: aPlayer[4],
     }
     let i
     for (i = 0; i < teesSelectedArray.length; i++) {
@@ -74,7 +76,6 @@ export default function createLineupTablePlayersArrray(
       )
       playerReturn.courseHandicaps.push(doMath(rating, slope, par))
     }
-    playerReturn.teeChoice = teesSelectedArray[0]
     return playerReturn
   }
 
@@ -158,5 +159,6 @@ export default function createLineupTablePlayersArrray(
     default:
       break
   }
+  console.log("😊😊 playersArray", playersArray)
   return playersArray
 }

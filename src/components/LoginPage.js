@@ -52,12 +52,7 @@ function LoginPage() {
     if (get("isLoggedIn") === "true") {
       fetchPlayersAndGames()
     }
-    setTees()
-    //document.location = "/"
-  }
-
-  function setTees() {
-    console.log("set tees function")
+    document.location = "/settings/selecttees"
   }
 
   /* function handleDataModeChange() {

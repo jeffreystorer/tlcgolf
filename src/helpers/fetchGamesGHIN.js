@@ -37,16 +37,16 @@ export default async function fetchGamesGHIN(setLoading) {
           let rawName = firstName.toLowerCase()
           firstName = capitalize(rawName)
           if (firstName.indexOf(".") > 0) firstName = firstName.toUpperCase()
-          item[2] = firstName
+          item[3] = firstName
         } catch (error) {
-          item[2] = ""
-          item[3] = "guest"
-          item[5] = "00000"
+          item[3] = ""
+          item[4] = "guest"
+          item[6] = "00000"
           return
         }
-        item[3] = data[index].golfers[0].Value
-        item[4] = data[index].golfers[0].Gender
-        item[5] = localNumber(data[index])
+        item[4] = data[index].golfers[0].Value
+        item[5] = data[index].golfers[0].Gender
+        item[6] = localNumber(data[index])
       }
 
       set("players", players)
@@ -85,16 +85,16 @@ export default async function fetchGamesGHIN(setLoading) {
       try {
         let firstName = aFirstName(roster, ghinNumber)
         if (firstName.indexOf(".") > 0) firstName = firstName.toUpperCase()
-        item[2] = firstName
+        item[3] = firstName
       } catch (error) {
-        item[2] = ""
-        item[3] = "guest"
-        item[5] = "00000"
+        item[3] = ""
+        item[4] = "guest"
+        item[6] = "00000"
         return
       }
-      item[3] = anIndex(roster, ghinNumber)
-      item[4] = aGender(roster, ghinNumber)
-      item[5] = aLocalNumber(roster, ghinNumber)
+      item[4] = anIndex(roster, ghinNumber)
+      item[5] = aGender(roster, ghinNumber)
+      item[6] = aLocalNumber(roster, ghinNumber)
     }
     set("players", players)
   }

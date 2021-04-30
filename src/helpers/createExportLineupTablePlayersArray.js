@@ -1,4 +1,5 @@
 import { tees, courses } from "../data"
+import getTeeValueFromTeeName from "../helpers/getTeeValueFromTeeName"
 import setRatingSlopePar from "./setRatingSlopePar"
 import { get } from "../helpers/localStorage"
 
@@ -33,7 +34,7 @@ export default function createExportLineupTablePlayersArrray(
         doAdd(item, index)
         break
       default:
-        let gameIndex = gameNumber + 5
+        let gameIndex = gameNumber + 6
         if (
           item[gameIndex] === "Yes" ||
           item[gameIndex] === "YES" ||
@@ -46,12 +47,12 @@ export default function createExportLineupTablePlayersArrray(
 
   //construct the row
   function compute(aPlayer, index) {
-    strHcpIndex = aPlayer[3]
-    hcpIndex = parseFloat(strHcpIndex)
-    let firstName = aPlayer[2]
+    let teeValue = getTeeValueFromTeeName(aPlayer[2])
+    strHcpIndex = aPlayer[4]
+    let firstName = aPlayer[3]
     let lastName = aPlayer[1]
-    gender = aPlayer[4]
-    let local = aPlayer[5]
+    gender = aPlayer[5]
+    let local = aPlayer[6]
     let player
     if (showFirstName) {
       player = firstName + " " + lastName + " (" + strHcpIndex + ")"
@@ -68,7 +69,7 @@ export default function createExportLineupTablePlayersArrray(
       id: Number(aPlayer[0]),
       playerName: player,
       courseHandicaps: [],
-      teeChoice: "",
+      teeChoice: teeValue,
       manualCH: "Auto",
     }
     let i
