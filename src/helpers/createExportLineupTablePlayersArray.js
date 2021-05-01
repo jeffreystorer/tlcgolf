@@ -49,6 +49,7 @@ export default function createExportLineupTablePlayersArrray(
   function compute(aPlayer, index) {
     let teeValue = getTeeValueFromTeeName(aPlayer[2])
     strHcpIndex = aPlayer[4]
+    hcpIndex = parseFloat(strHcpIndex)
     let firstName = aPlayer[3]
     let lastName = aPlayer[1]
     gender = aPlayer[5]
@@ -87,7 +88,7 @@ export default function createExportLineupTablePlayersArrray(
       )
       playerReturn.courseHandicaps.push(doMath(rating, slope, par))
     }
-    playerReturn.teeChoice = teesSelectedArray[0]
+    playerReturn.teeChoice = teeValue
     return playerReturn
   }
 

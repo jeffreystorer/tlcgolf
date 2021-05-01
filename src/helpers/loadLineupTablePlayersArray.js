@@ -60,10 +60,11 @@ export default function loadLineupTablePlayersArrray(
     let playerIndex = indexOfPlayer(id)
     let aPlayer = players[playerIndex]
     let teeValue = getTeeValueFromTeeName(aPlayer[2])
+    strHcpIndex = aPlayer[4]
     hcpIndex = parseFloat(strHcpIndex)
-    let firstName = aPlayer[2]
+    let firstName = aPlayer[3]
     let lastName = aPlayer[1]
-    gender = aPlayer[4]
+    gender = aPlayer[5]
     let player = firstName + " " + lastName + " (" + strHcpIndex + ")"
     let playerReturn = {
       id: Number(aPlayer[0]),

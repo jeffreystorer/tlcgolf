@@ -159,6 +159,5 @@ export default function createLineupTablePlayersArrray(
     default:
       break
   }
-  console.log("😊😊 playersArray", playersArray)
   return playersArray
 }

@@ -101,6 +101,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     teamTables,
     teeTimeCount
   )
+  console.log("😊😊 playersArray", playersArray)
   //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray)
 
@@ -216,7 +217,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     teamTables.times = []
     let firstRegularTimeIndex = options.linkTimes().indexOf("8:02")
     let linkTimeIndex = options.linkTimes().indexOf(aLinkTime)
-    //teamTables.teeAssignments = ["1","1","1","1","1","1","1","1","1","1"]
     if (linkTimeIndex < firstRegularTimeIndex) {
       for (let i = 0; i < aTeeTimeCount; i++) {
         teamTables.times[i] = aLinkTime
