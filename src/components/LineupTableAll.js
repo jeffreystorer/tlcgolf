@@ -23,7 +23,7 @@ import { get, set } from "../helpers/localStorage"
 import getCourseName from "../helpers/getCourseName"
 import getPlayersNotInSavedLineupCount from "../helpers/getPlayersNotInSavedLineupCount"
 import getPlayersNotInTeeTime from "../helpers/getPlayersNotInTeeTime"
-import loadLineupTablePlayersArray from "../helpers/loadLineupTablePlayersArray"
+import createPlayersArray from "../helpers/createPlayersArray"
 import saveLineupToFirebase from "../helpers/saveLineupToFirebase"
 import setAutoPop from "../helpers/setAutoPop"
 
@@ -91,17 +91,23 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   set("keys", keys)
   let savedKeys = keys
   let lastKeyIndex = savedKeys.length - 1
-  let playersArray = loadLineupTablePlayersArray(
+  let playersArrayType = "loadLineupTable"
+  let notUsed = ""
+  let playersArray = createPlayersArray(
+    playersArrayType,
     firebaseRef,
+    notUsed,
     course,
+    notUsed,
+    notUsed,
     teesSelected,
     ratings,
     slopes,
     pars,
     teamTables,
-    teeTimeCount
+    teeTimeCount,
+    "alphabetical"
   )
-  console.log("😊😊 playersArray", playersArray)
   //eslint-disable-next-line
   const [players, setPlayers] = useState(playersArray)
 
@@ -296,15 +302,20 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   }
 
   function setPlayersArray() {
-    playersArray = loadLineupTablePlayersArray(
+    playersArray = createPlayersArray(
+      playersArrayType,
       firebaseRef,
+      notUsed,
       course,
+      notUsed,
+      notUsed,
       teesSelected,
       ratings,
       slopes,
       pars,
       teamTables,
-      teeTimeCount
+      teeTimeCount,
+      "alphabetical"
     )
     setPlayers(playersArray)
   }

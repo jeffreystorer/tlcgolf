@@ -1,5 +1,5 @@
 import { get } from "./localStorage"
-import createLineupTablePlayersArray from "./createLineupTablePlayersArray"
+import createPlayersArray from "./createPlayersArray"
 
 export default function getPlayersNotSavedLineupCount(
   course,
@@ -10,9 +10,12 @@ export default function getPlayersNotSavedLineupCount(
   slopes,
   pars
 ) {
-  let randomTeams = false
-
-  let playersArray = createLineupTablePlayersArray(
+  let playersArrayType = "createLineupTable"
+  let notUsed = ""
+  let playersArray = createPlayersArray(
+    playersArrayType,
+    notUsed,
+    notUsed,
     course,
     game,
     games,
@@ -20,7 +23,9 @@ export default function getPlayersNotSavedLineupCount(
     ratings,
     slopes,
     pars,
-    randomTeams
+    notUsed,
+    notUsed,
+    "alphabetical"
   )
 
   let playersInLineup = get("playersInLineup")

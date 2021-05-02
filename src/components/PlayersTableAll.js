@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { get, set } from "../helpers/localStorage"
 import "../styles/App.css"
 import { v4 as uuidv4 } from "uuid"
-import createLineupTablePlayersArray from "../helpers/createLineupTablePlayersArray"
+import createPlayersArray from "../helpers/createPlayersArray"
 import fetchMondaySchedules from "../helpers/fetchMondaySchedules"
 import { useRecoilValue, useRecoilState } from "recoil"
 import * as state from "../state"
@@ -27,11 +27,13 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
   const teesSelected = useRecoilValue(state.teesSelectedState)
   const [showTips, setShowTips] = useState(get("showTips"))
   set("game", game)
-  /*   console.log("SelectPlayersTableAll")
-  c.l([course,game, showTips]);
-  c.t([games, teesSelected]) */
-
-  let playersArray = createLineupTablePlayersArray(
+ 
+  let playersArrayType = "createLineupTable"
+  let notUsed = ""
+  let playersArray = createPlayersArray(
+    playersArrayType,
+    notUsed,
+    notUsed,
     course,
     game,
     games,
@@ -39,6 +41,8 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
     ratings,
     slopes,
     pars,
+    notUsed,
+    notUsed,
     sortOrder
   )
   let playerCount = playersArray.length
@@ -64,7 +68,10 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
   function handleSortOrderChange(event) {
     setSortOrder(event.target.value)
     console.log(event.target.value)
-    playersArray = createLineupTablePlayersArray(
+    playersArray = createPlayersArray(
+      playersArrayType,
+      notUsed,
+      notUsed,
       course,
       game,
       games,
@@ -72,6 +79,8 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
       ratings,
       slopes,
       pars,
+      notUsed,
+      notUsed,
       event.target.value
     )
   }

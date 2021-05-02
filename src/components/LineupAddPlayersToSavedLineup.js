@@ -2,7 +2,7 @@ import React from "react"
 import { get, set } from "../helpers/localStorage"
 import "../styles/App.css"
 import { v4 as uuidv4 } from "uuid"
-import createLineupTablePlayersArray from "../helpers/createLineupTablePlayersArray"
+import createPlayersArray from "../helpers/createPlayersArray"
 import { useRecoilValue } from "recoil"
 import * as state from "../state"
 
@@ -17,12 +17,12 @@ export default function AddPlayersToSavedLineup({
   const games = useRecoilValue(state.gamesState)
   const teesSelected = useRecoilValue(state.teesSelectedState)
   set("game", game)
-  let randomTeams = false
-  /*   console.log("SelectPlayersTableAll")
-  c.l([course,game, showTips]);
-  c.t([games, teesSelected]) */
-
-  let playersArray = createLineupTablePlayersArray(
+  let playersArrayType = "createLineupTable"
+  let notUsed = ""
+  let playersArray = createPlayersArray(
+    playersArrayType,
+    notUsed,
+    notUsed,
     course,
     game,
     games,
@@ -30,7 +30,9 @@ export default function AddPlayersToSavedLineup({
     ratings,
     slopes,
     pars,
-    randomTeams
+    notUsed,
+    notUsed,
+    "alphabetical"
   )
 
   let playersInLineup = get("playersInLineup")
