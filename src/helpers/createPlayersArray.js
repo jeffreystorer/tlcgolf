@@ -25,10 +25,44 @@ export default function createPlayersArrray(
   const showLocalNumbers = get("showLocalNumbers")
   var playersArray = []
   let idsInLineup = get("playersInLineup")
+  let playersInLineup = []
   let strHcpIndex
   let hcpIndex
   let gender
   let teesSelectedArray = buildTeeArray()
+
+  if (playersArrayType === "loadLineupTable") {
+    function pushPlayer(anId, index) {
+      const indexOfPlayer = (id) => {
+        var i = 0
+        var playerFound = false
+        try {
+          do {
+            playerFound = players[i].includes(id)
+            i++
+          } while (!playerFound)
+          return i - 1
+        } catch (error) {
+          alert(
+            "One of the players you selected when you made your most recent lineup " +
+              "(GHIN Number: " +
+              id +
+              ") is no longer in your table.\n" +
+              "Your saved lineups have been deleted."
+          )
+          LineupDataService.removeAll(firebaseRef)
+          set("isLoggedIn", "false")
+          document.location = "/settings/login"
+        }
+      }
+      let id = anId.toString()
+      let playerIndex = indexOfPlayer(id)
+      let aPlayer = players[playerIndex]
+      playersInLineup.push(aPlayer)
+    }
+    idsInLineup.forEach(pushPlayer)
+    players = playersInLineup
+  }
 
   //filter players, then add them
   function addRow(item, index) {
@@ -48,38 +82,42 @@ export default function createPlayersArrray(
         }
     }
   }
-  const indexOfPlayer = (id) => {
-    var i = 0
-    var playerFound = false
-    try {
-      do {
-        playerFound = players[i].includes(id)
-        i++
-      } while (!playerFound)
-      return i - 1
-    } catch (error) {
-      alert(
-        "One of the players you selected when you made your most recent lineup " +
-          "(GHIN Number: " +
-          id +
-          ") is no longer in your table.\n" +
-          "Your saved lineups have been deleted."
-      )
-      LineupDataService.removeAll(firebaseRef)
-      set("isLoggedIn", "false")
-      document.location = "/settings/login"
-    }
-  }
 
   //construct the row
-  function computeCreateLineupTable(aPlayer, index) {
+  function compute(aPlayer, index) {
     let teeValue = getTeeValueFromTeeName(aPlayer[2])
     strHcpIndex = aPlayer[4]
     hcpIndex = parseFloat(strHcpIndex)
     let firstName = aPlayer[3]
     let lastName = aPlayer[1]
     gender = aPlayer[5]
+    let local = aPlayer[6]
     let player = firstName + " " + lastName + " (" + strHcpIndex + ")"
+    if (playersArrayType === "createExportLineupTable") {
+      if (showFirstName) {
+        player = firstName + " " + lastName + " (" + strHcpIndex + ")"
+      } else {
+        player = lastName + " (" + strHcpIndex + ")"
+      }
+      let prefix = ""
+      if ((showLocalNumbers === true) | (showLocalNumbers === "true")) {
+        prefix = local + " "
+      }
+      player = prefix + player
+    }
+    if (playersArrayType === "createExportTeamsTable") {
+      if (showFirstName) {
+        player = aPlayer[3] + " " + aPlayer[1]
+      } else {
+        player = aPlayer[1]
+      }
+
+      let prefix = ""
+      if (showLocalNumbers === true || showLocalNumbers === "true") {
+        prefix = local + " "
+      }
+      player = prefix + player
+    }
     let playerReturn = {
       id: Number(aPlayer[0]),
       playerName: player,
@@ -91,128 +129,23 @@ export default function createPlayersArrray(
       firstName: aPlayer[3],
       strHcpIndex: aPlayer[4],
     }
-    let i
-    for (i = 0; i < teesSelectedArray.length; i++) {
-      //here is where we compute the course handicap of the golfer for each of the selected tees
-      let courseNumber = courses.indexOf(course)
-      let teeNumber = tees.indexOf(teesSelectedArray[i])
-      const [rating, slope, par] = setRatingSlopePar(
-        ratings,
-        slopes,
-        pars,
-        courseNumber,
-        teeNumber,
-        gender
-      )
-      playerReturn.courseHandicaps.push(doMath(rating, slope, par))
+    if (playersArrayType !== "createExportTeamsTable") {
+      let i
+      for (i = 0; i < teesSelectedArray.length; i++) {
+        //here is where we compute the course handicap of the golfer for each of the selected tees
+        let courseNumber = courses.indexOf(course)
+        let teeNumber = tees.indexOf(teesSelectedArray[i])
+        const [rating, slope, par] = setRatingSlopePar(
+          ratings,
+          slopes,
+          pars,
+          courseNumber,
+          teeNumber,
+          gender
+        )
+        playerReturn.courseHandicaps.push(doMath(rating, slope, par))
+      }
     }
-    return playerReturn
-  }
-
-  function computeLoadLineupTable(anId, index) {
-    let id = anId.toString()
-    let playerIndex = indexOfPlayer(id)
-    let aPlayer = players[playerIndex]
-    let teeValue = getTeeValueFromTeeName(aPlayer[2])
-    strHcpIndex = aPlayer[4]
-    hcpIndex = parseFloat(strHcpIndex)
-    let firstName = aPlayer[3]
-    let lastName = aPlayer[1]
-    gender = aPlayer[5]
-    let player = firstName + " " + lastName + " (" + strHcpIndex + ")"
-    let playerReturn = {
-      id: Number(aPlayer[0]),
-      playerName: player,
-      courseHandicaps: [],
-      teeChoice: teeValue,
-      manualCH: "Auto",
-    }
-    let i
-    for (i = 0; i < teesSelectedArray.length; i++) {
-      //here is where we compute the course handicap of the golfer for each of the selected tees
-      let courseNumber = courses.indexOf(course)
-      let teeNumber = tees.indexOf(teesSelectedArray[i])
-      const [rating, slope, par] = setRatingSlopePar(
-        ratings,
-        slopes,
-        pars,
-        courseNumber,
-        teeNumber,
-        gender
-      )
-      playerReturn.courseHandicaps.push(doMath(rating, slope, par))
-    }
-    return playerReturn
-  }
-
-  function computeExportLineupTable(aPlayer, index) {
-    let teeValue = getTeeValueFromTeeName(aPlayer[2])
-    strHcpIndex = aPlayer[4]
-    hcpIndex = parseFloat(strHcpIndex)
-    let firstName = aPlayer[3]
-    let lastName = aPlayer[1]
-    gender = aPlayer[5]
-    let local = aPlayer[6]
-    let player
-    if (showFirstName) {
-      player = firstName + " " + lastName + " (" + strHcpIndex + ")"
-    } else {
-      player = lastName + " (" + strHcpIndex + ")"
-    }
-    let prefix = ""
-    if ((showLocalNumbers === true) | (showLocalNumbers === "true")) {
-      prefix = local + " "
-    }
-    player = prefix + player
-
-    let playerReturn = {
-      id: Number(aPlayer[0]),
-      playerName: player,
-      courseHandicaps: [],
-      teeChoice: teeValue,
-      manualCH: "Auto",
-    }
-    let i
-    for (i = 0; i < teesSelectedArray.length; i++) {
-      //here is where we compute the course handicap of the golfer for each of the selected tees
-      let courseNumber = courses.indexOf(course)
-      let teeNumber = tees.indexOf(teesSelectedArray[i])
-      const [rating, slope, par] = setRatingSlopePar(
-        ratings,
-        slopes,
-        pars,
-        courseNumber,
-        teeNumber,
-        gender
-      )
-      playerReturn.courseHandicaps.push(doMath(rating, slope, par))
-    }
-    playerReturn.teeChoice = teeValue
-    return playerReturn
-  }
-  function computeExportTeamsTable(aPlayer, index) {
-    let teeValue = getTeeValueFromTeeName(aPlayer[2])
-    let player
-    let local = aPlayer[6]
-    if (showFirstName) {
-      player = aPlayer[3] + " " + aPlayer[1]
-    } else {
-      player = aPlayer[1]
-    }
-
-    let prefix = ""
-    if ((showLocalNumbers === true) | (showLocalNumbers === "true")) {
-      prefix = local + " "
-    }
-    player = prefix + player
-    let playerReturn = {
-      id: Number(aPlayer[0]),
-      playerName: player,
-      courseHandicaps: [],
-      teeChoice: teeValue,
-      manualCH: "Auto",
-    }
-
     return playerReturn
   }
 
@@ -237,27 +170,8 @@ export default function createPlayersArrray(
 
   //add a row for each player
   function doAdd(item, index) {
-    let newRow, aPlayer, anId
-    switch (playersArrayType) {
-      case "createLineupTable":
-        aPlayer = item
-        newRow = computeCreateLineupTable(aPlayer, index)
-        break
-      case "loadLineupTable":
-        anId = item
-        newRow = computeLoadLineupTable(anId, index)
-        break
-      case "createExportLineupTable":
-        aPlayer = item
-        newRow = computeExportLineupTable(aPlayer, index)
-        break
-      case "createExportTeamsTable":
-        aPlayer = item
-        newRow = computeExportTeamsTable(aPlayer, index)
-        break
-      default:
-        break
-    }
+    let aPlayer = item
+    var newRow = compute(aPlayer, index)
     playersArray.push(newRow)
   }
 
@@ -300,6 +214,7 @@ export default function createPlayersArrray(
   function sortRandom() {
     shuffleArray(playersArray)
   }
+
   function updateTeamTables() {
     for (let i = 0; i < teeTimeCount; i++) {
       let aTeamName = "team" + i
@@ -317,9 +232,10 @@ export default function createPlayersArrray(
     }
   }
 
+  players.forEach(addRow)
+
   switch (playersArrayType) {
     case "createLineupTable":
-      players.forEach(addRow)
       switch (sortOrder) {
         case "alphabetical":
           sortAlphabetical()
@@ -335,13 +251,7 @@ export default function createPlayersArrray(
       }
       break
     case "loadLineupTable":
-      idsInLineup.forEach(addRow)
       updateTeamTables()
-      break
-    case "createExportLineupTable":
-      players.forEach(addRow)
-      break
-    case "createExportTeamsTable":
       break
     default:
       break

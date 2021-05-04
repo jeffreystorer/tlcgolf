@@ -5,8 +5,7 @@ import { v4 as uuidv4 } from "uuid"
 import ExportButtonDownloadScreenShot from "./ExportButtonDownloadScreenshot"
 import getCourseName from "../helpers/getCourseName"
 import getExportTeesSelectedArray from "../helpers/getExportTeesSelectedArray"
-import createExportLineupTablePlayersArray from "../helpers/createExportLineupTablePlayersArray"
-import createExportTeamsTablePlayersArray from "../helpers/createExportTeamsTablePlayersArray"
+import createPlayersArray from "../helpers/createPlayersArray"
 import domtoimage from "dom-to-image"
 import _ from "lodash"
 import { get, set } from "../helpers/localStorage"
@@ -75,8 +74,10 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
     set("showLocalNumbers", !showLocalNumbers)
     setShowLocalNumbers((prevState) => !prevState)
   }
-
-  let lineupPlayersArray = createExportLineupTablePlayersArray(
+  let notUsed = ""
+  let lineupPlayersArray = createPlayersArray(
+    "createExportLineupTable",
+    notUsed,
     showFirstName,
     lineup.course,
     lineup.game,
@@ -86,12 +87,23 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
     lineup.slopes,
     lineup.pars,
     lineup.teamTables,
-    lineup.teeTimeCount
+    lineup.teeTimeCount,
+    "alphabetical"
   )
-  let teamsPlayersArray = createExportTeamsTablePlayersArray(
+  let teamsPlayersArray = createPlayersArray(
+    "createExportTeamsTable",
+    notUsed,
     showFirstName,
+    notUsed,
     lineup.game,
-    lineup.games
+    lineup.games,
+    lineup.teesSelected,
+    notUsed,
+    notUsed,
+    notUsed,
+    notUsed,
+    notUsed,
+    "alphabetical"
   )
 
   let lineupTeamTables = updateLineupTeamTables()
@@ -371,94 +383,61 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
         ></input>
         <label htmlFor="showLocalNumbers">Show Local Numbers</label>
         <br />
-        {showIndividualHandicaps ? (
-          <table className="lineup-table">
-            <div
-              id="lineup-table-div"
-              className="div--padded10px div--center div--background-white div--fit-content"
-            >
-              <thead>
-                <tr>
-                  <td className="lineup-table-head_td">
-                    {lineup.playingDate + " at " + courseName}
-                  </td>
-                </tr>
-                <tr>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody className="div--fit-content">
-                <tr>
+        <table className="lineup-table">
+          <div
+            id="lineup-table-div"
+            className="div--padded10px div--center div--background-white div--fit-content"
+          >
+            <thead>
+              <tr>
+                <td className="lineup-table-head_td">
+                  {lineup.playingDate + " at " + courseName}
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody className="div--fit-content">
+              <tr className="lineup-table-body_td">
+                {showIndividualHandicaps ? (
                   <td>{generateExportLineupTeamTables()}</td>
-                </tr>
-              </tbody>
-              <tfoot className="tfoot">
-                {lineup.progs069 > 0 && (
-                  <>
-                    <tr>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td className="textarea_td">
-                        <textarea
-                          className="textarea--center-no-border"
-                          rows="1"
-                          cols="41"
-                          value={progAdjMessage}
-                          readonly="true"
-                        ></textarea>
-                      </td>
-                    </tr>
-                  </>
+                ) : (
+                  <td>{generateExportTeamsTeamTables()}</td>
                 )}
+              </tr>
+            </tbody>
+            <tfoot className="tfoot">
+              {showIndividualHandicaps && lineup.progs069 > 0 && (
+                <>
+                  <tr>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td className="textarea_td">
+                      <textarea
+                        className="textarea--center-no-border"
+                        rows="1"
+                        cols="41"
+                        value={progAdjMessage}
+                        readonly="true"
+                      ></textarea>
+                    </td>
+                  </tr>
+                </>
+              )}
 
-                <tr>
-                  <td className="textarea_td">
-                    <ExportTextarea
-                      textareaValue={lineup.textareaValue}
-                      cols="41"
-                    />
-                  </td>
-                </tr>
-              </tfoot>
-            </div>
-          </table>
-        ) : (
-          <table className="lineup-table">
-            <div
-              id="teams-table-div"
-              className="div--padded10px div--center div--background-white"
-            >
-              <thead>
-                <tr>
-                  <td className="lineup-table-head_td">
-                    {lineup.playingDate + " at " + courseName}
-                  </td>
-                </tr>
-                <tr>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody className="div--fit-content">
-                <tr>
-                  <td className="lineup-table-body_td">
-                    {generateExportTeamsTeamTables()}
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot className="tfoot">
-                <tr>
-                  <td className="textarea_td">
-                    <ExportTextarea
-                      textareaValue={lineup.textareaValue}
-                      cols="41"
-                    />
-                  </td>
-                </tr>
-              </tfoot>
-            </div>
-          </table>
-        )}
+              <tr>
+                <td className="textarea_td">
+                  <ExportTextarea
+                    textareaValue={lineup.textareaValue}
+                    cols="41"
+                  />
+                </td>
+              </tr>
+            </tfoot>
+          </div>
+        </table>
         <ExportButtonDownloadScreenShot
           title={lineupTitle}
           dataUrl={screenShotURL}

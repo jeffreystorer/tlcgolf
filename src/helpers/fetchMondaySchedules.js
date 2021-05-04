@@ -28,7 +28,6 @@ export default function fetchMondaySchedules() {
 }
 
 function extractSchedules(values) {
-  console.log(values)
   let i
   let schedules = []
   for (i = 1; i < values.length; i++) {
@@ -36,7 +35,7 @@ function extractSchedules(values) {
       console.log("empty row: " + i)
       return
     }
-    if (values[i][3] === ("Y" || "C")) {
+    if (values[i][3] === "Y" || values[i][3] === "C") {
       schedules.push(values[i][0])
     }
   }
