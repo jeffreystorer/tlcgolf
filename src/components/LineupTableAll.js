@@ -421,7 +421,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   }
 
   //team tables
-
   function generateTeamTables() {
     for (var i = 0; i < teeTimeCount; i++) {
       let teamName = "team" + i
@@ -550,9 +549,8 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       for (let i = 0; i < teesSelectedArray.length; i++) {
         teamTables[teamName][playerIndex].courseHandicaps[i] = "*"
       }
-      teamTables[teamName][playerIndex].courseHandicaps[
-        aChosenTeeIndex
-      ] = aManualCH
+      teamTables[teamName][playerIndex].courseHandicaps[aChosenTeeIndex] =
+        aManualCH
       teamTables[teamName][playerIndex].manualCH = aManualCH
     }
   }
@@ -567,7 +565,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   }
 
   //handle Save Lineup
-
   function handleSaveLineupClick(event) {
     event.preventDefault()
     saveLineup()

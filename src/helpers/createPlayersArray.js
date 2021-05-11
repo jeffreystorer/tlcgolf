@@ -87,7 +87,8 @@ export default function createPlayersArrray(
   function compute(aPlayer, index) {
     let teeValue = getTeeValueFromTeeName(aPlayer[2])
     strHcpIndex = aPlayer[4]
-    hcpIndex = parseFloat(strHcpIndex)
+    hcpIndex = strHcpIndex
+    if (strHcpIndex !== "guest") hcpIndex = parseFloat(strHcpIndex)
     let firstName = aPlayer[3]
     let lastName = aPlayer[1]
     gender = aPlayer[5]

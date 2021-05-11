@@ -55,6 +55,10 @@ function LoginPage() {
     document.location = "/settings/selecttees"
   }
 
+  function clearLoginCredentials() {
+    localStorage.clear()
+  }
+
   /* function handleDataModeChange() {
     setDataModeGHIN((prevState) => !prevState)
     if (dataModeGHIN === false) {
@@ -114,10 +118,18 @@ function LoginPage() {
           Log In
         </button>
 
-        <br />
-        <br />
-
-        <footer className="footer--center">{build}</footer>
+        <footer className="footer--center">
+          {build}
+          <br />
+          <br />
+          <form onSubmit={clearLoginCredentials}>
+            <input
+              type="submit"
+              className="button"
+              value="Clear Login Credentials"
+            />
+          </form>
+        </footer>
       </div>
     </>
   )

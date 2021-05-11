@@ -92,7 +92,9 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
 
     setGuestGHINNumber("")
     setGuestLastName("")
-    guest.splice(2, 4)
+    console.log("😊😊 before guest", guest)
+    guest.splice(3, 4)
+    console.log("😊😊 after guest", guest)
     guests.push(guest)
     set("guests", guests)
     document.location = "/games"
