@@ -35,18 +35,7 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
   }, [refreshed])
 
   useEffect(() => {
-    let element
-    switch (showIndividualHandicaps) {
-      case true:
-        element = "lineup-table-div"
-        break
-      case false:
-        element = "teams-table-div"
-        break
-
-      default:
-        break
-    }
+    let element = "lineup-table-div"
     domtoimage
       .toJpeg(document.getElementById(element), { quality: 0.95 })
       .then(function (dataUrl) {
@@ -389,7 +378,7 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
             className="div--padded10px div--center div--background-white div--fit-content"
           >
             <thead>
-              <tr>
+              <tr></tr>
                 <td className="lineup-table-head_td">
                   {lineup.playingDate + " at " + courseName}
                 </td>
