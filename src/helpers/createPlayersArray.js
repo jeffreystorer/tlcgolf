@@ -32,6 +32,9 @@ export default function createPlayersArrray(
   let teesSelectedArray = buildTeeArray()
 
   if (playersArrayType === "loadLineupTable") {
+    idsInLineup.forEach(pushPlayer)
+    players = playersInLineup
+
     function pushPlayer(anId, index) {
       const indexOfPlayer = (id) => {
         var i = 0
@@ -43,6 +46,12 @@ export default function createPlayersArrray(
           } while (!playerFound)
           return i - 1
         } catch (error) {
+          LineupDataService.removeAll(firebaseRef)
+          let ghinNumber = get("ghinNumber")
+          let lastName = get("lastName")
+          localStorage.clear()
+          set("ghinNumber", ghinNumber)
+          set("lastName", lastName)
           alert(
             "One of the players you selected when you made your most recent lineup " +
               "(GHIN Number: " +
@@ -50,8 +59,6 @@ export default function createPlayersArrray(
               ") is no longer in your table.\n" +
               "Your saved lineups have been deleted."
           )
-          LineupDataService.removeAll(firebaseRef)
-          set("isLoggedIn", "false")
           document.location = "/settings/login"
         }
       }
@@ -60,8 +67,6 @@ export default function createPlayersArrray(
       let aPlayer = players[playerIndex]
       playersInLineup.push(aPlayer)
     }
-    idsInLineup.forEach(pushPlayer)
-    players = playersInLineup
   }
 
   //filter players, then add them
