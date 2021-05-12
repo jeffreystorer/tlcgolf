@@ -378,7 +378,7 @@ export default function ExportTableAll({ lineupTitle, lineup }) {
             className="div--padded10px div--center div--background-white div--fit-content"
           >
             <thead>
-              <tr></tr>
+              <tr>
                 <td className="lineup-table-head_td">
                   {lineup.playingDate + " at " + courseName}
                 </td>
