@@ -283,20 +283,24 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   //add players to saved lineup handler
 
   function handleShowAddPlayersClick() {
+    hideElement("buttonShowAddPlayers")
     setShowAddPlayers(true)
   }
 
   function handleAddPlayersClick() {
+    showElement("buttonShowAddPlayers")
     setShowAddPlayers(false)
     setPlayersArray()
   }
 
   //delete players from saved lineup handler
   function handleShowDeletePlayersClick() {
+    hideElement("buttonShowDeletePlayers")
     setShowDeletePlayers(true)
   }
 
   function handleDeletePlayersClick() {
+    showElement("buttonShowDeletePlayers")
     setShowDeletePlayers(false)
     setPlayersArray()
   }
@@ -318,6 +322,16 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       "alphabetical"
     )
     setPlayers(playersArray)
+  }
+
+  function hideElement(element) {
+    let anElement = document.getElementById(element)
+    anElement.style.display = "none"
+  }
+
+  function showElement(element) {
+    let anElement = document.getElementById(element)
+    anElement.style.display = "inline"
   }
 
   //handle Show Team Hcp
@@ -481,8 +495,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   }
 
   const handleAddTeamMember = (name, options) => {
-    console.table(name)
-    console.table(options)
     options.forEach(addPlayer)
     function addPlayer(item, index) {
       let newPlayerObj = players.find((player) => player.id === Number(item))
@@ -742,7 +754,11 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           <br />
           {playersNotInSavedLineupCount > 0 && (
             <>
-              <button className="button" onClick={handleShowAddPlayersClick}>
+              <button
+                id="buttonShowAddPlayers"
+                className="button"
+                onClick={handleShowAddPlayersClick}
+              >
                 Add Players to Lineup
               </button>
               <br />
@@ -767,7 +783,11 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           <br />
           {playersInSavedLineupCount > 0 && (
             <>
-              <button className="button" onClick={handleShowDeletePlayersClick}>
+              <button
+                id="buttonShowDeletePlayers"
+                className="button"
+                onClick={handleShowDeletePlayersClick}
+              >
                 Delete Players from Lineup
               </button>
               <br />
