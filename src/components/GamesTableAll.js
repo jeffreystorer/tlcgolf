@@ -68,7 +68,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
     let lastName = guestLastName
     let tee = "Club"
     let firstName = ""
-    let index = "0.0"
+    let index = "no index"
     let gender = ""
     let localNumber = "00000"
     let players = get("players")
@@ -92,9 +92,7 @@ export default function GamesTableAll({ ratings, slopes, pars, game, course }) {
 
     setGuestGHINNumber("")
     setGuestLastName("")
-    console.log("😊😊 before guest", guest)
     guest.splice(3, 4)
-    console.log("😊😊 after guest", guest)
     guests.push(guest)
     set("guests", guests)
     document.location = "/games"

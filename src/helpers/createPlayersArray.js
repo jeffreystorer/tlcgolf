@@ -93,7 +93,7 @@ export default function createPlayersArrray(
     let teeValue = getTeeValueFromTeeName(aPlayer[2])
     strHcpIndex = aPlayer[4]
     hcpIndex = strHcpIndex
-    if (strHcpIndex !== "guest") hcpIndex = parseFloat(strHcpIndex)
+    if (strHcpIndex !== "no index") hcpIndex = parseFloat(strHcpIndex)
     let firstName = aPlayer[3]
     let lastName = aPlayer[1]
     gender = aPlayer[5]
@@ -160,7 +160,7 @@ export default function createPlayersArrray(
     if (rating === 0) {
       return "-"
     } else {
-      if (strHcpIndex === "guest") {
+      if (strHcpIndex === "no index") {
         return 0
       } else {
         return Math.round(hcpIndex * (slope / 113) + (rating - par))
@@ -197,12 +197,12 @@ export default function createPlayersArrray(
     playersArray.sort((a, b) => {
       let aIndex
       let bIndex
-      if (a.strHcpIndex === "guest") {
+      if (a.strHcpIndex === "no index") {
         aIndex = 50
       } else {
         aIndex = a.index
       }
-      if (b.strHcpIndex === "guest") {
+      if (b.strHcpIndex === "no index") {
         bIndex = 50
       } else {
         bIndex = b.index

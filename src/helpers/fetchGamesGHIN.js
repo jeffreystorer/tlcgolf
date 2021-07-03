@@ -40,7 +40,7 @@ export default async function fetchGamesGHIN(setLoading) {
           item[3] = firstName
         } catch (error) {
           item[3] = ""
-          item[4] = "guest"
+          item[4] = "no index"
           item[6] = "00000"
           return
         }
@@ -88,7 +88,7 @@ export default async function fetchGamesGHIN(setLoading) {
         item[3] = firstName
       } catch (error) {
         item[3] = ""
-        item[4] = "guest"
+        item[4] = "no index"
         item[6] = "00000"
         return
       }

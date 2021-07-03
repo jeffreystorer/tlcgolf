@@ -78,7 +78,7 @@ export default function createGamesTableBodyRows(
     if (rating === 0) {
       return "-"
     } else {
-      if (strHcpIndex === "guest") {
+      if (strHcpIndex === "no index") {
         return 0
       } else {
         return Math.round(hcpIndex * (slope / 113) + (rating - par))
