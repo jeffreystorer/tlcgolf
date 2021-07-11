@@ -29,7 +29,7 @@ function LoginPage() {
   }, [ghinNumber])
 
   useEffect(() => {
-    set("lastName", lastName)
+    set("lastName", capitalize(lastName))
   }, [lastName])
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function LoginPage() {
 
   function handleClick(e) {
     set("ghinNumber", ghinNumber)
-    set("lastName", lastName)
+    set("lastName", capitalize(lastName))
     set("showTips", showTips)
     set("showLocalNumbers", showLocalNumbers)
     set("teesSelected", teesSelected)
@@ -57,6 +57,11 @@ function LoginPage() {
 
   function clearLoginCredentials() {
     localStorage.clear()
+  }
+
+  const capitalize = (s) => {
+    if (typeof s !== "string") return ""
+    return s.charAt(0).toUpperCase() + s.slice(1)
   }
 
   /* function handleDataModeChange() {
