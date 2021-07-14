@@ -3,10 +3,12 @@ import { get } from "../helpers/localStorage"
 import { useList } from "react-firebase-hooks/database"
 import LineupDataService from "../services/LineupService"
 import ExportTableAll from "./ExportTableAll"
-import { Redirect } from "react-router"
+//import { Redirect } from "react-router-dom"
 
 export default function ExportTableNext() {
   let currentLineupIndex = get("currentLineupIndex")
+    ? get("currentLineupIndex")
+    : -1
   let ghinNumber = get("ghinNumber")
   const firebaseRef = '"' + ghinNumber.toString() + '"'
 
@@ -15,7 +17,8 @@ export default function ExportTableNext() {
   )
 
   if (currentLineupIndex < 0) {
-    return <Redirect to="/lineup" />
+    document.location = "/lineup"
+    //return <Redirect to="/" />
   }
   let lineup, title
 

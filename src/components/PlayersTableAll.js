@@ -6,6 +6,7 @@ import createPlayersArray from "../helpers/createPlayersArray"
 import fetchMondaySchedules from "../helpers/fetchMondaySchedules"
 import { useRecoilValue, useRecoilState } from "recoil"
 import * as state from "../state"
+//import { Redirect } from "react-router-dom"
 //import * as c from '../helpers/consoleLogTable';
 
 const PlayersTableAll = ({ ratings, slopes, pars }) => {
@@ -27,7 +28,7 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
   const teesSelected = useRecoilValue(state.teesSelectedState)
   const [showTips, setShowTips] = useState(get("showTips"))
   set("game", game)
- 
+
   let playersArrayType = "createLineupTable"
   let notUsed = ""
   let playersArray = createPlayersArray(
@@ -63,6 +64,8 @@ const PlayersTableAll = ({ ratings, slopes, pars }) => {
     })
     set("playersInLineup", playersInLineup)
     document.location = "/lineup"
+
+    //return <Redirect to="/" />
   }
 
   function handleSortOrderChange(event) {

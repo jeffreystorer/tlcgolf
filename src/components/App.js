@@ -6,6 +6,7 @@ import {
   Switch,
   Route,
   NavLink,
+  Redirect,
   useParams,
   useRouteMatch,
 } from "react-router-dom"
@@ -56,7 +57,7 @@ export default function App() {
             </NavLink>
             <NavLink
               exact
-              to="/"
+              to="/lineup"
               className="app-navlink"
               activeStyle={{ color: "#3378ac", fontWeight: "bold" }}
             >
@@ -98,8 +99,11 @@ export default function App() {
             <Route path="/settings">
               <Settings />
             </Route>
-            <Route path="/">
+            <Route path="/lineup">
               <Lineup />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/lineup" />>
             </Route>
           </Switch>
         </Router>
