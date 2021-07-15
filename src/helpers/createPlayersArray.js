@@ -233,7 +233,7 @@ export default function createPlayersArrray(
           teamTables[aTeamName][j].courseHandicaps = aPlayerObj.courseHandicaps
         }
       } catch (error) {
-        console.log("error updating Team Tables")
+        //console.log("error updating Team Tables for: " + aTeamName)
       }
     }
   }

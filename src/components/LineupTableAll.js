@@ -218,6 +218,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       }
     }
   }
+
   /*Used by handleTeeTimeCountChange and handleLinkTimeChange  */
   function setTeeTimes(aLinkTime, aTeeTimeCount) {
     teamTables.times = []
@@ -335,7 +336,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   }
 
   //handle Show Team Hcp
-
   function handleShowTeamHcpChange() {
     set("showTeamHcp", !showTeamHcp)
     setShowTeamHcp((prevState) => !prevState)
@@ -419,7 +419,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
         teamHcpAndProgs[teamName][0] = aTeamHcp
         teamHcpAndProgs[teamName][1] = aTeamProgs
       } catch (error) {
-        console.log("error setting TeamHcpAndProgs")
+        //console.log("error setting TeamHcpAndProgs for: " + teamName)
       }
 
       function computeHcpAndProgs(item) {
@@ -487,7 +487,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
           }
         }
       } catch (error) {
-        console.log("error setting ManualCourseHandicaps")
+        //console.log("error setting ManualCourseHandicaps")
       }
     }
 
@@ -495,6 +495,16 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   }
 
   const handleAddTeamMember = (name, options) => {
+    let teamCount = Object.keys(teamTables).length - 2
+    if (teeTimeCount > teamCount) {
+      for (let i = teamCount; i < teeTimeCount; i++) {
+        let newTeam = "team" + i
+        setTeamTables((teamTables) => ({
+          ...teamTables,
+          [newTeam]: [],
+        }))
+      }
+    }
     options.forEach(addPlayer)
     function addPlayer(item, index) {
       let newPlayerObj = players.find((player) => player.id === Number(item))
@@ -632,6 +642,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
       window.location.reload()
     }
   }
+
   function handleLineUpTitleChange(event) {
     setLineupTitle(event.target.value)
   }
