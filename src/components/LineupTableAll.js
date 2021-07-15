@@ -186,6 +186,16 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
     }
     setTeeTimeCount(teeTimeCount)
     setTextareaValue(textareaValue)
+    let teamCount = Object.keys(teamTables).length - 2
+    if (teeTimeCount > teamCount) {
+      for (let i = teamCount; i < teeTimeCount; i++) {
+        let newTeam = "team" + i
+        setTeamTables((teamTables) => ({
+          ...teamTables,
+          [newTeam]: [],
+        }))
+      }
+    }
   }
 
   //LineupTableDropDowns event handlers
@@ -495,16 +505,6 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   }
 
   const handleAddTeamMember = (name, options) => {
-    let teamCount = Object.keys(teamTables).length - 2
-    if (teeTimeCount > teamCount) {
-      for (let i = teamCount; i < teeTimeCount; i++) {
-        let newTeam = "team" + i
-        setTeamTables((teamTables) => ({
-          ...teamTables,
-          [newTeam]: [],
-        }))
-      }
-    }
     options.forEach(addPlayer)
     function addPlayer(item, index) {
       let newPlayerObj = players.find((player) => player.id === Number(item))
