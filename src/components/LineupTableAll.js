@@ -89,6 +89,7 @@ export default function LineupTableAll({ games, ratings, slopes, pars }) {
   const savedLineupCount = useSavedLineupCount(firebaseRef)
   const [keys] = useListKeys(LineupDataService.getAll(firebaseRef))
   set("keys", keys)
+  //set('currentLineupIndex', -1)
   let savedKeys = keys
   let lastKeyIndex = savedKeys.length - 1
   let playersArrayType = "loadLineupTable"

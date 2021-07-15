@@ -41,6 +41,7 @@ const LineupsList = ({
     LineupDataService.removeAll(firebaseRef).catch((e) => {
       console.log(e)
     })
+    set("currentLineupIndex", -1)
   }
 
   /*   useEffect(() => {

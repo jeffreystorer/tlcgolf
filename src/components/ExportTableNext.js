@@ -1,14 +1,18 @@
 import React from "react"
-import { get } from "../helpers/localStorage"
+import { get, set } from "../helpers/localStorage"
 import { useList } from "react-firebase-hooks/database"
 import LineupDataService from "../services/LineupService"
 import ExportTableAll from "./ExportTableAll"
 //import { Redirect } from "react-router-dom"
 
 export default function ExportTableNext() {
-  let currentLineupIndex = get("currentLineupIndex")
-    ? get("currentLineupIndex")
-    : -1
+  let currentLineupIndex
+  if (localStorage.currentLineupIndex) {
+    currentLineupIndex = localStorage.currentLineupIndex
+  } else {
+    currentLineupIndex = -1
+    set("currentLineupIndex", -1)
+  }
   let ghinNumber = get("ghinNumber")
   const firebaseRef = '"' + ghinNumber.toString() + '"'
 

@@ -47,6 +47,7 @@ function LoginPage() {
     set("showLocalNumbers", showLocalNumbers)
     set("teesSelected", teesSelected)
     set("dataMode", "ghin")
+    set("currentLineupIndex", -1)
     setIsLoggedIn(ghinNumber, lastName)
     setSheetURL()
     if (get("isLoggedIn") === "true") {
